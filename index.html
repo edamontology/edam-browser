@@ -1,3 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
+    <head>
+        <title>EDAM ontology</title>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
+        <script type="text/javascript"t src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script src="js/tree-d3js.js"></script>
+        <script src="js/tree-edam.js"></script>
+        <script src="d3/d3.js" charset="utf-8"></script>
+        <script src="d3/d3.layout.js" charset="utf-8"></script>
+        <link href="css/tree-d3js.css" rel="stylesheet">
+        <script src="js/tree-edam-stand-alone.js"></script>
+        <link href="css/tree-edam-stand-alone.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="page-header row">
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                <h1 id="pageTitle">EDAM ontology</h1>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4">
+                <h1 class="no-icon">
+                    <div class="btn-group" role="group" id="edam-branches" style="z-index:1;vertical-align: bottom;">
+                        <a type="button" class="btn btn-default branch all" onclick="makeTreeShortcut('all')">All</a>
+                        <a type="button" class="btn btn-default branch data" onclick="makeTreeShortcut('data')">Data</a>
+                        <a type="button" class="btn btn-default branch format" onclick="makeTreeShortcut('format')">Format</a>
+                        <a type="button" class="btn btn-default branch operation" onclick="makeTreeShortcut('operation')">Operation</a>
+                        <a type="button" class="btn btn-default branch topic" onclick="makeTreeShortcut('topic')">Topic</a>
+                    </div>
+                </h1>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4">
+                <h1 class="no-icon">
+                    <div class="btn-group" role="group" style="width: 100%;z-index:1">
+                        <input id="AutoCompleteText" type="text"
+                               class="form-control ui-autocomplete-input"
+                               placeholder="Enter an URI (http://edamontology.org/topic_0091)" tabindex="1"
+                               autocomplete="off"
+                               onkeyup="tree.openByURI($('#AutoCompleteText').val());">
+                    </div>
+                </h1>
+            </div>
+            <h4>EDAM is a simple ontology of well established, familiar concepts that are prevalent within bioinformatics [<a target="_blank" href="http://edamontology.org/">edamontology.org</a>]</h4>
+        </div>
+        <div class="content row" id="main">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div id="tree" class="d3js-tree-container"></div>
+            </div>
+        </div>
+        <div class="col-xs-12 pull-right"><div class="pull-right">Current version: 1.18</div></div>
+        </div>
         </div>
     </body>
 </html>

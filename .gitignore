@@ -1,4 +1,4 @@
-./media/
+media*
 env.sh
 
 # Byte-compiled / optimized / DLL files
