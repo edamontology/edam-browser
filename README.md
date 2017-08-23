@@ -2,16 +2,6 @@
 
 ## Try it
 
-Get the last EDAM version, if needed.
+Run `python start_edam_stand_alone_browser.py`
 
-```
-python -m SimpleHTTPServer 20080
-```
-
-### Start a web server
-
-```
-python -m SimpleHTTPServer 20080
-```
-
-Go to [0.0.0.0:20080]
+It starts a web server allowing you to browse edam on [localhost:20080](http://0.0.0.0:20080). Note that for the first run it will download the latest EDAM version in TSV, and parse it into a several json files.
