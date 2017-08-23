@@ -5,11 +5,11 @@ import SimpleHTTPServer
 import SocketServer
 
 if __name__ == '__main__':
-    directory = './media/'
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-    if len(os.listdir(directory)) == 0:
-        convert_tsv_for_edam_browser(target_file = directory+"edam_browser_tree.json")
+    target_directory = './media/'
+    if not os.path.exists(target_directory):
+        os.makedirs(target_directory)
+    if len(os.listdir(target_directory)) == 0:
+        convert_tsv_for_edam_browser(target_directory = target_directory)
 
     PORT = 20080
 

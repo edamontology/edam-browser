@@ -19,10 +19,12 @@ fi
 
 cp $BIOSPHERE_HOME/edam/static/css/tree-edam-stand-alone.css  ./css/
 cp $BIOSPHERE_HOME/edam/static/css/tree-d3js.css              ./css/
-cp $BIOSPHERE_HOME/edam/static/js/tree-d3js.js                ./js/
+cp $BIOSPHERE_HOME/misc/static/css/bootstrap.xl.css           ./css/
+#cp $BIOSPHERE_HOME/edam/static/js/tree-d3js.js                ./js/
 cp $BIOSPHERE_HOME/edam/static/js/tree-edam.js                ./js/
 cp $BIOSPHERE_HOME/rainbio2/static/d3/d3.js                   ./d3/
 cp $BIOSPHERE_HOME/rainbio2/static/d3/d3.layout.js            ./d3/
+
 
 wget http://0.0.0.0:8020/edamontology/browser/stand_alone/ -O - -o /dev/null | \
       sed  "s/[ \t]*$//" | \
@@ -43,8 +45,12 @@ echo -n "        </div>
 cat $BIOSPHERE_HOME/edam/edam_stand_alone_importer.py | \
       sed -e '/__main__/,$d' | \
       sed "s/\/cloudweb_media/media/g" > edam_stand_alone_importer.py
+
 cat $BIOSPHERE_HOME/edam/static/js/tree-edam-stand-alone.js | \
       sed "s/\/cloudweb_media/media/g" > ./js/tree-edam-stand-alone.js
+
+cat $BIOSPHERE_HOME/edam/static/js/tree-d3js.js | \
+      grep -v "glyphicon glyphicon-link" > ./js/tree-d3js.js
 
 echo "importation ok"
 git status

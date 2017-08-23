@@ -160,7 +160,6 @@ function displayTree(targetId,uriToLoad,handlers,properties){
                     .html(
                         "<div class=\"panel panel-default\"><div class=\"panel-heading\">"+
                         d.name+
-                        " <a href=\""+innerUri+"\"><span class=\"glyphicon glyphicon-link\"></span></a>"+
                         "</div>"+
                         "<div class=\"panel-body\">"+
                         "Definition: "+d.definition+"<br/>"+
