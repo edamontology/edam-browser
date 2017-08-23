@@ -1,0 +1,29 @@
+div.tooltip>.panel {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+div.tooltip>.panel>.panel-body {
+    padding: 15px;
+}
+div.tooltip>.panel>.panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ccc;
+    touch-action: manipulation;
+    cursor: pointer;
+}
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-color: #ccc;
+    touch-action: manipulation;
+    cursor: pointer;
+}
+.btn.active, .btn:active {
+    -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+    box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
