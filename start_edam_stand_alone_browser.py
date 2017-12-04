@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from edam_stand_alone_importer import *
 
 import os

@@ -56,6 +56,7 @@ function standAloneSelectedElementHandler (d, do_not_open){
     }
     selectedName=d["name"];
     identifier = d['uri'].substring(d['uri'].lastIndexOf("/")+1);
+    //window.location.hash = identifier;
     console.log("click on "+identifier);
     $("#details-"+identifier).remove();
     details = $("<div class=\"panel panel-default\" id=\"details-"+identifier+"\">"+
