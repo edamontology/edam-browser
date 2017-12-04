@@ -144,7 +144,7 @@ function displayTree(targetId,uriToLoad,handlers,properties){
                 //.attr("text-anchor", "start")
                 //.attr("y", -10)
                 //.attr("text-anchor", "middle")
-                .text(function(d) { return d.name; })
+                .text(function(d) { return d.text; })
                 .style("fill-opacity", 1e-6);
 
             nodeEnter.append("svg:circle")
@@ -155,15 +155,15 @@ function displayTree(targetId,uriToLoad,handlers,properties){
                     tooltip.transition()
                             .duration(200)
                             .style("opacity", 1);
-                    innerUri = d.uri.replace("http://edamontology.org","/edamontology").replace("_","/")
+                    innerUri = d.data.uri.replace("http://edamontology.org","/edamontology").replace("_","/")
                     tooltip
                     .html(
                         "<div class=\"panel panel-default\"><div class=\"panel-heading\">"+
-                        d.name+
+                        d.text+
                         "</div>"+
                         "<div class=\"panel-body\">"+
                         "Definition: "+d.definition+"<br/>"+
-                        "URI: "+d.uri+"<br/>"+
+                        "URI: "+d.data.uri+"<br/>"+
                         "</div></div>"
                     )
                     .style("left", (d3.event.pageX+20) + "px")
@@ -359,7 +359,7 @@ function displayTree(targetId,uriToLoad,handlers,properties){
 
     function removeByText(searchedName, alsoClose) {
         for(var i=0;i<treeSelectedNode.length;i++){
-            if(searchedName==treeSelectedNode[i].name){
+            if(searchedName==treeSelectedNode[i].text){
                 removingElementHandler(treeSelectedNode[i]);
                 if (alsoClose==true){
                     toggleForceCollapse(treeSelectedNode[i]);
@@ -373,7 +373,7 @@ function displayTree(targetId,uriToLoad,handlers,properties){
 
     function removeByURI(uri,alsoClose) {
         for(var i=0;i<treeSelectedNode.length;i++){
-            if(uri==treeSelectedNode[i].uri){
+            if(uri==treeSelectedNode[i].data.uri){
                 removingElementHandler(treeSelectedNode[i]);
                 if (alsoClose==true){
                     toggleForceCollapse(treeSelectedNode[i]);
@@ -387,14 +387,14 @@ function displayTree(targetId,uriToLoad,handlers,properties){
 
     var returnedTree = {
         openByText : function (searchedName) {
-            if(openBySomething(root,searchedName,function(element){return element.name;})){
+            if(openBySomething(root,searchedName,function(element){return element.text;})){
                 update(root);
                 return true;
             };
             return false;
         },
         openByURI : function (uri) {
-            if(openBySomething(root,uri,function(element){return element.uri;})){
+            if(openBySomething(root,uri,function(element){return element.data.uri;})){
                 update(root);
                 return true;
             };
@@ -468,7 +468,7 @@ function displayTree(targetId,uriToLoad,handlers,properties){
                         element.children=null;
                         element._children=null;
                     }
-                    if(element.name == "Chemistry"){
+                    if(element.text == "Chemistry"){
                         console.log(b);
                     }
                     return b;

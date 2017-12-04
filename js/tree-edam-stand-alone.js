@@ -1,35 +1,36 @@
 function makeTreeShortcut(branch) {
     $("#edam-branches .branch").removeClass("active");
     if (typeof branch == "undefined"){
-        branch=getCookie("edam_browser_branch","all");
+        branch=getCookie("edam_browser_branch","topic");
     }
     $("#edam-branches .branch."+branch).addClass("active");
     setCookie("edam_browser_branch",branch);
-    if (branch == "all"){
-        tree_file="media/edam_browser_tree.json";
-        initURI=[getCookie("edam_browser_"+branch,"http://edamontology.org/topic_0091")];
+    if (branch == "deprecated"){
+        tree_file="media/deprecated_extended.biotools.json";
+        initURI=[getCookie("edam_browser_"+branch,"owl:DeprecatedClass")];
     }else if(branch == "data"){
-        tree_file="media/edam_browser_tree.data_0006.json";
+        tree_file="media/data_extended.biotools.json";
         initURI=[getCookie("edam_browser_"+branch,"http://edamontology.org/data_1916")];
     }else if(branch == "format"){
-        tree_file="media/edam_browser_tree.format_1915.json";
+        tree_file="media/format_extended.biotools.json";
         initURI=[getCookie("edam_browser_"+branch,"http://edamontology.org/format_3464")];
     }else if(branch == "operation"){
-        tree_file="media/edam_browser_tree.operation_0004.json";
+        tree_file="media/operation_extended.biotools.json";
         initURI=[getCookie("edam_browser_"+branch,"http://edamontology.org/operation_2451")];
     }else if(branch == "topic"){
-        tree_file="media/edam_browser_tree.topic_0003.json";
+        tree_file="media/topic_extended.biotools.json";
         initURI=[getCookie("edam_browser_"+branch,"http://edamontology.org/topic_0091")];
     }
     current_branch=branch;
     root_uri=getRootURIForBranch(branch);
+    window.location.hash = initURI[0].substring(initURI[0].lastIndexOf('/')+1);
     makeEdamTree(initURI,
          $('#removeNodesWithNoSelectedDescendant:checked').length==1,
         tree_file,
         {
             "selectedElementHandler":standAloneSelectedElementHandler,
             "addingElementHandler":function (d){
-                selectedName=d["name"];
+                selectedName=d.text;
                 if (loadingDone == 0) {
                     standAloneSelectedElementHandler(d,true);
                 }
@@ -51,22 +52,39 @@ function standAloneSelectedElementHandler (d, do_not_open){
         if(selectedName!=""){
             tree.removeByText(selectedName,false);
         }
-        tree.openByURI(d["uri"]);
-        setCookie("edam_browser_"+current_branch,d["uri"]);
+        tree.openByURI(d.data.uri);
+        setCookie("edam_browser_"+current_branch,d.data.uri);
     }
-    selectedName=d["name"];
-    identifier = d['uri'].substring(d['uri'].lastIndexOf("/")+1);
-    //window.location.hash = identifier;
+    selectedName=d.text;
+    identifier = d.data.uri.substring(d.data.uri.lastIndexOf("/")+1);
+    window.location.hash = identifier;
     console.log("click on "+identifier);
     $("#details-"+identifier).remove();
     details = $("<div class=\"panel panel-default\" id=\"details-"+identifier+"\">"+
         "<div class=\"panel-heading\">Details of term \"<span class=\"term-name-heading\"></span>\"</div>"+
         "<div class=\"panel-body\"><table></table></div>"+
         "</div>");
-    details.find(".term-name-heading").text(d["name"]);
+    details.find(".term-name-heading").text(d.text);
+    var table = details.find("table").clone();
+    table.children().remove();
+    var table_parent = details.find("table").parent();
+    [
+        "text",
+        "definition",
+        "comment",
+        "exact_synonyms",
+        "narrow_synonyms",
+        "related_synonyms",
+        "broad_synonyms",
+    ].forEach(function(entry) {
+        append_row(table,entry,d[entry]);
+    });
+    table_parent.find("table").remove();
+    table.appendTo(table_parent);
+    /*
     $.ajax({
         type: "GET",
-        url:"media/edam_browser_leaf."+identifier+".json",
+        url:"media/edam_browser/edam_browser_leaf."+identifier+".json",
         data: {},
         success: function (data, textStatus, xhr) {
             var table = details.find("table").clone();
@@ -96,7 +114,7 @@ function standAloneSelectedElementHandler (d, do_not_open){
             console.err(textStatus);
             console.err(xhr);
         }
-    });
+    });*/
     $("#edamAccordion").prepend(details);
     return false;
 }
@@ -109,7 +127,10 @@ function interactive_edam_uri(value){
 }
 
 function append_row(table,name,value){
-    name=name.replace("_"," ");
+    if (typeof value == "undefined"){
+        value="";
+    }
+    name=name.replace("_","&nbsp;");
     name=name.charAt(0).toUpperCase()+name.substring(1);
     if (value.constructor === Array){
         if (value.length>1){
@@ -158,6 +179,16 @@ var selectedName="";
 var selectedURI="";
 var loadingDone=0;
 
+function getHeight(){
+    return Math.max(document.documentElement.clientHeight, window.innerHeight || 0)*0.99;
+}
+
 window.onload = function() {
+    if(window.location.hash) {
+        branch=window.location.hash;
+        branch=branch.substring(1,branch.lastIndexOf('_'));
+        setCookie("edam_browser_branch",branch);
+        setCookie("edam_browser_"+branch,"http://edamontology.org/"+window.location.hash.substring(1));
+    }
     makeTreeShortcut();
 }

@@ -1,6 +1,9 @@
 import json
 import tempfile
-from urllib2 import urlopen
+try:
+    from urllib2 import urlopen
+except Exception:
+    from urllib.request import  urlopen
 
 import os.path
 import os.path
@@ -75,7 +78,7 @@ def build_trees_from_tsv(tsv_file_path, encompass_deprecated_terms=False):
         elif len(term_tsv) < column_count:
             prev_line = line + '\n'
         elif len(term_tsv) > column_count:
-            print "Row %i have too much column (uri:%s)" % (row_id, term_tsv[uri_col])
+            print("Row %i have too much column (uri:%s)" % (row_id, term_tsv[uri_col]))
             prev_line = ""
         else:
             if encompass_deprecated_terms \
@@ -122,7 +125,7 @@ def build_trees_from_tsv(tsv_file_path, encompass_deprecated_terms=False):
             elif term_tsv[obsolete_col] == "TRUE":
                 pass
             else:
-                print "uri:%s has an invalid deprecated status: %s" % (term_tsv[uri_col], term_tsv[obsolete_col])
+                print("uri:%s has an invalid deprecated status: %s" % (term_tsv[uri_col], term_tsv[obsolete_col]))
             prev_line = ""
             # print row_id, len(terms)
 

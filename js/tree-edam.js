@@ -1,7 +1,7 @@
 
 
-if(typeof paramsURI != "undefined" && typeof paramsURI["uri"] == "undefined")
-    paramsURI["uri"]="http://edamontology.org/topic_0003";
+if(typeof paramsURI != "undefined" && typeof paramsURI.uri == "undefined")
+    paramsURI.uri="http://edamontology.org/topic_0003";
 
 /*function makeTree(initURI,removeNodesWithNoSelectedDescendant,jsonURL, is_view, use_input, handlers) {
     makeEdamTree(
@@ -62,28 +62,28 @@ function makeEdamTree(initURI,removeNodesWithNoSelectedDescendant,jsonURL, handl
         "initiallySelectedNodeHandler":
         function (e){
             for(var i=0;i<initURI.length;i++)
-                if(initURI[i]==e['uri']){/*console.log(e);*/return true;}
+                if(initURI[i]==e.data.uri){/*console.log(e);*/return true;}
             return false;
         },
         "addingElementHandler":
         function(e){
             if(properties["is_view"]){
-                if(initURI.indexOf(e['uri'])==-1)
+                if(initURI.indexOf(e.data.uri)==-1)
                 return false;
             }
-            console.log("added element: "+e['uri']);
-            local_uri=handlers["local_uri_accessor"](e['uri']);
-            safe_uri=e['uri'].replace( /(:|\.|\/|\[|\]|,)/g, "_" );
+            console.log("added element: "+e.data.uri);
+            local_uri=handlers["local_uri_accessor"](e.data.uri);
+            safe_uri=e.data.uri.replace( /(:|\.|\/|\[|\]|,)/g, "_" );
             $("#"+safe_uri).remove();
             $("#selectedURIParent").children().last().before($.parseHTML(
             "<li id=\""+safe_uri+"\">"+
-            (properties["use_input"]&&!properties["is_view"]?"<input type=\"hidden\" value=\""+e['uri']+"\" name=\""+safe_uri+"\"/>":"")+
-            ""+e['name']+
+            (properties["use_input"]&&!properties["is_view"]?"<input type=\"hidden\" value=\""+e.data.uri+"\" name=\""+safe_uri+"\"/>":"")+
+            ""+e.text+
             " <a href=\""+local_uri+"\" target=\"_blank\">"+
             "<span role=\"button\" class=\"glyphicon glyphicon-new-window open-selected-option\" aria-hidden=\"true\"></span>"+
             "</a>"+
             (!properties["is_view"]?
-            " <span role=\"button\" class=\"glyphicon glyphicon-trash text-danger\" aria-hidden=\"true\" onclick=\"if($('#ro:checked').length!=0)return false;if (typeof shouldSave != 'undefined'){shouldSave();}tree.closeByText('"+e['name']+"');$('#"+safe_uri+"').remove();\"></span>"
+            " <span role=\"button\" class=\"glyphicon glyphicon-trash text-danger\" aria-hidden=\"true\" onclick=\"if($('#ro:checked').length!=0)return false;if (typeof shouldSave != 'undefined'){shouldSave();}tree.closeByText('"+e.text+"');$('#"+safe_uri+"').remove();\"></span>"
             :"")+
             ""+
             "</li>"));
@@ -95,8 +95,8 @@ function makeEdamTree(initURI,removeNodesWithNoSelectedDescendant,jsonURL, handl
         function(e){
             if(properties["is_view"])
                 return false;
-            console.log("removed element: "+e['uri']);
-            $("#"+e['uri'].replace( /(:|\.|\/|\[|\]|,)/g, "_" )).remove();
+            console.log("removed element: "+e.data.uri);
+            $("#"+e.data.uri.replace( /(:|\.|\/|\[|\]|,)/g, "_" )).remove();
             return handlers["removingElementHandler"](e);
         },
         "loadingDoneHandler":
@@ -124,7 +124,7 @@ function makeEdamTree(initURI,removeNodesWithNoSelectedDescendant,jsonURL, handl
         },
         "nodeEqualityOverride":
         function(e,f){
-            return e["uri"]==f["uri"];
+            return e.data.uri==f.data.uri;
         },
         "getHeight":(typeof getHeight == "undefined" ? void 0:getHeight)
         ,
@@ -199,6 +199,9 @@ function getRootURIForBranch(branch){
     }
     if (branch == "operation"){
         return "http://edamontology.org/operation_0004";
+    }
+    if (branch == "deprecated"){
+        return "owl:DeprecatedClass";
     }
     return "http://www.w3.org/2002/07/owl#Thing";
 }
