@@ -23,7 +23,7 @@ function makeTreeShortcut(branch) {
     }
     current_branch=branch;
     root_uri=getRootURIForBranch(branch);
-    window.location.hash = initURI[0].substring(initURI[0].lastIndexOf('/')+1);
+    window.location.hash = initURI[0].substring(initURI[0].lastIndexOf('/')+1) + (branch=="deprecated"?"&deprecated":"");
     makeEdamTree(initURI,
          $('#removeNodesWithNoSelectedDescendant:checked').length==1,
         tree_file,
@@ -71,12 +71,14 @@ function standAloneSelectedElementHandler (d, do_not_open){
         "text",
         "definition",
         "comment",
+        "uri",
         "exact_synonyms",
         "narrow_synonyms",
-        "related_synonyms",
-        "broad_synonyms",
     ].forEach(function(entry) {
-        append_row(table,entry,d[entry]);
+        if("uri"==entry)
+            append_row(table,"URI",d.data.uri);
+        else
+            append_row(table,entry,d[entry]);
     });
     table_parent.find("table").remove();
     table.appendTo(table_parent);
@@ -119,9 +121,9 @@ function standAloneSelectedElementHandler (d, do_not_open){
 }
 
 function interactive_edam_uri(value){
-    /*if (value.startsWith("http://edamontology.org/")){
-        return "<a href=\"#\" onclick=\"tree.removeByText(selectedName,false);tree.openByURI(this.text);\">"+value+"</a>";
-    }*/
+    if (value.startsWith("http://edamontology.org/")){
+        return "<a href=\"#"+ value.substring(value.lastIndexOf('/')+1) + (branch=="deprecated"?"&deprecated":"")+"\" onclick=\"tree.removeByURI(selectedURI,false);selectedURI=this.text;tree.openByURI(selectedURI);\">"+value+"</a>";
+    }
     return value;
 }
 
@@ -222,15 +224,22 @@ var selectedURI="";
 var loadingDone=0;
 
 function getHeight(){
-    return Math.max(document.documentElement.clientHeight, window.innerHeight || 0)*0.99;
+    return Math.max(document.documentElement.clientHeight, window.innerHeight || 0)*0.90;
 }
 
 window.onload = function() {
     if(window.location.hash) {
-        branch=window.location.hash;
-        branch=branch.substring(1,branch.lastIndexOf('_'));
+        branch=window.location.hash.substring(1);
+        pos = branch.lastIndexOf('&');
+        if (pos!=-1){
+            id=branch.substring(0,pos);
+            branch=branch.substring(pos+1);
+        }else{
+            id=branch;
+            branch=branch.substring(0,branch.lastIndexOf('_'));
+        }
         setCookie("edam_browser_branch",branch);
-        setCookie("edam_browser_"+branch,"http://edamontology.org/"+window.location.hash.substring(1));
+        setCookie("edam_browser_"+branch,"http://edamontology.org/"+id);
     }
     makeTreeShortcut();
 }

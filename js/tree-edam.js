@@ -133,51 +133,6 @@ function makeEdamTree(initURI,removeNodesWithNoSelectedDescendant,jsonURL, handl
     properties);
 };
 
-if(typeof addLoadEvent != "undefined")
-addLoadEvent(function () {
-    $("#AutoCompleteText").autocomplete({
-        source: function (request, response) {
-            $.ajax({
-                type: "POST",
-                contentType: "text/plain; charset=utf-8",
-                url: "/edamontology/search/"+AutoCompleteText__getFamily()+"/"+request.term+"/0/20/text/",
-                dataType: "text",
-                data: {},
-                success: function (data) {
-                    response(data.split("\n"));
-                }
-            });
-        },
-        minLength: 2,
-        autoFocus: true,
-        focus: function (event, ui) {
-        },
-        select: AutoCompleteText__select ,
-        open: function () {
-            $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
-        },
-        close: function () {
-            $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
-            $("#AutoCompleteText").val('');
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(textStatus);
-        }
-    });
-});
-
-function AutoCompleteText__getFamily(){
-    return "topic";
-}
-
-function AutoCompleteText__select (event, ui) {
-    if($('#ro:checked').length!=0){
-        event.preventDefault();
-        return false;
-    }
-    tree.openByText(ui.item.label);
-}
-
 function getLabelFromURI(str){
     var pos=0
     pos = str.indexOf("/",pos+1);
