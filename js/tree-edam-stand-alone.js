@@ -30,7 +30,7 @@ function makeTreeShortcut(branch) {
         {
             "selectedElementHandler":standAloneSelectedElementHandler,
             "addingElementHandler":function (d){
-                selectedName=d.text;
+                selectedURI=d.data.uri;
                 if (loadingDone == 0) {
                     standAloneSelectedElementHandler(d,true);
                 }
@@ -44,21 +44,20 @@ function makeTreeShortcut(branch) {
             "is_view":true
         }
     );
-    console.log(tree);
+    build_autocomplete(tree_file);
 }
 
 function standAloneSelectedElementHandler (d, do_not_open){
     if (!do_not_open){
-        if(selectedName!=""){
-            tree.removeByText(selectedName,false);
+        if(selectedURI!=""){
+            tree.removeByURI(selectedURI,false);
         }
         tree.openByURI(d.data.uri);
         setCookie("edam_browser_"+current_branch,d.data.uri);
     }
-    selectedName=d.text;
-    identifier = d.data.uri.substring(d.data.uri.lastIndexOf("/")+1);
+    selectedURI=d.data.uri;
+    identifier = selectedURI.substring(selectedURI.lastIndexOf("/")+1);
     window.location.hash = identifier;
-    console.log("click on "+identifier);
     $("#details-"+identifier).remove();
     details = $("<div class=\"panel panel-default\" id=\"details-"+identifier+"\">"+
         "<div class=\"panel-heading\">Details of term \"<span class=\"term-name-heading\"></span>\"</div>"+
@@ -148,6 +147,50 @@ function append_row(table,name,value){
     $("<tr><th>"+name+"</th><td>"+interactive_edam_uri(value)+"</td></tr>").appendTo(table);
 }
 
+function build_autocomplete(tree_file){
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url:tree_file,
+        data: {},
+        success: function (data, textStatus, xhr) {
+            var source = [];
+            function traverse(node) {
+                source.push({
+                    value : node.text,
+                    label : node.text,
+                    definition : node.definition,
+                    uri : node.data.uri,
+                    key : node.data.uri.substring(node.data.uri.lastIndexOf('/')+1),
+                });
+                if (node.children) {
+                    $.each(node.children, function(i, child) {
+                         traverse(child);
+                    });
+                }
+            }
+            traverse(data);
+            $('#search-term').autocomplete({
+                source : source,
+                minLength: 2,
+                select : function(event, ui){ // lors de la sélection d'une proposition
+                    if(selectedURI!=""){
+                        tree.removeByURI(selectedURI,false);
+                    }
+                    selectedURI=ui.item.uri;
+                    tree.openByURI(ui.item.uri);
+                    setCookie("edam_browser_"+current_branch,d.data.uri);
+                }
+            })
+            .autocomplete( "instance" )._renderItem = function( ul, item ) {
+              return $( "<li>" )
+                .append( "<div><b>" + item.label + "</b> ("+item.key+")<br><small>" + item.definition + "</small></div>" )
+                .appendTo( ul );
+            };
+        }
+    });
+}
+
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -175,7 +218,6 @@ function getCookie(cname, default_value) {
 initURI=[];
 root_uri="";
 var current_branch="";
-var selectedName="";
 var selectedURI="";
 var loadingDone=0;
 
