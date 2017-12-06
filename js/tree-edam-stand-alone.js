@@ -1,4 +1,5 @@
 function makeTreeShortcut(branch) {
+    loadingDone=0;
     $("#edam-branches .branch").removeClass("active");
     if (typeof branch == "undefined"){
         branch=getCookie("edam_browser_branch","topic");
@@ -39,7 +40,7 @@ function makeTreeShortcut(branch) {
             "removingElementHandler":function (d){return false;},
         },
         {
-            "use_tooltip":true,
+            "use_tooltip":false,
             "file_url_as_response_of_url":false,
             "is_view":true
         }
@@ -57,12 +58,22 @@ function standAloneSelectedElementHandler (d, do_not_open){
     }
     selectedURI=d.data.uri;
     identifier = selectedURI.substring(selectedURI.lastIndexOf("/")+1);
-    window.location.hash = identifier;
+    window.location.hash = identifier+ (current_branch=="deprecated"?"&deprecated":"");
     $("#details-"+identifier).remove();
-    details = $("<div class=\"panel panel-default\" id=\"details-"+identifier+"\">"+
-        "<div class=\"panel-heading\">Details of term \"<span class=\"term-name-heading\"></span>\"</div>"+
-        "<div class=\"panel-body\"><table></table></div>"+
-        "</div>");
+    details = "";
+    details += '<div class="panel-group" id="details-'+identifier+'">';
+    details +=     '<div class="panel panel-default">';
+    details +=         '<div class="panel-heading">';
+    details +=             '<h4 class="panel-title">';
+    details +=                 '<a data-toggle="collapse" href="#collapse-'+identifier+'">Details of term "<span class="term-name-heading"></span>"</a>';
+    details +=             '</h4>';
+    details +=         '</div>';
+    details +=         '<div id="collapse-'+identifier+'" class="panel-collapse collapse">';
+    details +=             '<div class="panel-body"><table></table></div>';
+    details +=         '</div>';
+    details +=     '</div>';
+    details += '</div>';
+    details=$(details);
     details.find(".term-name-heading").text(d.text);
     var table = details.find("table").clone();
     table.children().remove();
@@ -82,46 +93,14 @@ function standAloneSelectedElementHandler (d, do_not_open){
     });
     table_parent.find("table").remove();
     table.appendTo(table_parent);
-    /*
-    $.ajax({
-        type: "GET",
-        url:"media/edam_browser/edam_browser_leaf."+identifier+".json",
-        data: {},
-        success: function (data, textStatus, xhr) {
-            var table = details.find("table").clone();
-            table.children().remove();
-            var table_parent = details.find("table").parent();
-            [
-                "name",
-                "parents_uri",
-                "definition",
-                "comment",
-                "exact_synonyms",
-                "narrow_synonyms",
-                "related_synonyms",
-                "broad_synonyms",
-            ].forEach(function(entry) {
-                append_row(table,entry,data[entry]);
-                delete data[entry];
-            });
-            delete data['synonyms'];
-            for (var key in data) {
-                append_row(table,key,data[key]);
-            }
-            table_parent.find("table").remove();
-            table.appendTo(table_parent);
-        },
-        error: function (textStatus, xhr) {
-            console.err(textStatus);
-            console.err(xhr);
-        }
-    });*/
+    $("#edamAccordion").children().first().find(".collapse").collapse("hide");
     $("#edamAccordion").prepend(details);
+    $("#edamAccordion").children().first().find(".collapse").collapse("show");
     return false;
 }
 
 function interactive_edam_uri(value){
-    if (value.startsWith("http://edamontology.org/")){
+    if ((""+value).startsWith("http://edamontology.org/")){
         return "<a href=\"#"+ value.substring(value.lastIndexOf('/')+1) + (branch=="deprecated"?"&deprecated":"")+"\" onclick=\"tree.removeByURI(selectedURI,false);selectedURI=this.text;tree.openByURI(selectedURI);\">"+value+"</a>";
     }
     return value;
@@ -150,6 +129,8 @@ function append_row(table,name,value){
 }
 
 function build_autocomplete(tree_file){
+    $('#search-term').val('');
+    $('#search-term').prop('disabled',true);
     $.ajax({
         type: "GET",
         dataType: "json",
@@ -160,10 +141,8 @@ function build_autocomplete(tree_file){
             function traverse(node) {
                 source.push({
                     value : node.text,
-                    label : node.text,
-                    definition : node.definition,
-                    uri : node.data.uri,
                     key : node.data.uri.substring(node.data.uri.lastIndexOf('/')+1),
+                    node : node,
                 });
                 if (node.children) {
                     $.each(node.children, function(i, child) {
@@ -179,16 +158,18 @@ function build_autocomplete(tree_file){
                     if(selectedURI!=""){
                         tree.removeByURI(selectedURI,false);
                     }
-                    selectedURI=ui.item.uri;
-                    tree.openByURI(ui.item.uri);
-                    setCookie("edam_browser_"+current_branch,d.data.uri);
+                    selectedURI=ui.item.node.data.uri;
+                    tree.openByURI(ui.item.node.data.uri);
+                    standAloneSelectedElementHandler(ui.item.node,true);
+                    setCookie("edam_browser_"+current_branch, selectedURI);
                 }
             })
             .autocomplete( "instance" )._renderItem = function( ul, item ) {
               return $( "<li>" )
-                .append( "<div><b>" + item.label + "</b> ("+item.key+")<br><small>" + item.definition + "</small></div>" )
+                .append( "<div><b>" + item.node.text + "</b> ("+item.key+")<br><small>" + item.node.definition + "</small></div>" )
                 .appendTo( ul );
             };
+            $('#search-term').prop('disabled',false);
         }
     });
 }
@@ -224,7 +205,7 @@ var selectedURI="";
 var loadingDone=0;
 
 function getHeight(){
-    return Math.max(document.documentElement.clientHeight, window.innerHeight || 0)*0.90;
+    return Math.max(document.documentElement.clientHeight, window.innerHeight || 0)*0.75;
 }
 
 window.onload = function() {

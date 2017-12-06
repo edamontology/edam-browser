@@ -27,7 +27,6 @@ function makeEdamTree(initURI,removeNodesWithNoSelectedDescendant,jsonURL, handl
             url: jsonURL,
             data: {},
             success: function(d){
-                console.log(d);
                 makeEdamTree(initURI,removeNodesWithNoSelectedDescendant,d["url"], handlers, properties);
             }
         });

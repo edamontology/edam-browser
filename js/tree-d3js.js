@@ -77,16 +77,23 @@ function displayTree(targetId,uriToLoad,handlers,properties){
         root;*/
 
     var tree = d3.layout.tree()
-        .size([h, w]);
+            .nodeSize([12, 50])
+            .separation(function(a, b) {
+                return a.parent == b.parent ? 1 : 2;
+            });
 
     var diagonal = d3.svg.diagonal()
         .projection(function(d) { return [d.y, d.x]; });
 
+    var zoom = d3.behavior.zoom().translate([50,h/2]);
     var vis = d3.select(targetId).append("svg:svg")
-        .attr("width", w + m[1] + m[3])
+        .attr("width", "100%")
         .attr("height", h + m[0] + m[2])
+        .call(zoom.on("zoom", function () {
+            vis.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
+        }))
       .append("svg:g")
-        .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+        .attr("transform", "translate(" + 50 + "," + h/2 + ")");
 
     if (properties["use_tooltip"])
     var tooltip = d3.select("body").append("div")
@@ -109,7 +116,6 @@ function displayTree(targetId,uriToLoad,handlers,properties){
 
     var loading=vis.append("svg:text")
         .attr("x", w/2)
-        .attr("y", h/2)
         .attr("text-anchor", "middle")
         .text("loading")
         .style("fill-opacity", 1)
@@ -133,7 +139,11 @@ function displayTree(targetId,uriToLoad,handlers,properties){
             // Enter any new nodes at the parent's previous position.
             var nodeEnter = node.enter().append("svg:g")
                 .attr("class", "node")
-                .attr("transform", function(d) { handleSize(d); return "translate(" + source.y0 + "," + source.x0 + ")"; })
+                .attr("transform", function(d) {
+                    if (typeof d.parent == "undefined" || d.parent == null)
+                        return "translate(0,0)";
+                    return "translate(" + d.parent.y + "," + d.parent.x + ")";
+                })
                 .on("click", function(d,i) { handleClick(d);});
 
             nodeEnter.append("svg:text")
@@ -144,7 +154,13 @@ function displayTree(targetId,uriToLoad,handlers,properties){
                 //.attr("text-anchor", "start")
                 //.attr("y", -10)
                 //.attr("text-anchor", "middle")
-                .text(function(d) { return d.text; })
+                .text(function(d) {
+                    if (typeof d.text == "undefined")
+                        return d.uri;
+                    if (d.text.constructor === Array)
+                        return d.text[0];
+                    return d.text;
+                })
                 .style("fill-opacity", 1e-6);
 
             nodeEnter.append("svg:circle")
@@ -180,9 +196,11 @@ function displayTree(targetId,uriToLoad,handlers,properties){
                 });
 
             // Transition nodes to their new position.
-            var nodeUpdate = node.transition()
+            var nodeUpdate = node
+                .transition()
                 .duration(duration)
-                .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+                .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+                ;
 
             nodeUpdate.select("circle")
                 .attr("r", 4.5)
@@ -216,7 +234,10 @@ function displayTree(targetId,uriToLoad,handlers,properties){
             link.enter().insert("svg:path", "g")
                 .attr("class", "link")
                 .attr("d", function(d) {
-                    var o = {x: source.x0, y: source.y0};
+                    if (typeof d.source == "undefined" || d.source == null)
+                        var o = {x: source.x0, y: source.y0};
+                    else
+                        var o = {x: d.source.x, y: d.source.y};
                     return diagonal({source: o, target: o});
                 })
                 .transition()
@@ -265,16 +286,6 @@ function displayTree(targetId,uriToLoad,handlers,properties){
             d._children = d.children;
             d.children = null;
         }
-    }
-
-    //Handle possible resize of the svg
-    function handleSize(d){
-        //width=w + m[1] + m[3];
-        widthStr=$(targetId).children("svg").attr("width");
-        width=parseInt(widthStr.substring(0,widthStr.length-2));
-        if(d.y+350>width)
-            width=d.y+350;
-        $("#tree").children("svg").attr("width",width+"px")
     }
 
     //Handle selection of a node
@@ -467,9 +478,6 @@ function displayTree(targetId,uriToLoad,handlers,properties){
                     if(b){
                         element.children=null;
                         element._children=null;
-                    }
-                    if(element.text == "Chemistry"){
-                        console.log(b);
                     }
                     return b;
                 }
