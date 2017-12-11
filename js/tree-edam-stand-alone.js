@@ -101,7 +101,7 @@ function standAloneSelectedElementHandler (d, do_not_open){
 
 function interactive_edam_uri(value){
     if ((""+value).startsWith("http://edamontology.org/")){
-        return "<a href=\"#"+ value.substring(value.lastIndexOf('/')+1) + (branch=="deprecated"?"&deprecated":"")+"\" onclick=\"tree.removeByURI(selectedURI,false);selectedURI=this.text;tree.openByURI(selectedURI);\">"+value+"</a>";
+        return "<a href=\"#"+ value.substring(value.lastIndexOf('/')+1) + (current_branch=="deprecated"?"&deprecated":"")+"\" onclick=\"tree.removeByURI(selectedURI,false);selectedURI=this.text;tree.openByURI(selectedURI);\">"+value+"</a>";
     }
     return value;
 }
