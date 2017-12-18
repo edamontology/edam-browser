@@ -1,4 +1,5 @@
-media*
+media/*.biotools.json
+media/*.tar.gz
 env.sh
 
 # Byte-compiled / optimized / DLL files
