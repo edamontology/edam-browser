@@ -48,6 +48,10 @@ function makeTreeShortcut(branch) {
     build_autocomplete(tree_file);
 }
 
+function c_times_formater(c){
+    return (c==0?"not used":c+" times");
+}
+
 function standAloneSelectedElementHandler (d, do_not_open){
     if (!do_not_open){
         if(selectedURI!=""){
@@ -56,8 +60,8 @@ function standAloneSelectedElementHandler (d, do_not_open){
         tree.openByURI(d.data.uri);
         setCookie("edam_browser_"+current_branch,d.data.uri);
     }
-    selectedURI=d.data.uri;
-    identifier = selectedURI.substring(selectedURI.lastIndexOf("/")+1);
+    var selectedURI=d.data.uri;
+    var identifier = selectedURI.substring(selectedURI.lastIndexOf("/")+1);
     window.location.hash = identifier+ (current_branch=="deprecated"?"&deprecated":"");
     $("#details-"+identifier).remove();
     details = "";
@@ -91,6 +95,22 @@ function standAloneSelectedElementHandler (d, do_not_open){
         else
             append_row(table,entry,d[entry]);
     });
+    var caller=biotool_api().tools_for(current_branch, d['text']);
+    if (caller.is_enabled()){
+        var id = append_row(table,"Used in bio.tools","<i>loading</i>");
+        caller.count(function(c){
+            var elt=$('#details-'+identifier+' .'+id);
+            elt.empty();
+            if (c  instanceof Array){
+                $('<span>'
+                 +'<a href="'+caller.get_url()[0]+'" target="_blank">'+c_times_formater(c[0])+'</a> as input, '
+                 +'<a href="'+caller.get_url()[1]+'" target="_blank">'+c_times_formater(c[1])+'</a> as output.'
+                 +'</span>').appendTo(elt);
+            }else{
+                $('<a href="'+caller.get_url()+'" target="_blank">'+c_times_formater(c)+'</a>').appendTo(elt);
+            }
+        });
+    }
     table_parent.find("table").remove();
     table.appendTo(table_parent);
     $("#edamAccordion").children().first().find(".collapse").collapse("hide");
@@ -107,6 +127,7 @@ function interactive_edam_uri(value){
 }
 
 function append_row(table,name,value){
+    var id=name.replace(/ /g,'-').replace(/\./g,'-').toLowerCase()+"-val";
     if (typeof value == "undefined"){
         value="";
     }
@@ -125,7 +146,8 @@ function append_row(table,name,value){
             value=interactive_edam_uri(value[0]);
         }
     }
-    $("<tr><th>"+name+"</th><td>"+interactive_edam_uri(value)+"</td></tr>").appendTo(table);
+    $("<tr><th>"+name+"</th><td class=\""+id+"\">"+interactive_edam_uri(value)+"</td></tr>").appendTo(table);
+    return id;
 }
 
 function build_autocomplete(tree_file){
