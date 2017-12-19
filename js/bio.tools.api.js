@@ -17,9 +17,22 @@ function biotool_api(){
             },
         });
     }
+    //getter for nothing
+    var tools_for_nothing=function (name){
+        var getter = function(){}
+        getter.count=function(callback){}
+        getter.is_enabled=function(){
+            return false;
+        }
+        getter.get_url=function(){}
+        getter.get_api_url=function(){}
+        return getter;
+    }
 
     // generic getter
     api.tools_for=function (branch, name){
+        if (typeof name == "undefined")
+            return tools_for_nothing;
         name=name.toLowerCase();
         if (branch=="topic")
             return api.tools_for_topic(name);
