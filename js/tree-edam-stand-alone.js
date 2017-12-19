@@ -10,16 +10,16 @@ function makeTreeShortcut(branch) {
         tree_file="media/deprecated_extended.biotools.json";
         initURI=[getCookie("edam_browser_"+branch,"owl:DeprecatedClass")];
     }else if(branch == "data"){
-        tree_file="media/data_extended.biotools.json";
+        tree_file="media/data_extended.biotools.min.json";
         initURI=[getCookie("edam_browser_"+branch,"http://edamontology.org/data_1916")];
     }else if(branch == "format"){
-        tree_file="media/format_extended.biotools.json";
+        tree_file="media/format_extended.biotools.min.json";
         initURI=[getCookie("edam_browser_"+branch,"http://edamontology.org/format_3464")];
     }else if(branch == "operation"){
-        tree_file="media/operation_extended.biotools.json";
+        tree_file="media/operation_extended.biotools.min.json";
         initURI=[getCookie("edam_browser_"+branch,"http://edamontology.org/operation_2451")];
     }else if(branch == "topic"){
-        tree_file="media/topic_extended.biotools.json";
+        tree_file="media/topic_extended.biotools.min.json";
         initURI=[getCookie("edam_browser_"+branch,"http://edamontology.org/topic_0091")];
     }
     current_branch=branch;
