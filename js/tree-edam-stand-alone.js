@@ -48,8 +48,16 @@ function makeTreeShortcut(branch) {
     build_autocomplete(tree_file);
 }
 
-function c_times_formater(c){
-    return (c==0?"not used":c+" times");
+function to_biotools_href(c,url,data){
+    var data_content="";
+    if(c>0){
+        data_content = "title=\"Some tools associated\" data-toggle=\"popover\" data-trigger=\"hover\" data-html=\"true\" data-content=\"<table class='table table-condensed'>";
+        for(var i=0;i<data.list.length;i++){
+            data_content+="<tr><td>"+data.list[i].name+"</td></tr>";
+        }
+        data_content+='</table>"';
+    }
+    return '<a href="'+url+'" target="_blank" '+data_content+'>'+(c==0?"not used":c+" times")+'</a>';
 }
 
 function standAloneSelectedElementHandler (d, do_not_open){
@@ -98,17 +106,18 @@ function standAloneSelectedElementHandler (d, do_not_open){
     var caller=biotool_api().tools_for(current_branch, d['text']);
     if (caller.is_enabled()){
         var id = append_row(table,"Used in bio.tools","<i>loading</i>");
-        caller.count(function(c){
+        caller.count(function(c,data){
             var elt=$('#details-'+identifier+' .'+id);
             elt.empty();
             if (c  instanceof Array){
                 $('<span>'
-                 +'<a href="'+caller.get_url()[0]+'" target="_blank">'+c_times_formater(c[0])+'</a> as input, '
-                 +'<a href="'+caller.get_url()[1]+'" target="_blank">'+c_times_formater(c[1])+'</a> as output.'
+                 + to_biotools_href(c[0],caller.get_url()[0],data[0]) + ' as input, '
+                 + to_biotools_href(c[1],caller.get_url()[1],data[1]) + ' as output.'
                  +'</span>').appendTo(elt);
             }else{
-                $('<a href="'+caller.get_url()+'" target="_blank">'+c_times_formater(c)+'</a>').appendTo(elt);
+                $(to_biotools_href(c,caller.get_url(),data)).appendTo(elt);
             }
+            $('#details-'+identifier+' [data-toggle="popover"]').popover();
         });
     }
     table_parent.find("table").remove();
