@@ -55,6 +55,9 @@ function to_biotools_href(c,url,data){
         for(var i=0;i<data.list.length;i++){
             data_content+="<tr><td>"+data.list[i].name+"</td></tr>";
         }
+        if(data.next != null){
+            data_content+="<tr><td>...</td></tr>";
+        }
         data_content+='</table>"';
     }
     return '<a href="'+url+'" target="_blank" '+data_content+'>'+(c==0?"not used":c+" times")+'</a>';
