@@ -7,7 +7,7 @@ function makeTreeShortcut(branch) {
     $("#edam-branches .branch."+branch).addClass("active");
     setCookie("edam_browser_branch",branch);
     if (branch == "deprecated"){
-        tree_file="media/deprecated_extended.biotools.json";
+        tree_file="media/deprecated_extended.biotools.min.json";
         initURI=[getCookie("edam_browser_"+branch,"owl:DeprecatedClass")];
     }else if(branch == "data"){
         tree_file="media/data_extended.biotools.min.json";
