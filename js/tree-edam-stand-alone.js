@@ -48,19 +48,57 @@ function makeTreeShortcut(branch) {
     build_autocomplete(tree_file);
 }
 
+function get_length_biotools(data){
+    return data.list.length;
+}
+
+function get_name_biotools(data, i){
+    return data.list[i].name;
+}
+
+function has_next_biotools(data){
+    return data.next != null;
+}
+
 function to_biotools_href(c,url,data){
+    return to_generic_href(c,url,data,get_length_biotools,get_name_biotools,has_next_biotools);
+}
+
+function get_length_tess(data){
+    return data.length;
+}
+
+function get_name_tess(data, i){
+    return data[i].title;
+}
+
+function has_next_tess(data){
+    return false;
+}
+
+function to_tess_href(c,url,data){
+    return to_generic_href(c,url,data,get_length_tess,get_name_tess,has_next_tess);
+}
+
+function to_generic_href(c,url,data, get_length, get_name, has_next){
     var data_content="";
     if(c>0){
-        data_content = "title=\"Some tools associated\" data-toggle=\"popover\" data-trigger=\"hover\" data-html=\"true\" data-content=\"<table class='table table-condensed'>";
-        for(var i=0;i<data.list.length;i++){
-            data_content+="<tr><td>"+data.list[i].name+"</td></tr>";
+        data_content = "title=\"Some associated elements\" data-toggle=\"popover\" data-trigger=\"hover\" data-html=\"true\" data-content=\"<table class='table table-condensed'>";
+        var i=0;
+        for(;i<get_length(data)&&i<10;i++){
+            data_content+="<tr><td>"+get_name(data,i)+"</td></tr>";
         }
-        if(data.next != null){
+        if(i<get_length(data) || has_next_biotools(data)){
             data_content+="<tr><td>...</td></tr>";
         }
         data_content+='</table>"';
+        msg = c+" times";
+    }else if (c == 0) {
+        msg = "not used";
+    }else {
+        msg = "<i>unknown</i>";
     }
-    return '<a href="'+url+'" target="_blank" '+data_content+'>'+(c==0?"not used":c+" times")+'</a>';
+    return '<a href="'+url+'" target="_blank" '+data_content+'>'+msg+'</a>';
 }
 
 function standAloneSelectedElementHandler (d, do_not_open){
@@ -106,11 +144,11 @@ function standAloneSelectedElementHandler (d, do_not_open){
         else
             append_row(table,entry,d[entry]);
     });
-    var caller=biotool_api().tools_for(current_branch, d['text']);
+    var caller=biotool_api().get_for(current_branch, d['text']);
     if (caller.is_enabled()){
-        var id = append_row(table,"Used in bio.tools","<i>loading</i>");
+        var idb = append_row(table,"Used in bio.tools","<i>loading</i>");
         caller.count(function(c,data){
-            var elt=$('#details-'+identifier+' .'+id);
+            var elt=$('#details-'+identifier+' .'+idb);
             elt.empty();
             if (c  instanceof Array){
                 $('<span>'
@@ -121,6 +159,15 @@ function standAloneSelectedElementHandler (d, do_not_open){
                 $(to_biotools_href(c,caller.get_url(),data)).appendTo(elt);
             }
             $('#details-'+identifier+' [data-toggle="popover"]').popover();
+        });
+    }
+    var caller=tess_api().get_for(current_branch, d['text']);
+    if (caller.is_enabled()){
+        var idt = append_row(table,"Used in TeSS","<i>loading</i>");
+        caller.count(function(c,data){
+            var elt=$('#details-'+identifier+' .'+idt);
+            elt.empty();
+            $(to_tess_href(c,caller.get_url(),data)).appendTo(elt);
         });
     }
     table_parent.find("table").remove();

@@ -1,5 +1,4 @@
 function biotool_api(){
-    var my_biotool_api=this;
     function api(){}
 
     function generic_counter(get_api_url, callback){
@@ -14,11 +13,13 @@ function biotool_api(){
             error:function (textStatus, xhr) {
                 console.error(textStatus);
                 console.error(xhr);
+                data={'count':'0'};
+                callback(data['count'],data,textStatus);
             },
         });
     }
     //getter for nothing
-    var tools_for_nothing=function (name){
+    var get_for_nothing=function (name){
         var getter = function(){}
         getter.count=function(callback){}
         getter.is_enabled=function(){
@@ -30,21 +31,21 @@ function biotool_api(){
     }
 
     // generic getter
-    api.tools_for=function (branch, name){
+    api.get_for=function (branch, name){
         if (typeof name == "undefined")
-            return tools_for_nothing;
+            return get_for_nothing;
         name=name.toLowerCase();
         if (branch=="topic")
-            return api.tools_for_topic(name);
+            return api.get_for_topic(name);
         if (branch=="operation")
-            return api.tools_for_operation(name);
+            return api.get_for_operation(name);
         if (branch=="format")
-            return api.tools_for_format(name);
+            return api.get_for_format(name);
         if (branch=="data")
-            return api.tools_for_data(name);
+            return api.get_for_data(name);
     }
     //getter for topics
-    api.tools_for_topic=function (name){
+    api.get_for_topic=function (name){
         //getter object
         var getter = function(){}
         //function to count the number of tools associated
@@ -66,7 +67,7 @@ function biotool_api(){
         return getter;
     }
     //getter for operations
-    api.tools_for_operation=function (name){
+    api.get_for_operation=function (name){
         //getter object
         var getter = function(){}
         //function to count the number of tools associated
@@ -88,7 +89,7 @@ function biotool_api(){
         return getter;
     }
     //getter for data
-    var tools_for_data_and_format=function (name){
+    var get_for_data_and_format=function (name){
         //getter object
         var getter = function(){}
         //function to count the number of tools associated
@@ -125,7 +126,7 @@ function biotool_api(){
         }
         return getter;
     }
-    api.tools_for_data=tools_for_data_and_format;
-    api.tools_for_format=tools_for_data_and_format;
+    api.get_for_data=get_for_data_and_format;
+    api.get_for_format=get_for_data_and_format;
     return api;
 }
