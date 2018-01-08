@@ -109,7 +109,7 @@ function standAloneSelectedElementHandler (d, do_not_open){
         tree.openByURI(d.data.uri);
         setCookie("edam_browser_"+current_branch,d.data.uri);
     }
-    var selectedURI=d.data.uri;
+    selectedURI=d.data.uri;
     var identifier = selectedURI.substring(selectedURI.lastIndexOf("/")+1);
     window.location.hash = identifier+ (current_branch=="deprecated"?"&deprecated":"");
     $("#details-"+identifier).remove();
