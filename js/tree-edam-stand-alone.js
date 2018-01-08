@@ -144,7 +144,7 @@ function standAloneSelectedElementHandler (d, do_not_open){
         else
             append_row(table,entry,d[entry]);
     });
-    var caller=biotool_api().get_for(current_branch, d['text']);
+    var caller=biotool_api().get_for(current_branch, d['text'], d.data.uri);
     if (caller.is_enabled()){
         var idb = append_row(table,"Used in bio.tools","<i>loading</i>");
         caller.count(function(c,data){
@@ -161,7 +161,7 @@ function standAloneSelectedElementHandler (d, do_not_open){
             $('#details-'+identifier+' [data-toggle="popover"]').popover();
         });
     }
-    var caller=tess_api().get_for(current_branch, d['text']);
+    var caller=tess_api().get_for(current_branch, d['text'], d.data.uri);
     if (caller.is_enabled()){
         var idt = append_row(table,"Used in TeSS","<i>loading</i>");
         caller.count(function(c,data){

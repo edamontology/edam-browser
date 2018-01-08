@@ -2,7 +2,7 @@ function tess_api(){
     function api(){}
 
     // generic getter
-    api.get_for=function (branch, name){
+    api.get_for=function (branch, name, uri){
         //getter object
         var getter = function(){}
         //function to count the number of tools associated

@@ -31,10 +31,12 @@ function biotool_api(){
     }
 
     // generic getter
-    api.get_for=function (branch, name){
+    api.get_for=function (branch, name, uri){
         if (typeof name == "undefined")
-            return get_for_nothing;
+            return get_for_nothing();
         name=name.toLowerCase();
+        if (branch=="deprecated")
+            branch = uri.substring(uri.lastIndexOf("/")+1,uri.lastIndexOf("_"));
         if (branch=="topic")
             return api.get_for_topic(name);
         if (branch=="operation")
@@ -43,6 +45,7 @@ function biotool_api(){
             return api.get_for_format(name);
         if (branch=="data")
             return api.get_for_data(name);
+        return get_for_nothing();
     }
     //getter for topics
     api.get_for_topic=function (name){
