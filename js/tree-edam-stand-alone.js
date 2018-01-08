@@ -80,6 +80,14 @@ function to_tess_href(c,url,data){
     return to_generic_href(c,url,data,get_length_tess,get_name_tess,has_next_tess);
 }
 
+function get_name_bioweb(data, i){
+    return data[i].name;
+}
+
+function to_bioweb_href(c,url,data){
+    return to_generic_href(c,url,data,get_length_tess,get_name_bioweb,has_next_tess);
+}
+
 function to_generic_href(c,url,data, get_length, get_name, has_next){
     var data_content="";
     if(c>0){
@@ -144,30 +152,41 @@ function standAloneSelectedElementHandler (d, do_not_open){
         else
             append_row(table,entry,d[entry]);
     });
-    var caller=biotool_api().get_for(current_branch, d['text'], d.data.uri);
-    if (caller.is_enabled()){
-        var idb = append_row(table,"Used in bio.tools","<i>loading</i>");
-        caller.count(function(c,data){
-            var elt=$('#details-'+identifier+' .'+idb);
+    var caller_b=biotool_api().get_for(current_branch, d['text'], d.data.uri);
+    if (caller_b.is_enabled()){
+        var id_b = append_row(table,"Used in bio.tools","<i>loading</i>");
+        caller_b.count(function(c,data){
+            var elt=$('#details-'+identifier+' .'+id_b);
             elt.empty();
             if (c  instanceof Array){
                 $('<span>'
-                 + to_biotools_href(c[0],caller.get_url()[0],data[0]) + ' as input, '
-                 + to_biotools_href(c[1],caller.get_url()[1],data[1]) + ' as output.'
+                 + to_biotools_href(c[0],caller_b.get_url()[0],data[0]) + ' as input, '
+                 + to_biotools_href(c[1],caller_b.get_url()[1],data[1]) + ' as output.'
                  +'</span>').appendTo(elt);
             }else{
-                $(to_biotools_href(c,caller.get_url(),data)).appendTo(elt);
+                $(to_biotools_href(c,caller_b.get_url(),data)).appendTo(elt);
             }
-            $('#details-'+identifier+' [data-toggle="popover"]').popover();
+            $('#details-'+identifier+' .'+id_b+' [data-toggle="popover"]').popover();
         });
     }
-    var caller=tess_api().get_for(current_branch, d['text'], d.data.uri);
-    if (caller.is_enabled()){
-        var idt = append_row(table,"Used in TeSS","<i>loading</i>");
-        caller.count(function(c,data){
-            var elt=$('#details-'+identifier+' .'+idt);
+    var caller_t=tess_api().get_for(current_branch, d['text'], d.data.uri);
+    if (caller_t.is_enabled()){
+        var id_t = append_row(table,"Used in TeSS","<i>loading</i>");
+        caller_t.count(function(c,data){
+            var elt=$('#details-'+identifier+' .'+id_t);
             elt.empty();
-            $(to_tess_href(c,caller.get_url(),data)).appendTo(elt);
+            $(to_tess_href(c,caller_t.get_url(),data)).appendTo(elt);
+            $('#details-'+identifier+' .'+id_t+' [data-toggle="popover"]').popover();
+        });
+    }
+    var caller_w=bioweb_api().get_for(current_branch, d['text'], d.data.uri);
+    if (caller_w.is_enabled()){
+        var id_w = append_row(table,"Used in BioWeb","<i>loading</i>");
+        caller_w.count(function(c,data){
+            var elt=$('#details-'+identifier+' .'+id_w);
+            elt.empty();
+            $(to_bioweb_href(c,caller_w.get_url(),data)).appendTo(elt);
+            $('#details-'+identifier+' .'+id_w+' [data-toggle="popover"]').popover();
         });
     }
     table_parent.find("table").remove();
