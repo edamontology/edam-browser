@@ -29,11 +29,19 @@ function bioweb_api(){
                 type: "GET",
                 dataType: "json",
                 data: {},
+                headers: {
+                    'X-Requested-With':'https://github.com/IFB-ElixirFr/edam-browser',
+                },
                 success: function(data, statut){
+                    var matching_i=-1;
                     for(var i=0;i<data.length;i++)
-                        if (data[i]._id=="uri")
+                        if (data[i]._id==uri)
                             matching_i=i;
-                    callback(data[matching_i].count,data[matching_i],statut);
+                    if (matching_i==-1){
+                        callback(0,null,statut);
+                    }else{
+                        callback(data[matching_i].count,data[matching_i],statut);
+                    }
                 },
                 error:function (textStatus, xhr) {
                     console.error(textStatus);
@@ -52,7 +60,7 @@ function bioweb_api(){
         }
         //get the url returning the tools for api call
         getter.get_api_url=function(){
-            return "https://bioweb.pasteur.fr/api/packageTopics";
+            return "https://cors-anywhere.herokuapp.com/https://bioweb.pasteur.fr/api/packageTopics";
         }
         return getter;
     }
