@@ -4,6 +4,12 @@
     stroke: steelblue;
     stroke-width: 1.5px;
 }
+.node circle.selected {
+    fill: green;
+}
+.node circle.has-children {
+    fill: lightsteelblue;
+}
 
 .node text {
     font-size: 11px;
@@ -15,7 +21,14 @@ path.link {
     stroke-width: 1.5px;
 }
 
+path.link.selected {
+    fill: none;
+    stroke: #494;
+    stroke-width: 3px;
+}
+
 div.tooltip {
     position: absolute;
     width:300px;
 }
+/*.style("fill", function(d) { return $.inArray(d, treeSelectedNode) > -1 ? "green" : d._children ? "lightsteelblue" : "#fff"; });*/

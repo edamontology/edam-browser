@@ -69,6 +69,7 @@ function displayTree(targetId,uriToLoad,handlers,properties){
         i = 0,
         root,
         treeSelectedNode=[],
+        treeSelectedNodeAncestors=null,
         duration = 500;
     /*var m = [20, 120, 20, 120],
         w = 1280 - m[1] - m[3],
@@ -79,7 +80,10 @@ function displayTree(targetId,uriToLoad,handlers,properties){
     var tree = d3.layout.tree()
             .nodeSize([12, 50])
             .separation(function(a, b) {
-                return a.parent == b.parent ? 1 : 2;
+                a_count = a.children ? a.children.length : 1;
+                b_count = b.children ? b.children.length : 1;
+                //child_mult=a.children || b.children ? 3 : 1;
+                return ((a_count+b_count)/2) +  (a.parent == b.parent ? 0 : 1);
             });
 
     var diagonal = d3.svg.diagonal()
@@ -124,6 +128,9 @@ function displayTree(targetId,uriToLoad,handlers,properties){
         .style("fill","#666");
 
         function update(source) {
+            if (treeSelectedNodeAncestors == null){
+                refreshTreeSelectedNodeAncestors();
+            }
             //var duration = d3.event && d3.event.altKey ? 5000 : 500;
 
             // Compute the new tree layout.
@@ -165,7 +172,7 @@ function displayTree(targetId,uriToLoad,handlers,properties){
 
             nodeEnter.append("svg:circle")
                 .attr("r", 1e-6)
-                .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; })
+                .attr("class", function(d) { return d._children || d.children ? "has-children" : ""; })
                 .on("mouseover", function(d) {
                     if (typeof tooltip == "undefined") return;
                     tooltip.transition()
@@ -204,7 +211,13 @@ function displayTree(targetId,uriToLoad,handlers,properties){
 
             nodeUpdate.select("circle")
                 .attr("r", 4.5)
-                .style("fill", function(d) { return $.inArray(d, treeSelectedNode) > -1 ? "green" : d._children ? "lightsteelblue" : "#fff"; });
+                .attr("class", function(d){
+                    if ($.inArray(d, treeSelectedNode) > -1)
+                        return "selected";
+                    if (d._children || d.children)
+                        return  "has-children";
+                    return "";
+                });
 
             nodeUpdate.select("text")
                 .attr("x", function(d) { return d.children? -10 : 10; })
@@ -232,7 +245,6 @@ function displayTree(targetId,uriToLoad,handlers,properties){
 
             // Enter any new links at the parent's previous position.
             link.enter().insert("svg:path", "g")
-                .attr("class", "link")
                 .attr("d", function(d) {
                     if (typeof d.source == "undefined" || d.source == null)
                         var o = {x: source.x0, y: source.y0};
@@ -247,7 +259,12 @@ function displayTree(targetId,uriToLoad,handlers,properties){
             // Transition links to their new position.
             link.transition()
                 .duration(duration)
-                .attr("d", diagonal);
+                .attr("d", diagonal)
+                .attr("class", function(d){
+                    if ($.inArray(d.target, treeSelectedNodeAncestors) > -1)
+                        return "link selected";
+                    return "link";
+                });
 
             // Transition exiting nodes to the parent's new position.
             link.exit().transition()
@@ -379,6 +396,7 @@ function displayTree(targetId,uriToLoad,handlers,properties){
                 i--;
             }
         }
+        refreshTreeSelectedNodeAncestors();
         update(root);
     }
 
@@ -393,12 +411,26 @@ function displayTree(targetId,uriToLoad,handlers,properties){
                 i--;
             }
         }
+        refreshTreeSelectedNodeAncestors();
         update(root);
+    }
+
+    function refreshTreeSelectedNodeAncestors() {
+        treeSelectedNodeAncestors=[];
+        var candidate;
+        for(var i=0;i<treeSelectedNode.length;i++){
+            candidate=treeSelectedNode[i];
+            while(candidate != null && treeSelectedNodeAncestors.indexOf(candidate)==-1){
+                treeSelectedNodeAncestors.push(candidate);
+                candidate=candidate.parent;
+            }
+        }
     }
 
     var returnedTree = {
         openByText : function (searchedName) {
             if(openBySomething(root,searchedName,function(element){return element.text;})){
+                refreshTreeSelectedNodeAncestors();
                 update(root);
                 return true;
             };
@@ -406,6 +438,7 @@ function displayTree(targetId,uriToLoad,handlers,properties){
         },
         openByURI : function (uri) {
             if(openBySomething(root,uri,function(element){return element.data.uri;})){
+                refreshTreeSelectedNodeAncestors();
                 update(root);
                 return true;
             };
