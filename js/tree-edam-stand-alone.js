@@ -238,12 +238,14 @@ function build_autocomplete(tree_file){
         data: {},
         success: function (data, textStatus, xhr) {
             var source = [];
+            var source_dict = {};
             function traverse(node) {
-                source.push({
+                candidate={
                     value : node.text,
                     key : node.data.uri.substring(node.data.uri.lastIndexOf('/')+1),
                     node : node,
-                });
+                }
+                source_dict[candidate.key] = candidate;
                 if (node.children) {
                     $.each(node.children, function(i, child) {
                          traverse(child);
@@ -251,6 +253,9 @@ function build_autocomplete(tree_file){
                 }
             }
             traverse(data);
+            for (var key in source_dict){
+                source.push(source_dict[key]);
+            }
             $('#search-term').autocomplete({
                 source : source,
                 minLength: 2,
