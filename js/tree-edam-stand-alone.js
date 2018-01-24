@@ -154,7 +154,7 @@ function standAloneSelectedElementHandler (d, do_not_open){
     });
     var caller_b=biotool_api().get_for(current_branch, d['text'], d.data.uri);
     if (caller_b.is_enabled()){
-        var id_b = append_row(table,"Used in bio.tools","<i>loading</i>");
+        var id_b = append_row(table,"Used in <a target=\"_blank\" href=\"https://bio.tools\">bio.tools</a>","<i>loading</i>");
         caller_b.count(function(c,data){
             var elt=$('#details-'+identifier+' .'+id_b);
             elt.empty();
@@ -171,7 +171,7 @@ function standAloneSelectedElementHandler (d, do_not_open){
     }
     var caller_t=tess_api().get_for(current_branch, d['text'], d.data.uri);
     if (caller_t.is_enabled()){
-        var id_t = append_row(table,"Used in TeSS","<i>loading</i>");
+        var id_t = append_row(table,"Used in <a target=\"_blank\" href=\"https://tess.elixir-europe.org/\">TeSS</a>","<i>loading</i>");
         caller_t.count(function(c,data){
             var elt=$('#details-'+identifier+' .'+id_t);
             elt.empty();
@@ -181,7 +181,7 @@ function standAloneSelectedElementHandler (d, do_not_open){
     }
     var caller_w=bioweb_api().get_for(current_branch, d['text'], d.data.uri);
     if (caller_w.is_enabled()){
-        var id_w = append_row(table,"Used in BioWeb","<i>loading</i>");
+        var id_w = append_row(table,"Used in <a target=\"_blank\" href=\"https://bioweb.pasteur.fr/\">BioWeb</a>","<i>loading</i>");
         caller_w.count(function(c,data){
             var elt=$('#details-'+identifier+' .'+id_w);
             elt.empty();
@@ -205,7 +205,10 @@ function interactive_edam_uri(value){
 }
 
 function append_row(table,name,value){
-    var id=name.replace(/ /g,'-').replace(/\./g,'-').toLowerCase()+"-val";
+    var id=(name
+        .replace(/[^a-zA-Z]/g,'-')
+        .toLowerCase()+"-val")
+        .replace(/[-]+/g,'-');
     if (typeof value == "undefined"){
         value="";
     }
