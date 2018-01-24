@@ -1,3 +1,8 @@
+if (typeof(String.prototype.localeCompare) === 'undefined') {
+    String.prototype.localeCompare = function(str, locale, options) {
+        return ((this == str) ? 0 : ((this > str) ? 1 : -1));
+    };
+}
 function bioweb_api(){
     function api(){}
 
@@ -33,15 +38,13 @@ function bioweb_api(){
                     'X-Requested-With':'https://github.com/IFB-ElixirFr/edam-browser',
                 },
                 success: function(data, statut){
-                    var matching_i=-1;
-                    for(var i=0;i<data.length;i++)
-                        if (data[i]._id==uri)
-                            matching_i=i;
-                    if (matching_i==-1){
-                        callback(0,null,statut);
-                    }else{
-                        callback(data[matching_i].count,data[matching_i],statut);
-                    }
+                    callback(
+                    data.length,
+                    data.sort(function(a,b){
+                        return a.name.localeCompare(b.name);
+                    }),
+                    statut
+                    );
                 },
                 error:function (textStatus, xhr) {
                     console.error(textStatus);
@@ -60,7 +63,7 @@ function bioweb_api(){
         }
         //get the url returning the tools for api call
         getter.get_api_url=function(){
-            return "https://cors-anywhere.herokuapp.com/https://bioweb.pasteur.fr/api/packageTopics";
+            return "https://cors-anywhere.herokuapp.com/https://bioweb.pasteur.fr/api/packages?search=&topicId="+term_id;
         }
         return getter;
     }
