@@ -1,11 +1,4 @@
-function makeTreeShortcut(branch) {
-    loadingDone=0;
-    $("#edam-branches .branch").removeClass("active");
-    if (typeof branch == "undefined"){
-        branch=getCookie("edam_browser_branch","topic");
-    }
-    $("#edam-branches .branch."+branch).addClass("active");
-    setCookie("edam_browser_branch",branch);
+function getTreeFileAndInitURI(branch){
     if (branch == "deprecated"){
         tree_file="media/deprecated_extended.biotools.min.json";
         initURI=[getCookie("edam_browser_"+branch,"owl:DeprecatedClass")];
@@ -22,6 +15,20 @@ function makeTreeShortcut(branch) {
         tree_file="media/topic_extended.biotools.min.json";
         initURI=[getCookie("edam_browser_"+branch,"http://edamontology.org/topic_0091")];
     }
+    return {'tree_file':tree_file,'initURI':initURI};
+}
+
+function makeTreeShortcut(branch) {
+    loadingDone=0;
+    $("#edam-branches .branch").removeClass("active");
+    if (typeof branch == "undefined"){
+        branch=getCookie("edam_browser_branch","topic");
+    }
+    $("#edam-branches .branch."+branch).addClass("active");
+    setCookie("edam_browser_branch",branch);
+    var ti=getTreeFileAndInitURI(branch);
+    tree_file=ti.tree_file;
+    initURI=ti.initURI;
     current_branch=branch;
     root_uri=getRootURIForBranch(branch);
     window.location.hash = initURI[0].substring(initURI[0].lastIndexOf('/')+1) + (branch=="deprecated"?"&deprecated":"");
@@ -127,6 +134,8 @@ function standAloneSelectedElementHandler (d, do_not_open){
     details +=         '<div class="panel-heading">';
     details +=             '<h4 class="panel-title">';
     details +=                 '<a data-toggle="collapse" href="#collapse-'+identifier+'">Details of term "<span class="term-name-heading"></span>"</a>';
+    details +=                 '<a title="edit this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?term='+identifier+'"><span class="glyphicon glyphicon-pencil"></span></a>';
+    details +=                 '<a title="add a child to this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?parent='+identifier+'"><span class="glyphicon glyphicon-plus"></span></a>';
     details +=             '</h4>';
     details +=         '</div>';
     details +=         '<div id="collapse-'+identifier+'" class="panel-collapse collapse">';
@@ -231,9 +240,11 @@ function append_row(table,name,value){
     return id;
 }
 
-function build_autocomplete(tree_file){
-    $('#search-term').val('');
-    $('#search-term').prop('disabled',true);
+function build_autocomplete(tree_file, elt){
+    if(typeof elt == "undefined"){
+        elt='.search-term';
+    }
+    $(elt).prop('disabled',true);
     $.ajax({
         type: "GET",
         dataType: "json",
@@ -259,17 +270,20 @@ function build_autocomplete(tree_file){
             for (var key in source_dict){
                 source.push(source_dict[key]);
             }
-            $('#search-term').autocomplete({
+            $(elt).autocomplete({
                 source : source,
                 minLength: 2,
                 select : function(event, ui){ // lors de la sélection d'une proposition
-                    if(selectedURI!=""){
-                        tree.removeByURI(selectedURI,false);
+                    $(event.target).attr("data-selected",ui.item.node.data.uri);
+                    if (typeof tree != "undefined"){
+                        if(selectedURI!=""){
+                            tree.removeByURI(selectedURI,false);
+                        }
+                        selectedURI=ui.item.node.data.uri;
+                        tree.openByURI(ui.item.node.data.uri);
+                        standAloneSelectedElementHandler(ui.item.node,true);
+                        setCookie("edam_browser_"+current_branch, selectedURI);
                     }
-                    selectedURI=ui.item.node.data.uri;
-                    tree.openByURI(ui.item.node.data.uri);
-                    standAloneSelectedElementHandler(ui.item.node,true);
-                    setCookie("edam_browser_"+current_branch, selectedURI);
                 }
             })
             .autocomplete( "instance" )._renderItem = function( ul, item ) {
@@ -277,58 +291,7 @@ function build_autocomplete(tree_file){
                 .append( "<div><b>" + item.node.text + "</b> ("+item.key+")<br><small>" + item.node.definition + "</small></div>" )
                 .appendTo( ul );
             };
-            $('#search-term').prop('disabled',false);
+            $(elt).prop('disabled',false);
         }
     });
-}
-
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+ d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname, default_value) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length,c.length);
-        }
-    }
-    if (typeof default_value == "undefined")
-        return "";
-    return default_value;
-}
-
-initURI=[];
-root_uri="";
-var current_branch="";
-var selectedURI="";
-var loadingDone=0;
-
-function getHeight(){
-    return Math.max(document.documentElement.clientHeight, window.innerHeight || 0)*0.75;
-}
-
-window.onload = function() {
-    if(window.location.hash) {
-        branch=window.location.hash.substring(1);
-        pos = branch.lastIndexOf('&');
-        if (pos!=-1){
-            id=branch.substring(0,pos);
-            branch=branch.substring(pos+1);
-        }else{
-            id=branch;
-            branch=branch.substring(0,branch.lastIndexOf('_'));
-        }
-        setCookie("edam_browser_branch",branch);
-        setCookie("edam_browser_"+branch,"http://edamontology.org/"+id);
-    }
-    makeTreeShortcut();
 }
