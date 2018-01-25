@@ -23,7 +23,6 @@ function fill_form(identifier, parent){
             all_elements[d.data.uri]=d.text;
             do{
                 head = stack.pop();
-                console.log(head.data.uri.substring(0,5));
                 var children = head.children;
                 head.children=null;
                 if (typeof children != "undefined"){
@@ -143,7 +142,6 @@ function sendToGitHub(){
             msg+="\n";
         }
     }
-    console.log(encodeURI(msg));
     if($('#pageTitle .new:visible')){
         $("#sender [name=title]").val("[Edam Browser User] New child proposition for " + $("#id_parent").val());
     }else{
