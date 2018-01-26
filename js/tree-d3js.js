@@ -1,19 +1,3 @@
-/*displayEdam("#tree",
-	    "/rainbio/getDescendantForEdamNode?uri=http%3A%2F%2Fedamontology.org%2Ftopic_3070",
-	    function(e){
-	        console.log("added element: "+e);
-	        return true;
-	    },
-	    function(e){
-	        console.log("removed element: "+e);
-	        return true;
-	    },
-	    function(e){
-	        console.log("Loading done"+e);
-	        return true;
-	    });
-*/
-
 if (!Array.prototype.remove) {
     Array.prototype.remove = function(val) {
         var i = this.indexOf(val);
