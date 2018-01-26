@@ -287,9 +287,19 @@ function build_autocomplete(tree_file, elt){
                 }
             })
             .autocomplete( "instance" )._renderItem = function( ul, item ) {
-              return $( "<li>" )
-                .append( "<div><b>" + item.node.text + "</b> ("+item.key+")<br><small>" + item.node.definition + "</small></div>" )
-                .appendTo( ul );
+                var branch = item.key.substring(0,item.key.indexOf("_"));
+                  return $( "<li>" )
+                    .append(
+                        "<div class=\"autocomplete-entry\">"+
+                        "<b>" + item.node.text + "</b>"+
+                        " ("+item.key+")"+
+                        "<span class=\"label label-info pull-right\">"+branch+"</span>"+
+                        "<br>"+
+                        "<small>"+
+                        item.node.definition+
+                        "</small>"+
+                        "</div>" )
+                    .appendTo( ul );
             };
             $(elt).prop('disabled',false);
         }

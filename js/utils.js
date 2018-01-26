@@ -40,3 +40,8 @@ function getCookie(cname, default_value) {
 function getHeight(){
     return Math.max(document.documentElement.clientHeight, window.innerHeight || 0)*0.75;
 }
+
+jQuery.ui.autocomplete.prototype._resizeMenu = function () {
+  var ul = this.menu.element;
+  ul.outerWidth(this.element.outerWidth());
+}
