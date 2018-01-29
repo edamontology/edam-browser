@@ -117,6 +117,7 @@ function to_generic_href(c,url,data, get_length, get_name, has_next){
 }
 
 function standAloneSelectedElementHandler (d, do_not_open){
+    var identifier=d.data.uri.substring(d.data.uri.lastIndexOf('/')+1);
     if (!do_not_open){
         if(selectedURI!=""){
             tree.removeByURI(selectedURI,false);
@@ -139,13 +140,13 @@ function standAloneSelectedElementHandler (d, do_not_open){
     details +=             '</h4>';
     details +=         '</div>';
     details +=         '<div id="collapse-'+identifier+'" class="panel-collapse collapse">';
-    details +=             '<div class="panel-body"><table></table></div>';
+    details +=             '<div class="panel-body"><table class="table table-condensed"><tbody></tbody></table></div>';
     details +=         '</div>';
     details +=     '</div>';
     details += '</div>';
     details=$(details);
     details.find(".term-name-heading").text(d.text);
-    var table = details.find("table").clone();
+    var table = details.find("tbody");
     table.children().remove();
     var table_parent = details.find("table").parent();
     [
@@ -198,8 +199,14 @@ function standAloneSelectedElementHandler (d, do_not_open){
             $('#details-'+identifier+' .'+id_w+' [data-toggle="popover"]').popover();
         });
     }
-    table_parent.find("table").remove();
-    table.appendTo(table_parent);
+    append_row(table,"Links",
+    "Open "+
+    "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">in BioPortal</a>"+
+    ", "+
+    "<a target=\"_blank\" href=\"https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">in OLS</a>"+
+    "."
+
+    );
     $("#edamAccordion").children().first().find(".collapse").collapse("hide");
     $("#edamAccordion").prepend(details);
     $("#edamAccordion").children().first().find(".collapse").collapse("show");
