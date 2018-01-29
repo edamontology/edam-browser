@@ -1,0 +1,38 @@
+.node circle {
+    cursor: pointer;
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+.node circle.selected {
+    fill: green;
+}
+.node circle.has-children {
+    fill: lightsteelblue;
+}
+
+.node text {
+    font-size: 12px;
+    fill-opacity:1;
+
+}
+text.selected{
+    font-weight:bold;
+}
+
+path.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+}
+
+path.link.selected {
+    fill: none;
+    stroke: #494;
+    stroke-width: 3px;
+}
+
+div.tooltip {
+    position: absolute;
+    width:300px;
+}
