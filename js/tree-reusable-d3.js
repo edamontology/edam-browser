@@ -13,7 +13,7 @@ function interactive_tree() {
     var height=800,
         debug=false,
         margin = {top: 10, right: 50, bottom: 10, left: 80},
-        voidHandler=function(name){return function(){if(debug)console.log(name);}},
+        voidHandler=function(name){return function(){if(debug)console.log(name);return true;}},
         initiallySelectedElementHandler = voidHandler("initiallySelectedElementHandler"),
         addingElementHandler = voidHandler("addingElementHandler"),
         openElementHandler = voidHandler("openElementHandler"),
@@ -269,10 +269,10 @@ function interactive_tree() {
         }else if (d3.event.shiftKey && use_shift_to_add
                || d3.event.ctrlKey  && use_control_to_add
                || d3.event.altKey   && use_alt_to_add){
-            var i = treeSelectedElement.indexOf(d);
+            var pos = treeSelectedElement.indexOf(d);
             if(i>-1){
                 //removing ?
-                attemptToRemoveElement(d);
+                attemptToRemoveElement(d, pos);
             }else{
                 //adding ?
                 attemptToSelectElement(d);
@@ -284,11 +284,13 @@ function interactive_tree() {
         update(d);
     }//end of handleClick
 
-    function attemptToRemoveElement(d){
-        if(removingElementHandler(d)!=false){
-            treeSelectedElement.splice(i, 1);
+    function attemptToRemoveElement(d, pos){
+        if(typeof pos == "undefined" || pos == -1)
+            pos = treeSelectedElement.indexOf(d);
+        if(removingElementHandler(d)){
+            treeSelectedElement.splice(pos, 1);
             if(d.duplicate){
-                for(var i=0;i<treeSelectedElement.length;i++){
+                for(var i=pos;i<treeSelectedElement.length;i++){
                     if(elementEquality(treeSelectedElement[i],d)){
                         treeSelectedElement.splice(i, 1);
                         i--;
@@ -500,6 +502,16 @@ function interactive_tree() {
         return isElementSelected(identifierToElement[identifier]);
     };
     /**
+     * Ask to de-select all elements
+     * @return cmd() itself
+     */
+    cmd.clearSelectedElements = function (identifier) {
+        treeSelectedElement=[];
+        refreshTreeSelectedElementAncestors();
+        update(root);
+        return cmd;
+    };
+    /**
      * Ask to collapse all elements that have no selected descendants
      * @return cmd() itself
      */
@@ -549,7 +561,7 @@ function interactive_tree() {
     };
     /**
      * Accessor configuring if shift key should be used to open externally an element
-     * @param {boolean} value
+     * @param {boolean} [value=false]
      */
     chart.use_shift_to_open = function(value) {
         if (!arguments.length) return use_shift_to_open;
@@ -558,7 +570,7 @@ function interactive_tree() {
     };
     /**
      * Accessor configuring if alt control should be used to open externally an element
-     * @param {boolean} value
+     * @param {boolean} [value=true]
      */
     chart.use_control_to_open = function(value) {
         if (!arguments.length) return use_control_to_open;
@@ -567,7 +579,7 @@ function interactive_tree() {
     };
     /**
      * Accessor configuring if alt key should be used to open externally an element
-     * @param {boolean} value
+     * @param {boolean} [value=false]
      */
     chart.use_alt_to_open = function(value) {
         if (!arguments.length) return use_alt_to_open;
@@ -576,7 +588,7 @@ function interactive_tree() {
     };
     /**
      * Accessor configuring if shift key should be used to add/remove an element to/from selection
-     * @param {boolean} value
+     * @param {boolean} [value=true]
      */
     chart.use_shift_to_add = function(value) {
         if (!arguments.length) return use_shift_to_add;
@@ -585,7 +597,7 @@ function interactive_tree() {
     };
     /**
      * Accessor configuring if control key should be used to add/remove an element to/from selection
-     * @param {boolean} value
+     * @param {boolean} [value=false]
      */
     chart.use_control_to_add = function(value) {
         if (!arguments.length) return use_control_to_add;
@@ -594,7 +606,7 @@ function interactive_tree() {
     };
     /**
      * Accessor configuring if alt key should be used to add/remove an element to/from selection
-     * @param {boolean} value
+     * @param {boolean} [value=false]
      */
     chart.use_alt_to_add = function(value) {
         if (!arguments.length) return use_alt_to_add;
