@@ -17,15 +17,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js" integrity="sha256-dsOXGNHAo/syFnazt+KTBsCQeRmlcW1XKL0bCK4Baec=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="css/bootstrap.xl.css"/>
         <script src="js/utils.js"></script>
-        <script src="js/tree-d3js.js"></script>
-        <script src="js/tree-edam.js"></script>
-        <link href="css/tree-d3js.css" rel="stylesheet">
+        <script src="js/tree-reusable-d3.js"></script>
         <script src="js/tree-edam-stand-alone.js"></script>
         <script src="js/bio.tools.api.js"></script>
         <script src="js/tess.api.js"></script>
         <script src="js/bioweb.api.js"></script>
         <script src="js/index.js"></script>
-        <link href="css/tree-edam-stand-alone.css" rel="stylesheet">
+        <script src="js/tree-reusable-d3.js"></script>
+        <link href="css/tree-reusable-d3.css" rel="stylesheet">
     </head>
     <body>
         <div class="container-fluid">
@@ -36,11 +35,11 @@
             <div class="col-xs-6 col-sm-6 col-md-4">
                 <h1 class="no-icon">
                     <div class="btn-group" role="group" id="edam-branches" style="z-index:1;vertical-align: bottom;">
-                        <a type="button" class="btn btn-default branch data" onclick="makeTreeShortcut('data')">Data</a>
-                        <a type="button" class="btn btn-default branch format" onclick="makeTreeShortcut('format')">Format</a>
-                        <a type="button" class="btn btn-default branch operation" onclick="makeTreeShortcut('operation')">Operation</a>
-                        <a type="button" class="btn btn-default branch topic" onclick="makeTreeShortcut('topic')">Topic</a>
-                        <a type="button" class="btn btn-default branch deprecated" onclick="makeTreeShortcut('deprecated')">Deprecated</a>
+                        <a type="button" class="btn btn-default branch data" onclick="loadTree('data')">Data</a>
+                        <a type="button" class="btn btn-default branch format" onclick="loadTree('format')">Format</a>
+                        <a type="button" class="btn btn-default branch operation" onclick="loadTree('operation')">Operation</a>
+                        <a type="button" class="btn btn-default branch topic" onclick="loadTree('topic')">Topic</a>
+                        <a type="button" class="btn btn-default branch deprecated" onclick="loadTree('deprecated')">Deprecated</a>
                     </div>
                 </h1>
             </div>
@@ -66,6 +65,7 @@
             <div class="panel panel-default">
                 <div id="tree" class="d3js-tree-container"></div>
             </div>
+            <button type="button" class="btn btn-default pull-right" onclick="my_tree.cmd.collapseNotSelectedElement();">Collapse not selected elements</button>
         </div>
         <div class="col-xs-12 col-lg-6" id="edamAccordion"></div>
         <div class="col-xs-12 pull-right"><div class="pull-right">Current version: ?</div></div>

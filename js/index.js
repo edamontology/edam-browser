@@ -1,8 +1,5 @@
-initURI=[];
-root_uri="";
 var current_branch="";
-var selectedURI="";
-var loadingDone=0;
+my_tree = interactive_edam_browser();
 
 window.onload = function() {
     if(window.location.hash) {
@@ -15,8 +12,7 @@ window.onload = function() {
             id=branch;
             branch=branch.substring(0,branch.lastIndexOf('_'));
         }
-        setCookie("edam_browser_branch",branch);
-        setCookie("edam_browser_"+branch,"http://edamontology.org/"+id);
     }
-    makeTreeShortcut();
+    d3.select("#tree").call(my_tree); // draw chart in div
+    loadTree();
 }

@@ -1,6 +1,6 @@
 function fill_form(identifier, parent){
     branch=getCookie("edam_browser_branch","topic");
-    tree_file = getTreeFileAndInitURI(branch).tree_file;
+    tree_file = getTreeFile(branch);
     build_autocomplete(tree_file);
     build_autocomplete(tree_file);
     if(identifier){
@@ -78,7 +78,7 @@ function build_form(target, all_elements){
                 .val(target.parent[i].text)
                 .attr('data-selected',target.parent[i].data.uri);
             build_autocomplete(
-                getTreeFileAndInitURI(getCookie("edam_browser_branch","topic")).tree_file,
+                getTreeFile(getCookie("edam_browser_branch","topic")),
                 ".search-term[name=parent-"+i+"]"
             );
         }
@@ -103,7 +103,7 @@ function addParent(){
                 .val("")
                 .attr('data-initial',"");
     build_autocomplete(
-        getTreeFileAndInitURI(getCookie("edam_browser_branch","topic")).tree_file,
+        getTreeFile(getCookie("edam_browser_branch","topic")),
         ".search-term[name=parent-"+i+"]"
     );
 }
