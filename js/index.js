@@ -14,6 +14,8 @@ window.onload = function() {
         }
         setCookie("edam_browser_branch",branch);
         setCookie("edam_browser_"+branch,"http://edamontology.org/"+id);
+    }else{
+        branch="topic";
     }
     d3.select("#tree").call(my_tree); // draw chart in div
     loadTree(branch);
