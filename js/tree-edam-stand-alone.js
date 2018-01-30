@@ -235,7 +235,7 @@ function interactive_edam_browser(){
             return true;
         })
         .loadingDoneHandler(function(){
-            tree.cmd.selectElement(getInitURI(branch),true,true)
+            tree.cmd.selectElement(getInitURI(current_branch),true,true);
         })
         .debug(false)
         .use_shift_to_open(false)
