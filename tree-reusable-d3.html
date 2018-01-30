@@ -12,16 +12,87 @@
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
   crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js" integrity="sha256-dsOXGNHAo/syFnazt+KTBsCQeRmlcW1XKL0bCK4Baec=" crossorigin="anonymous"></script>
         <script src="js/tree-reusable-d3.js"></script>
         <script type="text/javascript">
             var my_tree;
+            function demo(){
+                delay=0;
+                step=1000;
+                delay+=step;
+                setTimeout(function() {
+                    my_tree.cmd.selectElement("http://edamontology.org/topic_3174",true);
+                    $("#simple-pre").append($('<pre>//Add Metagenomics<br/>my_tree.cmd.selectElement("http://edamontology.org/topic_3174",true);</pre>'));
+                ;}, delay);
+                delay+=step;
+                setTimeout(function() {
+                    my_tree.cmd.selectElement("http://edamontology.org/topic_0091",false);
+                    $("#simple-pre").append($('<pre>//Remove Bioinformatics<br/>my_tree.cmd.selectElement("http://edamontology.org/topic_0091",false);</pre>'));
+                ;}, delay);
+                delay+=step;
+                setTimeout(function() {
+                    my_tree.cmd.expandElement("http://edamontology.org/topic_3065");
+                    $("#simple-pre").append($('<pre>//Expand to Embriology<br/>my_tree.cmd.expandElement("http://edamontology.org/topic_3065");</pre>'));
+                ;}, delay);
+                delay+=step;
+                setTimeout(function() {
+                    my_tree.cmd.selectElement("http://edamontology.org/topic_3174",false);
+                    $("#simple-pre").append($('<pre>//Remove Metagenomics<br/>my_tree.cmd.selectElement("http://edamontology.org/topic_3174",false);</pre>'));
+                ;}, delay);
+                delay+=step;
+                setTimeout(function() {
+                    my_tree.cmd.selectElement("http://edamontology.org/topic_3401",true);
+                    $("#simple-pre").append($('<pre>//Add Pain medecine<br/>my_tree.cmd.selectElement("http://edamontology.org/topic_3401",true);</pre>'));
+                ;}, delay);
+                delay+=step;
+                setTimeout(function() {
+                    my_tree.cmd.collapseNotSelectedElement();
+                    $("#simple-pre").append($('<pre>//Collapse not selected node<br/>my_tree.cmd.collapseNotSelectedElement();</pre>'));
+                ;}, delay);
+                setTimeout(function() {
+                    my_tree.cmd.collapseElement("http://edamontology.org/topic_3303");
+                    $("#simple-pre").append($('<pre>//Collapse Medecine<br/>my_tree.cmd.collapseElement("http://edamontology.org/topic_3303");</pre>'));
+                ;}, delay);
+                delay+=step;
+                setTimeout(function() {
+                    my_tree.cmd.selectElement("http://edamontology.org/topic_3065",true,false);
+                    $("#simple-pre").append($('<pre>//Add Embriology without expanding to it<br/>my_tree.cmd.selectElement("http://edamontology.org/topic_3065",true,false);</pre>'));
+                ;}, delay);
+                delay+=step;
+                setTimeout(function() {
+                    my_tree.cmd.expandSelectedElement();
+                    $("#simple-pre").append($('<pre>//Expand to selected elements<br/>my_tree.cmd.expandSelectedElement();</pre>'));
+                ;}, delay);
+                delay+=step;
+            }
             window.onload = function() {
-                my_tree=build_interactive_tree("#tree","media/topic_extended.biotools.min.json");
+                my_tree = interactive_tree()
+                    .identifierAccessor(function(d){return d.data.uri;})
+                    .debug(true)
+                    .tooltipEnabled(true)
+                    .initiallySelectedElementHandler(function(d){return d.data.uri==="http://edamontology.org/topic_0091"})
+                    .loadingDoneHandler(demo)
+                ;
+                d3.select("#tree").call(my_tree); // draw chart in div
+                my_tree.data_url("media/topic_extended.biotools.min.json");
             }
         </script>
         <link href="css/tree-reusable-d3.css" rel="stylesheet">
     </head>
     <body>
-        <div id="tree"></div>
+    <div class="container-fluid">
+        <div class="row"></div>
+        <div class="col-xs-12 col-lg-6">
+            <div id="tree"></div>
+        </div>
+        <div class="col-xs-12 col-lg-6">
+            <div class="bs-example" id="simple-pre">
+            </div>
+        </div>
+    </div>
     </body>
