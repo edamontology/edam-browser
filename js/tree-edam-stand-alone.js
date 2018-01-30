@@ -24,12 +24,10 @@ function getTreeFile(branch){
         return "media/topic_extended.biotools.min.json";
 }
 
-function loadTree(branch_requested) {
+function loadTree(branch) {
     $("#edam-branches .branch").removeClass("active");
-    if (typeof branch_requested == "undefined"){
+    if (typeof branch == "undefined"){
         branch=getCookie("edam_browser_branch","topic");
-    }else{
-        branch=branch_requested;
     }
     $("#edam-branches .branch."+branch).addClass("active");
     setCookie("edam_browser_branch",branch);
@@ -112,8 +110,8 @@ function interactive_edam_browser(){
         details +=         '<div class="panel-heading">';
         details +=             '<h4 class="panel-title">';
         details +=                 '<a data-toggle="collapse" href="#collapse-'+identifier+'">Details of term "<span class="term-name-heading"></span>"</a>';
-        details +=                 '<a title="edit this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?term='+identifier+'"><span class="glyphicon glyphicon-pencil"></span></a>';
-        details +=                 '<a title="add a child to this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?parent='+identifier+'"><span class="glyphicon glyphicon-plus"></span></a>';
+        details +=                 '<a title="edit this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?term='+identifier+'&branch='+current_branch+'"><span class="glyphicon glyphicon-pencil"></span></a>';
+        details +=                 '<a title="add a child to this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?parent='+identifier+'&branch='+current_branch+'"><span class="glyphicon glyphicon-plus"></span></a>';
         details +=             '</h4>';
         details +=         '</div>';
         details +=         '<div id="collapse-'+identifier+'" class="panel-collapse collapse">';
