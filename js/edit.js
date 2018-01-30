@@ -1,7 +1,5 @@
-function fill_form(identifier, parent){
-    branch=getCookie("edam_browser_branch","topic");
+function fill_form(identifier, parent, branch){
     tree_file = getTreeFile(branch);
-    build_autocomplete(tree_file);
     build_autocomplete(tree_file);
     if(identifier){
         $('#pageTitle .new').hide();
@@ -112,7 +110,7 @@ uri = "";
 parent_uri=null;
 
 window.onload = function() {
-    fill_form(getUrlParameter('term'), getUrlParameter('parent'));
+    fill_form(getUrlParameter('term'), getUrlParameter('parent'), getUrlParameter('branch'));
 }
 
 function sendToGitHub(){
@@ -142,7 +140,7 @@ function sendToGitHub(){
             msg+="\n";
         }
     }
-    if($('#pageTitle .new:visible')){
+    if($('#pageTitle .new:visible').length>0){
         $("#sender [name=title]").val("[Edam Browser User] New child proposition for " + $("#id_parent").val());
     }else{
         $("#sender [name=title]").val("[Edam Browser User] Change proposition for " + uri);
