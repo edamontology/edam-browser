@@ -89,7 +89,7 @@ function join_if_exists(tab){
     if (typeof tab == "undefined"){
         return "";
     }
-    return tab.join('|');
+    return tab.join('; ');
 }
 function addParent(){
     var i = $(".search-term").length;
