@@ -80,6 +80,26 @@
                 ;
                 d3.select("#tree").call(my_tree); // draw chart in div
                 my_tree.data_url("media/topic_extended.biotools.min.json");
+                $("#simple-pre").append($(`<pre>
+window.onload = function() {
+    my_tree = interactive_tree()
+        //overriding as the identifier by default consider d.id
+        .identifierAccessor(function(d){return d.data.uri;})
+        .debug(true)
+        .tooltipEnabled(true)
+        //at first Bioinformatics should be selected
+        .initiallySelectedElementHandler(function(d){
+            return d.data.uri==="http://edamontology.org/topic_0091"
+        })
+        //call the demo (next step you see) when the tree have been loaded
+        .loadingDoneHandler(demo)
+    ;
+    // pre-draw/build chart in div
+    d3.select("#tree").call(my_tree);
+    //indicated where the data can be found
+    my_tree.data_url("media/topic_extended.biotools.min.json");
+}
+                </pre>`));
             }
         </script>
         <link href="css/tree-reusable-d3.css" rel="stylesheet">
