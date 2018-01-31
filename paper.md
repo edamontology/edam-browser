@@ -67,7 +67,7 @@ No form, nor link to the GitHub repository have been found in BioPortal and OLS 
 
 ##### Criteria 6 "Use edited version of EDAM "
 
-Edam ontology release a new version every trimester, the "in-developement" version can't be browser with BioPortal nor OLS without a volunteer submission of EDAM authors.
+Edam ontology release a new version every trimester, the "in-developement" version can't be browser with BioPortal. With OLS authors need to do a volunteer and public submission.
 
 ##### Criteria 7 "Local installation"
 
