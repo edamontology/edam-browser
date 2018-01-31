@@ -116,9 +116,7 @@ function interactive_tree() {
                 var nodeEnter = node.enter().append("svg:g")
                     .attr("class", "node")
                     .attr("transform", function(d) {
-                        if (typeof d.parent == "undefined" || d.parent == null)
-                            return "translate(0,0)";
-                        return "translate(" + d.parent.y + "," + d.parent.x + ")";
+                        return "translate(" + source.y0 + "," + source.x0 + ")";
                     })
                     .on("click", function(d,i) { handleClick(d);});
 
@@ -180,11 +178,7 @@ function interactive_tree() {
                 var nodeExit = node.exit().transition()
                     .duration(duration)
                     .attr("transform", function(d) {
-                        if (typeof d.source == "undefined" || d.source == null)
-                            var o = {x: source.x0, y: source.y0};
-                        else
-                            var o = d.source;
-                        return "translate(" + o.y + "," + o.x + ")";
+                        return "translate(" + source.y0 + "," + source.x0 + ")";
                      })
                     .remove();
 
@@ -211,11 +205,7 @@ function interactive_tree() {
                 link.enter().insert("svg:path", "g")
                     .attr("data-id", function(d) { return d.target.id; })
                     .attr("d", function(d) {
-                        if (typeof d.source == "undefined" || d.source == null)
-                            var o = {x: source.x0, y: source.y0};
-                        else
-                            var o = d.source;
-                        console.log(d);
+                        var o = {x: source.x0, y: source.y0};
                         return diagonal({source: o, target: o});
                     })
                     .attr("class","link");
@@ -460,6 +450,17 @@ function interactive_tree() {
         return hasSelectedDescendant;
     }//end of expandSelectedElement
 
+    function getFartherAncestorCollapsed(node){
+        var source=node;
+        var pointer=node;
+        while(pointer.parent){
+            if(pointer._children)
+                source=pointer;
+            pointer=pointer.parent;
+        }
+        return source
+    }//end of getFartherAncestorCollapsed
+
     //accessors
     function cmd() {
         return cmd;
@@ -480,8 +481,9 @@ function interactive_tree() {
      * @return cmd() itself
      */
     cmd.expandElement = function (identifier) {
+        var source=getFartherAncestorCollapsed(identifierToElement[identifier]);
         browseToFromElement(identifier, root, false, true);
-        update(root);
+        update(source);
         return cmd;
     };
     /**
@@ -492,12 +494,13 @@ function interactive_tree() {
      * @return cmd() itself
      */
     cmd.selectElement = function (identifier, status, andExpand) {
-        node=identifierToElement[identifier];
+        var node=identifierToElement[identifier];
+        var source=getFartherAncestorCollapsed(node);
         if (status)
             browseToFromElement(identifier, root, true, typeof andExpand == "undefined" || andExpand);
         else
             attemptToRemoveElement(node);
-        update(node);
+        update(source);
         return cmd;
     };
     /**
@@ -512,10 +515,11 @@ function interactive_tree() {
      * Ask to de-select all elements
      * @return cmd() itself
      */
-    cmd.clearSelectedElements = function (identifier) {
+    cmd.clearSelectedElements = function (redraw) {
         treeSelectedElement=[];
         refreshTreeSelectedElementAncestors();
-        update(root);
+        if(redraw!=false)
+            update(root);
         return cmd;
     };
     /**
@@ -546,6 +550,15 @@ function interactive_tree() {
     chart.height = function(value) {
         if (!arguments.length) return height;
         height = value;
+        return chart;
+    };
+    /**
+     * Accessor configuring the animation's duration
+     * @param {boolean} value
+     */
+    chart.duration = function(value) {
+        if (!arguments.length) return duration;
+        duration = value;
         return chart;
     };
     /**
@@ -631,7 +644,7 @@ function interactive_tree() {
                 treeSelectedElement=[];
                 treeSelectedElementAncestors=[];
                 root = json;
-                root.x0 = height / 2;
+                root.x0 = 0;
                 root.y0 = 0;
 
                 parenthood(root,null);
