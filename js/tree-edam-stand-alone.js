@@ -230,12 +230,12 @@ function interactive_edam_browser(){
             return d.data.uri;
         })
         .addingElementHandler(function(d){
-            tree.cmd.clearSelectedElements();
+            tree.cmd.clearSelectedElements(false);
             standAloneSelectedElementHandler(d,)
             return true;
         })
-        .loadingDoneHandler(function(){
-            tree.cmd.selectElement(getInitURI(current_branch),true,true);
+        .initiallySelectedElementHandler(function(d){
+            return d.data.uri === getInitURI(current_branch);
         })
         .debug(false)
         .use_shift_to_open(false)
