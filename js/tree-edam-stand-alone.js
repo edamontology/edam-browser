@@ -237,6 +237,9 @@ function interactive_edam_browser(){
         .initiallySelectedElementHandler(function(d){
             return d.data.uri === getInitURI(current_branch);
         })
+        .loadingDoneHandler(function(){
+            tree.cmd.selectElement(getInitURI(branch),true,true)
+        })
         .debug(false)
         .use_shift_to_open(false)
         .use_control_to_open(false)
