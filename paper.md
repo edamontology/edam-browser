@@ -31,19 +31,19 @@ bibliography: paper_resources/paper.bib
 
 ## Abstract
 
-Labelling, indexing and describing a resource, whether it is a software, a database, or a service is of a great help when it comes to promoting the resource in the search of a community adoption. As an example the bio.tools [@ison2015tools] registry contains more than ten thousands software and having a controlled vocabulary to describe the resources is of a paramount importance. This need is addressed by EDAM Ontology [@ison2013edam] which proposes a bioinformatics ontology, a controlled vocabulary hierarchically organized around four concepts which are types of data, formats, operations and topics.
+Labelling, indexing and describing a resource, whether it is a software, a database, or a service is of a great help when it comes to promoting it to various user communities. As an example, in Bioinformatics, the ELIXIR bio.tools [@ison2015tools] registry contains more than ten thousands software and service entries. In this context, the use of controlled vocabularies to describe the resources is of a paramount importance. This need is addressed by the EDAM Ontology [@ison2013edam] which proposes a controlled vocabulary hierarchically organized around four concepts which are types of data, formats, operations and topics.
 
-We here propose the EDAM Browser, a web-based visualization to help describing resource labeled by edam, and to help community contributing to EDAM Ontology itself. More precisely, (i) we review related work and features that need to be addressed; (ii) we describe how these features are addressed by the EDAM Browser; finally (iii) we discus its reusability.
+We here present the EDAM Browser, a client-side web-based visualization javascript widget to help describing resources, and to facilitate and foster community contributions to EDAM. More precisely, (i) we review related work and features that need to be addressed; (ii) we describe how these features are addressed by the EDAM Browser; finally (iii) we discuss its reusability.
 
 ## Related work
 
-When considering web based browser for ontology, there is two main platforms (i)BioPortal [@whetzel2011bioportal], and (ii) OLS - Ontology Lookup Service [@jupp2015new]. Here after we describe criteria and there presence absence in the platforms
+When considering web based browsers for ontologies, there are two main platforms (i)BioPortal [@whetzel2011bioportal], and (ii) OLS - Ontology Lookup Service [@jupp2015new]. Here after we describe criteria and there presence absence in the platforms
 
 | id | Feature        | in BioPortal           | in OLS  |
 | :-------:|----------- |:-------------:| :-----:|
 | 1 |EDAM is present         | ✔       |✔   |
 | 2 |Publicly available      | ✔       |  ✔|
-| 3 |Handle term duplication | ✘       |    ✔ |
+| 3 |Handle multiple parents | ✘       |    ✔ |
 | 4 |Can be integrated in any website | ✔       |    ✔ |
 | 5 |Help community contributing to the ontology | ✘       |    ✘ |
 | 6 |Use edited version of EDAM | ✘       |    ✘ |
@@ -53,9 +53,9 @@ When considering web based browser for ontology, there is two main platforms (i)
 
 Both platforms integrate EDAM and let not authenticated user browse it.
 
-##### Criteria 3 "Handle term duplication"
+##### Criteria 3 "Handle multiple parents"
 
-The Edam ontology, while being represented as a tree is a directed acyclic graph, meaning that a term have more than one parent. When searching for "Phylogeny" Topic, [BioPortal](http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2Ftopic_0084) display it at only one position whileauthentified [OLS](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Ftopic_0084) indicate that indeed the term is duplicated. 
+The Edam ontology, while being represented as a tree is a directed acyclic graph, meaning that a term can have more than one parent. When searching for "Phylogeny" Topic, [BioPortal](http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2Ftopic_0084) displays it at only one position while [OLS](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Ftopic_0084) indicates that indeed the term has multiple parents. 
 
 ##### Criteria 4 "Can be integrated in any website"
 
