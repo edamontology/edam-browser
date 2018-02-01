@@ -44,10 +44,10 @@ When considering web based browsers for ontologies, there are two main platforms
 | 1 |EDAM is present         | ✔       |✔   |
 | 2 |Publicly available      | ✔       |  ✔|
 | 3 |Handle multiple parents | ✘       |    ✔ |
-| 4 |Can be integrated in any website | ✔       |    ✔ |
-| 5 |Help community contributing to the ontology | ✘       |    ✘ |
+| 4 |Can be integrated in external websites | ✔       |    ✔ |
+| 5 |Facilitate community contribution | limited       |    ✘ |
 | 6 |Use edited version of EDAM | ✘       |    ✘ |
-| 7 |Local installation | ✘       |    ✔ (with admin rights) |
+| 7 |Local installation | ✔ (as a VM)       |    ✔ (with admin rights) |
 
 ##### Criteria 1 and 2
 
@@ -57,27 +57,25 @@ Both platforms integrate EDAM and let not authenticated user browse it.
 
 The Edam ontology, while being represented as a tree is a directed acyclic graph, meaning that a term can have more than one parent. When searching for "Phylogeny" Topic, [BioPortal](http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2Ftopic_0084) displays it at only one position while [OLS](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Ftopic_0084) indicates that indeed the term has multiple parents. 
 
-##### Criteria 4 "Can be integrated in any website"
+##### Criteria 4 "Can be integrated in external websites"
 
-Bioportal allows to integrate [widgets](http://bioportal.bioontology.org/ontologies/EDAM/?p=widgets) such as autocomplete form, graph visualization, and tree visualization. Widget for OLS can be found in [biojs](http://biojs.io) registry.
+Bioportal allows to integrate [widgets](http://bioportal.bioontology.org/ontologies/EDAM/?p=widgets) such as autocomplete form, graph visualization, and tree visualization. Widgets for OLS can be found in [biojs](http://biojs.io) registry.
 
-##### Criteria 5 "Help community contributing to the ontology"
+##### Criteria 5 "Facilitate community contributions"
 
-No form, nor link to the GitHub repository have been found in BioPortal and OLS to help community to contribute to the ontology by providing correction, modification, or new terms .
+BioPortal provides a custom suggestion and bug report mechanism that lets users provide feedback on the contents of the ontology. However, this mechanism, being generic to all ontologies, is not deeply integrated with the development forge used by each of them. OLS, on the other hand, provides only the possibility to contact the authors through email.
 
 ##### Criteria 6 "Use edited version of EDAM "
 
-Edam ontology release a new version every trimester, the "in-developement" version can't be browser with BioPortal. With OLS authors need to do a volunteer and public submission, the new version is then accessible within hours.
+Beyond the regular official releases of the EDAM ontology, the "in-developement" version can't be browsed with BioPortal nor OLS without a manual and public submission. The publication of submitted releases is usually processed within a few hours. 
 
 ##### Criteria 7 "Local installation"
 
-Installing locally OLS is [possible](https://www.ebi.ac.uk/ols/docs/installation-guide). Software requirements includes Maven, Neo4J, MongoDB, tomcat, Solr. The installation is thus only for user with administrator rights on their computer, and computers with a certain amount of resources. No local installation of BioPortal is possible to our knowledge.
+Installing locally OLS is [possible](https://www.ebi.ac.uk/ols/docs/installation-guide). Software requirements includes Maven, Neo4J, MongoDB, tomcat, Solr. The installation is thus only for user with administrator rights on their computer, and computers with a certain amount of resources. BioPortal, on the other hand, is available as a [virtual appliance](https://www.bioontology.org/wiki/index.php/Category:NCBO_Virtual_Appliance).
 
+## Main functionalities
 
-## Main functionality
-
-Is this section we details how each features listed in previous section are addressed.
-
+In this section, we present how each feature of the previous section is addressed in EDAM browser.
 
 ##### Criteria 1 and 2
 
