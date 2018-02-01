@@ -190,7 +190,7 @@ function interactive_edam_browser(){
 
         );
         $("#edamAccordion").find(".panel-group").first().find(".collapse").collapse("hide");
-        if($("#edamAccordion").find(".panel-group").length>1){
+        if($("#edamAccordion").find(".panel-group").length>0){
             $("#edamAccordion").prepend($("#history-separator").show());
         }
         $("#edamAccordion").prepend(details);
