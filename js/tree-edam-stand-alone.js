@@ -189,9 +189,12 @@ function interactive_edam_browser(){
         "."
 
         );
-        $("#edamAccordion").children().first().find(".collapse").collapse("hide");
+        $("#edamAccordion").find(".panel-group").first().find(".collapse").collapse("hide");
+        if($("#edamAccordion").find(".panel-group").length>1){
+            $("#edamAccordion").prepend($("#history-separator").show());
+        }
         $("#edamAccordion").prepend(details);
-        $("#edamAccordion").children().first().find(".collapse").collapse("show");
+        $("#edamAccordion").find(".panel-group").first().find(".collapse").collapse("show");
         return false;
     }
 
