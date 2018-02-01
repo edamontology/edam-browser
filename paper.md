@@ -55,7 +55,7 @@ Both platforms integrate EDAM and let not authenticated user browse it.
 
 ##### Criteria 3 "Handle multiple parents"
 
-The Edam ontology, while being represented as a tree is a directed acyclic graph, meaning that a term can have more than one parent. When searching for "Phylogeny" Topic, [BioPortal](http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2Ftopic_0084) displays it at only one position while [OLS](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Ftopic_0084) indicates that indeed the term has multiple parents. 
+The EDAM ontology, while being represented as a tree is a directed acyclic graph, meaning that a term can have more than one parent. When searching for "Phylogeny" Topic, [BioPortal](http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2Ftopic_0084) displays it at only one position while [OLS](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Ftopic_0084) indicates that indeed the term has multiple parents. 
 
 ##### Criteria 4 "Can be integrated in external websites"
 
@@ -65,9 +65,9 @@ Bioportal allows to integrate [widgets](http://bioportal.bioontology.org/ontolog
 
 BioPortal provides a custom suggestion and bug report mechanism that lets users provide feedback on the contents of the ontology. However, this mechanism, being generic to all ontologies, is not deeply integrated with the development forge used by each of them. OLS, on the other hand, provides only the possibility to contact the authors through email.
 
-##### Criteria 6 "Use edited version of EDAM "
+##### Criteria 6 "Use custom version of EDAM"
 
-Beyond the regular official releases of the EDAM ontology, the "in-developement" version can't be browsed with BioPortal nor OLS without a manual and public submission. The publication of submitted releases is usually processed within a few hours. 
+Beyond the regular official releases of the EDAM ontology, the "in-developement" version cannot be browsed with BioPortal nor OLS without a manual and public submission. The publication of submitted releases is usually processed within a few hours.
 
 ##### Criteria 7 "Local installation"
 
@@ -75,25 +75,25 @@ Installing locally OLS is [possible](https://www.ebi.ac.uk/ols/docs/installation
 
 ## Main functionalities
 
-In this section, we present how each feature of the previous section is addressed in EDAM browser.
+In this section, we present how each feature of the previous section is addressed in EDAM Browser.
 
 ##### Criteria 1 and 2
 
-The EDAM Browser is publicly (criteria 1) and does not require authentication (criteria 2). 
+The EDAM Browser is publicly available (criteria 1) and does not require authentication (criteria 2). 
 
 ##### Criteria 3
 
-The term duplication is [handled](https://ifb-elixirfr.github.io/edam-browser/#topic_0084). In order to improve readability when a term is selected (1) all it duplicates are; and (2) path from the root node is highlighted to all selected terms.
+Multiple parents are handled (see for [instance](https://ifb-elixirfr.github.io/edam-browser/#topic_0084)). In order to improve readability when a term is selected (1) all the term's positions are shown; and (2) all paths from the root node are highlighted.
 
-![The term Phylogeny is have two parents](paper_resources/topics_tree_phylogeny.png)
+![The term Phylogeny has two parents](paper_resources/topics_tree_phylogeny.png)
 
 ##### Criteria 4
 
-The ability to integrate the EDAM Browser, and its tree representation is of a paramount importance to help third part website to promote their resources when labeled with edam. Both the autocomplete inout field and the tree  visualization are re-usable. To highlight this statement we build up a dynamic [demo](https://ifb-elixirfr.github.io/edam-browser/demo.html) showing how it can be integrated, how the user can  interact with the tree, and how programatically any script can interact with the tree. 
+The ability to integrate the EDAM Browser, and its tree representation is major requirement, in order to help third party websites promoting their resources when labeled with EDAM. Both the autocomplete input field and the tree visualization are re-usable. To highlight this statement we propose a dynamic [demo](https://ifb-elixirfr.github.io/edam-browser/demo.html) showing how it can be integrated, how the user can  interact with the tree, and how to programmaticaly interact with the tree in Javascript. 
 
 ##### Criteria 5
 
-Letting user contribute to the ontology improve acceptance by the community by letting him/her propose changes to the ontology. By contribution we mean correcting a definition, proposing new synonyms, and also proposing new terms. The EDAM Browser give access to a form letting the user propose the changes and then format his/her changes in a github issue ready to be submitted by the user. 
+Letting users contribute to the ontology improves acceptance by the community by letting them propose changes to the ontology. By contribution, we mean correction of definitions, proposition of new synonyms, or even new terms. The EDAM Browser gives access to a form letting the user propose the changes and then format his/her changes in a github issue ready to be submitted by the user. 
 
 ![The edition form](paper_resources/edition_form.png)
 
@@ -101,7 +101,7 @@ Letting user contribute to the ontology improve acceptance by the community by l
 
 ##### Criteria 6
 
-Using the EDAM Browser to explore an custom ontology is possible, the ontology should be in the following [json schema](http://json-schema.org/), and be accessible trough http. The user only have to open the EDAM Browser, click on the plus sign in the top of it interface and provide the url where the ontology file can be found.
+Using the EDAM Browser to explore an custom ontology is possible, the ontology should be in the following [json schema](http://json-schema.org/), and be accessible trough http. The user only have to open the EDAM Browser, click on the plus sign button at the top of it interface and provide the url where the ontology file can be found.
 
 
 ```json
@@ -140,16 +140,16 @@ Using the EDAM Browser to explore an custom ontology is possible, the ontology s
 
 ##### Criteria 7
 
-The EDAM Browser can easily be downloaded and run a the personal computer. The only requirement is python, though that git is helpful.
-Once downloaded, the user can also use a custom version of the  ontology, including beta version of the next release or whole new ontology. By default, ontology should be in the [json schema](http://json-schema.org/) presented previously, but the browser can be configured to use a different schema (c.f: hereafter). A validator is available [here](https://jsonschemalint.com/).
+The EDAM Browser can easily be downloaded and run on a personal computer. The only requirement is python.
+Once downloaded, the user can also use a custom version of the ontology, including beta version of the next release or a whole new ontology. By default, ontology should be in the [json schema](http://json-schema.org/) presented previously, but the browser can be configured to use a different schema (c.f: hereafter). A validator is available [here](https://jsonschemalint.com/).
 
 ## Reusability
 
-The tree based visualization of the EDAM Browser uses [d3.js](https://d3js.org/) v3 [d3js]. In order to make the tree re-usable we  used [Javascript Closures](http://jibbering.com/faq/notes/closures/) following 
+The tree-based visualization of the EDAM Browser uses [d3.js](https://d3js.org/) v3 [d3js]. In order to make the tree re-usable we used [Javascript Closures](http://jibbering.com/faq/notes/closures/) following 
 [Towards Updatable D3.js Charts](https://www.toptal.com/d3-js/towards-reusable-d3-js-charts)  and
-[Towards Reusable Charts](https://bost.ocks.org/mike/chart/). It allows us to have encapsulated chart easily parameterizable. 
+[Towards Reusable Charts](https://bost.ocks.org/mike/chart/). It allows us to create encapsulated charts which are easily customizable. 
 
-The following example comes from the demo and shows how  to visualize the ontology at `media/topic_extended.biotools.min.json` in the div `#tree` with the `Bioinformatics` term initially selected. Note that as the format of the file does not follow the recommendation, we have to override the  getter to access to the identifier.
+The following example comes from the demo and shows how  to visualize the ontology at `media/topic_extended.biotools.min.json` in the div `#tree` with the `Bioinformatics` term initially selected. Note that as the format of the file does not follow the recommendation, we have to override one of the getters to access the identifier.
 
 ```javascript
 my_tree = interactive_tree()
@@ -173,6 +173,6 @@ my_tree.data_url("media/topic_extended.biotools.min.json");
 
 ## Conclusion
 
-Labeling and indexing resources is of a paramount importance to improve visibility and adption by the targeted  community. We here presented the EDAM Browser which allows user to browse the ontology, and resource owner to  easily display the terms used to label the resource. We enumerated 7 major features and showed that state of the art web based ontology browser does not provide all of them while EDAM Browser does. Finally we described how it can be easily re-used in any third part website.
+We here presented the EDAM Browser, which allows users to browse this ontology, and resource owners to easily display the terms used to label the resource. We enumerated seven major features and showed that state of the art web based ontology browsers do not provide all of them while EDAM Browser does. Finally we described how it can be easily re-used in any third part website.
 
 # References
