@@ -52,3 +52,15 @@ jQuery.ui.autocomplete.prototype._resizeMenu = function () {
   var ul = this.menu.element;
   ul.outerWidth(this.element.outerWidth());
 }
+
+function setUrlParameters(serializedParameters){
+    if(typeof serializedParameters=="undefined")
+        serializedParameters="";
+    var new_url = window.location.protocol
+                + "//"
+                + window.location.host
+                + window.location.pathname
+                + (serializedParameters===""?"":"?"+serializedParameters)
+                + window.location.hash;
+    window.history.pushState({path:new_url},'',new_url);
+}

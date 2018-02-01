@@ -9,6 +9,8 @@ function getInitURI(branch){
         return getCookie("edam_browser_"+branch,"http://edamontology.org/operation_2451");
     if(branch == "topic")
         return getCookie("edam_browser_"+branch,"http://edamontology.org/topic_0091");
+    if(branch == "custom")
+        return getCookie("edam_browser_"+branch,"");
 }
 
 function getTreeFile(branch){
@@ -22,6 +24,8 @@ function getTreeFile(branch){
         return "media/operation_extended.biotools.min.json";
     if(branch == "topic")
         return "media/topic_extended.biotools.min.json";
+    if(branch == "custom")
+        return getCookie("edam_browser_"+branch+"_url",);
 }
 
 function loadTree(branch) {
@@ -102,7 +106,10 @@ function interactive_edam_browser(){
     function standAloneSelectedElementHandler (d, do_not_open){
         setCookie("edam_browser_"+current_branch, d.data.uri);
         var identifier=d.data.uri.substring(d.data.uri.lastIndexOf('/')+1);
-        window.location.hash = identifier+ (current_branch=="deprecated"?"&deprecated":"");
+        window.location.hash = identifier+ (current_branch=="deprecated"?"&deprecated":"")+ (current_branch=="custom"?"&custom":"");
+        if(current_branch!="custom" && window.location.search){
+            setUrlParameters("");
+        }
         $("#details-"+identifier).remove();
         details = "";
         details += '<div class="panel-group" id="details-'+identifier+'">';
@@ -222,12 +229,10 @@ function interactive_edam_browser(){
         return id;
     }
     var tree = interactive_tree()
-        .identifierAccessor(function(d){
-            return d.data.uri;
-        })
+        .identifierAccessor(identifierAccessorEDAM)
         .clickedElementHandler(function(d){
-            tree.cmd.selectElement(d.data.uri,true,true)
-            return d.data.uri;
+            tree.cmd.selectElement(tree.identifierAccessor()(d),true,true)
+            return tree.identifierAccessor()(d);
         })
         .addingElementHandler(function(d){
             tree.cmd.clearSelectedElements(false);
@@ -235,10 +240,10 @@ function interactive_edam_browser(){
             return true;
         })
         .initiallySelectedElementHandler(function(d){
-            return d.data.uri === getInitURI(current_branch);
+            return tree.identifierAccessor()(d) === getInitURI(current_branch);
         })
         .loadingDoneHandler(function(){
-            tree.cmd.selectElement(getInitURI(branch),true,true)
+            tree.cmd.selectElement(getInitURI(current_branch),true,true)
         })
         .debug(false)
         .use_shift_to_open(false)
@@ -249,6 +254,22 @@ function interactive_edam_browser(){
         .use_alt_to_add(false)
     ;
     return tree;
+}
+
+function identifierAccessorDefault(d){
+    return d.id;
+}
+
+function identifierAccessorEDAM(d){
+    return d.data.uri;
+}
+
+function textAccessorDefault(d){
+    return d.text;
+}
+
+function textAccessorEDAM(d){
+    return d.name;
 }
 
 function build_autocomplete(tree_file, elt){
@@ -309,4 +330,27 @@ function build_autocomplete(tree_file, elt){
             $(elt).prop('disabled',false);
         }
     });
+}
+
+function selectCustom(){
+    branch="custom";
+    $("#id_url").val(getCookie("edam_browser_"+branch+"_url",""));
+    $("[name=identifier_accessor][value='"+getCookie("edam_browser_"+branch+"_identifier_accessor","")+"']").prop("checked",true);
+    $("[name=text_accessor][value='"+getCookie("edam_browser_"+branch+"_text_accessor","")+"']").prop("checked",true);
+    $("#myModal").modal('show');
+}
+
+function loadCustom(){
+    var from=$("form")[0];
+    if(!from.checkValidity()){
+        $(from).find("[type=submit]").click()
+        return;
+    }
+    setUrlParameters($(from).serialize());
+    branch="custom";
+    setCookie("edam_browser_"+branch+"_url", getUrlParameter("url"));
+    setCookie("edam_browser_"+branch+"_identifier_accessor", getUrlParameter("identifier_accessor"));
+    setCookie("edam_browser_"+branch+"_text_accessor", getUrlParameter("text_accessor"));
+    $("#myModal").modal('hide');
+    loadTree(branch);
 }

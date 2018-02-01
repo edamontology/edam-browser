@@ -495,6 +495,8 @@ function interactive_tree() {
      */
     cmd.selectElement = function (identifier, status, andExpand) {
         var node=identifierToElement[identifier];
+        if (typeof node == "undefined")
+            return cmd;
         var source=getFartherAncestorCollapsed(node);
         if (status)
             browseToFromElement(identifier, root, true, typeof andExpand == "undefined" || andExpand);
