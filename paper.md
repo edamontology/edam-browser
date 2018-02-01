@@ -67,7 +67,7 @@ No form, nor link to the GitHub repository have been found in BioPortal and OLS 
 
 ##### Criteria 6 "Use edited version of EDAM "
 
-Edam ontology release a new version every trimester, the "in-developement" version can't be browser with BioPortal. With OLS authors need to do a volunteer and public submission.
+Edam ontology release a new version every trimester, the "in-developement" version can't be browser with BioPortal. With OLS authors need to do a volunteer and public submission, the new version is then accessible within hours.
 
 ##### Criteria 7 "Local installation"
 
@@ -76,7 +76,7 @@ Installing locally OLS is [possible](https://www.ebi.ac.uk/ols/docs/installation
 
 ## Main functionality
 
-Is this section we first details how each features listed in previous section are addressed.
+Is this section we details how each features listed in previous section are addressed.
 
 
 ##### Criteria 1 and 2
@@ -142,8 +142,8 @@ Using the EDAM Browser to explore an custom ontology is possible, the ontology s
 
 ##### Criteria 7
 
-The EDAM Browser can easily be downloaded and run a the personal computer. The only requirement is python.
-The user can then use custom version of the  ontology, including beta version of the next release or whole new ontology. By default, ontology should be in the [json schema](http://json-schema.org/) presented previously, but the browser can be configured to use a different schema (c.f: hereafter). A validator is available [here](https://jsonschemalint.com/).
+The EDAM Browser can easily be downloaded and run a the personal computer. The only requirement is python, though that git is helpful.
+Once downloaded, the user can also use a custom version of the  ontology, including beta version of the next release or whole new ontology. By default, ontology should be in the [json schema](http://json-schema.org/) presented previously, but the browser can be configured to use a different schema (c.f: hereafter). A validator is available [here](https://jsonschemalint.com/).
 
 ## Reusability
 
@@ -151,7 +151,7 @@ The tree based visualization of the EDAM Browser uses [d3.js](https://d3js.org/)
 [Towards Updatable D3.js Charts](https://www.toptal.com/d3-js/towards-reusable-d3-js-charts)  and
 [Towards Reusable Charts](https://bost.ocks.org/mike/chart/). It allows us to have encapsulated chart easily parameterizable. 
 
-The following example comes from the demo and shows how  to visualize the ontology at `media/topic_extended.biotools.min.json` in the div `#tree` with the `Bioinformatics` term initially selected. Note that as the format of the file does not follow the recommendation, we override the  getter to the identifier.
+The following example comes from the demo and shows how  to visualize the ontology at `media/topic_extended.biotools.min.json` in the div `#tree` with the `Bioinformatics` term initially selected. Note that as the format of the file does not follow the recommendation, we have to override the  getter to access to the identifier.
 
 ```javascript
 my_tree = interactive_tree()
