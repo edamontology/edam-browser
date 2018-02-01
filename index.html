@@ -1,77 +1,87 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
-    <head>
-        <title>EDAM ontology browser</title>
-        <link rel="icon" type="image/png" href="favicon.ico" />
-       <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
-        <script
-  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-  crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js" integrity="sha256-dsOXGNHAo/syFnazt+KTBsCQeRmlcW1XKL0bCK4Baec=" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="css/bootstrap.xl.css"/>
-        <script src="js/utils.js"></script>
-        <script src="js/tree-reusable-d3.js"></script>
-        <script src="js/tree-edam-stand-alone.js"></script>
-        <script src="js/bio.tools.api.js"></script>
-        <script src="js/tess.api.js"></script>
-        <script src="js/bioweb.api.js"></script>
-        <script src="js/index.js"></script>
-        <script src="js/tree-reusable-d3.js"></script>
-        <link href="css/tree-reusable-d3.css" rel="stylesheet">
-    </head>
-    <body>
-        <div class="container-fluid">
-        <div class="page-header row">
-            <div class="col-xs-12 col-sm-12 col-md-4">
-                <h1 id="pageTitle">EDAM ontology</h1>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-4">
-                <h1 class="no-icon">
-                    <div class="btn-group" role="group" id="edam-branches" style="z-index:1;vertical-align: bottom;">
-                        <a type="button" class="btn btn-default branch data" onclick="loadTree('data')">Data</a>
-                        <a type="button" class="btn btn-default branch format" onclick="loadTree('format')">Format</a>
-                        <a type="button" class="btn btn-default branch operation" onclick="loadTree('operation')">Operation</a>
-                        <a type="button" class="btn btn-default branch topic" onclick="loadTree('topic')">Topic</a>
-                        <a type="button" class="btn btn-default branch deprecated" onclick="loadTree('deprecated')">Deprecated</a>
-                        <a type="button" class="btn btn-default branch custom" onclick="loadCustom()" title="Load a custom ontology"><i class="glyphicon glyphicon-plus"></i></a>
-                    </div>
-                </h1>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-4">
-                <h1 class="no-icon">
-                    <div class="btn-group" role="group" style="width: 100%;z-index:1">
-                        <input
-                                type="text"
-                                tabindex="1"
-                                class="form-control ui-autocomplete-input search-term"
-                                placeholder="Type at least 2 letters"
-                                onclick="$(this).select();"
-                        >
-                    </div>
-                </h1>
-            </div>
-            <div class="col-xs-12">
-                <h4>EDAM is a simple ontology of well established, familiar concepts that are prevalent within bioinformatics [<a target="_blank" href="http://edamontology.org/">edamontology.org</a>]</h4>
-            </div>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title>EDAM ontology browser</title>
+    <link rel="icon" type="image/png" href="favicon.ico"/>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
+    <script
+            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"
+            integrity="sha256-dsOXGNHAo/syFnazt+KTBsCQeRmlcW1XKL0bCK4Baec=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/bootstrap.xl.css"/>
+    <script src="js/utils.js"></script>
+    <script src="js/tree-reusable-d3.js"></script>
+    <script src="js/tree-edam-stand-alone.js"></script>
+    <script src="js/bio.tools.api.js"></script>
+    <script src="js/tess.api.js"></script>
+    <script src="js/bioweb.api.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/tree-reusable-d3.js"></script>
+    <link href="css/tree-reusable-d3.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="page-header row">
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <h1 id="pageTitle">EDAM ontology</h1>
         </div>
-            <div class="content row" id="main">
+        <div class="col-xs-6 col-sm-6 col-md-4">
+            <h1 class="no-icon">
+                <div class="btn-group" role="group" id="edam-branches" style="z-index:1;vertical-align: bottom;">
+                    <a type="button" class="btn btn-default branch data" onclick="loadTree('data')">Data</a>
+                    <a type="button" class="btn btn-default branch format" onclick="loadTree('format')">Format</a>
+                    <a type="button" class="btn btn-default branch operation"
+                       onclick="loadTree('operation')">Operation</a>
+                    <a type="button" class="btn btn-default branch topic" onclick="loadTree('topic')">Topic</a>
+                    <a type="button" class="btn btn-default branch deprecated" onclick="loadTree('deprecated')">Deprecated</a>
+                    <a type="button" class="btn btn-default branch custom" onclick="loadCustom()"
+                       title="Load a custom ontology"><i class="glyphicon glyphicon-plus"></i></a>
+                </div>
+            </h1>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4">
+            <h1 class="no-icon">
+                <div class="btn-group" role="group" style="width: 100%;z-index:1">
+                    <input
+                            type="text"
+                            tabindex="1"
+                            class="form-control ui-autocomplete-input search-term"
+                            placeholder="Type at least 2 letters"
+                            onclick="$(this).select();"
+                    >
+                </div>
+            </h1>
+        </div>
+        <div class="col-xs-12">
+            <h4>EDAM is a simple ontology of well established, familiar concepts that are prevalent within
+                bioinformatics [<a target="_blank" href="http://edamontology.org/">edamontology.org</a>]</h4>
+        </div>
+    </div>
+    <div class="content row" id="main">
         <div class="col-xs-12 col-lg-6">
             <div class="panel panel-default">
                 <div id="tree" class="d3js-tree-container"></div>
             </div>
-            <button type="button" class="btn btn-default pull-right" onclick="my_tree.cmd.collapseNotSelectedElement();">Collapse not selected elements</button>
+            <button type="button" class="btn btn-default pull-right"
+                    onclick="my_tree.cmd.collapseNotSelectedElement();">Collapse not selected elements
+            </button>
         </div>
         <div class="col-xs-12 col-lg-6" id="edamAccordion"></div>
-        <div class="col-xs-12 pull-right"><div class="pull-right">Current version: ?</div></div>
-            </div>
+        <div class="col-xs-12 pull-right">
+            <div class="pull-right">Current version: ?</div>
         </div>
-        </div>
-    </body>
+    </div>
+</div>
+</body>
 </html>
