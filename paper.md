@@ -101,7 +101,7 @@ Letting users contribute to the ontology improves acceptance by the community by
 
 ##### Criteria 6
 
-Using the EDAM Browser to explore an custom ontology is possible, the ontology should be in the following [json schema](http://json-schema.org/), and be accessible trough http. The user only have to open the EDAM Browser, click on the plus sign button at the top of it interface and provide the url where the ontology file can be found.
+Using the EDAM Browser to explore an custom ontology is possible, the ontology should be in the following [schema](ontology.schema.json) (c.f: [json schema](http://json-schema.org/)), and be accessible trough http. The user only have to open the EDAM Browser, click on the plus sign button at the top of it interface and provide the url where the ontology file can be found.
 
 
 ```json

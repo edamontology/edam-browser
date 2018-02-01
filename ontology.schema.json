@@ -1,0 +1,31 @@
+{
+    "$ref": "#/definitions/EDAMBrowserTerm",
+    "definitions": {
+        "EDAMBrowserTerm": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/EDAMBrowserTerm"
+                    }
+                }
+            },
+            "required": [
+                "id",
+                "text"
+            ],
+            "title": "EDAMBrowserTerm"
+        }
+    }
+}
