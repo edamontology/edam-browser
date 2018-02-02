@@ -13,6 +13,7 @@ function interactive_tree() {
         clickedElementHandler = function(d){if(debug)console.log(identifierAccessor(d))},
         removingElementHandler = voidHandler("removingElementHandler"),
         loadingDoneHandler = voidHandler("loadingDoneHandler"),
+        metaInformationHandler = voidHandler("metaInformationHandler"),
         removeElementsWithNoSelectedDescendant = false,
         identifierAccessor=function(d){return d.id;},
         textAccessor=function(d) {
@@ -646,6 +647,7 @@ function interactive_tree() {
                 treeSelectedElement=[];
                 treeSelectedElementAncestors=[];
                 root = json;
+                metaInformationHandler(root.meta)
                 root.x0 = 0;
                 root.y0 = 0;
 
@@ -744,6 +746,15 @@ function interactive_tree() {
     chart.loadingDoneHandler = function(value) {
         if (!arguments.length) return loadingDoneHandler;
         loadingDoneHandler = value;
+        return chart;
+    };
+    /**
+     * Accessor to the method launch when a tree is being loaded with the meta information fetched from the root element
+     * @param {function} value - an implementation of function (meta){...}
+     */
+    chart.metaInformationHandler = function(value) {
+        if (!arguments.length) return metaInformationHandler;
+        metaInformationHandler = value;
         return chart;
     };
     /**

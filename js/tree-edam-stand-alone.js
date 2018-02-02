@@ -231,6 +231,17 @@ function interactive_edam_browser(){
         $("<tr><th>"+name+"</th><td class=\""+id+"\">"+interactive_edam_uri(value)+"</td></tr>").appendTo(table);
         return id;
     }
+
+    function metaInformationHandler(meta){
+        if (typeof meta == "undefined"){
+            $("#version").html("<i>n/a</i>");
+            $("#release_date").html("<i>n/a</i>");
+            return;
+        }
+        $("#version").html(meta.version);
+        $("#release_date").html(meta.date);
+    }
+
     var tree = interactive_tree()
         .identifierAccessor(identifierAccessorEDAM)
         .clickedElementHandler(function(d){
@@ -248,6 +259,7 @@ function interactive_edam_browser(){
         .loadingDoneHandler(function(){
             tree.cmd.selectElement(getInitURI(current_branch),true,true)
         })
+        .metaInformationHandler(metaInformationHandler)
         .debug(false)
         .use_shift_to_open(false)
         .use_control_to_open(false)

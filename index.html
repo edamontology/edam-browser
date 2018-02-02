@@ -34,11 +34,11 @@
 <body>
 <div class="container-fluid">
     <div class="page-header row">
-        <div class="col-xs-12 col-sm-12 col-md-4">
+        <div class="col-xs-12 col-lg-3">
             <h1 id="pageTitle">EDAM ontology</h1>
         </div>
-        <div class="col-xs-6 col-sm-6 col-md-4">
-            <h1 class="no-icon">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5">
+            <h1 class="no-icon text-center">
                 <div class="btn-group" role="group" id="edam-branches" style="z-index:1;vertical-align: bottom;">
                     <a type="button" class="btn btn-default branch data" onclick="loadTree('data')">Data</a>
                     <a type="button" class="btn btn-default branch format" onclick="loadTree('format')">Format</a>
@@ -54,8 +54,8 @@
                 </div>
             </h1>
         </div>
-        <div class="col-xs-6 col-sm-6 col-md-4">
-            <h1 class="no-icon">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+            <h1 class="no-icon text-center">
                 <div class="btn-group" role="group" style="width: 100%;z-index:1">
                     <input
                             type="text"
@@ -77,17 +77,22 @@
             <div class="panel panel-default">
                 <div id="tree" class="d3js-tree-container"></div>
             </div>
-            <button type="button" class="btn btn-default pull-right"
+            <button type="button" class="btn btn-default"
                     onclick="my_tree.cmd.collapseNotSelectedElement();">Collapse not selected elements
             </button>
+            <div class="pull-right">
+                <dl class="dl-horizontal">
+                    <dt>Current version</dt>
+                    <dd id="version"></dd>
+                    <dt>Release date</dt>
+                    <dd id="release_date"></dd>
+                </dl>
+            </div>
         </div>
         <div class="col-xs-12 col-lg-6" id="edamAccordion">
             <div id="history-separator" class="panel-separator" style="display:none">
                 Previsouly seen:
             </div>
-        </div>
-        <div class="col-xs-12 pull-right">
-            <div class="pull-right">Current version: ?</div>
         </div>
     </div>
 </div>

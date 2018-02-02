@@ -9,7 +9,12 @@ window.onload = function() {
         setCookie("edam_browser_"+branch+"_identifier_accessor", getUrlParameter("identifier_accessor"));
         setCookie("edam_browser_"+branch+"_text_accessor", getUrlParameter("text_accessor"));
         if(window.location.hash) {
-            setCookie("edam_browser_"+branch,"http://edamontology.org/"+window.location.hash.substring(1));
+            var id = window.location.hash.substring(1);
+            pos = id.lastIndexOf('&');
+            if (pos!=-1){
+                id=id.substring(0,pos);
+            }
+            setCookie("edam_browser_"+branch,"http://edamontology.org/"+id);
         }
     }else
     if(window.location.hash) {
