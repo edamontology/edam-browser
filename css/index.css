@@ -6,7 +6,7 @@
 .page-header{
     margin-top:0;
 }
-.meta-info *{
+.meta-info>*{
     font-size:0;
     color:white;
     -webkit-transition: color 0.3s, font-size 0.3s;
@@ -18,7 +18,7 @@
     font-size:inherit;
     color:inherit;
 }
-.meta-info:hover *{
+.meta-info:hover>*{
     font-size:inherit;
     color:inherit;
 }

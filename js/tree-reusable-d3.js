@@ -665,6 +665,10 @@ function interactive_tree() {
         if (!arguments.length) return data_url;
         data_url = value;
         d3.json(value, function(json) {
+                if(typeof json["meta"]=="undefined"){
+                    json["meta"]={};
+                }
+                json["meta"]["data_url"]=data_url;
                 chart.data(json)
             }
         );

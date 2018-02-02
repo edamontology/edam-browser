@@ -9,7 +9,9 @@ function getInitURI(branch){
         return getCookie("edam_browser_"+branch,"http://edamontology.org/operation_2451");
     if(branch == "topic")
         return getCookie("edam_browser_"+branch,"http://edamontology.org/topic_0091");
-    if(branch == "custom")
+    if(branch == "custom_file")
+        return getCookie("edam_browser_"+branch,"");
+    if(branch == "custom_url")
         return getCookie("edam_browser_"+branch,"");
 }
 
@@ -24,21 +26,27 @@ function getTreeFile(branch){
         return "media/operation_extended.biotools.min.json";
     if(branch == "topic")
         return "media/topic_extended.biotools.min.json";
-    if(branch == "custom")
+    if(branch == "custom_url")
         return getCookie("edam_browser_"+branch+"_url",);
+    return ""
 }
 
-function loadTree(branch) {
+function loadTree(branch,tree) {
     $("#edam-branches .branch").removeClass("active");
     if (typeof branch == "undefined"){
         branch=getCookie("edam_browser_branch","topic");
     }
     $("#edam-branches .branch."+branch).addClass("active");
     setCookie("edam_browser_branch",branch);
-    tree_file=getTreeFile(branch);
     current_branch=branch;
-    build_autocomplete(tree_file);
-    my_tree.data_url(tree_file);
+    tree_file=getTreeFile(branch);
+    if(tree_file==""){
+        build_autocomplete_from_tree(tree)
+        my_tree.data(tree);
+    }else{
+        build_autocomplete(tree_file);
+        my_tree.data_url(tree_file);
+    }
 }
 
 function interactive_edam_browser(){
@@ -106,8 +114,8 @@ function interactive_edam_browser(){
     function standAloneSelectedElementHandler (d, do_not_open){
         setCookie("edam_browser_"+current_branch, d.data.uri);
         var identifier=d.data.uri.substring(d.data.uri.lastIndexOf('/')+1);
-        window.location.hash = identifier+ (current_branch=="deprecated"?"&deprecated":"")+ (current_branch=="custom"?"&custom":"");
-        if(current_branch!="custom" && window.location.search){
+        window.location.hash = identifier+ (current_branch=="deprecated"?"&deprecated":"")+ (current_branch.substring(0,6)=="custom"?"&"+current_branch:"");
+        if(current_branch!="custom_url" && window.location.search){
             setUrlParameters("");
         }
         $("#details-"+identifier).remove();
@@ -248,10 +256,14 @@ function interactive_edam_browser(){
         if (typeof meta == "undefined"){
             $("#version").html("<i>n/a</i>");
             $("#release_date").html("<i>n/a</i>");
+            $("#meta_data_url").html("<i>n/a</i>");
             return;
         }
         $("#version").html(meta.version);
         $("#release_date").html(meta.date);
+        $("#meta_data_url").attr("href", meta.data_url).add("[for=meta_data_url]").toggle(typeof meta.data_url != "undefined");
+        $("#meta_data_file").attr("href", meta.data_file).add("[for=meta_data_file]").toggle(typeof meta.data_file != "undefined");
+//        $("#meta_data_filename").attr("href", meta.data_filename).visible(typeof meta.data_filename != "undefined");
     }
 
     var tree = interactive_tree()
@@ -301,85 +313,46 @@ function textAccessorEDAM(d){
     return d.name;
 }
 
-function build_autocomplete(tree_file, elt){
-    if(typeof elt == "undefined"){
-        elt='.search-term';
-    }
-    $(elt).prop('disabled',true);
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        url:tree_file,
-        data: {},
-        success: function (data, textStatus, xhr) {
-            var source = [];
-            var source_dict = {};
-            function traverse(node) {
-                candidate={
-                    value : node.text,
-                    key : node.data.uri.substring(node.data.uri.lastIndexOf('/')+1),
-                    node : node,
-                }
-                source_dict[candidate.key] = candidate;
-                if (node.children) {
-                    $.each(node.children, function(i, child) {
-                         traverse(child);
-                    });
-                }
-            }
-            traverse(data);
-            for (var key in source_dict){
-                source.push(source_dict[key]);
-            }
-            $(elt).autocomplete({
-                source : source,
-                minLength: 2,
-                select : function(event, ui){ // lors de la sélection d'une proposition
-                    $(event.target).attr("data-selected",ui.item.node.data.uri);
-                    if (typeof tree != "undefined"){
-                        my_tree.cmd.selectElement(ui.item.node.data.uri,true);
-                    }
-                }
-            })
-            .autocomplete( "instance" )._renderItem = function( ul, item ) {
-                var branch = item.key.substring(0,item.key.indexOf("_"));
-                  return $( "<li>" )
-                    .append(
-                        "<div class=\"autocomplete-entry\">"+
-                        "<b>" + item.node.text + "</b>"+
-                        " ("+item.key+")"+
-                        "<span class=\"label label-info pull-right\">"+branch+"</span>"+
-                        "<br>"+
-                        "<small>"+
-                        item.node.definition+
-                        "</small>"+
-                        "</div>" )
-                    .appendTo( ul );
-            };
-            $(elt).prop('disabled',false);
-        }
-    });
-}
-
 function selectCustom(){
     branch="custom";
-    $("#id_url").val(getCookie("edam_browser_"+branch+"_url",""));
     $("[name=identifier_accessor][value='"+getCookie("edam_browser_"+branch+"_identifier_accessor","")+"']").prop("checked",true);
     $("[name=text_accessor][value='"+getCookie("edam_browser_"+branch+"_text_accessor","")+"']").prop("checked",true);
     $("#myModal").modal('show');
 }
 
 function loadCustom(){
+    var branch;
     var from=$("form")[0];
     if(!from.checkValidity()){
         $(from).find("[type=submit]").click()
         return;
     }
     setUrlParameters($(from).serialize());
-    branch="custom";
+    if(typeof getUrlParameter("url")=="undefined")
+        branch="custom_file";
+    else
+        branch="custom_url";
     setCookie("edam_browser_"+branch+"_url", getUrlParameter("url"));
     setCookie("edam_browser_"+branch+"_identifier_accessor", getUrlParameter("identifier_accessor"));
     setCookie("edam_browser_"+branch+"_text_accessor", getUrlParameter("text_accessor"));
     $("#myModal").modal('hide');
-    loadTree(branch);
+    if(branch=="custom_url"){
+        loadTree(branch);
+        return;
+    }
+    var reader = new FileReader();
+    var file=$("#id_file")[0].files[0];
+    reader.readAsText(file);
+    reader.onload = function(event) {
+        json = JSON.parse(event.target.result);
+        if(typeof json["meta"]=="undefined"){
+            json["meta"]={};
+        }
+        json["meta"]["data_file"]=file.name;
+        json["meta"]["date"]=file.lastModifiedDate.toLocaleString();
+        loadTree(branch, json);
+    };
+    reader.onerror = function() {
+        alert('Unable to read ' + file.fileName);
+    };
 }

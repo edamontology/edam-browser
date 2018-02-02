@@ -28,6 +28,7 @@
     <script src="js/bioweb.api.js"></script>
     <script src="js/index.js"></script>
     <script src="js/tree-reusable-d3.js"></script>
+    <script src="js/autocomplete-edam-reusable.js"></script>
     <link href="css/tree-reusable-d3.css" rel="stylesheet">
     <link href="css/index.css" rel="stylesheet">
 </head>
@@ -86,6 +87,10 @@
                     <dd class="not-hidden"><span id="version"></span></dd>
                     <dt>Release date</dt>
                     <dd id="release_date"></dd>
+                    <dt for="meta_data_url">Data URL</dt>
+                    <dd><a href="" target="_blank" id="meta_data_url">Open here</a></dd>
+                    <dt for="meta_data_file">Data File</dt>
+                    <dd id="meta_data_file"></dd>
                 </dl>
             </div>
         </div>
@@ -110,6 +115,10 @@
                     <div class="form-group">
                         <label for="id_url">Ontology URL</label>
                         <input type="text" class="form-control" id="id_url" required name="url">
+                    </div>
+                    <div class="form-group">
+                        <label for="id_file">Ontology File</label>
+                        <input type="file" class="form-control" name="file" id="id_file" required accept=".json" />
                     </div>
                     <div class="form-group">
                         <label for="id_identifier_accessor">How to access to identifier of a term <tt>d</tt></label>

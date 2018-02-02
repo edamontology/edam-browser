@@ -33,5 +33,16 @@ window.onload = function() {
         branch=getCookie("edam_browser_branch","topic");
     }
     d3.select("#tree").call(my_tree); // draw chart in div
-    loadTree(branch);
+    if(branch=="custom_file"){
+        selectCustom();
+    }else{
+        loadTree(branch);
+    }
+
+    var $inputs = $('#id_file,#id_url');
+    $inputs.on('input', function () {
+        $inputs.not(this).prop('disabled', $(this).val().length);
+    }).on('change', function () {
+        $inputs.not(this).prop('disabled', $(this).val().length);
+    });
 }
