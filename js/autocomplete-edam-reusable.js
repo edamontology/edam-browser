@@ -9,6 +9,7 @@ function build_autocomplete(tree_file, elt){
         url:tree_file,
         data: {},
         success: function (data, textStatus, xhr) {
+            build_autocomplete_from_tree(data,elt);
         }
     });
 }
@@ -20,14 +21,20 @@ function build_autocomplete_from_tree(data, elt){
     var source = [];
     var source_dict = {};
     function traverse(node) {
+        var uri = browser.identifierAccessor(node);
         candidate={
             value : node.text,
-            key : node.data.uri.substring(node.data.uri.lastIndexOf('/')+1),
+            key : uri.substring(uri.lastIndexOf('/')+1),
             node : node,
         }
         source_dict[candidate.key] = candidate;
         if (node.children) {
             $.each(node.children, function(i, child) {
+                 traverse(child);
+            });
+        }
+        if (node._children) {
+            $.each(node._children, function(i, child) {
                  traverse(child);
             });
         }
@@ -40,9 +47,9 @@ function build_autocomplete_from_tree(data, elt){
         source : source,
         minLength: 2,
         select : function(event, ui){ // lors de la sélection d'une proposition
-            $(event.target).attr("data-selected",ui.item.node.data.uri);
+            $(event.target).attr("data-selected",browser.identifierAccessor(ui.item.node));
             if (typeof tree != "undefined"){
-                my_tree.cmd.selectElement(ui.item.node.data.uri,true);
+                browser.interactive_tree().cmd.selectElement(browser.identifierAccessor(ui.item.node),true);
             }
         }
     })
@@ -51,7 +58,7 @@ function build_autocomplete_from_tree(data, elt){
           return $( "<li>" )
             .append(
                 "<div class=\"autocomplete-entry\">"+
-                "<b>" + item.node.text + "</b>"+
+                "<b>" + browser.textAccessor(item.node) + "</b>"+
                 " ("+item.key+")"+
                 "<span class=\"label label-info pull-right\">"+branch+"</span>"+
                 "<br>"+

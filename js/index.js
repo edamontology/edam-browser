@@ -1,13 +1,12 @@
-var current_branch="";
-my_tree = interactive_edam_browser();
+var browser = interactive_edam_browser();
 
 window.onload = function() {
     if(typeof getUrlParameter("url") != "undefined"){
         branch="custom_url";
         setCookie("edam_browser_branch",branch);
-        setCookie("edam_browser_"+branch+"_url", getUrlParameter("url"));
-        setCookie("edam_browser_"+branch+"_identifier_accessor", getUrlParameter("identifier_accessor"));
-        setCookie("edam_browser_"+branch+"_text_accessor", getUrlParameter("text_accessor"));
+        setCookie("edam_browser_custom_loaded_url", getUrlParameter("url"));
+        setCookie("edam_browser_custom_identifier_accessor", getUrlParameter("identifier_accessor"));
+        setCookie("edam_browser_custom_text_accessor", getUrlParameter("text_accessor"));
         if(window.location.hash) {
             var id = window.location.hash.substring(1);
             pos = id.lastIndexOf('&');
@@ -32,11 +31,11 @@ window.onload = function() {
     }else{
         branch=getCookie("edam_browser_branch","topic");
     }
-    d3.select("#tree").call(my_tree); // draw chart in div
+    d3.select("#tree").call(browser.interactive_tree()); // draw chart in div
     if(branch=="custom_file"){
-        selectCustom();
+        browser.cmd.selectCustom();
     }else{
-        loadTree(branch);
+        browser.cmd.loadTree(branch);
     }
 
     var $inputs = $('#id_file,#id_url');

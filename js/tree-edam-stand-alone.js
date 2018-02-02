@@ -27,29 +27,83 @@ function getTreeFile(branch){
     if(branch == "topic")
         return "media/topic_extended.biotools.min.json";
     if(branch == "custom_url")
-        return getCookie("edam_browser_"+branch+"_url",);
+        return getCookie("edam_browser_custom_loaded_url","");
     return ""
 }
 
-function loadTree(branch,tree) {
-    $("#edam-branches .branch").removeClass("active");
-    if (typeof branch == "undefined"){
-        branch=getCookie("edam_browser_branch","topic");
-    }
-    $("#edam-branches .branch."+branch).addClass("active");
-    setCookie("edam_browser_branch",branch);
-    current_branch=branch;
-    tree_file=getTreeFile(branch);
-    if(tree_file==""){
-        build_autocomplete_from_tree(tree)
-        my_tree.data(tree);
-    }else{
-        build_autocomplete(tree_file);
-        my_tree.data_url(tree_file);
-    }
-}
-
 function interactive_edam_browser(){
+
+    var my_tree,
+        current_branch="",
+        identifier_accessor_mapping={},
+        text_accessor_mapping={};
+
+    function loadTree(branch, tree) {
+        $("#edam-branches .branch").removeClass("active");
+        if (typeof branch == "undefined"){
+            branch=getCookie("edam_browser_branch","topic");
+        }
+        $("#edam-branches .branch."+branch).addClass("active");
+        setCookie("edam_browser_branch",branch);
+        current_branch=branch;
+        tree_file=getTreeFile(branch);
+        if(tree_file==""){
+            my_tree.data(tree);
+            build_autocomplete_from_tree(tree)
+        }else{
+            my_tree.data_url(tree_file);
+            build_autocomplete(tree_file);
+        }
+    }
+
+    function selectCustom(){
+        branch="custom";
+        $("[name=identifier_accessor][value='"+getCookie("edam_browser_"+branch+"_identifier_accessor","")+"']").prop("checked",true);
+        $("[name=text_accessor][value='"+getCookie("edam_browser_"+branch+"_text_accessor","")+"']").prop("checked",true);
+        $("#myModal").modal('show');
+    }
+
+    function loadCustom(){
+        var branch;
+        var from=$("form")[0];
+        if(!from.checkValidity()){
+            $(from).find("[type=submit]").click()
+            return;
+        }
+        setUrlParameters($(from).serialize());
+        if(typeof getUrlParameter("url")=="undefined")
+            branch="custom_file";
+        else
+            branch="custom_url";
+        setCookie("edam_browser_custom_loaded_url", getUrlParameter("url"));
+        setCookie("edam_browser_custom_identifier_accessor", getUrlParameter("identifier_accessor"));
+        setCookie("edam_browser_custom_text_accessor", getUrlParameter("text_accessor"));
+
+        my_tree.identifierAccessor(identifier_accessor_mapping[getUrlParameter("identifier_accessor")]);
+        my_tree.textAccessor(text_accessor_mapping[getUrlParameter("text_accessor")]);
+
+        $("#myModal").modal('hide');
+        if(branch=="custom_url"){
+            loadTree(branch);
+            return;
+        }
+        var reader = new FileReader();
+        var file=$("#id_file")[0].files[0];
+        reader.readAsText(file);
+        reader.onload = function(event) {
+            json = JSON.parse(event.target.result);
+            if(typeof json["meta"]=="undefined"){
+                json["meta"]={};
+            }
+            json["meta"]["data_file"]=file.name;
+            json["meta"]["date"]=file.lastModifiedDate.toLocaleString();
+            loadTree(branch, json);
+        };
+        reader.onerror = function() {
+            alert('Unable to read ' + file.fileName);
+        };
+    }
+
     function get_length_biotools(data){
         return data.list.length;
     }
@@ -112,8 +166,9 @@ function interactive_edam_browser(){
     }
 
     function standAloneSelectedElementHandler (d, do_not_open){
-        setCookie("edam_browser_"+current_branch, d.data.uri);
-        var identifier=d.data.uri.substring(d.data.uri.lastIndexOf('/')+1);
+        var uri=my_tree.identifierAccessor()(d);
+        setCookie("edam_browser_"+current_branch, uri);
+        var identifier=uri.substring(uri.lastIndexOf('/')+1);
         window.location.hash = identifier+ (current_branch=="deprecated"?"&deprecated":"")+ (current_branch.substring(0,6)=="custom"?"&"+current_branch:"");
         if(current_branch!="custom_url" && window.location.search){
             setUrlParameters("");
@@ -160,11 +215,11 @@ function interactive_edam_browser(){
         }
         fields.forEach(function(entry) {
             if("uri"==entry)
-                append_row(table,"URI",d.data.uri);
+                append_row(table,"URI",uri);
             else
                 append_row(table,entry,d[entry]);
         });
-        var caller_b=biotool_api().get_for(current_branch, d['text'], d.data.uri);
+        var caller_b=biotool_api().get_for(current_branch, d['text'], uri);
         if (caller_b.is_enabled()){
             var id_b = append_row(table,"Used in <a target=\"_blank\" href=\"https://bio.tools\">bio.tools</a>","<i>loading</i>");
             caller_b.count(function(c,data){
@@ -181,7 +236,7 @@ function interactive_edam_browser(){
                 $('#details-'+identifier+' .'+id_b+' [data-toggle="popover"]').popover();
             });
         }
-        var caller_t=tess_api().get_for(current_branch, d['text'], d.data.uri);
+        var caller_t=tess_api().get_for(current_branch, d['text'], uri);
         if (caller_t.is_enabled()){
             var id_t = append_row(table,"Used in <a target=\"_blank\" href=\"https://tess.elixir-europe.org/\">TeSS</a>","<i>loading</i>");
             caller_t.count(function(c,data){
@@ -191,7 +246,7 @@ function interactive_edam_browser(){
                 $('#details-'+identifier+' .'+id_t+' [data-toggle="popover"]').popover();
             });
         }
-        var caller_w=bioweb_api().get_for(current_branch, d['text'], d.data.uri);
+        var caller_w=bioweb_api().get_for(current_branch, d['text'], uri);
         if (caller_w.is_enabled()){
             var id_w = append_row(table,"Used in <a target=\"_blank\" href=\"https://bioweb.pasteur.fr/\">BioWeb</a>","<i>loading</i>");
             caller_w.count(function(c,data){
@@ -266,24 +321,44 @@ function interactive_edam_browser(){
 //        $("#meta_data_filename").attr("href", meta.data_filename).visible(typeof meta.data_filename != "undefined");
     }
 
-    var tree = interactive_tree()
+    function identifierAccessorDefault(d){
+        return d.id;
+    }
+    identifier_accessor_mapping['d.id']=identifierAccessorDefault;
+
+    function identifierAccessorEDAM(d){
+        return d.data.uri;
+    }
+    identifier_accessor_mapping['d.data.uri']=identifierAccessorEDAM;
+
+    function textAccessorDefault(d){
+        return d.text;
+    }
+    text_accessor_mapping['d.text']=textAccessorDefault;
+
+    function textAccessorName(d){
+        return d.name;
+    }
+    text_accessor_mapping['d.name']=textAccessorName;
+
+    var my_tree = interactive_tree()
         .identifierAccessor(identifierAccessorEDAM)
         .clickedElementHandler(function(d){
-            if(tree.cmd.isElementSelected(tree.identifierAccessor()(d)))
+            if(my_tree.cmd.isElementSelected(my_tree.identifierAccessor()(d)))
                 return;
-            tree.cmd.selectElement(tree.identifierAccessor()(d),true,true)
+            my_tree.cmd.selectElement(my_tree.identifierAccessor()(d),true,true)
             return;
         })
         .addingElementHandler(function(d){
-            tree.cmd.clearSelectedElements(false);
+            my_tree.cmd.clearSelectedElements(false);
             standAloneSelectedElementHandler(d,)
             return true;
         })
         .initiallySelectedElementHandler(function(d){
-            return tree.identifierAccessor()(d) === getInitURI(current_branch);
+            return my_tree.identifierAccessor()(d) === getInitURI(current_branch);
         })
         .loadingDoneHandler(function(){
-            tree.cmd.selectElement(getInitURI(current_branch),true,true)
+            my_tree.cmd.selectElement(getInitURI(current_branch),true,true)
         })
         .metaInformationHandler(metaInformationHandler)
         .debug(false)
@@ -294,65 +369,71 @@ function interactive_edam_browser(){
         .use_control_to_add(false)
         .use_alt_to_add(false)
     ;
-    return tree;
-}
 
-function identifierAccessorDefault(d){
-    return d.id;
-}
-
-function identifierAccessorEDAM(d){
-    return d.data.uri;
-}
-
-function textAccessorDefault(d){
-    return d.text;
-}
-
-function textAccessorEDAM(d){
-    return d.name;
-}
-
-function selectCustom(){
-    branch="custom";
-    $("[name=identifier_accessor][value='"+getCookie("edam_browser_"+branch+"_identifier_accessor","")+"']").prop("checked",true);
-    $("[name=text_accessor][value='"+getCookie("edam_browser_"+branch+"_text_accessor","")+"']").prop("checked",true);
-    $("#myModal").modal('show');
-}
-
-function loadCustom(){
-    var branch;
-    var from=$("form")[0];
-    if(!from.checkValidity()){
-        $(from).find("[type=submit]").click()
-        return;
-    }
-    setUrlParameters($(from).serialize());
-    if(typeof getUrlParameter("url")=="undefined")
-        branch="custom_file";
-    else
-        branch="custom_url";
-    setCookie("edam_browser_"+branch+"_url", getUrlParameter("url"));
-    setCookie("edam_browser_"+branch+"_identifier_accessor", getUrlParameter("identifier_accessor"));
-    setCookie("edam_browser_"+branch+"_text_accessor", getUrlParameter("text_accessor"));
-    $("#myModal").modal('hide');
-    if(branch=="custom_url"){
-        loadTree(branch);
-        return;
-    }
-    var reader = new FileReader();
-    var file=$("#id_file")[0].files[0];
-    reader.readAsText(file);
-    reader.onload = function(event) {
-        json = JSON.parse(event.target.result);
-        if(typeof json["meta"]=="undefined"){
-            json["meta"]={};
-        }
-        json["meta"]["data_file"]=file.name;
-        json["meta"]["date"]=file.lastModifiedDate.toLocaleString();
-        loadTree(branch, json);
+    /**
+     * The browser
+     */
+    function browser(){}
+    /**
+     * The browser's accessors
+     */
+    function cmd() {
+        return cmd;
     };
-    reader.onerror = function() {
-        alert('Unable to read ' + file.fileName);
+    browser.cmd = cmd;
+    /**
+     * Accessor loading a certain tree branch
+     * @param {boolean} value
+     */
+    cmd.loadTree=function(branch){
+        my_tree.identifierAccessor(identifierAccessorEDAM);
+        my_tree.textAccessor(textAccessorDefault);
+        return loadTree(branch);
+    }
+    /**
+     * Accessor to prepare the modal to load a custom ontology
+     * @param {boolean} value
+     */
+    cmd.selectCustom=function(){
+        return selectCustom();
+    }
+    /**
+     * Accessor to load a custom ontology
+     * @param {boolean} value
+     */
+    cmd.loadCustom=function(){
+        return loadCustom();
+    }
+
+    // getter and setter functions. ----------------------------------------------------------
+
+    /**
+     * Read-only accessor to the interactive tree
+     * @param {boolean} value
+     */
+    browser.interactive_tree=function(){
+        return my_tree;
+    }
+    /**
+     * Read-only accessor to the current_branch
+     * @param {boolean} value
+     */
+    browser.current_branch = function() {
+        return current_branch;
     };
+    /**
+     * Read-only proxy to use the identifierAccessor of the interactive_tree
+     * @param {boolean} value
+     */
+    browser.identifierAccessor = function(value) {
+        return my_tree.identifierAccessor()(value);
+    };
+    /**
+     * Read-only proxy to use the textAccessor of the interactive_tree
+     * @param {boolean} value
+     */
+    browser.textAccessor = function(value) {
+        return my_tree.textAccessor()(value);
+    };
+    return browser;
 }
