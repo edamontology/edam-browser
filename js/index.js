@@ -3,7 +3,7 @@ my_tree = interactive_edam_browser();
 
 window.onload = function() {
     if(typeof getUrlParameter("url") != "undefined"){
-        branch="custom";
+        branch="custom_url";
         setCookie("edam_browser_branch",branch);
         setCookie("edam_browser_"+branch+"_url", getUrlParameter("url"));
         setCookie("edam_browser_"+branch+"_identifier_accessor", getUrlParameter("identifier_accessor"));
