@@ -131,14 +131,26 @@ function interactive_edam_browser(){
         var table = details.find("tbody");
         table.children().remove();
         var table_parent = details.find("table").parent();
-        [
+        var fields=[
             "text",
             "definition",
             "comment",
             "uri",
             "exact_synonyms",
             "narrow_synonyms",
-        ].forEach(function(entry) {
+        ];
+        if(current_branch=="data" || current_branch=="custom" || current_branch=="deprecated"){
+            fields.push("has_topic");
+        }
+        if(current_branch=="format" || current_branch=="custom" || current_branch=="deprecated"){
+            fields.push("is_format_of");
+        }
+        if(current_branch=="operation" || current_branch=="custom" || current_branch=="deprecated"){
+            fields.push("has_topic");
+            fields.push("has_input");
+            fields.push("has_output");
+        }
+        fields.forEach(function(entry) {
             if("uri"==entry)
                 append_row(table,"URI",d.data.uri);
             else
@@ -213,7 +225,7 @@ function interactive_edam_browser(){
         if (typeof value == "undefined"){
             value="";
         }
-        name=name.replace("_","&nbsp;");
+        name=name.replace(/[_]/g,"&nbsp;");
         name=name.charAt(0).toUpperCase()+name.substring(1);
         if (value.constructor === Array){
             if (value.length>1){
