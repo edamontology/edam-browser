@@ -462,6 +462,27 @@ function interactive_tree() {
         return source
     }//end of getFartherAncestorCollapsed
 
+    function initTreeAndTriggerUpdate(){
+        treeSelectedElement=[];
+        treeSelectedElementAncestors=[];
+        metaInformationHandler(root.meta)
+        root.x0 = 0;
+        root.y0 = 0;
+
+        parenthood(root,null);
+
+        if(removeElementsWithNoSelectedDescendant){
+            shouldRemoveThisElementsAsItHasNoSelectedDescendant(root);
+        }
+        collapseNotSelectedElement(root);
+
+        if(update){
+            reset();
+            update(root);
+            loadingDoneHandler();
+        }
+    }
+
     //accessors
     function cmd() {
         return cmd;
@@ -644,27 +665,19 @@ function interactive_tree() {
         if (!arguments.length) return data_url;
         data_url = value;
         d3.json(value, function(json) {
-                treeSelectedElement=[];
-                treeSelectedElementAncestors=[];
-                root = json;
-                metaInformationHandler(root.meta)
-                root.x0 = 0;
-                root.y0 = 0;
-
-                parenthood(root,null);
-
-                if(removeElementsWithNoSelectedDescendant){
-                    shouldRemoveThisElementsAsItHasNoSelectedDescendant(root);
-                }
-                collapseNotSelectedElement(root);
-
-                if(update){
-                    reset();
-                    update(root);
-                    loadingDoneHandler();
-                }
+                chart.data(json)
             }
         );
+        return chart;
+    };
+    /**
+     * Accessor to the url where the json formatted tree can be found
+     * @param {string} value - a valid url
+     */
+    chart.data = function(value) {
+        if (!arguments.length) return root;
+        root = value;
+        initTreeAndTriggerUpdate()
         return chart;
     };
     /**
