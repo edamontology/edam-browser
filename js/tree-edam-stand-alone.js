@@ -257,8 +257,10 @@ function interactive_edam_browser(){
     var tree = interactive_tree()
         .identifierAccessor(identifierAccessorEDAM)
         .clickedElementHandler(function(d){
+            if(tree.cmd.isElementSelected(tree.identifierAccessor()(d)))
+                return;
             tree.cmd.selectElement(tree.identifierAccessor()(d),true,true)
-            return tree.identifierAccessor()(d);
+            return;
         })
         .addingElementHandler(function(d){
             tree.cmd.clearSelectedElements(false);
