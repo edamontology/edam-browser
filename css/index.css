@@ -1,0 +1,24 @@
+.panel-separator{
+    border-top: 1px solid #eee;
+    margin-bottom: 15px;
+    padding-top: 10px;
+}
+.page-header{
+    margin-top:0;
+}
+.meta-info *{
+    font-size:0;
+    color:white;
+    -webkit-transition: color 0.3s, font-size 0.3s;
+       -moz-transition: color 0.3s, font-size 0.3s;
+         -o-transition: color 0.3s, font-size 0.3s;
+            transition: color 0.3s, font-size 0.3s;
+}
+.meta-info .not-hidden, .meta-info .not-hidden>*{
+    font-size:inherit;
+    color:inherit;
+}
+.meta-info:hover *{
+    font-size:inherit;
+    color:inherit;
+}

@@ -29,7 +29,7 @@
     <script src="js/index.js"></script>
     <script src="js/tree-reusable-d3.js"></script>
     <link href="css/tree-reusable-d3.css" rel="stylesheet">
-    <link href="css/util.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
 </head>
 <body>
 <div class="container-fluid">
@@ -81,9 +81,9 @@
                     onclick="my_tree.cmd.collapseNotSelectedElement();">Collapse not selected elements
             </button>
             <div class="pull-right">
-                <dl class="dl-horizontal">
+                <dl class="dl-horizontal meta-info">
                     <dt>Current version</dt>
-                    <dd id="version"></dd>
+                    <dd class="not-hidden"><span id="version"></span></dd>
                     <dt>Release date</dt>
                     <dd id="release_date"></dd>
                 </dl>
