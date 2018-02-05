@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "date": "02.02.2018 15:50 GMT",
+    "version": "default format version"
+  },
+  "children": [
+    {
+      "id": "p2",
+      "text": "Four sided polygon",
+      "definition": "A Polygone with four sides",
+      "exact_synonyms": [
+        "Quadrilateral",
+        "Four angled polygon",
+        "Polygon with four angle or side"
+      ],
+      "children": [
+        {
+          "id": "p7",
+          "text": "Trapezium",
+          "definition": "A Polygone with four sides",
+          "exact_synonyms": [
+            "Four angled polygon",
+            "Polygon with four angle or side"
+          ],
+          "children": [
+            {
+              "id": "p5",
+              "definition": "Each side are parallel two by two",
+              "text": "Parallelogram",
+              "children": [
+                {
+                  "id": "p4",
+                  "text": "Square"
+                }
+              ]
+            },{
+          "id": "p9",
+          "text": "Rectangle"
+        }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p3",
+      "text": "Equal Angle polygon",
+      "definition": "Polygone where each angle ahev the same measure (in angle, radian, ...)",
+      "children": [
+        {
+          "id": "p6",
+          "definition": "traaaa",
+          "exact_synonyms": [
+            "Losange"
+          ],
+          "text": "diamond",
+          "children": [
+            {
+              "id": "p4",
+              "text": "Square"
+            }
+          ]
+        },{
+          "id": "p8",
+          "text": "Regular octogone"
+        },{
+          "id": "p9",
+          "text": "Rectangle"
+        }
+      ]
+    }
+  ],
+  "id": "polygone",
+  "definition": "Aa plane figure that is bounded by a finite chain of straight line segments closing in a loop to form a closed polygonal chain or circuit [wikipedia]",
+  "text": "polygone"
+}
