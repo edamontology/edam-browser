@@ -24,7 +24,7 @@ function tess_api(){
         }
         //is the count function enabled
         getter.is_enabled=function(){
-            return true;
+            return typeof name != "undefined";
         }
         //get the url returning the tools for human
         getter.get_url=function(){

@@ -168,8 +168,11 @@ function interactive_edam_browser(){
     function standAloneSelectedElementHandler (d, do_not_open){
         var uri=my_tree.identifierAccessor()(d);
         setCookie("edam_browser_"+current_branch, uri);
-        var identifier=uri.substring(uri.lastIndexOf('/')+1);
-        window.location.hash = identifier+ (current_branch=="deprecated"?"&deprecated":"")+ (current_branch.substring(0,6)=="custom"?"&"+current_branch:"");
+        var identifier=uri.substring(uri.lastIndexOf('/')+1)
+            .replace(/[^a-zA-Z_0-9]/g,'-')
+            .toLowerCase()
+            .replace(/[-]+/g,'-');
+        window.location.hash = uri + (current_branch=="deprecated"?"&deprecated":"")+ (current_branch.substring(0,6)=="custom"?"&"+current_branch:"");
         if(current_branch!="custom_url" && window.location.search){
             setUrlParameters("");
         }
@@ -277,10 +280,10 @@ function interactive_edam_browser(){
         if ((""+value).startsWith("http://edamontology.org/")){
             //return "<a href=\"#"+ value.substring(value.lastIndexOf('/')+1) + (current_branch=="deprecated"?"&deprecated":"")+"\" onclick=\"browser.current_branch('"+browser.current_branch()+"');browser.interactive_tree().cmd().selectElement(this.text,true);\">"+value+"</a>";
             if(current_branch.startsWith("custom")){
-                return "<a href=\"#"+ value.substring(value.lastIndexOf('/')+1) + "&"+current_branch + "\" onclick=\"browser.interactive_tree().cmd().selectElement(this.text,true);\">"+value+"</a>";
+                return "<a href=\"#"+ value + "&"+current_branch + "\" onclick=\"browser.interactive_tree().cmd().selectElement(this.text,true);\">"+value+"</a>";
             }else{
                 branch_of_term = value.substring(value.lastIndexOf('/')+1,value.lastIndexOf('_'));
-                return "<a href=\"#"+ value.substring(value.lastIndexOf('/')+1) + (current_branch=="deprecated"?"&deprecated":"")+"\" onclick=\"setCookie('edam_browser_'+'"+branch_of_term+"','"+value+"');browser.current_branch('"+branch_of_term+"');\">"+value+"</a>";
+                return "<a href=\"#"+ value + (current_branch=="deprecated"?"&deprecated":"")+"\" onclick=\"setCookie('edam_browser_'+'"+branch_of_term+"','"+value+"');browser.current_branch('"+branch_of_term+"');browser.interactive_tree().cmd().selectElement(this.text,true)\">"+value+"</a>";
             }
         }
         return value;
@@ -338,6 +341,8 @@ function interactive_edam_browser(){
     identifier_accessor_mapping['d.data.uri']=identifierAccessorEDAM;
 
     function textAccessorDefault(d){
+        if (typeof d.text == "undefined")
+            return my_tree.identifierAccessor()(d);
         return d.text;
     }
     text_accessor_mapping['d.text']=textAccessorDefault;
