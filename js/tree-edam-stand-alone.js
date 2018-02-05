@@ -253,16 +253,17 @@ function interactive_edam_browser(){
                 $('#details-'+identifier+' .'+id_w+' [data-toggle="popover"]').popover();
             });
         }
-        append_row(table,"Links",
-        "Open "+
-        "<a target=\"_blank\" href=\"http://aber-owl.net/ontology/EDAM/#/Browse/%3Chttp%3A%2F%2Fedamontology.org%2F"+identifier+"%3E\">in AberOWL</a>"+
-        ", "+
-        "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">in BioPortal</a>"+
-        ", "+
-        "<a target=\"_blank\" href=\"https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">in OLS</a>"+
-        "."
-
-        );
+        if(uri.startsWith("http://edamontology.org/")){
+            append_row(table,"Links",
+            "Open "+
+            "<a target=\"_blank\" href=\"http://aber-owl.net/ontology/EDAM/#/Browse/%3Chttp%3A%2F%2Fedamontology.org%2F"+identifier+"%3E\">in AberOWL</a>"+
+            ", "+
+            "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">in BioPortal</a>"+
+            ", "+
+            "<a target=\"_blank\" href=\"https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">in OLS</a>"+
+            "."
+            );
+        }
         $("#edamAccordion").find(".panel-group").first().find(".collapse").collapse("hide");
         if($("#edamAccordion").find(".panel-group").length>0){
             $("#edamAccordion").prepend($("#history-separator").show());
