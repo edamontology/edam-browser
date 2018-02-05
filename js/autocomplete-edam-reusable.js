@@ -22,9 +22,13 @@ function build_autocomplete_from_tree(data, elt){
     var source_dict = {};
     function traverse(node) {
         var uri = browser.identifierAccessor(node);
+        var key = uri.substring(uri.lastIndexOf('/')+1);
+        var values =[node.text,key];
+        if(node.exact_synonyms) values=values.concat(node.exact_synonyms);
+        if(node.narrow_synonyms) values=values.concat(node.narrow_synonyms);
         candidate={
-            value : node.text,
-            key : uri.substring(uri.lastIndexOf('/')+1),
+            value : values.join(' '),
+            key : key,
             node : node,
         }
         source_dict[candidate.key] = candidate;
