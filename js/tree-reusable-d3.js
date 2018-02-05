@@ -537,6 +537,7 @@ function interactive_tree() {
     };
     /**
      * Ask to de-select all elements
+     * @param {boolean} [redraw=true] - redraw the tree
      * @return cmd() itself
      */
     cmd.clearSelectedElements = function (redraw) {

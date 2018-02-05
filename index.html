@@ -41,12 +41,12 @@
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5">
             <h1 class="no-icon text-center">
                 <div class="btn-group" role="group" id="edam-branches" style="z-index:1;vertical-align: bottom;">
-                    <a type="button" class="btn btn-default branch data" onclick="browser.cmd.loadTree('data')">Data</a>
-                    <a type="button" class="btn btn-default branch format" onclick="browser.cmd.loadTree('format')">Format</a>
+                    <a type="button" class="btn btn-default branch data" onclick="browser.current_branch('data')">Data</a>
+                    <a type="button" class="btn btn-default branch format" onclick="browser.current_branch('format')">Format</a>
                     <a type="button" class="btn btn-default branch operation"
-                       onclick="browser.cmd.loadTree('operation')">Operation</a>
-                    <a type="button" class="btn btn-default branch topic" onclick="browser.cmd.loadTree('topic')">Topic</a>
-                    <a type="button" class="btn btn-default branch deprecated" onclick="browser.cmd.loadTree('deprecated')">Deprecated</a>
+                       onclick="browser.current_branch('operation')">Operation</a>
+                    <a type="button" class="btn btn-default branch topic" onclick="browser.current_branch('topic')">Topic</a>
+                    <a type="button" class="btn btn-default branch deprecated" onclick="browser.current_branch('deprecated')">Deprecated</a>
                     <a type="button"
                        class="btn btn-default branch custom custom_url custom_file"
                        title="Load a custom ontology"

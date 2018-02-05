@@ -202,17 +202,14 @@ function interactive_edam_browser(){
             "exact_synonyms",
             "narrow_synonyms",
         ];
-        if(current_branch=="data" || current_branch=="custom" || current_branch=="deprecated"){
+        if(current_branch=="data" || current_branch=="operation" || typeof d["has_topic"] != "undefined")
             fields.push("has_topic");
-        }
-        if(current_branch=="format" || current_branch=="custom" || current_branch=="deprecated"){
+        if(current_branch=="format" || typeof d["is_format_of"] != "undefined")
             fields.push("is_format_of");
-        }
-        if(current_branch=="operation" || current_branch=="custom" || current_branch=="deprecated"){
-            fields.push("has_topic");
+        if(current_branch=="operation" || typeof d["has_input"] != "undefined")
             fields.push("has_input");
+        if(current_branch=="operation" || typeof d["has_output"] != "undefined")
             fields.push("has_output");
-        }
         fields.forEach(function(entry) {
             if("uri"==entry)
                 append_row(table,"URI",uri);
@@ -275,7 +272,13 @@ function interactive_edam_browser(){
 
     function interactive_edam_uri(value){
         if ((""+value).startsWith("http://edamontology.org/")){
-            return "<a href=\"#"+ value.substring(value.lastIndexOf('/')+1) + (current_branch=="deprecated"?"&deprecated":"")+"\" onclick=\"my_tree.cmd.selectElement(this.text,true);\">"+value+"</a>";
+            //return "<a href=\"#"+ value.substring(value.lastIndexOf('/')+1) + (current_branch=="deprecated"?"&deprecated":"")+"\" onclick=\"browser.current_branch('"+browser.current_branch()+"');browser.interactive_tree().cmd().selectElement(this.text,true);\">"+value+"</a>";
+            if(current_branch.startsWith("custom")){
+                return "<a href=\"#"+ value.substring(value.lastIndexOf('/')+1) + "&"+current_branch + "\" onclick=\"browser.interactive_tree().cmd().selectElement(this.text,true);\">"+value+"</a>";
+            }else{
+                branch_of_term = value.substring(value.lastIndexOf('/')+1,value.lastIndexOf('_'));
+                return "<a href=\"#"+ value.substring(value.lastIndexOf('/')+1) + (current_branch=="deprecated"?"&deprecated":"")+"\" onclick=\"setCookie('edam_browser_'+'"+branch_of_term+"','"+value+"');browser.current_branch('"+branch_of_term+"');\">"+value+"</a>";
+            }
         }
         return value;
     }
@@ -382,23 +385,14 @@ function interactive_edam_browser(){
     };
     browser.cmd = cmd;
     /**
-     * Accessor loading a certain tree branch
-     * @param {boolean} value
-     */
-    cmd.loadTree=function(branch){
-        my_tree.identifierAccessor(identifierAccessorEDAM);
-        my_tree.textAccessor(textAccessorDefault);
-        return loadTree(branch);
-    }
-    /**
-     * Accessor to prepare the modal to load a custom ontology
+     * Command to prepare the modal to load a custom ontology
      * @param {boolean} value
      */
     cmd.selectCustom=function(){
         return selectCustom();
     }
     /**
-     * Accessor to load a custom ontology
+     * Command to load a custom ontology
      * @param {boolean} value
      */
     cmd.loadCustom=function(){
@@ -409,28 +403,36 @@ function interactive_edam_browser(){
 
     /**
      * Read-only accessor to the interactive tree
-     * @param {boolean} value
+     * @return {object} the tree
      */
     browser.interactive_tree=function(){
         return my_tree;
     }
     /**
-     * Read-only accessor to the current_branch
-     * @param {boolean} value
+     * Get the current branch or load the branch given in parameter if it is not
+     * the current branch
+     * @param {string} value
      */
-    browser.current_branch = function() {
-        return current_branch;
+    browser.current_branch = function(value) {
+        if (!arguments.length) return current_branch;
+        if (current_branch === value) return browser
+        my_tree.identifierAccessor(identifierAccessorEDAM);
+        my_tree.textAccessor(textAccessorDefault);
+        loadTree(value);
+        return browser;
     };
     /**
      * Read-only proxy to use the identifierAccessor of the interactive_tree
-     * @param {boolean} value
+     * @param {object} an element
+     * @return {object} the value return by the identifierAccessor for the given parameter
      */
     browser.identifierAccessor = function(value) {
         return my_tree.identifierAccessor()(value);
     };
     /**
      * Read-only proxy to use the textAccessor of the interactive_tree
-     * @param {boolean} value
+     * @param {object} an element
+     * @return {object} the value return by the textAccessor for the given parameter
      */
     browser.textAccessor = function(value) {
         return my_tree.textAccessor()(value);

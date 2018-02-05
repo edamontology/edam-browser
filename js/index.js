@@ -35,7 +35,7 @@ window.onload = function() {
     if(branch=="custom_file"){
         browser.cmd.selectCustom();
     }else{
-        browser.cmd.loadTree(branch);
+        browser.current_branch(branch);
     }
 
     var $inputs = $('#id_file,#id_url');
