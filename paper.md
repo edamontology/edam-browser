@@ -37,45 +37,57 @@ We here present the EDAM Browser, a client-side web-based visualization javascri
 
 ## Related work
 
-When considering web based browsers for ontologies, there are two main platforms (i)BioPortal [@whetzel2011bioportal], and (ii) OLS - Ontology Lookup Service [@jupp2015new]. Here after we describe criteria and there presence absence in the platforms
+We collected from EDAM users and authors features that a browser should have to fit their needs. Here after we describe collected criteria and there presence or absence in the following platforms : (i)BioPortal [@whetzel2011bioportal], (ii) OLS - Ontology Lookup Service [@jupp2015new], (iii)  WebProt&eacute;g&eacute;[@tudorache2013webprotege] and (iv) AberOWL[hoehndorf2015aber].
 
-| id | Feature        | in BioPortal           | in OLS  |
-| :-------:|----------- |:-------------:| :-----:|
-| 1 |EDAM is present         | ✔       |✔   |
-| 2 |Publicly available      | ✔       |  ✔|
-| 3 |Handle multiple parents | ✘       |    ✔ |
-| 4 |Can be integrated in external websites | ✔       |    ✔ |
-| 5 |Facilitate community contribution | limited       |    ✘ |
-| 6 |Use edited version of EDAM | ✘       |    ✘ |
-| 7 |Local installation | ✔ (as a VM)       |    ✔ (with admin rights) |
+| id  | Feature                                | in AberOWL          | in BioPortal| in OLS              | in WebProtégé       |
+|:---:|----------------------------------------|:-------------------:|:-----------:|:-------------------:|:-------------------:|
+| 1   | EDAM is present                        | ✔                   | ✔           | ✔                   | ✘                   |
+| 2   | Publicly available                     | ✔                   | ✔           | ✔                   | registration        |
+| 3   | Handle multiple parents                | ✘                   | ✘           | ✔                   | ✘                   |
+| 4   | Can be integrated in external websites | ✘                   | ✔           | ✔                   | ✘                   |
+| 5   | Facilitate community contribution      | ✘                   | limited     | ✘                   | ✘                   |
+| 6   | Use edited version of EDAM             | ✘                   | ✘           | ✘                   | ✔                   |
+| 7   | Local installation                     | ✔ (w/ admin rights) | ✔ (as a VM) | ✔ (w/ admin rights) | ✔ (w/ admin rights) |
+
 
 ##### Criteria 1 and 2
 
-Both platforms integrate EDAM and let not authenticated user browse it.
+On one hand Platforms AberOWL, BioPortal and OLS integrate EDAM and let not authenticated user browse it, on the other hand WebProt&eacute;g&eacute; is meant for editing ontology, and ask user to register before uploading its ontology. 
 
 ##### Criteria 3 "Handle multiple parents"
 
-The EDAM ontology, while being represented as a tree is a directed acyclic graph, meaning that a term can have more than one parent. When searching for "Phylogeny" Topic, [BioPortal](http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2Ftopic_0084) displays it at only one position while [OLS](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Ftopic_0084) indicates that indeed the term has multiple parents. 
+The EDAM ontology, while being represented as a tree is a directed acyclic graph, meaning that a term can have more than one parent. When searching for "Phylogeny" Topic we have on one hand [OLS](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Ftopic_0084) which indicates that indeed the term has multiple parents both in the tree representation and the details.
+On the other hand we have 
+[AberOWL](http://aber-owl.net/ontology/EDAM/#/Browse/<http%3A%2F%2Fedamontology.org%2Ftopic_0084>), [BioPortal](http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2Ftopic_0084), and  WebProt&eacute;g&eacute; which all the tree display the term at only one position in the tree while in the details indicate that the term is a _subClassOf_ two terms. 
 
 ##### Criteria 4 "Can be integrated in external websites"
 
-Bioportal allows to integrate [widgets](http://bioportal.bioontology.org/ontologies/EDAM/?p=widgets) such as autocomplete form, graph visualization, and tree visualization. Widgets for OLS can be found in [biojs](http://biojs.io) registry.
+Bioportal allows to integrate [widgets](http://bioportal.bioontology.org/ontologies/EDAM/?p=widgets) such as autocomplete form, graph visualization, and tree visualization. Widgets for OLS can be found in [biojs](http://biojs.io) registry. Neither AberOWL nor WebProtégé propose widget.  
 
 ##### Criteria 5 "Facilitate community contributions"
 
-BioPortal provides a custom suggestion and bug report mechanism that lets users provide feedback on the contents of the ontology. However, this mechanism, being generic to all ontologies, is not deeply integrated with the development forge used by each of them. OLS, on the other hand, provides only the possibility to contact the authors through email.
+AberOWL indicates the homepage of the ontology. 
+BioPortal provides a custom suggestion and bug report mechanism that lets users provide feedback on the contents of the ontology. However, this mechanism, being generic to all ontologies, is not deeply integrated with the development forge used by each of them. 
+OLS provides only the possibility to contact the authors through email. 
+WebProtégé propose to download the edited ontology in OWL format, it is then the responsibility of the user to transmit this edited version to the ontology authors.
 
 ##### Criteria 6 "Use custom version of EDAM"
 
-Beyond the regular official releases of the EDAM ontology, the "in-developement" version cannot be browsed with BioPortal nor OLS without a manual and public submission. The publication of submitted releases is usually processed within a few hours.
+Beyond the regular official releases of the EDAM ontology, the "in-developement" version cannot be browsed with AberOWL, BioPortal nor OLS without a manual and public submission. The publication of submitted releases is usually processed within a few hours.
+WebProtégé allows to upload any ontology, it is then possible to browse and edit it.
 
 ##### Criteria 7 "Local installation"
 
-Installing locally OLS is [possible](https://www.ebi.ac.uk/ols/docs/installation-guide). Software requirements includes Maven, Neo4J, MongoDB, tomcat, Solr. The installation is thus only for user with administrator rights on their computer, and computers with a certain amount of resources. BioPortal, on the other hand, is available as a [virtual appliance](https://www.bioontology.org/wiki/index.php/Category:NCBO_Virtual_Appliance).
+AberOWL can locally be [installed](https://github.com/bio-ontology-research-group/aberowl-meta), software requirements includes Redis, nodejs, npm, Groovy and Apache2.
+BioPortal is available as a [virtual appliance](https://www.bioontology.org/wiki/index.php/Category:NCBO_Virtual_Appliance).
+Installing locally OLS is [possible](https://www.ebi.ac.uk/ols/docs/installation-guide), software requirements includes Maven, Neo4J, MongoDB, Tomcat, Solr.
+WebProtégé can also be [installed](https://protegewiki.stanford.edu/wiki/WebProtegeAdminGuide) among with MongoDB and Tomcat.
+
+We thus conclude that the installation is only for user with administrator rights on their computer.
 
 ## Main functionalities
 
-In this section, we present how each feature of the previous section is addressed in EDAM Browser.
+In this section, we present how each feature of the previous section are addressed by EDAM Browser.
 
 ##### Criteria 1 and 2
 
@@ -101,7 +113,9 @@ Letting users contribute to the ontology improves acceptance by the community by
 
 ##### Criteria 6
 
-Using the EDAM Browser to explore an custom ontology is possible, the ontology should be in the following simplified schema which is expressed in [json schema](http://json-schema.org/). A complete version of the schema is accessible [here](ontology.schema.json). 
+Using the EDAM Browser to explore an custom ontology is possible, the ontology should be in the following simplified schema which is expressed in [json schema](http://json-schema.org/). A complete version of the schema is accessible [here](ontology.schema.json) and an example file is [there](media/regular.example.json). 
+
+<!--- https://app.quicktype.io/#l=schema helps generating schema--->
 
 ```json
 {
@@ -137,13 +151,13 @@ Using the EDAM Browser to explore an custom ontology is possible, the ontology s
 }
 ```
 
-The user only have to open the EDAM Browser and click on the button labelled _Custom_ at the top of it interface. It then open a form where the user either provide the url where the ontology file can be found, or the file, and also indicate how identifier and text can be accessed in the ontology.
+The user opens the EDAM Browser and click on the button labelled _Custom_ at the top of it interface. Then a form is opened where the user either provide the url where the ontology file can be found, or the file, and also indicate how identifier and text can be accessed in the file.
 
 ![Providing a custom ontology](paper_resources/custom_ontology.png)
 
 ##### Criteria 7
 
-The EDAM Browser can easily be downloaded and run on a personal computer. The user either open index.html and then chose to load an ontology, or start using `python start_edam_stand_alone_browser.py` and the ontology will automatically be loaded.
+The EDAM Browser can easily be downloaded and run on a personal computer. The user either open index.html and then chose to load an ontology, or starts a local web server using `python start_edam_stand_alone_browser.py` and the ontology will automatically be loaded (recommended scenario).
 Once downloaded, the user can also use a custom version of the ontology, including beta version of the next release or a whole new ontology. By default, ontology should be in the [json schema](http://json-schema.org/) presented previously, but the browser can be configured to use a different schema (c.f: hereafter). A validator is available [here](https://jsonschemalint.com/).
 
 ## Reusability
@@ -152,7 +166,7 @@ The tree-based visualization of the EDAM Browser uses [d3.js](https://d3js.org/)
 [Towards Updatable D3.js Charts](https://www.toptal.com/d3-js/towards-reusable-d3-js-charts)  and
 [Towards Reusable Charts](https://bost.ocks.org/mike/chart/). It allows us to create encapsulated charts which are easily customizable. 
 
-The following example comes from the demo and shows how  to visualize the ontology at `media/topic_extended.biotools.min.json` in the div `#tree` with the `Bioinformatics` term initially selected. Note that as the format of the file does not follow the recommendation, we have to override one of the getters to access the identifier.
+The following example comes from the demo and shows how  to visualize the ontology at `media/topic_extended.biotools.min.json` in the div `#tree` with the `Bioinformatics` term initially selected. Note that as the format of the file does not follow the recommendation, we have to provide a new method to access the identifier.
 
 ```javascript
 my_tree = interactive_tree()
