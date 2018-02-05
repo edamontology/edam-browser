@@ -27,7 +27,8 @@ function build_autocomplete_from_tree(data, elt){
         if(node.exact_synonyms) values=values.concat(node.exact_synonyms);
         if(node.narrow_synonyms) values=values.concat(node.narrow_synonyms);
         candidate={
-            value : values.join(' '),
+            value : node.text,
+            label : values.join(' '),
             key : key,
             node : node,
         }
@@ -55,7 +56,7 @@ function build_autocomplete_from_tree(data, elt){
             if (typeof tree != "undefined"){
                 browser.interactive_tree().cmd.selectElement(browser.identifierAccessor(ui.item.node),true);
             }
-        }
+        },
     })
     .autocomplete( "instance" )._renderItem = function( ul, item ) {
         var branch = item.key.substring(0,item.key.indexOf("_"));
