@@ -111,7 +111,7 @@ function interactive_tree() {
 
                 // Update the nodes…
                 var node = vis.selectAll("g.node")
-                    .data(nodes, function(d) { return d.id || (d.id = ++id); });
+                    .data(nodes, function(d) { return d.__d3js_id || (d.__d3js_id = ++id); });
 
                 // Enter any new nodes at the parent's previous position.
                 var nodeEnter = node.enter().append("svg:g")
@@ -191,7 +191,7 @@ function interactive_tree() {
 
                 // Update the links…
                 var link = vis.selectAll("path.link")
-                    .data(tree.links(nodes), function(d) { return d.target.id; });
+                    .data(tree.links(nodes), function(d) { return d.target.__d3js_id; });
 
                 // Transition exiting nodes to the parent's new position.
                 link.exit().transition()
@@ -204,7 +204,7 @@ function interactive_tree() {
 
                 // Enter any new links at the parent's previous position.
                 link.enter().insert("svg:path", "g")
-                    .attr("data-id", function(d) { return d.target.id; })
+                    .attr("data-id", function(d) { return d.target.__d3js_id; })
                     .attr("d", function(d) {
                         var o = {x: source.x0, y: source.y0};
                         return diagonal({source: o, target: o});
