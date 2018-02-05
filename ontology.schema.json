@@ -1,9 +1,40 @@
 {
-    "$ref": "#/definitions/EDAMBrowserTerm",
+    "$ref": "#/definitions/EDAMBrowserTermRoot",
     "definitions": {
+        "EDAMBrowserTermRoot": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/EDAMBrowserTerm"
+                    }
+                },
+                "meta": {
+                    "$ref": "#/definitions/Meta"
+                }
+            },
+            "required": [
+                "id",
+                "text",
+                "description",
+                "meta"
+            ],
+            "title": "EDAMBrowserTermRoot"
+        },
         "EDAMBrowserTerm": {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "id": {
                     "type": "string"
@@ -23,9 +54,27 @@
             },
             "required": [
                 "id",
-                "text"
+                "text",
+                "description"
             ],
             "title": "EDAMBrowserTerm"
+        },
+        "Meta": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "date": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "date",
+                "version"
+            ],
+            "title": "meta"
         }
     }
 }

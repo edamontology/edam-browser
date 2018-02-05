@@ -101,8 +101,7 @@ Letting users contribute to the ontology improves acceptance by the community by
 
 ##### Criteria 6
 
-Using the EDAM Browser to explore an custom ontology is possible, the ontology should be in the following [schema](ontology.schema.json) which is expressed in [json schema](http://json-schema.org/), and be accessible trough http. The user only have to open the EDAM Browser, click on the plus sign button at the top of it interface and provide the url where the ontology file can be found.
-
+Using the EDAM Browser to explore an custom ontology is possible, the ontology should be in the following simplified schema which is expressed in [json schema](http://json-schema.org/). A complete version of the schema is accessible [here](ontology.schema.json). 
 
 ```json
 {
@@ -110,7 +109,7 @@ Using the EDAM Browser to explore an custom ontology is possible, the ontology s
     "definitions": {
         "EDAMBrowserTerm": {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "id": {
                     "type": "string"
@@ -138,9 +137,13 @@ Using the EDAM Browser to explore an custom ontology is possible, the ontology s
 }
 ```
 
+The user only have to open the EDAM Browser and click on the button labelled _Custom_ at the top of it interface. It then open a form where the user either provide the url where the ontology file can be found, or the file, and also indicate how identifier and text can be accessed in the ontology.
+
+![Providing a custom ontology](paper_resources/custom_ontology.png)
+
 ##### Criteria 7
 
-The EDAM Browser can easily be downloaded and run on a personal computer. The only requirement is python.
+The EDAM Browser can easily be downloaded and run on a personal computer. The user either open index.html and then chose to load an ontology, or start using `python start_edam_stand_alone_browser.py` and the ontology will automatically be loaded.
 Once downloaded, the user can also use a custom version of the ontology, including beta version of the next release or a whole new ontology. By default, ontology should be in the [json schema](http://json-schema.org/) presented previously, but the browser can be configured to use a different schema (c.f: hereafter). A validator is available [here](https://jsonschemalint.com/).
 
 ## Reusability
