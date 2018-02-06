@@ -1,0 +1,37 @@
+{
+  "@context": "https://raw.githubusercontent.com/codemeta/codemeta/master/codemeta.jsonld",
+  "@type": "Code",
+  "author": [
+    {
+      "@id": "0000-0001-8669-5525",
+      "@type": "Person",
+      "email": "bryan.brancotte@pasteur.fr",
+      "name": "Bryan Brancotte",
+      "affiliation": "Centre d'Informatique pour la Biologie, C3BI, Institut Pasteur, Paris, France"
+    },
+    {
+      "@id": "",
+      "@type": "Person",
+      "email": "christophe.blanchet@france-bioinformatique.fr",
+      "name": "Christophe Blanchet",
+      "affiliation": "French Institute of Bioinformatics, CNRS IFB-Core, Gif-sur-Yvette, France"
+    },
+    {
+      "@id": "0000-0002-7552-1009",
+      "@type": "Person",
+      "email": "herve.menager@pasteur.fr",
+      "name": "Hervé Ménager",
+      "affiliation": "Centre d'Informatique pour la Biologie, C3BI, Institut Pasteur, Paris, France"
+    }
+  ],
+  "identifier": "",
+  "codeRepository": "https://github.com/IFB-ElixirFr/edam-browser",
+  "datePublished": "2018-02-06",
+  "dateModified": "2018-02-06",
+  "dateCreated": "2018-02-06",
+  "description": "The EDAM Browser is a client-side web-based visualization javascript widget. Its goals are to help describing bio-related resources and service with EDAM, and to facilitate and foster community contributions to EDAM.",
+  "keywords": "javascript, bioinformatics, d3js, d3.js, ontology, visualization, edamontology, ontology",
+  "license": "MIT",
+  "title": "EDAM Browser",
+  "version": "v1.0.0"
+}
