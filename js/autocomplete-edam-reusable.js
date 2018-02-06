@@ -15,13 +15,24 @@ function build_autocomplete(tree_file, elt){
 }
 
 function build_autocomplete_from_tree(data, elt){
+    function identifierAccessor(node){
+        if (typeof browser != "undefined")
+            return browser.identifierAccessor(node);
+        return node.data.uri;
+    }
+    function textAccessor(node){
+        if (typeof browser != "undefined")
+            return browser.textAccessor(node);
+        return node.text;
+    }
+
     if(typeof elt == "undefined"){
         elt='.search-term';
     }
     var source = [];
     var source_dict = {};
     function traverse(node) {
-        var uri = browser.identifierAccessor(node);
+        var uri = identifierAccessor(node);
         var key = uri.substring(uri.lastIndexOf('/')+1);
         var values =[node.text,key];
         if(node.exact_synonyms) values=values.concat(node.exact_synonyms);
@@ -52,8 +63,8 @@ function build_autocomplete_from_tree(data, elt){
         source : source,
         minLength: 2,
         select : function(event, ui){ // lors de la sélection d'une proposition
-            $(event.target).attr("data-selected",browser.identifierAccessor(ui.item.node));
-            if (typeof tree != "undefined"){
+            $(event.target).attr("data-selected",identifierAccessor(ui.item.node));
+            if (typeof browser != "undefined"){
                 browser.interactive_tree().cmd.selectElement(browser.identifierAccessor(ui.item.node),true);
             }
         },
@@ -63,7 +74,7 @@ function build_autocomplete_from_tree(data, elt){
           return $( "<li>" )
             .append(
                 "<div class=\"autocomplete-entry\">"+
-                "<b>" + browser.textAccessor(item.node) + "</b>"+
+                "<b>" + textAccessor(item.node) + "</b>"+
                 " ("+item.key+")"+
                 "<span class=\"label label-info pull-right\">"+branch+"</span>"+
                 "<br>"+
