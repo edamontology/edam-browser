@@ -15,6 +15,7 @@ function interactive_tree() {
         loadingDoneHandler = voidHandler("loadingDoneHandler"),
         metaInformationHandler = voidHandler("metaInformationHandler"),
         removeElementsWithNoSelectedDescendant = false,
+        sortChildren = false,
         identifierAccessor=function(d){return d.id;},
         textAccessor=function(d) {
             if (typeof d.text == "undefined")
@@ -345,6 +346,19 @@ function interactive_tree() {
         }
         element.parent=parent;
         if (element.children) {
+            if (sortChildren) {
+                element.children.sort(
+                    function compare(a,b) {
+                        a=textAccessor(a);
+                        b=textAccessor(b)
+                        if (a < b)
+                            return -1;
+                        if (a > b)
+                            return 1;
+                        return 0;
+                    }
+                );
+            }
             for(var i=0;i<element.children.length;i++){
                 parenthood(element.children[i],element);
             }
@@ -602,6 +616,15 @@ function interactive_tree() {
     chart.tooltipEnabled = function(value) {
         if (!arguments.length) return tooltipEnabled;
         tooltipEnabled = value;
+        return chart;
+    };
+    /**
+     * Accessor configuring if the children should be sorted
+     * @param {boolean} value
+     */
+    chart.sortChildren = function(value) {
+        if (!arguments.length) return sortChildren;
+        sortChildren = value;
         return chart;
     };
     /**

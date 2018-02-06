@@ -374,6 +374,7 @@ function interactive_edam_browser(){
         })
         .metaInformationHandler(metaInformationHandler)
         .debug(false)
+        .sortChildren(true)
         .use_shift_to_open(false)
         .use_control_to_open(false)
         .use_alt_to_open(false)
