@@ -348,7 +348,7 @@ function interactive_tree() {
         if (element.children) {
             if (sortChildren) {
                 element.children.sort(
-                    function compare(a,b) {
+                    function (a,b) {
                         a=textAccessor(a);
                         b=textAccessor(b)
                         if (a < b)
