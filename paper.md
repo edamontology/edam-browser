@@ -31,13 +31,13 @@ bibliography: paper_resources/paper.bib
 
 ## Abstract
 
-Labelling, indexing and describing a resource, whether it is a software, a database, or a service is of a great help when it comes to promoting it to various user communities. As an example, in Bioinformatics, the ELIXIR bio.tools [@ison2015tools] registry contains more than ten thousands software and service entries. In this context, the use of controlled vocabularies to describe the resources is of a paramount importance. This need is addressed by the EDAM Ontology [@ison2013edam] which proposes a controlled vocabulary hierarchically organized around four concepts which are types of data, formats, operations and topics.
+Labelling, indexing and describing a Bioinformatics resource, whether it is a software, a database, or a service is of a great help when it comes to promoting it to various user communities. As an example, the ELIXIR bio.tools [@ison2015tools] registry contains more than ten thousands software and service entries. In this context, the use of controlled vocabularies to describe the resources is of a paramount importance. This need is addressed by the EDAM Ontology [@ison2013edam] which proposes a controlled vocabulary hierarchically organized around four concepts which are types of data, formats, operations and topics.
 
 We here present the EDAM Browser, a client-side web-based visualization javascript widget to help describing resources, and to facilitate and foster community contributions to EDAM. More precisely, (i) we review related work and features that need to be addressed; (ii) we describe how these features are addressed by the EDAM Browser; finally (iii) we discuss its reusability.
 
 ## Related work
 
-We collected from EDAM users and authors features that a browser should have to fit their needs. Hereafter we describe collected criteria and there presence or absence in the following platforms : (i)BioPortal [@whetzel2011bioportal], (ii) OLS - Ontology Lookup Service [@jupp2015new], (iii)  WebProt&eacute;g&eacute;[@tudorache2013webprotege] and (iv) AberOWL[@hoehndorf2015aber].
+We collected from EDAM users and authors features that a browser should have to fit their needs. Hereafter we describe collected criteria and their presence or absence in the following platforms: (i) BioPortal[@whetzel2011bioportal], (ii) OLS - Ontology Lookup Service[@jupp2015new], (iii)  WebProt&eacute;g&eacute;[@tudorache2013webprotege] and (iv) AberOWL[@hoehndorf2015aber].
 
 | id  | Feature                                | AberOWL          | BioPortal| OLS              | WebProtégé       |
 |:---:|----------------------------------------|:-------------------:|:-----------:|:-------------------:|:-------------------:|
@@ -52,24 +52,22 @@ We collected from EDAM users and authors features that a browser should have to 
 
 ##### Criteria 1 and 2
 
-On one hand Platforms AberOWL, BioPortal and OLS integrate EDAM and let not authenticated user browse it, on the other hand WebProt&eacute;g&eacute; is meant for editing ontology, and ask user to register before uploading its ontology. 
+On the one hand the AberOWL, BioPortal and OLS platforms integrate EDAM and let unauthenticated users browse it. On the other hand WebProt&eacute;g&eacute; is meant for ontology edition, and asks users to register before uploading its ontology. 
 
 ##### Criteria 3 "Handle multiple parents"
 
-The EDAM ontology, while being represented as a tree is a directed acyclic graph, meaning that a term can have more than one parent. When searching for the Topic "Phylogeny" we have on one hand [OLS](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Ftopic_0084) which indicates that indeed the term has multiple parents both in the tree representation and the details.
-On the other hand we have 
-[AberOWL](http://aber-owl.net/ontology/EDAM/#/Browse/<http%3A%2F%2Fedamontology.org%2Ftopic_0084>), [BioPortal](http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2Ftopic_0084), and  WebProt&eacute;g&eacute; which all the tree display the term at only one position in the tree while details tab indicates that the term is a _subClassOf_ two terms. 
+The EDAM ontology, while being represented as a tree is a directed acyclic graph, meaning that a term can have more than one parent. When searching for the Topic "Phylogeny", [OLS](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Ftopic_0084) indicates that the term has multiple parents both in the tree representation and the details. Other platforms, i.e. [AberOWL](http://aber-owl.net/ontology/EDAM/#/Browse/<http%3A%2F%2Fedamontology.org%2Ftopic_0084>), [BioPortal](http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2Ftopic_0084), and  WebProt&eacute;g&eacute;, display the term at only one position in the tree while the details tab indicates that the term is a _subClassOf_ two terms. 
 
 ##### Criteria 4 "Can be integrated in external websites"
 
-Bioportal allows to integrate [widgets](http://bioportal.bioontology.org/ontologies/EDAM/?p=widgets) such as autocomplete form, graph visualization, and tree visualization. Widgets for OLS can be found in [biojs](http://biojs.io) registry. Neither AberOWL nor WebProtégé propose widget.  
+Bioportal allows to integrate [widgets](http://bioportal.bioontology.org/ontologies/EDAM/?p=widgets) such as autocomplete form, graph visualization, and tree visualization. Widgets for OLS can be found in [biojs](http://biojs.io) registry. Neither AberOWL nor WebProtégé propose widgets.  
 
 ##### Criteria 5 "Facilitate community contributions"
 
 AberOWL indicates the homepage of the ontology. 
 BioPortal provides a custom suggestion and bug report mechanism that lets users provide feedback on the contents of the ontology. However, this mechanism, being generic to all ontologies, is not deeply integrated with the development forge used by each ontology. 
 OLS provides only the possibility to contact the authors through email. 
-WebProtégé propose to download the edited ontology in OWL format, it is then the responsibility of the user to transmit this edited version to the ontology authors.
+WebProtégé proposes to download the edited ontology in OWL format, it is then the responsibility of the user to transmit this edited version to the ontology authors.
 
 ##### Criteria 6 "Use edited version of EDAM"
 
@@ -83,11 +81,11 @@ BioPortal is available as a [virtual appliance](https://www.bioontology.org/wiki
 Installing locally OLS is [possible](https://www.ebi.ac.uk/ols/docs/installation-guide), software requirements includes Maven, Neo4J, MongoDB, Tomcat, Solr.
 WebProtégé can also be [installed](https://protegewiki.stanford.edu/wiki/WebProtegeAdminGuide) among with MongoDB and Tomcat.
 
-We thus conclude that the installation is only for user with administrator rights on their computer.
+In all cases, these systems requires privileged (administrator-level) permissions to install them.
 
 ## Main functionalities
 
-In this section, we present how each feature of the previous section are addressed by EDAM Browser.
+In this section, we present how each feature of the previous section are addressed by the EDAM Browser.
 
 ##### Criteria 1 and 2
 
