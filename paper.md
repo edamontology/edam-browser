@@ -37,7 +37,7 @@ We here present the EDAM Browser, a client-side web-based visualization javascri
 
 ## Related work
 
-We collected from EDAM users and authors features that a browser should have to fit their needs. Here after we describe collected criteria and there presence or absence in the following platforms : (i)BioPortal [@whetzel2011bioportal], (ii) OLS - Ontology Lookup Service [@jupp2015new], (iii)  WebProt&eacute;g&eacute;[@tudorache2013webprotege] and (iv) AberOWL[hoehndorf2015aber].
+We collected from EDAM users and authors features that a browser should have to fit their needs. Here after we describe collected criteria and there presence or absence in the following platforms : (i)BioPortal [@whetzel2011bioportal], (ii) OLS - Ontology Lookup Service [@jupp2015new], (iii)  WebProt&eacute;g&eacute;[@tudorache2013webprotege] and (iv) AberOWL[@hoehndorf2015aber].
 
 | id  | Feature                                | in AberOWL          | in BioPortal| in OLS              | in WebProtégé       |
 |:---:|----------------------------------------|:-------------------:|:-----------:|:-------------------:|:-------------------:|
