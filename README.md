@@ -1,15 +1,29 @@
 # Edam stand alone browser using d3.js
 
+The EDAM Browser is a client-side web-based visualization javascript widget. Its goals are to help describing bio-related resources and service with EDAM, and to facilitate and foster community contributions to EDAM.
+
 ![screenshot](./screenshot.png)
 
-## Try it
+## Demo
 
-### Online
+## Use it ...
+
+### ... online
 
 Go to https://ifb-elixirfr.github.io/edam-browser/
 
-### Local
+### ... locally
+
+Download/clone the repository
 
 Run `python start_edam_stand_alone_browser.py`
 
-It starts a web server allowing you to browse edam on [localhost:20080](http://0.0.0.0:20080). Note that for the first run it will download EDAM in json from [this issues comment](https://github.com/edamontology/edamontology/issues/326#issuecomment-348208324)
+It starts a web server allowing you to browse edam on [localhost:20080](http://0.0.0.0:20080).
+
+### ... with a custom ontology
+
+EDAM Browser can render ontology described in json following the [schema](ontology.schema.json), see [here](https://github.com/IFB-ElixirFr/edam-browser/blob/master/paper.md#criteria-6) for more information on how to load a custom ontology.
+
+### ... in your website
+
+A demo showing you how to add the tree visualization and how you can interact with the it programmatically is available at https://ifb-elixirfr.github.io/edam-browser/demo.html
