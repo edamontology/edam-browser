@@ -74,6 +74,7 @@
                 my_tree = interactive_tree()
                     .identifierAccessor(function(d){return d.data.uri;})
                     .debug(true)
+                    .duration(1000)
                     .tooltipEnabled(true)
                     .initiallySelectedElementHandler(function(d){return d.data.uri==="http://edamontology.org/topic_0091"})
                     .loadingDoneHandler(demo)
@@ -86,6 +87,7 @@ window.onload = function() {
         //overriding as the identifier by default consider d.id
         .identifierAccessor(function(d){return d.data.uri;})
         .debug(true)
+        .duration(1000)
         .tooltipEnabled(true)
         //at first Bioinformatics should be selected
         .initiallySelectedElementHandler(function(d){
