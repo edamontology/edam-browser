@@ -5,7 +5,7 @@ if (!Array.prototype.remove) {
     };
 }
 
-function getUrlParameter(sParam) {
+function getUrlParameter(sParam, default_value) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
         sURLVariables = sPageURL.split('&'),
         sParameterName,
@@ -18,6 +18,7 @@ function getUrlParameter(sParam) {
             return sParameterName[1] === undefined ? true : sParameterName[1];
         }
     }
+    return default_value;
 }
 
 function setCookie(cname, cvalue, exdays) {

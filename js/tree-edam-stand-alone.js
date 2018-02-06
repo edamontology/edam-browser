@@ -58,14 +58,15 @@ function interactive_edam_browser(){
 
     function selectCustom(){
         branch="custom";
-        $("[name=identifier_accessor][value='"+getCookie("edam_browser_"+branch+"_identifier_accessor","")+"']").prop("checked",true);
-        $("[name=text_accessor][value='"+getCookie("edam_browser_"+branch+"_text_accessor","")+"']").prop("checked",true);
+        $("[name=identifier_accessor][value='"+getCookie("edam_browser_custom_identifier_accessor","")+"']").prop("checked",true);
+        $("[name=text_accessor][value='"+getCookie("edam_browser_custom_text_accessor","")+"']").prop("checked",true);
+        $("#id_url").val( getCookie("edam_browser_custom_loaded_url", ""));
         $("#myModal").modal('show');
     }
 
     function loadCustom(){
         var branch;
-        var from=$("form")[0];
+        var from=$("#custom_ontology_from")[0];
         if(!from.checkValidity()){
             $(from).find("[type=submit]").click()
             return;
@@ -75,7 +76,7 @@ function interactive_edam_browser(){
             branch="custom_file";
         else
             branch="custom_url";
-        setCookie("edam_browser_custom_loaded_url", getUrlParameter("url"));
+        setCookie("edam_browser_custom_loaded_url", getUrlParameter("url", ""));
         setCookie("edam_browser_custom_identifier_accessor", getUrlParameter("identifier_accessor"));
         setCookie("edam_browser_custom_text_accessor", getUrlParameter("text_accessor"));
 

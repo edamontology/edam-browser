@@ -43,6 +43,14 @@ window.onload = function() {
         setCookie("edam_browser_"+branch,id);
     }else{
         branch=getCookie("edam_browser_branch","topic");
+        if (branch=="custom_url"){
+            //if branch is custom we simulate the form to be filled, and submitted.
+            $("[name=identifier_accessor][value='"+getCookie("edam_browser_custom_identifier_accessor","")+"']").prop("checked",true);
+            $("[name=text_accessor][value='"+getCookie("edam_browser_custom_text_accessor","")+"']").prop("checked",true);
+            $("#id_url").val( getCookie("edam_browser_custom_loaded_url", ""));
+            $inputs.change();
+            setUrlParameters($("#custom_ontology_from").serialize());
+        }
     }
     d3.select("#tree").call(browser.interactive_tree()); // draw chart in div
     if(branch=="custom_file"){
