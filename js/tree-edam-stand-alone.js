@@ -61,6 +61,7 @@ function interactive_edam_browser(){
         $("[name=identifier_accessor][value='"+getCookie("edam_browser_custom_identifier_accessor","")+"']").prop("checked",true);
         $("[name=text_accessor][value='"+getCookie("edam_browser_custom_text_accessor","")+"']").prop("checked",true);
         $("#id_url").val( getCookie("edam_browser_custom_loaded_url", ""));
+        $("#id_url").change();
         $("#myModal").modal('show');
     }
 

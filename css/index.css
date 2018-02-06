@@ -38,3 +38,9 @@
     border-top: 1px solid #e5e5e5;
     margin-top: -10px;
 }
+input+.text-for-disabled-input{
+    display:none;
+}
+input:disabled+.text-for-disabled-input{
+    display:initial;
+}
