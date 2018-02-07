@@ -585,6 +585,13 @@ function interactive_tree() {
         update(root);
         return cmd;
     }
+    /**
+     * Return the element that have this identifier
+     * @return cmd() itself
+     */
+    cmd.getElementByIdentifier = function (identifier){
+        return identifierToElement[identifier] || identifier;
+    }
 
     // getter and setter functions. See Mike Bostocks post "Towards Reusable Charts" for a tutorial on how this works.
     chart.cmd = cmd;

@@ -89,6 +89,7 @@ function interactive_edam_browser(){
         my_tree.textAccessor(text_accessor_mapping[getUrlParameter("text_accessor")]);
 
         $("#myModal").modal('hide');
+        $("#edamAccordion>.panel-group").remove();
         if(branch=="custom_url"){
             loadTree(branch);
             return;
@@ -211,17 +212,17 @@ function interactive_edam_browser(){
             "exact_synonyms",
             "narrow_synonyms",
         ];
-        if(current_branch=="edam" || current_branch=="data" || current_branch=="operation" || typeof d["has_topic"] != "undefined")
+        if(typeof d["has_topic"] != "undefined")
             fields.push("has_topic");
-        if(current_branch=="edam" || current_branch=="format" || typeof d["is_format_of"] != "undefined")
+        if(typeof d["is_format_of"] != "undefined")
             fields.push("is_format_of");
-        if(current_branch=="edam" || current_branch=="operation" || typeof d["has_input"] != "undefined")
+        if(typeof d["has_input"] != "undefined")
             fields.push("has_input");
-        if(current_branch=="edam" || current_branch=="operation" || typeof d["has_output"] != "undefined")
+        if(typeof d["has_output"] != "undefined")
             fields.push("has_output");
         fields.forEach(function(entry) {
             if("uri"==entry)
-                append_row(table,"URI",uri);
+                append_row(table,"URI",uri,false);
             else
                 append_row(table,entry,d[entry]);
         });
@@ -275,30 +276,39 @@ function interactive_edam_browser(){
         }
         $("#edamAccordion").find(".panel-group").first().find(".collapse").collapse("hide");
         if($("#edamAccordion").find(".panel-group").length>0){
-            $("#edamAccordion").prepend($("#history-separator").show());
+            $("#edamAccordion").prepend($("#history-separator"));
         }
         $("#edamAccordion").prepend(details);
         $("#edamAccordion").find(".panel-group").first().find(".collapse").collapse("show");
         return false;
     }
 
-    function interactive_edam_uri(value){
+    function interactive_edam_uri(value, translate_to_text){
+        console.log(browser.interactive_tree().cmd().getElementByIdentifier(value));
+        if (value.constructor === Object){
+            return JSON.stringify(value);
+        }
         if (!(""+value).startsWith("http://edamontology.org/"))
             return value;
 
         if(current_branch.startsWith("custom"))
             return "<a href=\"#"+ value + "&"+current_branch + "\" onclick=\"browser.interactive_tree().cmd().selectElement(this.text,true);\">"+value+"</a>";
 
-        //branch_of_term = get_branch_of_term(value);
-        branch_of_term = current_branch;
-        return "<a href=\"#"+ value + (current_branch=="deprecated"?"&deprecated":"")+"\" onclick=\"setCookie('edam_browser_'+'"+branch_of_term+"','"+value+"');browser.current_branch('"+branch_of_term+"');browser.interactive_tree().cmd().selectElement(this.text,true)\">"+value+"</a>";
+        branch_of_term = get_branch_of_term(value);
+        return "<a "+
+        "href=\"#"+ value + (current_branch=="deprecated"?"&deprecated":"")+"\" "+
+        "onclick=\"setCookie('edam_browser_'+'"+current_branch+"','"+value+"');browser.current_branch('"+current_branch+"');browser.interactive_tree().cmd().selectElement(this.text,true)\""+
+        "class=\"label bg-edam-"+branch_of_term+"-light fg-edam-"+branch_of_term+" border-edam-"+branch_of_term+"\" "+
+        ">"+
+        (translate_to_text!=false?my_tree.textAccessor()(my_tree.cmd.getElementByIdentifier(value)):value)
+        +"</a>";
     }
 
     function get_branch_of_term(value){
         return value.substring(value.lastIndexOf('/')+1,value.lastIndexOf('_'));
     }
 
-    function append_row(table,name,value){
+    function append_row(table, name, value, translate_uri_to_text){
         var id=(name
             .replace(/[^a-zA-Z]/g,'-')
             .toLowerCase()+"-val")
@@ -313,15 +323,15 @@ function interactive_edam_browser(){
                 value_txt="";
                 for (i=0; i<value.length;i++){
                     if (value[i] != ""){
-                        value_txt = value_txt + "<li>"+interactive_edam_uri(value[i])+"</li>";
+                        value_txt = value_txt + "<li>"+interactive_edam_uri(value[i], translate_uri_to_text)+"</li>";
                     }
                 }
                 value="<ul>"+value_txt+"</ul>";
             }else{
-                value=interactive_edam_uri(value[0]);
+                value=interactive_edam_uri(value[0], translate_uri_to_text);
             }
         }
-        $("<tr><th>"+name+"</th><td class=\""+id+"\">"+interactive_edam_uri(value)+"</td></tr>").appendTo(table);
+        $("<tr><th>"+name+"</th><td class=\""+id+"\">"+interactive_edam_uri(value, translate_uri_to_text)+"</td></tr>").appendTo(table);
         return id;
     }
 
@@ -398,6 +408,9 @@ function interactive_edam_browser(){
             return true;
         })
         .initiallySelectedElementHandler(function(d){
+            if (d.text && d.text.constructor === Object){
+                d.text = JSON.stringify(d.text);
+            }
             return my_tree.identifierAccessor()(d) === getInitURI(current_branch);
         })
         .loadingDoneHandler(function(){
