@@ -31,6 +31,10 @@
     background-color:#fe6916;
     fill:#fe6916 !important;
 }
+.bg-edam-deprecated{
+    background-color:#999;
+    fill:#999 !important;
+}
 
 .fg-edam-data-light
 ,.fg-edam-data-light:hover
