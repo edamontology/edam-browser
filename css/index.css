@@ -44,3 +44,27 @@ input+.text-for-disabled-input{
 input:disabled+.text-for-disabled-input{
     display:initial;
 }
+.bg-edam-data{
+    background-color:#FF8000;
+}
+.bg-edam-format{
+    background-color:#3ADF00;
+}
+.bg-edam-operation{
+    background-color:#00EEEE;
+}
+.bg-edam-topic{
+    background-color:#BE81F7;
+}
+.fb-edam-data{
+    color:#FF8000;
+}
+.fb-edam-format{
+    color:#3ADF00;
+}
+.fb-edam-operation{
+    color:#00EEEE;
+}
+.fb-edam-topic{
+    color:#BE81F7;
+}
