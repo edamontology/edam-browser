@@ -40,6 +40,8 @@ window.onload = function() {
             id=("http://edamontology.org/"+hash).replace("http://edamontology.org/http://edamontology.org/","http://edamontology.org/");
             branch="edam";
         }
+        if(id==="")
+            id=getInitURI(branch);
         setCookie("edam_browser_branch",branch);
         setCookie("edam_browser_"+branch,id);
     }else{
