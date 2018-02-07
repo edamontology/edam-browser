@@ -11,6 +11,8 @@ function getInitURI(branch){
         return getCookie("edam_browser_"+branch,"http://edamontology.org/topic_0091");
     if(branch == "edam")
         return getCookie("edam_browser_"+branch,"http://edamontology.org/topic_0003");
+    if(branch == "edam_w_deprecated")
+        return getCookie("edam_browser_"+branch,"http://edamontology.org/topic_0003");
     if(branch == "custom_file")
         return getCookie("edam_browser_"+branch,"");
     if(branch == "custom_url")
@@ -19,16 +21,23 @@ function getInitURI(branch){
 
 function getTreeFile(branch){
     if (branch == "deprecated")
-        return "media/deprecated_extended.biotools.min.json";
+        return "media/edam_extended.biotools.min.json";
+        //return "media/deprecated_extended.biotools.min.json";
     if(branch == "data")
-        return "media/data_extended.biotools.min.json";
+        return "media/edam_extended.biotools.min.json";
+        //return "media/data_extended.biotools.min.json";
     if(branch == "format")
-        return "media/format_extended.biotools.min.json";
+        return "media/edam_extended.biotools.min.json";
+        //return "media/format_extended.biotools.min.json";
     if(branch == "operation")
-        return "media/operation_extended.biotools.min.json";
+        return "media/edam_extended.biotools.min.json";
+        //return "media/operation_extended.biotools.min.json";
     if(branch == "topic")
-        return "media/topic_extended.biotools.min.json";
+        return "media/edam_extended.biotools.min.json";
+        //return "media/topic_extended.biotools.min.json";
     if(branch == "edam")
+        return "media/edam_extended.biotools.min.json";
+    if(branch == "edam_w_deprecated")
         return "media/edam_extended.biotools.min.json";
     if(branch == "custom_url")
         return getCookie("edam_browser_custom_loaded_url","");
@@ -284,7 +293,6 @@ function interactive_edam_browser(){
     }
 
     function interactive_edam_uri(value, translate_to_text){
-        console.log(browser.interactive_tree().cmd().getElementByIdentifier(value));
         if (value.constructor === Object){
             return JSON.stringify(value);
         }
@@ -300,7 +308,7 @@ function interactive_edam_browser(){
         "onclick=\"setCookie('edam_browser_'+'"+current_branch+"','"+value+"');browser.current_branch('"+current_branch+"');browser.interactive_tree().cmd().selectElement(this.text,true)\""+
         "class=\"label bg-edam-"+branch_of_term+"-light fg-edam-"+branch_of_term+" border-edam-"+branch_of_term+"\" "+
         ">"+
-        (translate_to_text!=false?my_tree.textAccessor()(my_tree.cmd.getElementByIdentifier(value)):value)
+        (translate_to_text!=false && value.constructor != Object ? my_tree.textAccessor()(my_tree.cmd.getElementByIdentifier(value)):value)
         +"</a>";
     }
 
@@ -406,6 +414,41 @@ function interactive_edam_browser(){
             my_tree.cmd.clearSelectedElements(false);
             standAloneSelectedElementHandler(d,)
             return true;
+        })
+        .preTreatmentOfLoadedTree(function(tree){
+            if(current_branch==="edam"){
+                all_children=tree.children;
+                tree.children=[];
+                for(var i=0;i<all_children.length;i++){
+                    if (my_tree.identifierAccessor()(all_children[i])!="owl:DeprecatedClass")
+                        tree.children.push(all_children[i]);
+                }
+            }
+            if(current_branch==="deprecated"){
+                for(var i=0;i<tree.children.length;i++){
+                    if (my_tree.identifierAccessor()(tree.children[i])==="owl:DeprecatedClass"){
+                        tree.children[i].meta=tree.meta||{};
+                        return tree.children[i];
+                    }
+                }
+            }
+            branches=[
+                "data",
+                "format",
+                "operation",
+                "topic",
+            ];
+            for (var id=0;id<branches.length;id++){
+                if(current_branch===branches[id]){
+                    for(var i=0;i<tree.children.length;i++){
+                        if (my_tree.identifierAccessor()(tree.children[i]).indexOf("/"+branches[id]+"_")!=-1){
+                            tree.children[i].meta=tree.meta||{};
+                            return tree.children[i];
+                        }
+                    }
+                }
+            }
+            return tree;
         })
         .initiallySelectedElementHandler(function(d){
             if (d.text && d.text.constructor === Object){

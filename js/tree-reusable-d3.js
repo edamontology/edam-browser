@@ -36,6 +36,7 @@ function interactive_tree() {
                     "Identifier: "+identifierAccessor(d)+
                     "</div></div>"
         },
+        preTreatmentOfLoadedTree=function(tree){return  tree;},
         tooltipEnabled=false,
         use_shift_to_open=false,
         use_control_to_open=true,
@@ -717,7 +718,7 @@ function interactive_tree() {
      */
     chart.data = function(value) {
         if (!arguments.length) return root;
-        root = value;
+        root = preTreatmentOfLoadedTree(value);
         initTreeAndTriggerUpdate()
         return chart;
     };
@@ -764,6 +765,15 @@ function interactive_tree() {
     chart.tooltipBuilder = function(value) {
         if (!arguments.length) return tooltipBuilder;
         tooltipBuilder = value;
+        return chart;
+    };
+    /**
+     * Accessor to the method building the tooltip of an element
+     * @param {function} value - an implementation of function (d){...} returning the html code contained in the tooltip
+     */
+    chart.preTreatmentOfLoadedTree = function(value) {
+        if (!arguments.length) return preTreatmentOfLoadedTree;
+        preTreatmentOfLoadedTree = value;
         return chart;
     };
     /**

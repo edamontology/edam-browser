@@ -31,7 +31,7 @@ function build_autocomplete_from_tree(data, elt){
     }
     var source = [];
     var source_dict = {};
-    function traverse(node) {
+    function traverse(node, deprecated) {
         var uri = identifierAccessor(node);
         var key = uri.substring(uri.lastIndexOf('/')+1);
         var values =[node.text,key];
@@ -43,15 +43,19 @@ function build_autocomplete_from_tree(data, elt){
             key : key,
             node : node,
         }
+        if (deprecated || uri === "owl:DeprecatedClass"){
+            deprecated=true;
+            candidate["deprecated"]=true;
+        }
         source_dict[candidate.key] = candidate;
         if (node.children) {
             $.each(node.children, function(i, child) {
-                 traverse(child);
+                 traverse(child, deprecated);
             });
         }
         if (node._children) {
             $.each(node._children, function(i, child) {
-                 traverse(child);
+                 traverse(child, deprecated);
             });
         }
     }
@@ -72,7 +76,7 @@ function build_autocomplete_from_tree(data, elt){
         },
     })
     .autocomplete( "instance" )._renderItem = function( ul, item ) {
-        var branch = item.key.substring(0,item.key.indexOf("_"));
+        var branch = item.deprecated ? "deprecated" : item.key.substring(0,item.key.indexOf("_"));
           return $( "<li>" )
             .append(
                 "<div class=\"autocomplete-entry\">"+
