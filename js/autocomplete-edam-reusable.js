@@ -36,7 +36,7 @@ function build_autocomplete_from_tree(data, elt){
         var key = uri.substring(uri.lastIndexOf('/')+1);
         var values =[node.text,key];
         if(node.exact_synonyms) values=values.concat(node.exact_synonyms);
-        //if(node.narrow_synonyms) values=values.concat(node.narrow_synonyms);
+        if(node.narrow_synonyms) values=values.concat(node.narrow_synonyms);
         candidate={
             value : node.text,
             label : values.join(' '),
@@ -67,7 +67,7 @@ function build_autocomplete_from_tree(data, elt){
         $(elt).autocomplete("destroy");
     $(elt).autocomplete({
         source : source,
-        minLength: 3,
+        minLength: source.length>400?3:2,
         select : function(event, ui){ // lors de la sélection d'une proposition
             $(event.target).attr("data-selected",identifierAccessor(ui.item.node));
             if (typeof browser != "undefined"){
