@@ -95,7 +95,7 @@ function interactive_edam_browser(){
         reader.onload = function(event) {
             json = JSON.parse(event.target.result);
             if(typeof json["meta"]=="undefined"){
-                json["meta"]={};
+                json["meta"]={"version":"v n/a"};
             }
             json["meta"]["data_file"]=file.name;
             json["meta"]["date"]=file.lastModifiedDate.toLocaleString();
@@ -323,12 +323,13 @@ function interactive_edam_browser(){
             $("#version").html("<i>n/a</i>");
             $("#release_date").html("<i>n/a</i>");
             $("#meta_data_url").html("<i>n/a</i>");
+            $("#meta_data_file").html("<i>n/a</i>");
             return;
         }
         $("#version").html(meta.version);
         $("#release_date").html(meta.date);
         $("#meta_data_url").attr("href", meta.data_url).add("[for=meta_data_url]").toggle(typeof meta.data_url != "undefined");
-        $("#meta_data_file").attr("href", meta.data_file).add("[for=meta_data_file]").toggle(typeof meta.data_file != "undefined");
+        $("#meta_data_file").html(meta.data_file).add("[for=meta_data_file]").toggle(typeof meta.data_file != "undefined");
 //        $("#meta_data_filename").attr("href", meta.data_filename).visible(typeof meta.data_filename != "undefined");
     }
 

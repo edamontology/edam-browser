@@ -690,7 +690,7 @@ function interactive_tree() {
         data_url = value;
         d3.json(value, function(json) {
                 if(typeof json["meta"]=="undefined"){
-                    json["meta"]={};
+                    json["meta"]={"version":"v n/a", "date":"n/a"};
                 }
                 json["meta"]["data_url"]=data_url;
                 chart.data(json)
