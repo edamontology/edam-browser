@@ -28,11 +28,11 @@ function tess_api(){
         }
         //get the url returning the tools for human
         getter.get_url=function(){
-            return "https://tess.oerc.ox.ac.uk/materials?scientific_topics="+name.replace(/ /g,'+');
+            return "https://tess.elixir-europe.org/materials?scientific_topics="+name.replace(/ /g,'+');
         }
         //get the url returning the tools for api call
         getter.get_api_url=function(){
-            return "https://tess.oerc.ox.ac.uk/materials.json?scientific_topics="+name.replace(/ /g,'%20');
+            return "https://tess.elixir-europe.org/materials.json?scientific_topics="+name.replace(/ /g,'+');
         }
         return getter;
     }
