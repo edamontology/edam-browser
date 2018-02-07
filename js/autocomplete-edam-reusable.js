@@ -59,6 +59,8 @@ function build_autocomplete_from_tree(data, elt){
     for (var key in source_dict){
         source.push(source_dict[key]);
     }
+    if($(elt).data('ui-autocomplete') != undefined)
+        $(elt).autocomplete("destroy");
     $(elt).autocomplete({
         source : source,
         minLength: 2,
