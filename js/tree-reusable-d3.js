@@ -3,8 +3,7 @@
  * @return {object} the tree
  */
 function interactive_tree() {
-    var height=800,
-        debug=false,
+    var debug=false,
         margin = {top: 10, right: 50, bottom: 10, left: 80},
         voidHandler=function(name){return function(){if(debug)console.log(name);}},
         voidHandlerStrBlank=function(name){return function(){if(debug)console.log(name);return"";}},
@@ -72,7 +71,7 @@ function interactive_tree() {
             var zoom = d3.behavior.zoom();
             var vis = d3.select(this).append("svg:svg")
                 .attr("width", "100%")
-                .attr("height", height + margin.top + margin.bottom)
+                .attr("height", "100%")
                 .call(zoom.on("zoom", function () {
                     vis.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
                 }))
@@ -96,10 +95,10 @@ function interactive_tree() {
                 });
 
             reset = function(){
-                zoom.translate([50,height/2]).scale(1);
+                zoom.translate([50,$(target_selector).height()/2]).scale(1);
                 d3.select(target_selector)
                     .select("svg>g")
-                    .attr("transform", "translate(" + 50 + "," + height/2 + ")");
+                    .attr("transform", "translate(" + 50 + "," + $(target_selector).height()/2 + ")");
             }
 
             update = function (source) {
@@ -596,15 +595,6 @@ function interactive_tree() {
 
     // getter and setter functions. See Mike Bostocks post "Towards Reusable Charts" for a tutorial on how this works.
     chart.cmd = cmd;
-    /**
-     * Accessor configuring the height of the svg containing the tree
-     * @param {boolean} value
-     */
-    chart.height = function(value) {
-        if (!arguments.length) return height;
-        height = value;
-        return chart;
-    };
     /**
      * Accessor configuring the animation's duration
      * @param {boolean} value
