@@ -50,3 +50,13 @@ input:disabled+.text-for-disabled-input{
 .panel-group+#history-separator{
     display:initial;
 }
+#edamAccordion table    .label{
+    font-size:inherit;
+}
+#edamAccordion ul{
+    margin-bottom:0px;
+    line-height:2;
+}
+#tree {
+    height:70vh;
+}
