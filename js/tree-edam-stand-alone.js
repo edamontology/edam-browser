@@ -10,9 +10,9 @@ function getInitURI(branch){
     if(branch == "topic")
         return getCookie("edam_browser_"+branch,"http://edamontology.org/topic_0091");
     if(branch == "edam")
-        return getCookie("edam_browser_"+branch,"http://edamontology.org/topic_0003");
+        return getCookie("edam_browser_"+branch,"http://edamontology.org/topic_0091");
     if(branch == "edam_w_deprecated")
-        return getCookie("edam_browser_"+branch,"http://edamontology.org/topic_0003");
+        return getCookie("edam_browser_"+branch,"http://edamontology.org/topic_0091");
     if(branch == "custom_file")
         return getCookie("edam_browser_"+branch,"");
     if(branch == "custom_url")
