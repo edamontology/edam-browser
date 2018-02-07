@@ -78,7 +78,7 @@ function build_autocomplete_from_tree(data, elt){
                 "<div class=\"autocomplete-entry\">"+
                 "<b>" + textAccessor(item.node) + "</b>"+
                 " ("+item.key+")"+
-                "<span class=\"label label-info pull-right\">"+branch+"</span>"+
+                "<span class=\"label label-info pull-right bg-edam-"+branch+"\">"+branch+"</span>"+
                 "<br>"+
                 "<small>"+
                 item.node.definition+
