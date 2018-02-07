@@ -183,12 +183,13 @@ function interactive_edam_browser(){
 
     function standAloneSelectedElementHandler (d, do_not_open){
         var uri=my_tree.identifierAccessor()(d);
+        var branch_of_term = get_branch_of_term(uri);
         setCookie("edam_browser_"+current_branch, uri);
         var identifier=uri.substring(uri.lastIndexOf('/')+1)
             .replace(/[^a-zA-Z_0-9]/g,'-')
             .toLowerCase()
             .replace(/[-]+/g,'-');
-        window.location.hash = uri + (current_branch=="deprecated"?"&deprecated":"")+ (current_branch.substring(0,6)=="custom"?"&"+current_branch:"");
+        window.location.hash = uri.replace("http://edamontology.org/","") + (current_branch!="edam"?"&"+current_branch:"");
         if(current_branch!="custom_url" && window.location.search){
             setUrlParameters("");
         }
@@ -198,7 +199,8 @@ function interactive_edam_browser(){
         details +=     '<div class="panel panel-default">';
         details +=         '<div class="panel-heading">';
         details +=             '<h4 class="panel-title">';
-        details +=                 '<a data-toggle="collapse" href="#collapse-'+identifier+'">Details of term "<span class="term-name-heading"></span>"</a>';
+        details +=                 '<a data-toggle="collapse" href="#collapse-'+identifier+'">Details of term "<span class="term-name-heading"></span>"</a> ';
+        details +=                 '<span class="label label-default bg-edam-'+branch_of_term+'-light fg-edam-'+branch_of_term+' border-edam-'+branch_of_term+'">'+branch_of_term+'</span>';
         details +=                 '<a title="edit this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?term='+identifier+'&branch='+current_branch+'"><span class="glyphicon glyphicon-pencil"></span></a>';
         details +=                 '<a title="add a child to this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?parent='+identifier+'&branch='+current_branch+'"><span class="glyphicon glyphicon-plus"></span></a>';
         details +=             '</h4>';
@@ -284,8 +286,12 @@ function interactive_edam_browser(){
             );
         }
         $("#edamAccordion").find(".panel-group").first().find(".collapse").collapse("hide");
-        if($("#edamAccordion").find(".panel-group").length>0){
+        var length=$("#edamAccordion").find(".panel-group").length;
+        if(length>0){
             $("#edamAccordion").prepend($("#history-separator"));
+        }
+        if(length>5){
+            $("#edamAccordion").find(".panel-group").last().fadeOut(300, function() { $(this).remove(); });
         }
         $("#edamAccordion").prepend(details);
         $("#edamAccordion").find(".panel-group").first().find(".collapse").collapse("show");
@@ -305,11 +311,14 @@ function interactive_edam_browser(){
         branch_of_term = get_branch_of_term(value);
         return "<a "+
         "href=\"#"+ value + (current_branch=="deprecated"?"&deprecated":"")+"\" "+
-        "onclick=\"setCookie('edam_browser_'+'"+current_branch+"','"+value+"');browser.current_branch('"+current_branch+"');browser.interactive_tree().cmd().selectElement(this.text,true)\""+
+        "onclick=\"setCookie('edam_browser_'+'"+current_branch+"','"+value+"');browser.current_branch('"+current_branch+"');browser.interactive_tree().cmd().selectElement('"+value+"',true)\""+
         "class=\"label bg-edam-"+branch_of_term+"-light fg-edam-"+branch_of_term+" border-edam-"+branch_of_term+"\" "+
         ">"+
         (translate_to_text!=false && value.constructor != Object ? my_tree.textAccessor()(my_tree.cmd.getElementByIdentifier(value)):value)
-        +"</a>";
+        //+' <i class="glyphicon glyphicon-stop bg-edam-'+branch_of_term+' fg-edam-'+branch_of_term+'"></i></a>'
+        //+'<span class="badge bg-edam-'+branch_of_term+'">'+branch_of_term+'</span>'
+        //+'<span class="label label-default bg-edam-'+branch_of_term+'-light fg-edam-'+branch_of_term+' border-edam-'+branch_of_term+'">'+branch_of_term+'</span>'
+        ;
     }
 
     function get_branch_of_term(value){
@@ -334,7 +343,7 @@ function interactive_edam_browser(){
                         value_txt = value_txt + "<li>"+interactive_edam_uri(value[i], translate_uri_to_text)+"</li>";
                     }
                 }
-                value="<ul>"+value_txt+"</ul>";
+                value='<ul class="list-unstyled">'+value_txt+'</ul>';
             }else{
                 value=interactive_edam_uri(value[0], translate_uri_to_text);
             }
