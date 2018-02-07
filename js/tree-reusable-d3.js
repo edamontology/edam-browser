@@ -7,6 +7,7 @@ function interactive_tree() {
         debug=false,
         margin = {top: 10, right: 50, bottom: 10, left: 80},
         voidHandler=function(name){return function(){if(debug)console.log(name);}},
+        voidHandlerStrBlank=function(name){return function(){if(debug)console.log(name);return"";}},
         initiallySelectedElementHandler = voidHandler("initiallySelectedElementHandler"),
         addingElementHandler = voidHandler("addingElementHandler"),
         openElementHandler = voidHandler("openElementHandler"),
@@ -15,6 +16,8 @@ function interactive_tree() {
         loadingDoneHandler = voidHandler("loadingDoneHandler"),
         metaInformationHandler = voidHandler("metaInformationHandler"),
         removeElementsWithNoSelectedDescendant = false,
+        additionalCSSClassForNode = voidHandlerStrBlank("additionalCSSClassForNode"),
+        additionalCSSClassForLink = voidHandlerStrBlank("additionalCSSClassForLink"),
         sortChildren = false,
         identifierAccessor=function(d){return d.id;},
         textAccessor=function(d) {
@@ -128,7 +131,10 @@ function interactive_tree() {
 
                 nodeEnter.append("svg:circle")
                     .attr("r", 1e-6)
-                    .attr("class", function(d) { return d._children || d.children ? "has-children" : ""; })
+                    .attr("class", function(d) {
+                        return (d._children || d.children ? "has-children " : " ")
+                        + additionalCSSClassForNode(d);
+                    })
                     .on("mouseover", function(d) {
                         if (!tooltipEnabled) return;
                         tooltip
@@ -162,10 +168,8 @@ function interactive_tree() {
                     .attr("r", 4.5)
                     .attr("class", function(d){
                         if (isElementSelected(d, treeSelectedElement))
-                            return "selected";
-                        if (d._children || d.children)
-                            return  "has-children";
-                        return "";
+                            return "selected " + additionalCSSClassForNode(d);
+                        return (d._children || d.children ? "has-children " : " ") + additionalCSSClassForNode(d);
                     });
 
                 nodeUpdate.select("text")
@@ -210,7 +214,9 @@ function interactive_tree() {
                         var o = {x: source.x0, y: source.y0};
                         return diagonal({source: o, target: o});
                     })
-                    .attr("class","link");
+                    .attr("class", function(d) {
+                        return "link " + additionalCSSClassForLink(d);
+                    });
 
                 // Transition links to their new position.
                 link.transition()
@@ -218,8 +224,8 @@ function interactive_tree() {
                     .attr("d", diagonal)
                     .attr("class", function(d){
                         if ($.inArray(d.target, treeSelectedElementAncestors) > -1)
-                            return "link selected";
-                        return "link";
+                            return "link selected " + additionalCSSClassForLink(d);
+                        return "link " + additionalCSSClassForLink(d);
                     });
 
                 // Stash the old positions for transition.
@@ -706,6 +712,24 @@ function interactive_tree() {
         if (!arguments.length) return root;
         root = value;
         initTreeAndTriggerUpdate()
+        return chart;
+    };
+    /**
+     * Accessor to the method adding classed to nodes
+     * @param {function} value - an implementation of function (d){...} returning a class name(s)
+     */
+    chart.additionalCSSClassForNode = function(value) {
+        if (!arguments.length) return additionalCSSClassForNode;
+        additionalCSSClassForNode = value;
+        return chart;
+    };
+    /**
+     * Accessor to the method adding classed to links
+     * @param {function} value - an implementation of function (d){...} returning a class name(s)
+     */
+    chart.additionalCSSClassForLink = function(value) {
+        if (!arguments.length) return additionalCSSClassForLink;
+        additionalCSSClassForLink = value;
         return chart;
     };
     /**

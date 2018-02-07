@@ -9,6 +9,8 @@ function getInitURI(branch){
         return getCookie("edam_browser_"+branch,"http://edamontology.org/operation_2451");
     if(branch == "topic")
         return getCookie("edam_browser_"+branch,"http://edamontology.org/topic_0091");
+    if(branch == "edam")
+        return getCookie("edam_browser_"+branch,"http://edamontology.org/topic_0003");
     if(branch == "custom_file")
         return getCookie("edam_browser_"+branch,"");
     if(branch == "custom_url")
@@ -26,6 +28,8 @@ function getTreeFile(branch){
         return "media/operation_extended.biotools.min.json";
     if(branch == "topic")
         return "media/topic_extended.biotools.min.json";
+    if(branch == "edam")
+        return "media/edam_extended.biotools.min.json";
     if(branch == "custom_url")
         return getCookie("edam_browser_custom_loaded_url","");
     return ""
@@ -207,13 +211,13 @@ function interactive_edam_browser(){
             "exact_synonyms",
             "narrow_synonyms",
         ];
-        if(current_branch=="data" || current_branch=="operation" || typeof d["has_topic"] != "undefined")
+        if(current_branch=="edam" || current_branch=="data" || current_branch=="operation" || typeof d["has_topic"] != "undefined")
             fields.push("has_topic");
-        if(current_branch=="format" || typeof d["is_format_of"] != "undefined")
+        if(current_branch=="edam" || current_branch=="format" || typeof d["is_format_of"] != "undefined")
             fields.push("is_format_of");
-        if(current_branch=="operation" || typeof d["has_input"] != "undefined")
+        if(current_branch=="edam" || current_branch=="operation" || typeof d["has_input"] != "undefined")
             fields.push("has_input");
-        if(current_branch=="operation" || typeof d["has_output"] != "undefined")
+        if(current_branch=="edam" || current_branch=="operation" || typeof d["has_output"] != "undefined")
             fields.push("has_output");
         fields.forEach(function(entry) {
             if("uri"==entry)
@@ -260,12 +264,12 @@ function interactive_edam_browser(){
         }
         if(uri.startsWith("http://edamontology.org/")){
             append_row(table,"Links",
-            "Open "+
-            "<a target=\"_blank\" href=\"http://aber-owl.net/ontology/EDAM/#/Browse/%3Chttp%3A%2F%2Fedamontology.org%2F"+identifier+"%3E\">in AberOWL</a>"+
+            "Open in "+
+            "<a target=\"_blank\" href=\"http://aber-owl.net/ontology/EDAM/#/Browse/%3Chttp%3A%2F%2Fedamontology.org%2F"+identifier+"%3E\">AberOWL</a>"+
             ", "+
-            "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">in BioPortal</a>"+
-            ", "+
-            "<a target=\"_blank\" href=\"https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">in OLS</a>"+
+            "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">BioPortal</a>"+
+            " or "+
+            "<a target=\"_blank\" href=\"https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">OLS</a>"+
             "."
             );
         }
@@ -279,16 +283,19 @@ function interactive_edam_browser(){
     }
 
     function interactive_edam_uri(value){
-        if ((""+value).startsWith("http://edamontology.org/")){
-            //return "<a href=\"#"+ value.substring(value.lastIndexOf('/')+1) + (current_branch=="deprecated"?"&deprecated":"")+"\" onclick=\"browser.current_branch('"+browser.current_branch()+"');browser.interactive_tree().cmd().selectElement(this.text,true);\">"+value+"</a>";
-            if(current_branch.startsWith("custom")){
-                return "<a href=\"#"+ value + "&"+current_branch + "\" onclick=\"browser.interactive_tree().cmd().selectElement(this.text,true);\">"+value+"</a>";
-            }else{
-                branch_of_term = value.substring(value.lastIndexOf('/')+1,value.lastIndexOf('_'));
-                return "<a href=\"#"+ value + (current_branch=="deprecated"?"&deprecated":"")+"\" onclick=\"setCookie('edam_browser_'+'"+branch_of_term+"','"+value+"');browser.current_branch('"+branch_of_term+"');browser.interactive_tree().cmd().selectElement(this.text,true)\">"+value+"</a>";
-            }
-        }
-        return value;
+        if (!(""+value).startsWith("http://edamontology.org/"))
+            return value;
+
+        if(current_branch.startsWith("custom"))
+            return "<a href=\"#"+ value + "&"+current_branch + "\" onclick=\"browser.interactive_tree().cmd().selectElement(this.text,true);\">"+value+"</a>";
+
+        //branch_of_term = get_branch_of_term(value);
+        branch_of_term = current_branch;
+        return "<a href=\"#"+ value + (current_branch=="deprecated"?"&deprecated":"")+"\" onclick=\"setCookie('edam_browser_'+'"+branch_of_term+"','"+value+"');browser.current_branch('"+branch_of_term+"');browser.interactive_tree().cmd().selectElement(this.text,true)\">"+value+"</a>";
+    }
+
+    function get_branch_of_term(value){
+        return value.substring(value.lastIndexOf('/')+1,value.lastIndexOf('_'));
     }
 
     function append_row(table,name,value){
@@ -357,8 +364,30 @@ function interactive_edam_browser(){
 
     var my_tree = interactive_tree()
         .identifierAccessor(identifierAccessorEDAM)
+        /*.additionalCSSClassForNode(function(d){
+            if (current_branch!="edam" &&
+                current_branch!="data" &&
+                current_branch!="format" &&
+                current_branch!="operation" &&
+                current_branch!="topic"
+            )
+                return ""
+            return "bg-edam-"+get_branch_of_term(my_tree.identifierAccessor()(d))+"-light";
+        })
+        .additionalCSSClassForLink(function(d){
+            if (current_branch!="edam" &&
+                current_branch!="data" &&
+                current_branch!="format" &&
+                current_branch!="operation" &&
+                current_branch!="topic"
+            )
+                return ""
+            return "fg-edam-"+get_branch_of_term(my_tree.identifierAccessor()(d.target))+"-light";
+        })*/
         .clickedElementHandler(function(d){
             if(my_tree.cmd.isElementSelected(my_tree.identifierAccessor()(d)))
+                return;
+            if(my_tree.identifierAccessor()(d) === "owl:Thing")
                 return;
             my_tree.cmd.selectElement(my_tree.identifierAccessor()(d),true,true)
             return;

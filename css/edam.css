@@ -1,0 +1,68 @@
+.bg-edam-data-light{
+    background-color:#d6b1c4;
+    fill:#d6b1c4 !important;
+}
+.bg-edam-format-light{
+    background-color:#9fb1d4;
+    fill:#9fb1d4 !important;
+}
+.bg-edam-operation-light{
+    background-color:#adcf9f;
+    fill:#adcf9f !important;
+}
+.bg-edam-topic-light{
+    background-color:#ffc6a7;
+    fill:#ffc6a7 !important;
+}
+.bg-edam-data{
+    background-color:#933162;
+    fill:#933162 !important;
+}
+.bg-edam-format{
+    background-color:#01308d;
+    fill:#01308d !important;
+}
+.bg-edam-operation{
+    background-color:#268101;
+    fill:#268101 !important;
+}
+.bg-edam-topic{
+    background-color:#fe6916;
+    fill:#fe6916 !important;
+}
+.fg-edam-data-light{
+    color:#d6b1c4;
+    stroke:#d6b1c4 !important;
+}
+.fg-edam-format-light{
+    color:#9fb1d4;
+    stroke:#9fb1d4 !important;
+}
+.fg-edam-operation-light{
+    color:#adcf9f;
+    stroke:#adcf9f !important;
+}
+.fg-edam-topic-light{
+    color:#ffc6a7;
+    stroke:#ffc6a7 !important;
+}
+.fg-edam-data{
+    color:#933162;
+    stroke:#933162 !important;
+}
+.fg-edam-format{
+    color:#01308d;
+    stroke:#01308d !important;
+}
+.fg-edam-operation{
+    color:#268101;
+    stroke:#268101 !important;
+}
+.fg-edam-topic{
+    color:#fe6916;
+    stroke:#fe6916 !important;
+}
+.fg-edam-deprecated{
+    color:#999999;
+    stroke:#999999 !important;
+}

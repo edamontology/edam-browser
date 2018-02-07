@@ -28,21 +28,22 @@ window.onload = function() {
         }
     }else
     if(window.location.hash) {
-        branch=window.location.hash.substring(1);
-        pos = branch.lastIndexOf('&');
+        hash=window.location.hash.substring(1);
+        pos = hash.lastIndexOf('&');
         if (pos!=-1){
-            id=branch.substring(0,pos);
-            branch=branch.substring(pos+1);
+            id=hash.substring(0,pos);
+            branch=hash.substring(pos+1);
         }else{
             //only home-EDAM arrives here, so ok to work with edam
-            id=branch;
-            branch=branch.substring(branch.lastIndexOf('/')+1,branch.lastIndexOf('_'));
-            id=("http://edamontology.org/"+id).replace("http://edamontology.org/http://edamontology.org/","http://edamontology.org/");
+            //id=branch;
+            //branch=branch.substring(branch.lastIndexOf('/')+1,branch.lastIndexOf('_'));
+            id=("http://edamontology.org/"+hash).replace("http://edamontology.org/http://edamontology.org/","http://edamontology.org/");
+            branch="edam";
         }
         setCookie("edam_browser_branch",branch);
         setCookie("edam_browser_"+branch,id);
     }else{
-        branch=getCookie("edam_browser_branch","topic");
+        branch=getCookie("edam_browser_branch","edam");
         if (branch=="custom_url"){
             //if branch is custom we simulate the form to be filled, and submitted.
             $("[name=identifier_accessor][value='"+getCookie("edam_browser_custom_identifier_accessor","")+"']").prop("checked",true);
