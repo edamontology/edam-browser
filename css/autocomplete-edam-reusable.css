@@ -35,3 +35,6 @@ li.ui-menu-item.autocomplete-entry{
     border-radius: 3px;
     color:initial;
 }
+.label.pull-right+.label.pull-right{
+    margin-right: 0.2em;
+}

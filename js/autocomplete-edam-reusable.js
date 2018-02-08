@@ -1,28 +1,5 @@
-/**
-* DEPRECATED
-* Build the autocomplete from a tree contained in a file, and rely on the presence of browser variable
-* @depretated
-* @param {dict} the tree
-* @param {str} the target where we should build the autocomplete
-*/
-function build_autocomplete(tree_file, elt){
-    if(typeof elt == "undefined"){
-        elt='.search-term';
-    }
-    $(elt).prop('disabled',true);
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        url:tree_file,
-        data: {},
-        success: function (data, textStatus, xhr) {
-            build_autocomplete_from_tree(data,elt);
-        }
-    });
-}
-
 function fake_interactive_edam_browser(){
-    var identifierToElement=[],
+    var identifierToElement={},
         identifierAccessor = function (d) {
             return d.data.uri;
         },
@@ -32,9 +9,15 @@ function fake_interactive_edam_browser(){
             if (d.text.constructor === Array)
                 return d.text[0];
             return d.text;
+        },
+        interactive_tree=function(){
+            return interactive_tree;
         };
 
     function buildIdentifierToElement(element,parent) {
+        if(identifierAccessor(element)==="owl:DeprecatedClass"){
+            element.deprecated=true;
+        }
         node=identifierToElement[identifierAccessor(element)];
         if (typeof node != "undefined"){
             if (typeof node.duplicate == "undefined")
@@ -46,6 +29,9 @@ function fake_interactive_edam_browser(){
         }
         element.parent=parent;
         for(var i=0;i<(element.children||[]).length;i++){
+            if (element.deprecated){
+                element.children[i].deprecated=true;
+            }
             buildIdentifierToElement(element.children[i],element);
         }
     }//end of function buildIdentifierToElement
@@ -55,9 +41,9 @@ function fake_interactive_edam_browser(){
      */
     function browser(){}
     /**
-     * The browser
+     * Read-only accessor to the interactive tree
+     * @return {object} the tree
      */
-    function interactive_tree(){}
     browser.interactive_tree = interactive_tree;
     /**
      * The tree's commands
@@ -74,14 +60,7 @@ function fake_interactive_edam_browser(){
         $.each(identifierToElement,fcn);
         return cmd;
     }
-
-    /**
-     * Read-only accessor to the interactive tree
-     * @return {object} the tree
-     */
-    browser.interactive_tree=function(){
-        return interactive_tree;
-    }
+    cmd.selectElement = function(){}
     /**
      * Read-only proxy to use the identifierAccessor of the interactive_tree
      * @param {object} an element
@@ -128,16 +107,19 @@ function build_autocomplete_from_edam_browser(edam_browser, elt){
     if($(elt).data('ui-autocomplete') != undefined)
         $(elt).autocomplete("destroy");
 
-    edam_browser.interactive_tree().cmd().forEachElement(
-        function(i,elt){
-            var uri = edam_browser.identifierAccessor(elt);
-            var key = uri.substring(uri.lastIndexOf('/')+1);
-            var values =[edam_browser.textAccessor(elt),key];
-            if(elt.exact_synonyms) values=values.concat(elt.exact_synonyms);
-            if(elt.narrow_synonyms) values=values.concat(elt.narrow_synonyms);
-            elt.__autocomplete_from_edam_browser=values.join(' ').toUpperCase();
-        }
-    );
+    function initIndex(){
+        edam_browser.interactive_tree().cmd().forEachElement(
+            function(i,elt){
+                var uri = edam_browser.identifierAccessor(elt);
+                var key = uri.substring(uri.lastIndexOf('/')+1);
+                var values =[edam_browser.textAccessor(elt),key];
+                if(elt.exact_synonyms) values=values.concat(elt.exact_synonyms);
+                if(elt.narrow_synonyms) values=values.concat(elt.narrow_synonyms);
+                elt.__autocomplete_from_edam_browser=values.join(' ').toUpperCase();
+            }
+        );
+    }
+    initIndex();
     function span_matched(match) {
       return '<span class="matched">'+match+'</span>';
     }
@@ -150,38 +132,42 @@ function build_autocomplete_from_edam_browser(edam_browser, elt){
             var term=request.term.toUpperCase();
             tree.forEachElement(
                 function(i,elt){
+                    if(typeof elt.__autocomplete_from_edam_browser == "undefined")
+                        initIndex();
                     if (elt.__autocomplete_from_edam_browser.indexOf(term)!=-1)
-                        data.push(elt)
+                        data.push({value:edam_browser.textAccessor(elt),node:elt})
                 }
             )
             response(data)
         },
         minLength: 2,
         select : function(event, ui){ // lors de la sélection d'une proposition
-            $(event.target).attr("data-selected",edam_browser.identifierAccessor(ui.item));
-            edam_browser.interactive_tree().cmd.selectElement(edam_browser.identifierAccessor(ui.item),true);
+            $(event.target).attr("data-selected",edam_browser.identifierAccessor(ui.item.node));
+            edam_browser.interactive_tree().cmd.selectElement(edam_browser.identifierAccessor(ui.item.node),true);
         },
     })
     .autocomplete( "instance" )._renderItem = function( ul, item ) {
-        var identifier = edam_browser.identifierAccessor(item);
+        var identifier = edam_browser.identifierAccessor(item.node);
         identifier = identifier.substring(identifier.lastIndexOf('/')+1);
-        var branch = item.deprecated ? "deprecated" : identifier.substring(0,identifier.indexOf("_"));
+        //var branch = item.deprecated ? "deprecated" : identifier.substring(0,identifier.indexOf("_"));
+        var branch = identifier.substring(0,identifier.indexOf("_"));
         var re=new RegExp($(elt).val(), 'ig');
         return $( "<li class=\"autocomplete-entry\">" )
             .append(
                 '<div>'+
                 '<div>'+
                     '<span style="">'+
-                        edam_browser.textAccessor(item).replace(re,span_matched) +
+                        edam_browser.textAccessor(item.node).replace(re,span_matched) +
                     '</span>'+
                     '<span style="">'+
                         '<span class="label label-info pull-right bg-edam-'+branch+'" title="'+branch+'">'+
                             identifier.replace(re,span_matched)+
                         '</span>'+
+                        (item.node.deprecated ?'<span class="label label-info pull-right bg-edam-deprecated">deprecated</span>':'')+
                     '</span>'+
                 '</div>'+
                 '<div>'+
-                    item.definition.replace(re,span_matched)+
+                    item.node.definition.replace(re,span_matched)+
                 '</div>'+
                 '</div>' )
             .appendTo( ul );

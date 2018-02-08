@@ -1,6 +1,9 @@
+var browser;
+
 function fill_form(identifier, parent, branch){
     tree_file = getTreeFile(branch);
-    build_autocomplete(tree_file);
+    //build_autocomplete(tree_file);
+    build_autocomplete_from_edam_browser(browser);
     if(identifier){
         $('#pageTitle .new').hide();
     }else{
@@ -75,8 +78,9 @@ function build_form(target, all_elements){
             $(".search-term[name=parent-"+i+"]")
                 .val(target.parent[i].text)
                 .attr('data-selected',target.parent[i].data.uri);
-            build_autocomplete(
-                getTreeFile(getCookie("edam_browser_branch","topic")),
+//            build_autocomplete(
+//                getTreeFile(getCookie("edam_browser_branch","topic")),
+            build_autocomplete_from_edam_browser(browser,
                 ".search-term[name=parent-"+i+"]"
             );
         }
@@ -100,8 +104,9 @@ function addParent(){
     $(".search-term[name=parent-"+i+"]")
                 .val("")
                 .attr('data-initial',"");
-    build_autocomplete(
-        getTreeFile(getCookie("edam_browser_branch","topic")),
+//    build_autocomplete(
+//        getTreeFile(getCookie("edam_browser_branch","topic")),
+    build_autocomplete_from_edam_browser(browser,
         ".search-term[name=parent-"+i+"]"
     );
 }
@@ -110,6 +115,7 @@ uri = "";
 parent_uri=null;
 
 window.onload = function() {
+    browser = fake_interactive_edam_browser().current_branch( getUrlParameter('branch'));
     fill_form(getUrlParameter('term'), getUrlParameter('parent'), getUrlParameter('branch'));
 }
 
