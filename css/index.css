@@ -28,12 +28,6 @@
     font-size:inherit;
     color:inherit;
 }
-.ui-autocomplete {
-    max-height: 60vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-right: 8px;
-}
 .modal-dialog .modal-body+.modal-body {
     border-top: 1px solid #e5e5e5;
     margin-top: -10px;

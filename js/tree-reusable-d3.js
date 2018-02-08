@@ -592,6 +592,14 @@ function interactive_tree() {
     cmd.getElementByIdentifier = function (identifier){
         return identifierToElement[identifier] || identifier;
     }
+    /**
+     * Iterate over ell the elements of the tree
+     * @return cmd() itself
+     */
+    cmd.forEachElement = function (fcn){
+        $.each(identifierToElement,fcn);
+        return cmd;
+    }
 
     // getter and setter functions. See Mike Bostocks post "Towards Reusable Charts" for a tutorial on how this works.
     chart.cmd = cmd;

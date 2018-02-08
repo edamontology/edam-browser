@@ -1,0 +1,37 @@
+.ui-menu-item:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+.ui-menu-item {
+    border-top: 1px solid #eee;
+}
+.ui-autocomplete {
+    max-height: 60vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.ui-menu-item>div:first{
+}
+li.ui-menu-item.autocomplete-entry{
+    display:block;
+}
+.autocomplete-entry>div.ui-menu-item-wrapper{
+    padding-right: 0.4em;
+    padding-left: 0.4em;
+}
+.autocomplete-entry>div.ui-menu-item-wrapper>div:first-child{
+    flex-direction: row;
+    display: flex;
+}
+.autocomplete-entry>.ui-menu-item-wrapper>:first-child>:first-child{
+    flex: 1 1;
+    font-weight: bold;
+}
+.autocomplete-entry>.ui-menu-item-wrapper>:first-child>:last-child{
+    flex: 0 auto;
+}
+.autocomplete-entry .matched{
+    background-color: yellow;
+    border: 1px solid #990;
+    border-radius: 3px;
+    color:initial;
+}

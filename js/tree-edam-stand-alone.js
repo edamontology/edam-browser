@@ -62,11 +62,12 @@ function interactive_edam_browser(){
         tree_file=getTreeFile(branch);
         if(tree_file==""){
             my_tree.data(tree);
-            build_autocomplete_from_tree(tree)
+            //build_autocomplete_from_tree(tree)
         }else{
             my_tree.data_url(tree_file);
-            build_autocomplete(tree_file);
+            //build_autocomplete(tree_file);
         }
+        build_autocomplete_from_edam_browser(browser);
     }
 
     function selectCustom(){
@@ -389,6 +390,16 @@ function interactive_edam_browser(){
     }
     text_accessor_mapping['d.name']=textAccessorName;
 
+    function markDeprecated(node){
+        node.deprecated=true;
+        for(var i=0;i<(node.children||[]).length;i++){
+            markDeprecated(node.children[i]);
+        }
+        for(var i=0;i<(node._children||[]).length;i++){
+            markDeprecated(node._children[i]);
+        }
+    }
+
     var my_tree = interactive_tree()
         .identifierAccessor(identifierAccessorEDAM)
         /*.additionalCSSClassForNode(function(d){
@@ -437,6 +448,7 @@ function interactive_edam_browser(){
                 for(var i=0;i<tree.children.length;i++){
                     if (my_tree.identifierAccessor()(tree.children[i])==="owl:DeprecatedClass"){
                         tree.children[i].meta=tree.meta||{};
+                        markDeprecated(tree.children[i]);
                         return tree.children[i];
                     }
                 }
@@ -457,6 +469,12 @@ function interactive_edam_browser(){
                     }
                 }
             }
+            for(var i=0;i<tree.children.length;i++){
+                if (my_tree.identifierAccessor()(tree.children[i])==="owl:DeprecatedClass"){
+                    markDeprecated(tree.children[i]);
+                    i=tree.children.length;
+                }
+            }
             return tree;
         })
         .initiallySelectedElementHandler(function(d){
@@ -467,6 +485,7 @@ function interactive_edam_browser(){
         })
         .loadingDoneHandler(function(){
             my_tree.cmd.selectElement(getInitURI(current_branch),true,true)
+            build_autocomplete_from_edam_browser(browser);
         })
         .metaInformationHandler(metaInformationHandler)
         .debug(false)
