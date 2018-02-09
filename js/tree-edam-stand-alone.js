@@ -137,20 +137,28 @@ function interactive_edam_browser(){
         return to_generic_href(c,url,data,get_length_biotools,get_name_biotools,has_next_biotools);
     }
 
-    function get_length_tess(data){
+    function get_length_default(data){
         return data.length;
+    }
+
+    function get_name_default(data, i){
+        return data[i];
     }
 
     function get_name_tess(data, i){
         return data[i].title;
     }
 
-    function has_next_tess(data){
+    function has_next_default(data){
         return false;
     }
 
     function to_tess_href(c,url,data){
-        return to_generic_href(c,url,data,get_length_tess,get_name_tess,has_next_tess);
+        return to_generic_href(c,url,data,get_length_default,get_name_tess,has_next_default);
+    }
+
+    function to_biosphere_href(c,url,data){
+        return to_generic_href(c,url,data,get_length_default,get_name_default,has_next_default);
     }
 
     function get_name_bioweb(data, i){
@@ -158,7 +166,7 @@ function interactive_edam_browser(){
     }
 
     function to_bioweb_href(c,url,data){
-        return to_generic_href(c,url,data,get_length_tess,get_name_bioweb,has_next_tess);
+        return to_generic_href(c,url,data,get_length_default,get_name_bioweb,has_next_default);
     }
 
     function to_generic_href(c,url,data, get_length, get_name, has_next){
@@ -255,14 +263,17 @@ function interactive_edam_browser(){
                 $('#details-'+identifier+' .'+id_b+' [data-toggle="popover"]').popover();
             });
         }
-        var caller_t=tess_api().get_for(current_branch, d['text'], uri);
-        if (caller_t.is_enabled()){
-            var id_t = append_row(table,"Used in <a target=\"_blank\" href=\"https://tess.elixir-europe.org/\">TeSS</a>","<i>loading</i>");
-            caller_t.count(function(c,data){
-                var elt=$('#details-'+identifier+' .'+id_t);
+        var caller_s=biosphere_api().get_for(current_branch, d['text'], uri);
+        if (caller_s.is_enabled()){
+            var id_s = append_row(table,"Used&nbsp;in&nbsp;<a target=\"_blank\" href=\"https://biosphere.france-bioinformatique.fr\">Biosphere</a>","<i>loading</i>");
+            caller_s.count(function(c,data){
+                var elt=$('#details-'+identifier+' .'+id_s);
                 elt.empty();
-                $(to_tess_href(c,caller_t.get_url(),data)).appendTo(elt);
-                $('#details-'+identifier+' .'+id_t+' [data-toggle="popover"]').popover();
+                $('<span>'
+                 + to_biosphere_href(c[0],caller_s.get_url(),data[0]) + ' by appliances, '
+                 + to_biosphere_href(c[1],caller_s.get_url(),data[1]) + ' by tools.'
+                 +'</span>').appendTo(elt);
+                $('#details-'+identifier+' .'+id_s+' [data-toggle="popover"]').popover();
             });
         }
         var caller_w=bioweb_api().get_for(current_branch, d['text'], uri);
@@ -273,6 +284,16 @@ function interactive_edam_browser(){
                 elt.empty();
                 $(to_bioweb_href(c,caller_w.get_url(),data)).appendTo(elt);
                 $('#details-'+identifier+' .'+id_w+' [data-toggle="popover"]').popover();
+            });
+        }
+        var caller_t=tess_api().get_for(current_branch, d['text'], uri);
+        if (caller_t.is_enabled()){
+            var id_t = append_row(table,"Used in <a target=\"_blank\" href=\"https://tess.elixir-europe.org/\">TeSS</a>","<i>loading</i>");
+            caller_t.count(function(c,data){
+                var elt=$('#details-'+identifier+' .'+id_t);
+                elt.empty();
+                $(to_tess_href(c,caller_t.get_url(),data)).appendTo(elt);
+                $('#details-'+identifier+' .'+id_t+' [data-toggle="popover"]').popover();
             });
         }
         if(uri.startsWith("http://edamontology.org/")){
