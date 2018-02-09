@@ -40,8 +40,8 @@
             <form method="post">
                 <div class="row">
                     <div class="form-group">
-                        <label class="control-label col-xs-3 " for="id_label">Label</label>
-                        <div class=" col-xs-9 ">
+                        <label class="control-label col-xs-12 col-sm-3 col-md-2 " for="id_label">Label</label>
+                        <div class=" col-xs-12 col-sm-9 col-md-10 ">
                             <input class=" form-control" id="id_label" maxlength="512" name="label" type="text"
                                    value="" disabled="disabled">
                         </div>
@@ -50,7 +50,7 @@
                 <br/>
                 <!--<div class="row">-->
                     <!--<div class="form-group">-->
-                        <!--<div class=" col-xs-offset-3 col-xs-9">-->
+                        <!--<div class=" col-xs-offset-3 col-xs-12 col-sm-9 col-md-10">-->
                             <!--<div class="checkbox">-->
                                 <!--<label>-->
                                     <!--<input id="id_deprecated" name="deprecated" type="checkbox" disabled="disabled">-->
@@ -66,8 +66,8 @@
                 <!--<br/>-->
                 <div class="row">
                     <div class="form-group">
-                        <label class="control-label col-xs-3 " for="id_definition">Definition</label>
-                        <div class=" col-xs-9 ">
+                        <label class="control-label col-xs-12 col-sm-3 col-md-2 " for="id_definition">Definition</label>
+                        <div class=" col-xs-12 col-sm-9 col-md-10 ">
                             <textarea class=" form-control" cols="40" id="id_definition" name="definition" rows="2"
                                       disabled="disabled"></textarea>
                         </div>
@@ -76,18 +76,18 @@
                 <br/>
                 <div class="row">
                     <div class="form-group">
-                        <div class="col-xs-3" style="font-weight: 700;">Parent</div>
-                        <div class=" col-xs-9 ">
+                        <div class="col-xs-12 col-sm-3 col-md-2" style="font-weight: 700;">Parent</div>
+                        <div class=" col-xs-12 col-sm-9 col-md-10 " id="parent_container">
                             <input disabled="disabled" type="text" tabindex="1" class="form-control ui-autocomplete-input search-term" placeholder="Type at least 2 letters" onclick="$(this).select();" autocomplete="off" name="parent-0">
-                            <button type="button" title="add another parent" class="btn btn-default btn-xs pull-right" onclick="addParent()"><span class="glyphicon glyphicon-plus"></span></button>
+                            <button type="button" title="add another parent" class="btn btn-default btn-xs pull-right" onclick="addTermField($(this).parent(),'parent')"><span class="glyphicon glyphicon-plus"></span></button>
                         </div>
                     </div>
                 </div>
                 <br/>
                 <div class="row">
                     <div class="form-group">
-                        <label class="control-label col-xs-3 " for="id_exactSynonyms">Exact synonyms</label>
-                        <div class=" col-xs-9 ">
+                        <label class="control-label col-xs-12 col-sm-3 col-md-2 " for="id_exactSynonyms">Exact synonyms</label>
+                        <div class=" col-xs-12 col-sm-9 col-md-10 ">
                             <textarea class=" form-control" cols="40" id="id_exactSynonyms" name="exactSynonyms"
                                       rows="2" disabled="disabled"></textarea>
                         </div>
@@ -96,8 +96,8 @@
                 <br/>
                 <div class="row">
                     <div class="form-group">
-                        <label class="control-label col-xs-3 " for="id_narrowSynonyms">Narrow synonyms</label>
-                        <div class=" col-xs-9 ">
+                        <label class="control-label col-xs-12 col-sm-3 col-md-2 " for="id_narrowSynonyms">Narrow synonyms</label>
+                        <div class=" col-xs-12 col-sm-9 col-md-10 ">
                             <textarea class=" form-control" cols="40" id="id_narrowSynonyms" name="narrowSynonyms"
                                       rows="2" disabled="disabled"></textarea>
                         </div>
@@ -106,8 +106,44 @@
                 <br/>
                 <div class="row">
                     <div class="form-group">
-                        <label class="control-label col-xs-3 " for="id_github_comments">Issue comments</label>
-                        <div class=" col-xs-9 ">
+                        <div class="col-xs-12 col-sm-3 col-md-2" style="font-weight: 700;">Has Topic</div>
+                        <div class=" col-xs-12 col-sm-9 col-md-10 " id="has_topic_container">
+                            <button type="button" title="add another term" class="btn btn-default btn-xs pull-right" onclick="addTermField($(this).parent(),'has_topic')"><span class="glyphicon glyphicon-plus"></span></button>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-3 col-md-2" style="font-weight: 700;">Is Format Of</div>
+                        <div class=" col-xs-12 col-sm-9 col-md-10 " id="is_format_of_container">
+                            <button type="button" title="add another term" class="btn btn-default btn-xs pull-right" onclick="addTermField($(this).parent(),'is_format_of')"><span class="glyphicon glyphicon-plus"></span></button>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-3 col-md-2" style="font-weight: 700;">Has Input</div>
+                        <div class=" col-xs-12 col-sm-9 col-md-10 " id="has_input_container">
+                            <button type="button" title="add another term" class="btn btn-default btn-xs pull-right" onclick="addTermField($(this).parent(),'has_input')"><span class="glyphicon glyphicon-plus"></span></button>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-3 col-md-2" style="font-weight: 700;">Has Output</div>
+                        <div class=" col-xs-12 col-sm-9 col-md-10 " id="has_output_container">
+                            <button type="button" title="add another term" class="btn btn-default btn-xs pull-right" onclick="addTermField($(this).parent(),'has_output')"><span class="glyphicon glyphicon-plus"></span></button>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 col-md-2 " for="id_github_comments">Issue comments</label>
+                        <div class=" col-xs-12 col-sm-9 col-md-10 ">
                             <textarea class=" form-control" cols="40" id="id_github_comments" name="github_comments"
                                       rows="10" disabled="disabled"></textarea>
                         </div>

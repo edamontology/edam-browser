@@ -43,7 +43,7 @@ function build_form(target, parentOfNewTerm){
         $(".search-term[name=parent-0]").attr('data-selected',parents[0].data.uri);
         $(".search-term[name=parent-0]").val(parents[0].text);
         for(var i=1;i<parents.length;i++){
-            $(".search-term[name=parent-0]")
+            /*$(".search-term[name=parent-0]")
                 .clone().attr("name","parent-"+i)
                 .insertBefore($(".search-term[name=parent-0]").parent().children("button"));
             $(".search-term[name=parent-"+i+"]")
@@ -56,7 +56,20 @@ function build_form(target, parentOfNewTerm){
 //                getTreeFile(getCookie("edam_browser_branch","topic")),
             build_autocomplete_from_edam_browser(browser,
                 ".search-term[name=parent-"+i+"]"
-            );
+            );*/
+            addTermField("#parent_container","parent",parents[i]);
+        }
+        for(var i=0;i<(target.has_topic||[]).length;i++){
+            addTermField("#has_topic_container","has_topic",browser.interactive_tree.cmd.getElementByIdentifier(target.has_topic[i]));
+        }
+        for(var i=0;i<(target.is_format_of||[]).length;i++){
+            addTermField("#is_format_of_container","is_format_of",browser.interactive_tree.cmd.getElementByIdentifier(target.is_format_of[i]));
+        }
+        for(var i=0;i<(target.has_input||[]).length;i++){
+            addTermField("#has_input_container","has_input",browser.interactive_tree.cmd.getElementByIdentifier(target.has_input[i]));
+        }
+        for(var i=0;i<(target.has_output||[]).length;i++){
+            addTermField("#has_output_container","has_output",browser.interactive_tree.cmd.getElementByIdentifier(target.has_output[i]));
         }
     }else{
         $(".search-term").val(parentOfNewTerm.text);
@@ -69,19 +82,20 @@ function join_if_exists(tab){
     }
     return tab.join('; ');
 }
-function addParent(){
-    var i = $(".search-term").length;
+function addTermField(container, kind, initial_term){
+    var i = $(container).find(".search-term").length;
     $(".search-term[name=parent-0]")
         .clone()
-        .attr("name","parent-"+i)
-        .insertBefore($(".search-term[name=parent-0]").parent().children("button"));
-    $(".search-term[name=parent-"+i+"]")
-                .val("")
-                .attr('data-initial',"");
+        .attr("name",kind+"-"+i)
+        .insertBefore($(container).children("button"));
+
+    $(".search-term[name="+kind+"-"+i+"]")
+                .val(initial_term?initial_term.text:"")
+                .attr('data-initial',initial_term?initial_term.data.uri:"");
 //    build_autocomplete(
 //        getTreeFile(getCookie("edam_browser_branch","topic")),
     build_autocomplete_from_edam_browser(browser,
-        ".search-term[name=parent-"+i+"]"
+        ".search-term[name="+kind+"-"+i+"]"
     );
 }
 
