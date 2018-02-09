@@ -496,6 +496,7 @@ function interactive_edam_browser(){
             return my_tree.identifierAccessor()(d) === getInitURI(current_branch);
         })
         .loadingDoneHandler(function(){
+            my_tree.cmd.selectElement("http://edamontology.org/"+getInitURI(current_branch),true,true)
             my_tree.cmd.selectElement(getInitURI(current_branch),true,true)
             build_autocomplete_from_edam_browser(browser);
         })
