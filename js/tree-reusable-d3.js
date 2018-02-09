@@ -699,6 +699,7 @@ function interactive_tree() {
      */
     chart.data_url = function(value) {
         if (!arguments.length) return data_url;
+        identifierToElement={};
         data_url = value;
         d3.json(value, function(json) {
                 if(typeof json["meta"]=="undefined"){
@@ -716,6 +717,7 @@ function interactive_tree() {
      */
     chart.data = function(value) {
         if (!arguments.length) return root;
+        identifierToElement={};
         root = preTreatmentOfLoadedTree(value);
         initTreeAndTriggerUpdate()
         return chart;
