@@ -17,7 +17,7 @@
         {
           "id": "p7",
           "text": "Trapezium",
-          "definition": "A Polygone with four sides",
+          "definition": "A Polygone with four sides where two are parallels",
           "exact_synonyms": [
             "Four angled polygon",
             "Polygon with four angle or side"
@@ -25,7 +25,7 @@
           "children": [
             {
               "id": "p5",
-              "definition": "Each side are parallel two by two",
+              "definition": "Each side are parallels two by two",
               "text": "Parallelogram",
               "children": [
                 {
