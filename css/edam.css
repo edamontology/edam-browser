@@ -1,3 +1,20 @@
+.bg-edam-data-lighter{
+    background-color:#ead7e1;
+    fill:#d6b1c4 !important;
+}
+.bg-edam-format-lighter{
+    background-color:#ced7e9;
+    fill:#9fb1d4 !important;
+}
+.bg-edam-operation-lighter{
+    background-color:#d5e6ce;
+    fill:#adcf9f !important;
+}
+.bg-edam-topic-lighter{
+    background-color:#ffe2d2;
+    fill:#ffc6a7 !important;
+}
+
 .bg-edam-data-light{
     background-color:#d6b1c4;
     fill:#d6b1c4 !important;
