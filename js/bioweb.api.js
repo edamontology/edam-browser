@@ -23,7 +23,7 @@ function bioweb_api(){
         var term_id=uri.substring(uri.lastIndexOf("/")+1);
         if (branch=="deprecated")
             branch = term_id.substring(0,uri.lastIndexOf("_"));
-        if (branch!="topic")
+        if (branch!="topic" && (branch.indexOf('edam')==-1 || uri.indexOf('topic')==-1))
             return get_for_nothing();
         //getter object
         var getter = function(){}

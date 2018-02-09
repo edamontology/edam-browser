@@ -37,7 +37,7 @@ function biotool_api(){
         name=name.toLowerCase();
         if (branch=="deprecated")
             branch = uri.substring(uri.lastIndexOf("/")+1,uri.lastIndexOf("_"));
-        if (branch=="topic")
+        if (branch=="topic" || branch.indexOf('edam')!=-1 && uri.indexOf('topic')!=-1)
             return api.get_for_topic(name);
         if (branch=="operation")
             return api.get_for_operation(name);
