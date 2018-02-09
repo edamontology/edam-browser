@@ -39,20 +39,21 @@ We here present the EDAM Browser, a client-side web-based visualization javascri
 
 We collected from EDAM users and authors features that a browser should have to fit their needs. Hereafter we describe collected criteria and their presence or absence in the following platforms: (i) BioPortal[@whetzel2011bioportal], (ii) OLS - Ontology Lookup Service[@jupp2015new], (iii)  WebProt&eacute;g&eacute;[@tudorache2013webprotege] and (iv) AberOWL[@hoehndorf2015aber].
 
-| id  | Feature                                | AberOWL          | BioPortal| OLS              | WebProtégé       |
+| id  | Feature                                | AberOWL             | BioPortal| OLS              | WebProtégé       |
 |:---:|----------------------------------------|:-------------------:|:-----------:|:-------------------:|:-------------------:|
-| 1   | EDAM is present                        | ✔                   | ✔           | ✔                   | ✘                   |
+| 1   | EDAM is present                        | ✔                   | ✔           | ✔                   | ✔                   |
 | 2   | Publicly available                     | ✔                   | ✔           | ✔                   | registration        |
 | 3   | Handle multiple parents                | ✘                   | ✘           | ✔                   | ✘                   |
 | 4   | Can be integrated in external websites | ✘                   | ✔           | ✔                   | ✘                   |
-| 5   | Facilitate community contribution      | ✘                   | limited     | ✘                   | ✘                   |
+| 5   | Facilitate community contribution      | ✘                   | limited     | ✘                   | ✔                   |
 | 6   | Use edited version of EDAM             | ✘                   | ✘           | ✘                   | ✔                   |
 | 7   | Local installation                     | ✔ (w/ admin rights) | ✔ (as a VM) | ✔ (w/ admin rights) | ✔ (w/ admin rights) |
+| 8   | Integration of community usage         | ✘                   | ✘           | ✘                   | ✘                   |
 
 
 ##### Criteria 1 and 2
 
-On the one hand the AberOWL, BioPortal and OLS platforms integrate EDAM and let unauthenticated users browse it. On the other hand WebProt&eacute;g&eacute; is meant for ontology edition, and asks users to register before uploading its ontology. 
+On the one hand the AberOWL, BioPortal and OLS platforms integrate EDAM and let unauthenticated users browse it. On the other hand WebProt&eacute;g&eacute; is meant for ontology edition. It asks users to register before uploading its ontology, or browsing the [latest stable version](https://webprotege.stanford.edu/#projects/98640503-a37d-4404-84da-caf30fadd685/edit/Classes) of EDAM. 
 
 ##### Criteria 3 "Handle multiple parents"
 
@@ -67,7 +68,7 @@ Bioportal allows to integrate [widgets](http://bioportal.bioontology.org/ontolog
 AberOWL indicates the homepage of the ontology. 
 BioPortal provides a custom suggestion and bug report mechanism that lets users provide feedback on the contents of the ontology. However, this mechanism, being generic to all ontologies, is not deeply integrated with the development forge used by each ontology. 
 OLS provides only the possibility to contact the authors through email. 
-WebProtégé proposes to download the edited ontology in OWL format, it is then the responsibility of the user to transmit this edited version to the ontology authors.
+WebProtégé allows ontology owner to share their ontologie with a link, letting to authenticated user the possibility to comment on existing or new thread of conversation attached to a term.
 
 ##### Criteria 6 "Use edited version of EDAM"
 
@@ -82,6 +83,10 @@ Installing locally OLS is [possible](https://www.ebi.ac.uk/ols/docs/installation
 WebProtégé can also be [installed](https://protegewiki.stanford.edu/wiki/WebProtegeAdminGuide) among with MongoDB and Tomcat.
 
 In all cases, these systems requires privileged (administrator-level) permissions to install them.
+
+##### Criteria 8 "Integration of community usage"
+
+The presented platforms are generic ontology browser and as expected they do not provide links toward website using the EDAM ontology.
 
 ## Main functionalities
 
@@ -159,6 +164,14 @@ Filling this form with the url of the example file and indicating that the ident
 
 The EDAM Browser can easily be downloaded and run on a personal computer. The user either open index.html and then chose to load an ontology, or starts a local web server using `python start_edam_stand_alone_browser.py` and the ontology will automatically be loaded (recommended scenario).
 Once downloaded, the user can also use a custom version of the ontology, including beta version of the next release or a whole new ontology. By default, ontology should be in the [json schema](http://json-schema.org/) presented previously, but the browser can be configured to use a different schema (c.f: hereafter). A validator is available [here](https://jsonschemalint.com/).
+
+##### Criteria 8
+
+The EDAM Browser proposes links and statistics from several bioinformatics projects which use the EDAM ontology:
+ - [bio.tools](https://bio.tools) which label software and services
+ - [BioSphere](https://biosphere.france-bioinformatique.fr/)[@brancotte2017biosphere] which  label appliances,
+- [Bioweb](https://bioweb.pasteur.fr) which label software and databanks available at the Pasteur Institut 
+- [TeSS](https://tess.elixir-europe.org/) which label training materials
 
 ## Reusability
 
