@@ -275,7 +275,7 @@ function interactive_tree() {
                || d3.event.ctrlKey  && use_control_to_add
                || d3.event.altKey   && use_alt_to_add){
             var pos = treeSelectedElement.indexOf(d);
-            if(i>-1){
+            if(pos>-1){
                 //removing ?
                 attemptToRemoveElement(d, pos);
             }else{
