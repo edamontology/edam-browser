@@ -1,8 +1,22 @@
 function tess_api(){
     function api(){}
 
+    //getter for nothing
+    var get_for_nothing=function (name){
+        var getter = function(){}
+        getter.count=function(callback){}
+        getter.is_enabled=function(){
+            return false;
+        }
+        getter.get_url=function(){}
+        getter.get_api_url=function(){}
+        return getter;
+    }
+
     // generic getter
     api.get_for=function (branch, name, uri){
+        if (uri.indexOf("edam")==-1)
+            return get_for_nothing();
         //getter object
         var getter = function(){}
         //function to count the number of tools associated
