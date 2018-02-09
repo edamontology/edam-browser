@@ -12,9 +12,11 @@ function fake_interactive_edam_browser(){
         },
         interactive_tree=function(){
             return interactive_tree;
-        };
+        },
+        loadingDoneHandler=function(){};
 
     function buildIdentifierToElement(element,parent) {
+        element.parent=parent;
         if(identifierAccessor(element)==="owl:DeprecatedClass"){
             element.deprecated=true;
         }
@@ -46,12 +48,28 @@ function fake_interactive_edam_browser(){
      */
     browser.interactive_tree = interactive_tree;
     /**
+     * Accessor to the method launch when the tree has been built
+     * @param {function} value - an implementation of function (){...}
+     */
+    interactive_tree.loadingDoneHandler = function(value) {
+        if (!arguments.length) return loadingDoneHandler;
+        loadingDoneHandler = value;
+        return interactive_tree;
+    };
+    /**
      * The tree's commands
      */
     function cmd() {
         return cmd;
     };
     interactive_tree.cmd = cmd;
+    /**
+     * Return the element that have this identifier
+     * @return cmd() itself
+     */
+    cmd.getElementByIdentifier = function (identifier){
+        return identifierToElement[identifier];
+    }
     /**
      * Iterate over ell the elements of the tree
      * @return cmd() itself
@@ -86,6 +104,7 @@ function fake_interactive_edam_browser(){
             data: {},
             success: function (data, textStatus, xhr) {
                 buildIdentifierToElement(data, null);
+                loadingDoneHandler();
             }
         });
         return browser;

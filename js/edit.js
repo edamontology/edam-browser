@@ -2,54 +2,15 @@ var browser;
 
 function fill_form(identifier, parent, branch){
     tree_file = getTreeFile(branch);
-    //build_autocomplete(tree_file);
     build_autocomplete_from_edam_browser(browser);
-    if(identifier){
-        $('#pageTitle .new').hide();
-    }else{
-        $('#pageTitle .change').hide();
-    }
-    $('#pageTitle .branch').text(branch);
-    $.ajax({
-        dataType: "json",
-        url: tree_file,
-        data: {},
-        success: function(d){
-            uri = "http://edamontology.org/" + identifier;
-            parent_uri = "http://edamontology.org/" + parent;
-            var stack=[];
-            var target;
-            stack.push(d);
-            var all_elements={}
-            all_elements[d.data.uri]=d.text;
-            do{
-                head = stack.pop();
-                var children = head.children;
-                head.children=null;
-                if (typeof children != "undefined"){
-                    for(var i =0; i<children.length;i++){
-                        stack.push(children[i]);
-                        if (typeof all_elements[children[i].data.uri] == "undefined"){
-                            all_elements[children[i].data.uri]=children[i];
-                            children[i].parent=[]
-                        }else{
-                            children[i] = all_elements[children[i].data.uri];
-                        }
-                        children[i].parent.push(head);
-                    }
-                }
-            } while (stack.length>0);
-            build_form(all_elements[uri], all_elements);
-        },
-        error:function (textStatus, xhr) {
-            console.error(textStatus);
-            console.error(xhr);
-            callback(-1,[],textStatus);
-        },
-    });
+    browser.interactive_tree.cmd.getElementByIdentifier(identifier);
+    build_form(
+        browser.interactive_tree.cmd.getElementByIdentifier(identifier),
+        browser.interactive_tree.cmd.getElementByIdentifier(parent)
+    );
 }
 
-function build_form(target, all_elements){
+function build_form(target, parentOfNewTerm){
     var v;
     if (target){
         $("#id_label").val(v=target.text);
@@ -62,22 +23,35 @@ function build_form(target, all_elements){
         $("#id_narrowSynonyms").attr('data-initial',v);
         /*v=[];
         for(var i=0;i<target.parent.length;i++){
-            v.push(target.parent[i].data.uri);
+            v.push(target.parents[i].data.uri);
         }
         v=v.join("|");*/
-        $(".search-term[name=parent-0]").attr('data-initial',target.parent[0].data.uri);
-        $(".search-term[name=parent-0]").attr('data-selected',target.parent[0].data.uri);
-        $(".search-term[name=parent-0]").val(target.parent[0].text);
-        for(var i=1;i<target.parent.length;i++){
+
+        var parents;
+        if(target.duplicate){
+            parents={};
+            parents[target.parent.data.uri]=target.parent;
+            $.each(target.duplicate,function(id,clone){
+                parents[clone.parent.data.uri]=clone.parent;
+            })
+            parents=$.map(parents, function(value, key) { return value });
+        }else{
+            parents=[target.parent];
+        }
+
+        $(".search-term[name=parent-0]").attr('data-initial',parents[0].data.uri);
+        $(".search-term[name=parent-0]").attr('data-selected',parents[0].data.uri);
+        $(".search-term[name=parent-0]").val(parents[0].text);
+        for(var i=1;i<parents.length;i++){
             $(".search-term[name=parent-0]")
                 .clone().attr("name","parent-"+i)
                 .insertBefore($(".search-term[name=parent-0]").parent().children("button"));
             $(".search-term[name=parent-"+i+"]")
-                .val(target.parent[i].text)
-                .attr('data-initial',target.parent[i].data.uri);
+                .val(parents[i].text)
+                .attr('data-initial',parents[i].data.uri);
             $(".search-term[name=parent-"+i+"]")
-                .val(target.parent[i].text)
-                .attr('data-selected',target.parent[i].data.uri);
+                .val(parents[i].text)
+                .attr('data-selected',parents[i].data.uri);
 //            build_autocomplete(
 //                getTreeFile(getCookie("edam_browser_branch","topic")),
             build_autocomplete_from_edam_browser(browser,
@@ -85,7 +59,7 @@ function build_form(target, all_elements){
             );
         }
     }else{
-        $(".search-term").val(all_elements[parent_uri].text);
+        $(".search-term").val(parentOfNewTerm.text);
     }
     $("form [disabled=disabled]").attr("disabled", false);
 }
@@ -115,8 +89,19 @@ uri = "";
 parent_uri=null;
 
 window.onload = function() {
-    browser = fake_interactive_edam_browser().current_branch( getUrlParameter('branch'));
-    fill_form(getUrlParameter('term'), getUrlParameter('parent'), getUrlParameter('branch'));
+    var identifier=getUrlParameter('term');
+    var branch=getUrlParameter('branch');
+    if(identifier){
+        $('#pageTitle .new').hide();
+    }else{
+        $('#pageTitle .change').hide();
+    }
+    $('#pageTitle .branch').text(branch);
+    browser = fake_interactive_edam_browser();
+    browser.interactive_tree.loadingDoneHandler(function(){
+        fill_form(identifier, getUrlParameter('parent'), branch);
+    });
+    browser.current_branch( getUrlParameter('branch'));
 }
 
 function sendToGitHub(){

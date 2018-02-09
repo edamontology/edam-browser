@@ -202,8 +202,8 @@ function interactive_edam_browser(){
         details +=             '<h4 class="panel-title">';
         details +=                 '<a data-toggle="collapse" href="#collapse-'+identifier+'">Details of term "<span class="term-name-heading"></span>"</a> ';
         details +=                 '<span class="label label-default bg-edam-'+branch_of_term+'-light fg-edam-'+branch_of_term+' border-edam-'+branch_of_term+'">'+branch_of_term+'</span>';
-        details +=                 '<a title="edit this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?term='+identifier+'&branch='+current_branch+'"><span class="glyphicon glyphicon-pencil"></span></a>';
-        details +=                 '<a title="add a child to this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?parent='+identifier+'&branch='+current_branch+'"><span class="glyphicon glyphicon-plus"></span></a>';
+        details +=                 '<a title="edit this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?term='+uri+'&branch='+current_branch+'"><span class="glyphicon glyphicon-pencil"></span></a>';
+        details +=                 '<a title="add a child to this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?parent='+uri+'&branch='+current_branch+'"><span class="glyphicon glyphicon-plus"></span></a>';
         details +=             '</h4>';
         details +=         '</div>';
         details +=         '<div id="collapse-'+identifier+'" class="panel-collapse collapse">';

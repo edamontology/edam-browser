@@ -590,7 +590,7 @@ function interactive_tree() {
      * @return cmd() itself
      */
     cmd.getElementByIdentifier = function (identifier){
-        return identifierToElement[identifier] || identifier;
+        return identifierToElement[identifier];
     }
     /**
      * Iterate over ell the elements of the tree
