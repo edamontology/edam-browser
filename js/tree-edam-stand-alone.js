@@ -310,12 +310,24 @@ function interactive_edam_browser(){
             return "<a href=\"#"+ value + "&"+current_branch + "\" onclick=\"browser.interactive_tree().cmd().selectElement(this.text,true);\">"+value+"</a>";
 
         branch_of_term = get_branch_of_term(value);
+        var text;
+        if(translate_to_text!=false && value.constructor != Object ){
+            var element=my_tree.cmd.getElementByIdentifier(value);
+            if(typeof element != "undefined"){
+                text=my_tree.textAccessor()(element);
+            }else{
+            text=value;
+            }
+        }else{
+            text=value;
+        }
         return "<a "+
         "href=\"#"+ value + (current_branch=="deprecated"?"&deprecated":"")+"\" "+
         "onclick=\"setCookie('edam_browser_'+'"+current_branch+"','"+value+"');browser.current_branch('"+current_branch+"');browser.interactive_tree().cmd().selectElement('"+value+"',true)\""+
         "class=\"label bg-edam-"+branch_of_term+"-light fg-edam-"+branch_of_term+" border-edam-"+branch_of_term+"\" "+
         ">"+
-        (translate_to_text!=false && value.constructor != Object ? my_tree.textAccessor()(my_tree.cmd.getElementByIdentifier(value)):value)
+        text+
+        "</a>"
         //+' <i class="glyphicon glyphicon-stop bg-edam-'+branch_of_term+' fg-edam-'+branch_of_term+'"></i></a>'
         //+'<span class="badge bg-edam-'+branch_of_term+'">'+branch_of_term+'</span>'
         //+'<span class="label label-default bg-edam-'+branch_of_term+'-light fg-edam-'+branch_of_term+' border-edam-'+branch_of_term+'">'+branch_of_term+'</span>'
