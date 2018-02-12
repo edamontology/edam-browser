@@ -17,7 +17,8 @@ function biotool_api(){
                 callback(data['count'],data,textStatus);
             },
         });
-    }
+    }//end of function generic_counter
+
     //getter for nothing
     var get_for_nothing=function (name){
         var getter = function(){}
@@ -28,7 +29,7 @@ function biotool_api(){
         getter.get_url=function(){}
         getter.get_api_url=function(){}
         return getter;
-    }
+    }//end of function get_for_nothing
 
     // generic getter
     api.get_for=function (branch, name, uri, node){
@@ -38,17 +39,18 @@ function biotool_api(){
         if (branch=="deprecated")
             branch = uri.substring(uri.lastIndexOf("/")+1,uri.lastIndexOf("_"));
         if (branch=="topic" || branch.indexOf('edam')!=-1 && uri.indexOf('topic')!=-1)
-            return api.get_for_topic(name);
+            return api.get_for_topic(name, uri, node);
         if (branch=="operation")
-            return api.get_for_operation(name);
+            return api.get_for_operation(name, uri, node);
         if (branch=="format")
-            return api.get_for_format(name);
+            return api.get_for_format(name, uri, node);
         if (branch=="data")
-            return api.get_for_data(name);
+            return api.get_for_data(name, uri, node);
         return get_for_nothing();
-    }
+    }//end of function get_for
+
     //getter for topics
-    api.get_for_topic=function (name){
+    api.get_for_topic=function (name, uri, node){
         //getter object
         var getter = function(){}
         //function to count the number of tools associated
@@ -68,9 +70,10 @@ function biotool_api(){
             return "https://bio.tools/api/tool/?format=json&topic="+name
         }
         return getter;
-    }
+    }//end of function get_for_topic
+
     //getter for operations
-    api.get_for_operation=function (name){
+    api.get_for_operation=function (name, uri, node){
         //getter object
         var getter = function(){}
         //function to count the number of tools associated
@@ -83,16 +86,17 @@ function biotool_api(){
         }
         //get the url returning the tools for human
         getter.get_url=function(){
-            return "https://bio.tools/?format=json&function="+name;
+            return "https://bio.tools/?function="+name;
         }
         //get the url returning the tools for api call
         getter.get_api_url=function(){
             return "https://bio.tools/api/tool/?format=json&function="+name
         }
         return getter;
-    }
+    }//end of function get_for_operation
+
     //getter for data
-    var get_for_data_and_format=function (name){
+    var get_for_data_and_format=function (name, uri, node){
         //getter object
         var getter = function(){}
         //function to count the number of tools associated
@@ -128,7 +132,8 @@ function biotool_api(){
             ];
         }
         return getter;
-    }
+    }//end of function get_for_data_and_format
+
     api.get_for_data=get_for_data_and_format;
     api.get_for_format=get_for_data_and_format;
     return api;
