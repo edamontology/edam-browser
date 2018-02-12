@@ -31,9 +31,9 @@ bibliography: paper_resources/paper.bib
 
 ## Abstract
 
-Labelling, indexing and describing a Bioinformatics resource, whether it is a software, a database, or a service is of a great help when it comes to promoting it to various user communities. As an example, the ELIXIR bio.tools [@ison2015tools] registry contains more than ten thousands software and service entries. In this context, the use of controlled vocabularies to describe the resources is of a paramount importance. This need is addressed by the EDAM Ontology [@ison2013edam] which proposes a controlled vocabulary hierarchically organized around four concepts which are types of data, formats, operations and topics.
+Labelling, indexing and describing a Bioinformatics resource, whether it is a software, a database, or a service is of a great help when it comes to promoting it to various user communities. As an example, the ELIXIR bio.tools [@ison2015tools] registry contains more than ten thousands software and service entries. In this context, the use of controlled vocabularies to describe the resources is of a paramount importance. In bio.tools, this need is addressed by the EDAM Ontology [@ison2013edam], which proposes a controlled vocabulary hierarchically organized around four axes which describe types of data, formats, operations and topics.
 
-We here present the EDAM Browser, a client-side web-based visualization javascript widget to help describing resources, and to facilitate and foster community contributions to EDAM. More precisely, (i) we review related work and features that need to be addressed; (ii) we describe how these features are addressed by the EDAM Browser; finally (iii) we discuss its reusability.
+We here present the EDAM Browser, a client-side web-based visualization javascript widget that provides an interface to navigate EDAM tailored to the need of users outside that might not be ontology experts. This interface can, among other things, be used to help describing resources, and to facilitate and foster community contributions to EDAM. Throughout the rest of this paper, (i) we review related work and features that need to be addressed; (ii) we describe how these features are addressed by the EDAM Browser; finally (iii) we discuss its reusability.
 
 ## Related work
 
@@ -51,7 +51,7 @@ We collected from EDAM users and authors features that a browser should have to 
 | 8   | Integration of community usage         | ✘                   | ✘           | ✘                   | ✘                   |
 
 
-##### Criteria 1 and 2
+##### Criteria 1 and 2 - "EDAM is present and publicly available"
 
 On the one hand the AberOWL, BioPortal and OLS platforms integrate EDAM and let unauthenticated users browse it. On the other hand WebProt&eacute;g&eacute; is meant for ontology edition. It asks users to register before uploading its ontology, or browsing the [latest stable version](https://webprotege.stanford.edu/#projects/98640503-a37d-4404-84da-caf30fadd685/edit/Classes) of EDAM. 
 
