@@ -81,7 +81,7 @@ function biosphere_api(){
         }
         //get the url returning the tools for api call
         getter.get_api_url=function(){
-            return "https://cors-anywhere.herokuapp.com/" + getter.get_url()+"?media=json&included=True";
+            return getter.get_url()+"?media=json&included=True";
         }
         return getter;
     }
