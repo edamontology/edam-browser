@@ -31,7 +31,7 @@ function biotool_api(){
     }
 
     // generic getter
-    api.get_for=function (branch, name, uri){
+    api.get_for=function (branch, name, uri, node){
         if (typeof name == "undefined")
             return get_for_nothing();
         name=name.toLowerCase();

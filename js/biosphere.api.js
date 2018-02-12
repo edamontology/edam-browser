@@ -19,7 +19,7 @@ function biosphere_api(){
     }
 
     // generic getter
-    api.get_for=function (branch, name, uri){
+    api.get_for=function (branch, name, uri, node){
         if (uri.indexOf("edam")==-1)
             return get_for_nothing();
         var term_id=uri.substring(uri.lastIndexOf("/")+1);

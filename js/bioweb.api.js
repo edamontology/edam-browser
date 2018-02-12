@@ -19,7 +19,7 @@ function bioweb_api(){
     }
 
     // generic getter
-    api.get_for=function (branch, name, uri){
+    api.get_for=function (branch, name, uri, node){
         var term_id=uri.substring(uri.lastIndexOf("/")+1);
         if (branch=="deprecated")
             branch = term_id.substring(0,uri.lastIndexOf("_"));
