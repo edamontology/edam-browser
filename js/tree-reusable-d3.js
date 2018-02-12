@@ -128,6 +128,9 @@ function interactive_tree() {
                 nodeEnter.append("svg:text")
                     .text(textAccessor)
                     .style("fill-opacity", 1e-6);
+                nodeEnter.append("svg:text")
+                    .text(textAccessor)
+                    .style("fill-opacity", 1e-6);
 
                 nodeEnter.append("svg:circle")
                     .attr("r", 1e-6)
@@ -172,7 +175,7 @@ function interactive_tree() {
                         return (d._children || d.children ? "has-children " : " ") + additionalCSSClassForNode(d);
                     });
 
-                nodeUpdate.select("text")
+                nodeUpdate.selectAll("text")
                     .attr("x", function(d) { return d.children? -10 : 10; })
                     .attr("dy", function(d) { return d.parent && d.children && d.parent.children.length == 1 ? "-0.2em" : ".35em"; })
                     .attr("text-anchor", function(d) { return d.children  ? "end" : "start"; })

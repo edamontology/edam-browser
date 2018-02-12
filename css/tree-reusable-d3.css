@@ -36,3 +36,11 @@ div.tooltip {
     position: absolute;
     width:300px;
 }
+.node text{
+    stroke: #FFFA;
+    stroke-width: 0.2em;
+}
+.node text+text{
+    stroke: initial;
+    stroke-width: initial;
+}

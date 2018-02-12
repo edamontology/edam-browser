@@ -38,3 +38,12 @@ li.ui-menu-item.autocomplete-entry{
 .label.pull-right+.label.pull-right{
     margin-right: 0.2em;
 }
+#edamAccordion .panel-title{
+    display: flex;
+}
+#edamAccordion .panel-title>a{
+    flex: 1 1;
+}
+#edamAccordion .panel-title>span{
+    flex: 0 auto;
+}

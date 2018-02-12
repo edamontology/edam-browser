@@ -205,17 +205,19 @@ function interactive_edam_browser(){
         $("#details-"+identifier).remove();
         details = "";
         details += '<div class="panel-group" id="details-'+identifier+'">';
-        details +=     '<div class="panel panel-default">';
-        details +=         '<div class="panel-heading">';
+        details +=     '<div class="panel panel-default border-edam-'+branch_of_term+'">';
+        details +=         '<div class="panel-heading xbg-edam-'+branch_of_term+'-light">';
         details +=             '<h4 class="panel-title">';
         details +=                 '<a data-toggle="collapse" href="#collapse-'+identifier+'">Details of term "<span class="term-name-heading"></span>"</a> ';
-        details +=                 '<span class="label label-default bg-edam-'+branch_of_term+'-light fg-edam-'+branch_of_term+' border-edam-'+branch_of_term+'">'+branch_of_term+'</span>';
+//        details +=                 '<span class="label label-default bg-edam-'+branch_of_term+'-light border-one-solid fg-edam-'+branch_of_term+' border-edam-'+branch_of_term+'">'+branch_of_term+'</span>';
+        details +=                 '<span>';
         details +=                 '<a title="edit this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?term='+uri+'&branch='+current_branch+'"><span class="glyphicon glyphicon-pencil"></span></a>';
         details +=                 '<a title="add a child to this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?parent='+uri+'&branch='+current_branch+'"><span class="glyphicon glyphicon-plus"></span></a>';
+        details +=                 '</span>';
         details +=             '</h4>';
         details +=         '</div>';
         details +=         '<div id="collapse-'+identifier+'" class="panel-collapse collapse">';
-        details +=             '<div class="panel-body"><table class="table table-condensed"><tbody></tbody></table></div>';
+        details +=             '<div class="panel-body border-edam-'+branch_of_term+'"><table class="table table-condensed xborder-edam-'+branch_of_term+'"><tbody></tbody></table></div>';
         details +=         '</div>';
         details +=     '</div>';
         details += '</div>';
@@ -347,7 +349,7 @@ function interactive_edam_browser(){
         return "<a "+
         "href=\"#"+ value + (current_branch=="deprecated"?"&deprecated":"")+"\" "+
         "onclick=\"setCookie('edam_browser_'+'"+current_branch+"','"+value+"');browser.current_branch('"+current_branch+"');browser.interactive_tree().cmd().selectElement('"+value+"',true)\""+
-        "class=\"label bg-edam-"+branch_of_term+"-light fg-edam-"+branch_of_term+" border-edam-"+branch_of_term+"\" "+
+        "class=\"label bg-edam-"+branch_of_term+"-light fg-edam-"+branch_of_term+" border-one-solid border-edam-"+branch_of_term+"\" "+
         ">"+
         text+
         "</a>"
@@ -446,7 +448,7 @@ function interactive_edam_browser(){
             )
                 return ""
             return "bg-edam-"+get_branch_of_term(my_tree.identifierAccessor()(d))+"-light";
-        })
+        })*/
         .additionalCSSClassForLink(function(d){
             if (current_branch!="edam" &&
                 current_branch!="data" &&
@@ -456,7 +458,7 @@ function interactive_edam_browser(){
             )
                 return ""
             return "fg-edam-"+get_branch_of_term(my_tree.identifierAccessor()(d.target))+"-light";
-        })*/
+        })/**/
         .clickedElementHandler(function(d){
             if(my_tree.cmd.isElementSelected(my_tree.identifierAccessor()(d)))
                 return;
