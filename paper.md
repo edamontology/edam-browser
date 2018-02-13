@@ -43,27 +43,27 @@ We collected from EDAM users and authors features that a browser should have to 
 |:---:|----------------------------------------|:-------------------:|:-----------:|:-------------------:|:-------------------:|
 | 1   | EDAM is present                        | ✔                   | ✔           | ✔                   | ✔                   |
 | 2   | Publicly available                     | ✔                   | ✔           | ✔                   | registration        |
-| 3   | Handle multiple parents                | ✘                   | ✘           | ✔                   | ✘                   |
+| 3   | Display of multiple parents                | ✘                   | ✘           | ✔                   | ✘                   |
 | 4   | Can be integrated in external websites | ✘                   | ✔           | ✔                   | ✘                   |
 | 5   | Facilitate community contribution      | ✘                   | limited     | ✘                   | ✔                   |
 | 6   | Use edited version of EDAM             | ✘                   | ✘           | ✘                   | ✔                   |
 | 7   | Local installation                     | ✔ (w/ admin rights) | ✔ (as a VM) | ✔ (w/ admin rights) | ✔ (w/ admin rights) |
-| 8   | Integration of community usage         | ✘                   | ✘           | ✘                   | ✘                   |
+| 8   | Links to annotated resources         | ✘                   | ✘           | ✘                   | ✘                   |
 
 
 ##### Criteria 1 and 2 - "EDAM is present and publicly available"
 
 The first two criteria designate wether these interfaces allow to navigate EDAM, and to do so in a anonymous manner. The access to the web interface should be as simple and fast as possible, especially for users who do not need ellaborate functionalities. On the one hand the AberOWL, BioPortal and OLS platforms integrate EDAM and let unauthenticated users browse it. On the other hand WebProt&eacute;g&eacute; is meant for ontology edition. It asks users to register before uploading its ontology, or browsing the [latest stable version](https://webprotege.stanford.edu/#projects/98640503-a37d-4404-84da-caf30fadd685/edit/Classes) of EDAM.
 
-##### Criteria 3 "Handle multiple parents"
+##### Criteria 3 - "Display of multiple parents"
 
 The EDAM ontology, while being represented as a tree, is a directed acyclic graph, meaning that a term can have more than one parent. Displaying this information in a clear way in the navigation interface is fundamental to users, who can then more easily understand the meaning of the represented concept, or locate neighboring ones. For instance, when searching for the Topic "Phylogeny", [OLS](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Ftopic_0084) indicates that the term has multiple parents both in the tree representation and the details. Other platforms, i.e. [AberOWL](http://aber-owl.net/ontology/EDAM/#/Browse/<http%3A%2F%2Fedamontology.org%2Ftopic_0084>), [BioPortal](http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2Ftopic_0084), and  WebProt&eacute;g&eacute;, display the term at only one position in the tree while the details tab indicates that the term is a _subClassOf_ two terms. 
 
-##### Criteria 4 "Can be integrated in external websites"
+##### Criteria 4 - "Can be integrated in external websites"
 
 The integration of such visualisations in external websites in the form of reusable components can prove convenient for resources that use EDAM for the annotation of resources, given the cost for the development and maintenance of such interfaces. Bioportal allows to integrate [widgets](http://bioportal.bioontology.org/ontologies/EDAM/?p=widgets) such as autocomplete form, graph visualization, and tree visualization. Widgets for OLS can be found in [biojs](http://biojs.io) registry. Neither AberOWL nor WebProtégé propose widgets.  
 
-##### Criteria 5 "Facilitate community contributions"
+##### Criteria 5 - "Facilitate community contributions"
 
 One of the most difficult challenges for community projects like EDAM is to encourage and facilitate the contributions from the various domain experts that can make use of it. It should be noted that many of these experts, while extremely knowledgeable in different domains of bioinformatics, might not be familiar with the syntax and constraints associated with the edition of ontologies. Many of the existing systems only provide basic help to facilitate such contributions:
 - AberOWL indicates the homepage of the ontology. 
@@ -71,43 +71,43 @@ One of the most difficult challenges for community projects like EDAM is to enco
 - OLS provides only the possibility to contact the authors through email. 
 - WebProtégé allows an ontology owner to share his ontology with a link, giving authenticated users the possibility to discuss terms through conversation threads.
 
-##### Criteria 6 "Use edited version of EDAM"
+##### Criteria 6 - "Use edited version of EDAM"
 
 It can be convenient for ontology authors to publish a locally modified or development version of EDAM. Beyond the regular official releases of the EDAM ontology, the "in-development" version cannot be browsed with AberOWL, BioPortal nor OLS without a manual and public submission, or a local installation of one of these platforms. The publication of submitted releases is usually processed within a few hours.
 WebProtégé, however, allows to upload any ontology, and within seconds it is possible to browse and edit it.
 
-##### Criteria 7 "Local installation"
+##### Criteria 7 - "Local installation"
 
-AberOWL can locally be [installed](https://github.com/bio-ontology-research-group/aberowl-meta), software requirements includes Redis, nodejs, npm, Groovy and Apache2.
-BioPortal is available as a [virtual appliance](https://www.bioontology.org/wiki/index.php/Category:NCBO_Virtual_Appliance).
-Installing locally OLS is [possible](https://www.ebi.ac.uk/ols/docs/installation-guide), software requirements includes Maven, Neo4J, MongoDB, Tomcat, Solr.
-WebProtégé can also be [installed](https://protegewiki.stanford.edu/wiki/WebProtegeAdminGuide) among with MongoDB and Tomcat.
+All of the considered systems can be installed locally, in one way or another:
+- AberOWL can locally be [installed](https://github.com/bio-ontology-research-group/aberowl-meta), software requirements includes Redis, nodejs, npm, Groovy and Apache2.
+- BioPortal is available as a [virtual appliance](https://www.bioontology.org/wiki/index.php/Category:NCBO_Virtual_Appliance).
+- Installing locally OLS is [possible](https://www.ebi.ac.uk/ols/docs/installation-guide), software requirements includes Maven, Neo4J, MongoDB, Tomcat, Solr.
+- WebProtégé can also be [installed](https://protegewiki.stanford.edu/wiki/WebProtegeAdminGuide) among with MongoDB and Tomcat.
+In all cases, local installation of these systems requires privileged (administrator-level) permissions, and their lists of requirements are important.
 
-In all cases, these systems requires privileged (administrator-level) permissions to install them.
+##### Criteria 8 - "Links to annotated resources"
 
-##### Criteria 8 "Integration of community usage"
-
-The presented platforms are generic ontology browser and as expected they do not provide links toward website using the EDAM ontology.
+The presented platforms are generic ontology browser and as expected they do not provide links towards various resources that use the EDAM ontology.
 
 ## Main functionalities
 
 In this section, we present how each feature of the previous section are addressed by the EDAM Browser.
 
-##### Criteria 1 and 2
+##### Criteria 1 and 2 - "EDAM is present and publicly available"
 
 The EDAM Browser is publicly available (criteria 1) and does not require authentication (criteria 2). 
 
-##### Criteria 3
+##### Criteria 3 - "Display of multiple parents"
 
 Multiple parents are handled (see [for instance the link to the Phylogeny topic](https://ifb-elixirfr.github.io/edam-browser/#topic_0084)). In order to improve readability when a term is selected (1) all the term's positions are shown; and (2) all paths from the root node are highlighted.
 
 ![The term Phylogeny has two parents](paper_resources/topics_tree_phylogeny.png)
 
-##### Criteria 4
+##### Criteria 4 - "Can be integrated in external websites"
 
 The ability to integrate the EDAM Browser, and its tree representation is major requirement, in order to help third party websites promoting their resources when labeled with EDAM. Both the autocomplete input field and the tree visualization are re-usable. To highlight this statement we propose a dynamic [demo](https://ifb-elixirfr.github.io/edam-browser/demo.html) showing how it can be integrated, how the user can  interact with the tree, and how to programmaticaly interact with the tree in JavaScript. 
 
-##### Criteria 5
+##### Criteria 5 - "Facilitate community contributions"
 
 Letting users contribute to the ontology improves acceptance by the community as a user propose changes to the ontology to fit his/her needs. By contribution, we mean correction of definitions, proposition of new synonyms, or even new terms. The EDAM Browser gives access to a form letting the user propose the changes and then format his/her changes in a github issue ready to be submitted by the user. 
 
@@ -115,9 +115,9 @@ Letting users contribute to the ontology improves acceptance by the community as
 
 ![The formated issue in GitHub](paper_resources/github_issue.png)
 
-##### Criteria 6
+##### Criteria 6 - "Use edited version of EDAM"
 
-Using the EDAM Browser to explore an custom ontology is possible, the ontology should be in the following simplified schema which is expressed in [json schema](http://json-schema.org/). A complete version of the schema is accessible [here](https://ifb-elixirfr.github.io/edam-browser/ontology.schema.json) and an example file is [there](https://ifb-elixirfr.github.io/edam-browser/media/regular.example.json). 
+Using the EDAM Browser to explore an local or development version is possible. The ontology should be in the following simplified schema which is expressed in [json schema](http://json-schema.org/). A complete version of the schema is accessible [here](https://ifb-elixirfr.github.io/edam-browser/ontology.schema.json) and an example file is [there](https://ifb-elixirfr.github.io/edam-browser/media/regular.example.json). The [edam2json utility](https://github.com/edamontology/edam2json) can be used to generate the ontology in this format from any EDAM owl file.  
 
 <!--- https://app.quicktype.io/#l=schema helps generating schema--->
 
@@ -155,18 +155,18 @@ Using the EDAM Browser to explore an custom ontology is possible, the ontology s
 }
 ```
 
-The user opens the EDAM Browser and click on the button labelled _Custom_ at the top of it interface. Then a form is opened where the user either provide the url where the ontology file can be found, or the file, and also indicate how identifier and text can be accessed in the file.
+The resulting file is loaded directly to the EDAM Browser by clicking on the button labelled _Custom_ at the top of its interface, and specifying either a public URL to the file or a local path to load it from.
 
 ![Providing a custom ontology](paper_resources/custom_ontology.png)
 
 Filling this form with the url of the example file and indicating that the identifier is accessible with `d.id` will (i) open the given file and (ii) change the url such that this configuration can be bookmarked and reopen later : [resulting link](https://ifb-elixirfr.github.io/edam-browser/?url=https%3A%2F%2Fraw.githubusercontent.com%2FIFB-ElixirFr%2Fedam-browser%2Fmaster%2Fmedia%2Fregular.example.json&identifier_accessor=d.id&text_accessor=d.text#p9&custom_url).
 
-##### Criteria 7
+##### Criteria 7 - "Local installation"
 
 The EDAM Browser can easily be downloaded and run on a personal computer. The user either open index.html and then chose to load an ontology, or starts a local web server using `python start_edam_stand_alone_browser.py` and the ontology will automatically be loaded (recommended scenario).
 Once downloaded, the user can also use a custom version of the ontology, including beta version of the next release or a whole new ontology. By default, ontology should be in the [json schema](http://json-schema.org/) presented previously, but the browser can be configured to use a different schema (c.f: hereafter). A validator is available [here](https://jsonschemalint.com/).
 
-##### Criteria 8
+##### Criteria 8 - "Links to annotated resources"
 
 The EDAM Browser proposes links and statistics from several bioinformatics projects which use the EDAM ontology:
  - [bio.tools](https://bio.tools) which label software and services
@@ -205,6 +205,9 @@ my_tree.data_url("media/topic_extended.biotools.min.json");
 
 ## Conclusion
 
-We here presented the EDAM Browser, which allows users to browse this ontology, and resource owners to easily display the terms used to label the resource. We enumerated seven major features and showed that state of the art web based ontology browsers do not provide all of them while EDAM Browser does. Finally we described how it can be easily re-used in any third part website.
+The EDAM Browser allows users to browse it with an interface tailored to its structure and properties. Its interface is not designed to be a generic ontology navigation and edition platform, but rather to provide an access to information requested by most users and contributors:
+- navigation between different axes of the ontology, based on the EDAM properties that define their relationships (e.g. this *format* represents this type of *data*, this *data* is an output of this *operation* or is specific of this *topic*),
+- representation of the usage of the different concepts in annotated resource collections (e.g. bio.tools, TeSS).
+From a technical perspective, despite its complexity, this ontology has a relatively small size, which allows to load it completely in a web browser and navigate it much more quickly than through multiple server requests, and its very simple architecture facilitates its local deployment and its reuse in other websites.
 
 # References
