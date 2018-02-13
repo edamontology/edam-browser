@@ -217,13 +217,13 @@ function interactive_edam_browser(){
         details +=             '</h4>';
         details +=         '</div>';
         details +=         '<div id="collapse-'+identifier+'" class="panel-collapse collapse">';
-        details +=             '<div class="panel-body border-edam-'+branch_of_term+'"><table class="table table-condensed xborder-edam-'+branch_of_term+'"><tbody></tbody></table></div>';
+        details +=             '<div class="panel-body border-edam-'+branch_of_term+'"><table class="table table-condensed xborder-edam-'+branch_of_term+'"><tbody class="details"></tbody></table><table class="table table-condensed xborder-edam-'+branch_of_term+'"><tbody class="community"></tbody></table></div>';
         details +=         '</div>';
         details +=     '</div>';
         details += '</div>';
         details=$(details);
         details.find(".term-name-heading").text(d.text);
-        var table = details.find("tbody");
+        var table = details.find("tbody.details");
         table.children().remove();
         var table_parent = details.find("table").parent();
         var fields=[
@@ -248,26 +248,47 @@ function interactive_edam_browser(){
             else
                 append_row(table,entry,d[entry]);
         });
+        var community = details.find("tbody.community");
         var caller_b=biotool_api().get_for(current_branch, d['text'], uri, d);
         if (caller_b.is_enabled()){
-            var id_b = append_row(table,"Used in <a target=\"_blank\" href=\"https://bio.tools\">bio.tools</a>","<i>loading</i>");
+            var id_b = append_row(community,"<a target=\"_blank\" href=\"https://bio.tools\">bio.tools</a>","<i>loading</i>");
             caller_b.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_b);
+                var has_descendants=d.parent.data.uri!="owl:Thing" && (d.children||d._children) && d.data.uri!="http://edamontology.org/data_0842";
                 elt.empty();
                 if (c  instanceof Array){
                     $('<span>'
-                     + to_biotools_href(c[0],caller_b.get_url()[0],data[0]) + ' as input, '
-                     + to_biotools_href(c[1],caller_b.get_url()[1],data[1]) + ' as output.'
+                     + to_biotools_href(c[0],caller_b.get_url()[0],data[0]) + ' as input<span class="'+id_b+'-dsc-i"></span>'
+                     + (has_descendants?'<span class="'+id_b+'-dsc-i dscd" title="loading"> (<i class="fa fa-plus-square-o"></i> <span class="hit">?</span>)</span>':'')
+                     + ', '
+                     + to_biotools_href(c[1],caller_b.get_url()[1],data[1]) + ' as output<span class="'+id_b+'-dsc-o"></span>'
+                     + (has_descendants?'<span class="'+id_b+'-dsc-o dscd" title="loading"> (<i class="fa fa-plus-square-o"></i> <span class="hit">?</span>)</span>':'')
+                     +'.'
                      +'</span>').appendTo(elt);
+                    if(has_descendants){
+                        caller_b.count_with_descendants(function (count){
+                            $('#details-'+identifier+' .'+id_b+'-dsc-i .hit').text(count.input.total);
+                            $('#details-'+identifier+' .'+id_b+'-dsc-i.dscd').attr("title",count.input.total+" times with its "+(count.input.descendants-1)+" descendants");
+                            $('#details-'+identifier+' .'+id_b+'-dsc-o .hit').text(count.output.total);
+                            $('#details-'+identifier+' .'+id_b+'-dsc-o.dscd').attr("title",count.output.total+" times with its "+(count.output.descendants-1)+" descendants");
+                        });
+                    }
                 }else{
                     $(to_biotools_href(c,caller_b.get_url(),data)).appendTo(elt);
+                    if(has_descendants){
+                        $('<span class="'+id_b+'-descendants dscd" title="loading"> (<i class="fa fa-plus-square-o"></i> <span class="hit">?</span>)</span>').appendTo(elt);
+                        caller_b.count_with_descendants(function (count){
+                            $('#details-'+identifier+' .'+id_b+'-descendants .hit').text(count.total);
+                            $('#details-'+identifier+' .'+id_b+'-descendants.dscd').attr("title",count.total+" times with its "+(count.descendants-1)+" descendants");
+                        });
+                    }
                 }
                 $('#details-'+identifier+' .'+id_b+' [data-toggle="popover"]').popover();
             });
         }
         var caller_s=biosphere_api().get_for(current_branch, d['text'], uri, d);
         if (caller_s.is_enabled()){
-            var id_s = append_row(table,"Used&nbsp;in&nbsp;<a target=\"_blank\" href=\"https://biosphere.france-bioinformatique.fr\">Biosphere</a>","<i>loading</i>");
+            var id_s = append_row(community,"<a target=\"_blank\" href=\"https://biosphere.france-bioinformatique.fr\">Biosphere</a>","<i>loading</i>");
             caller_s.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_s);
                 elt.empty();
@@ -280,7 +301,7 @@ function interactive_edam_browser(){
         }
         var caller_w=bioweb_api().get_for(current_branch, d['text'], uri, d);
         if (caller_w.is_enabled()){
-            var id_w = append_row(table,"Used in <a target=\"_blank\" href=\"https://bioweb.pasteur.fr/\">BioWeb</a>","<i>loading</i>");
+            var id_w = append_row(community,"<a target=\"_blank\" href=\"https://bioweb.pasteur.fr/\">BioWeb</a>","<i>loading</i>");
             caller_w.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_w);
                 elt.empty();
@@ -290,7 +311,7 @@ function interactive_edam_browser(){
         }
         var caller_t=tess_api().get_for(current_branch, d['text'], uri, d);
         if (caller_t.is_enabled()){
-            var id_t = append_row(table,"Used in <a target=\"_blank\" href=\"https://tess.elixir-europe.org/\">TeSS</a>","<i>loading</i>");
+            var id_t = append_row(community,"<a target=\"_blank\" href=\"https://tess.elixir-europe.org/\">TeSS</a>","<i>loading</i>");
             caller_t.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_t);
                 elt.empty();
@@ -299,7 +320,7 @@ function interactive_edam_browser(){
             });
         }
         if(uri.startsWith("http://edamontology.org/")){
-            append_row(table,"Links",
+            append_row(community,"Links",
             "Open in "+
             "<a target=\"_blank\" href=\"http://aber-owl.net/ontology/EDAM/#/Browse/%3Chttp%3A%2F%2Fedamontology.org%2F"+identifier+"%3E\">AberOWL</a>"+
             ", "+
@@ -310,6 +331,11 @@ function interactive_edam_browser(){
             "<a target=\"_blank\" href=\"https://webprotege.stanford.edu/#projects/98640503-a37d-4404-84da-caf30fadd685/edit/Classes?selection=Class(%3Chttp://edamontology.org/"+identifier+"%3E)\">WebProt&eacuteg&eacute</a>"+
             "."
             );
+        }
+        if (community.children().length>0){
+            community.parent().prepend($('<thead><tr><th colspan="2">Community usage</th></tr></thead>'));
+        }else{
+            community.parent().remove();
         }
         $("#edamAccordion").find(".panel-group").first().find(".collapse").collapse("hide");
         var length=$("#edamAccordion").find(".panel-group").length;

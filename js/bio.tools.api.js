@@ -17,7 +17,56 @@ function biotool_api(){
                 callback(data['count'],data,textStatus);
             },
         });
-    }//end of function generic_counter
+    }//end of generic_counter
+
+    function decorate_children_with_count(node, get_api_url, callback, suffix){
+        var field_name='__biotool_api_count'+(suffix||'');
+        var queue = [];
+        var job_length=0;
+        var pusher = function(n){
+            queue.push(n)
+            if (typeof n[field_name] != "undefined")
+                job_length--;
+            for(var i=0;i<(n._children||[]).length;i++){
+                pusher(n._children[i]);
+            }
+            for(var i=0;i<(n.children||[]).length;i++){
+                pusher(n.children[i]);
+            }
+        };
+        pusher(node);
+        job_length+=queue.length;
+        function call_callback(){
+            var total=0;
+            $.each(queue,function(i,e){
+                total+=e[field_name];
+            });
+            callback({
+                'descendants':queue.length,
+                'total':total
+            });
+        }
+        if (job_length==0)
+            call_callback();
+        for(var i=0;i<queue.length;i++){
+            var f = function(j){
+                generic_counter(
+                    function(){
+                        return get_api_url(queue[j].text);
+                    },
+                    function(data,count,status){
+                        queue[j][field_name]=count.count;
+                        if(job_length==1){
+                            call_callback();
+                        }
+                        job_length--;
+                    }
+                );
+            };
+            if (typeof queue[i][field_name] == "undefined")
+                f(i);
+        }
+    }//end of decorate_children_with_count
 
     //getter for nothing
     var get_for_nothing=function (name){
@@ -40,11 +89,11 @@ function biotool_api(){
             branch = uri.substring(uri.lastIndexOf("/")+1,uri.lastIndexOf("_"));
         if (branch=="topic" || branch.indexOf('edam')!=-1 && uri.indexOf('topic')!=-1)
             return api.get_for_topic(name, uri, node);
-        if (branch=="operation")
+        if (branch=="operation" || branch.indexOf('edam')!=-1 && uri.indexOf('operation')!=-1)
             return api.get_for_operation(name, uri, node);
-        if (branch=="format")
+        if (branch=="format" || branch.indexOf('edam')!=-1 && uri.indexOf('format')!=-1)
             return api.get_for_format(name, uri, node);
-        if (branch=="data")
+        if (branch=="data" || branch.indexOf('edam')!=-1 && uri.indexOf('data')!=-1)
             return api.get_for_data(name, uri, node);
         return get_for_nothing();
     }//end of function get_for
@@ -57,6 +106,10 @@ function biotool_api(){
         getter.count=function(callback){
             return generic_counter(getter.get_api_url,callback);
         }
+        //function to count the number of tools associated including descendants
+        getter.count_with_descendants=function(callback){
+            return decorate_children_with_count(node, getter.get_api_url, callback);
+        }
         //is the count function enabled
         getter.is_enabled=function(){
             return true;
@@ -66,8 +119,8 @@ function biotool_api(){
             return "https://bio.tools/?format=json&topic="+name;
         }
         //get the url returning the tools for api call
-        getter.get_api_url=function(){
-            return "https://bio.tools/api/tool/?format=json&topic="+name
+        getter.get_api_url=function(value){
+            return "https://bio.tools/api/tool/?format=json&topic="+(value||name)
         }
         return getter;
     }//end of function get_for_topic
@@ -80,6 +133,10 @@ function biotool_api(){
         getter.count=function(callback){
             return generic_counter(getter.get_api_url,callback);
         }
+        //function to count the number of tools associated including descendants
+        getter.count_with_descendants=function(callback){
+            return decorate_children_with_count(node, getter.get_api_url, callback);
+        }
         //is the count function enabled
         getter.is_enabled=function(){
             return true;
@@ -89,8 +146,8 @@ function biotool_api(){
             return "https://bio.tools/?function="+name;
         }
         //get the url returning the tools for api call
-        getter.get_api_url=function(){
-            return "https://bio.tools/api/tool/?format=json&function="+name
+        getter.get_api_url=function(value){
+            return "https://bio.tools/api/tool/?format=json&function="+(value||name)
         }
         return getter;
     }//end of function get_for_operation
@@ -113,6 +170,27 @@ function biotool_api(){
                 }
             );
         }
+        //function to count the number of tools associated including descendants
+        getter.count_with_descendants=function(callback){
+            return decorate_children_with_count(
+                node,
+                function(value){return getter.get_api_url(value)[0];},
+                function(res_input){
+                    decorate_children_with_count(
+                        node,
+                        function(value){return getter.get_api_url(value)[1];},
+                        function(res_output){
+                            callback({
+                                'input':res_input,
+                                'output':res_output
+                            })
+                        },
+                        "_ouput"
+                    )
+                },
+                "_input"
+            )
+        }
         //is the count function enabled
         getter.is_enabled=function(){
             return true;
@@ -125,10 +203,10 @@ function biotool_api(){
             ];
         }
         //get the url returning the tools for api call
-        getter.get_api_url=function(){
+        getter.get_api_url=function(value){
             return [
-                "https://bio.tools/api/tool/?format=json&input="+name,
-                "https://bio.tools/api/tool/?format=json&output="+name
+                "https://bio.tools/api/tool/?format=json&input="+(value||name),
+                "https://bio.tools/api/tool/?format=json&output="+(value||name)
             ];
         }
         return getter;

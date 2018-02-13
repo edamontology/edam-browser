@@ -54,3 +54,8 @@ input:disabled+.text-for-disabled-input{
 #tree {
     height:70vh;
 }
+
+#edamAccordion table .details td a{
+    word-break: break-all;
+    white-space: normal;
+}
