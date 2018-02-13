@@ -603,6 +603,14 @@ function interactive_tree() {
         $.each(identifierToElement,fcn);
         return cmd;
     }
+    /**
+     * Iterate over ell the elements of the tree
+     * @return cmd() itself
+     */
+    cmd.resetPanAndZoom = function (){
+        reset();
+        return cmd;
+    }
 
     // getter and setter functions. See Mike Bostocks post "Towards Reusable Charts" for a tutorial on how this works.
     chart.cmd = cmd;
