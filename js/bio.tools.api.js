@@ -84,7 +84,7 @@ function biotool_api(){
     api.get_for=function (branch, name, uri, node){
         if (typeof name == "undefined")
             return get_for_nothing();
-        name=name.toLowerCase();
+        //name=name.toLowerCase();
         if (branch=="deprecated")
             branch = uri.substring(uri.lastIndexOf("/")+1,uri.lastIndexOf("_"));
         if (branch=="topic" || branch.indexOf('edam')!=-1 && uri.indexOf('topic')!=-1)
