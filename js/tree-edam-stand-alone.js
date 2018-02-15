@@ -222,7 +222,7 @@ function interactive_edam_browser(){
         details +=     '</div>';
         details += '</div>';
         details=$(details);
-        details.find(".term-name-heading").text(d.text);
+        details.find(".term-name-heading").text(d.data.text);
         var table = details.find("tbody.details");
         table.children().remove();
         var table_parent = details.find("table").parent();
@@ -234,19 +234,19 @@ function interactive_edam_browser(){
             "exact_synonyms",
             "narrow_synonyms",
         ];
-        if(typeof d["has_topic"] != "undefined")
+        if(typeof d.data["has_topic"] != "undefined")
             fields.push("has_topic");
-        if(typeof d["is_format_of"] != "undefined")
+        if(typeof d.data["is_format_of"] != "undefined")
             fields.push("is_format_of");
-        if(typeof d["has_input"] != "undefined")
+        if(typeof d.data["has_input"] != "undefined")
             fields.push("has_input");
-        if(typeof d["has_output"] != "undefined")
+        if(typeof d.data["has_output"] != "undefined")
             fields.push("has_output");
         fields.forEach(function(entry) {
             if("uri"==entry)
                 append_row(table,"URI",uri,false);
             else
-                append_row(table,entry,d[entry]);
+                append_row(table,entry,d.data[entry]);
         });
         var community = details.find("tbody.community");
         var caller_b=biotool_api().get_for(current_branch, d['text'], uri, d);
@@ -254,7 +254,7 @@ function interactive_edam_browser(){
             var id_b = append_row(community,"<a target=\"_blank\" href=\"https://bio.tools\">bio.tools</a>","<i>loading</i>");
             caller_b.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_b);
-                var has_descendants=d.parent.data.uri!="owl:Thing" && (d.children||d._children) && d.data.uri!="http://edamontology.org/data_0842";
+                var has_descendants=browser.identifierAccessor(d.parent)!="owl:Thing" && (d.children||d._children) && browser.identifierAccessor(d)!="http://edamontology.org/data_0842";
                 elt.empty();
                 if (c  instanceof Array){
                     $('<span>'
@@ -431,25 +431,25 @@ function interactive_edam_browser(){
 //        $("#meta_data_filename").attr("href", meta.data_filename).visible(typeof meta.data_filename != "undefined");
     }
 
-    function identifierAccessorDefault(d){
-        return d.id;
+    function identifierAccessorDefault(d, notPreTreated){
+        return (notPreTreated?d.id:d.data.id);
     }
     identifier_accessor_mapping['d.id']=identifierAccessorDefault;
 
-    function identifierAccessorEDAM(d){
-        return d.data.uri;
+    function identifierAccessorEDAM(d, notPreTreated){
+        return (notPreTreated?d.data.uri:d.data.data.uri);
     }
     identifier_accessor_mapping['d.data.uri']=identifierAccessorEDAM;
 
     function textAccessorDefault(d){
-        if (typeof d.text == "undefined")
+        if (typeof d.data.text == "undefined")
             return my_tree.identifierAccessor()(d);
-        return d.text;
+        return d.data.text;
     }
     text_accessor_mapping['d.text']=textAccessorDefault;
 
     function textAccessorName(d){
-        return d.name;
+        return d.data.name;
     }
     text_accessor_mapping['d.name']=textAccessorName;
 
@@ -477,13 +477,14 @@ function interactive_edam_browser(){
         })*/
         .additionalCSSClassForLink(function(d){
             if (current_branch!="edam" &&
+                current_branch!="edam_w_deprecated" &&
                 current_branch!="data" &&
                 current_branch!="format" &&
                 current_branch!="operation" &&
                 current_branch!="topic"
             )
                 return ""
-            return "fg-edam-"+get_branch_of_term(my_tree.identifierAccessor()(d.target))+"-light";
+            return "fg-edam-"+get_branch_of_term(my_tree.identifierAccessor()(d))+"-light";
         })/**/
         .clickedElementHandler(function(d){
             if(my_tree.cmd.isElementSelected(my_tree.identifierAccessor()(d)))
@@ -503,13 +504,13 @@ function interactive_edam_browser(){
                 all_children=tree.children;
                 tree.children=[];
                 for(var i=0;i<all_children.length;i++){
-                    if (my_tree.identifierAccessor()(all_children[i])!="owl:DeprecatedClass")
+                    if (my_tree.identifierAccessor()(all_children[i],true)!="owl:DeprecatedClass")
                         tree.children.push(all_children[i]);
                 }
             }
             if(current_branch==="deprecated"){
                 for(var i=0;i<tree.children.length;i++){
-                    if (my_tree.identifierAccessor()(tree.children[i])==="owl:DeprecatedClass"){
+                    if (my_tree.identifierAccessor()(tree.children[i],true)==="owl:DeprecatedClass"){
                         tree.children[i].meta=tree.meta||{};
                         markDeprecated(tree.children[i]);
                         return tree.children[i];
@@ -525,7 +526,7 @@ function interactive_edam_browser(){
             for (var id=0;id<branches.length;id++){
                 if(current_branch===branches[id]){
                     for(var i=0;i<tree.children.length;i++){
-                        if (my_tree.identifierAccessor()(tree.children[i]).indexOf("/"+branches[id]+"_")!=-1){
+                        if (my_tree.identifierAccessor()(tree.children[i],true).indexOf("/"+branches[id]+"_")!=-1){
                             tree.children[i].meta=tree.meta||{};
                             return tree.children[i];
                         }
@@ -533,7 +534,7 @@ function interactive_edam_browser(){
                 }
             }
             for(var i=0;i<tree.children.length;i++){
-                if (my_tree.identifierAccessor()(tree.children[i])==="owl:DeprecatedClass"){
+                if (my_tree.identifierAccessor()(tree.children[i],true)==="owl:DeprecatedClass"){
                     markDeprecated(tree.children[i]);
                     i=tree.children.length;
                 }

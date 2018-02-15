@@ -132,9 +132,9 @@ function build_autocomplete_from_edam_browser(edam_browser, elt){
                 var uri = edam_browser.identifierAccessor(elt);
                 var key = uri.substring(uri.lastIndexOf('/')+1);
                 var values =[edam_browser.textAccessor(elt),key];
-                if(elt.definition) values.push(elt.definition);
-                if(elt.exact_synonyms) values=values.concat(elt.exact_synonyms);
-                if(elt.narrow_synonyms) values=values.concat(elt.narrow_synonyms);
+                if(elt.data.definition) values.push(elt.data.definition);
+                if(elt.data.exact_synonyms) values=values.concat(elt.data.exact_synonyms);
+                if(elt.data.narrow_synonyms) values=values.concat(elt.data.narrow_synonyms);
                 elt.__autocomplete_from_edam_browser=values.join(' ').toUpperCase();
             }
         );
@@ -186,9 +186,9 @@ function build_autocomplete_from_edam_browser(edam_browser, elt){
                         (item.node.deprecated ?'<span class="label label-info pull-right bg-edam-deprecated">deprecated</span>':'')+
                     '</span>'+
                 '</div>'+
-                (item.node.definition?
+                (item.node.data.definition?
                 '<div>'+
-                    item.node.definition.replace(re,span_matched)+
+                    item.node.data.definition.replace(re,span_matched)+
                 '</div>':"")+
                 '</div>' )
             .appendTo( ul );

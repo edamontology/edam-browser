@@ -17,7 +17,8 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js" integrity="sha256-dsOXGNHAo/syFnazt+KTBsCQeRmlcW1XKL0bCK4Baec=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"
+            integrity="sha256-hYXbQJK4qdJiAeDVjjQ9G0D6A0xLnDQ4eJI9dkm7Fpk=" crossorigin="anonymous"></script>
         <script src="js/tree-reusable-d3.js"></script>
         <script type="text/javascript">
             var my_tree;
@@ -72,12 +73,12 @@
             }
             window.onload = function() {
                 my_tree = interactive_tree()
-                    .identifierAccessor(function(d){return d.data.uri;})
+                    .identifierAccessor(function(d){return d.data.data.uri;})
                     .debug(true)
                     .duration(1000)
                     .tooltipEnabled(true)
-                    .initiallySelectedElementHandler(function(d){return d.data.uri==="http://edamontology.org/topic_0091"})
-                    .openElementHandler(function(d){alert(d.data.uri);})
+                    .initiallySelectedElementHandler(function(d){return d.data.data.uri==="http://edamontology.org/topic_0091"})
+                    .openElementHandler(function(d){alert(d.data.data.uri);})
                     .loadingDoneHandler(demo)
                 ;
                 d3.select("#tree").call(my_tree); // draw chart in div
@@ -85,18 +86,18 @@
                 $("#simple-pre").append($(`<pre>
 window.onload = function() {
     my_tree = interactive_tree()
-        //overriding as the identifier by default consider d.id
-        .identifierAccessor(function(d){return d.data.uri;})
+        //overriding as the identifier by default consider d.data.id
+        .identifierAccessor(function(d){return d.data.data.uri;})
         .debug(true)
         .duration(1000)
         .tooltipEnabled(true)
         //at first Bioinformatics should be selected
         .initiallySelectedElementHandler(function(d){
-            return d.data.uri==="http://edamontology.org/topic_0091"
+            return d.data.data.uri==="http://edamontology.org/topic_0091"
         })
         //Show a JS alert when you ctrl-click on a node
         .openElementHandler(function(d){
-            alert("Ctrl-clicked (Open action) on "+d.data.uri);
+            alert("Ctrl-clicked (Open action) on "+d.data.data.uri);
         })
         //call the demo (next step you see) when the tree have been loaded
         .loadingDoneHandler(demo)
@@ -115,7 +116,7 @@ window.onload = function() {
     <div class="container-fluid">
         <div class="row"></div>
         <div class="col-xs-12 col-md-6 col-lg-7 col-xl-8">
-            <div id="tree" style="height:100vh"></div>
+            <div id="tree" style="height:99vh"></div>
         </div>
         <div class="col-xs-12 col-md-6 col-lg-5 col-xl-4">
             <div class="bs-example" id="simple-pre">

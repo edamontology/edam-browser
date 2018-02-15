@@ -18,13 +18,13 @@ function interactive_tree() {
         additionalCSSClassForNode = voidHandlerStrBlank("additionalCSSClassForNode"),
         additionalCSSClassForLink = voidHandlerStrBlank("additionalCSSClassForLink"),
         sortChildren = false,
-        identifierAccessor=function(d){return d.id;},
+        identifierAccessor=function(d){return d.data.id;},
         textAccessor=function(d) {
-            if (typeof d.text == "undefined")
+            if (typeof d.data.text == "undefined")
                 return identifierAccessor(d);
-            if (d.text.constructor === Array)
-                return d.text[0];
-            return d.text;
+            if (d.data.text.constructor === Array)
+                return d.data.text[0];
+            return d.data.text;
         },
         elementEquality=function (e,f){return identifierAccessor(e)==identifierAccessor(f);},
         tooltipBuilder=function(d) {
@@ -57,7 +57,7 @@ function interactive_tree() {
     function chart(selection){
         selection.each(function() {
             target_selector=this;
-            var tree = d3.layout.tree()
+            var treemap = d3.tree()
                     .nodeSize([12, 50])
                     .separation(function(a, b) {
                         a_count = a.children ? a.children.length : 1;
@@ -65,17 +65,20 @@ function interactive_tree() {
                         return ((a_count+b_count)/2) +  (a.parent == b.parent ? 0 : 1);
                     });
 
-            var diagonal = d3.svg.diagonal()
-                .projection(function(d) { return [d.y, d.x]; });
+            var diagonal = d3.linkHorizontal()
+                               .x(function(d) { return d.y; })
+                               .y(function(d) { return d.x; });
 
-            var zoom = d3.behavior.zoom();
-            var vis = d3.select(this).append("svg:svg")
+            var zoom = d3.zoom()
+                .on("zoom", function () {
+                    vis.attr("transform", d3.event.transform)
+                });
+
+            var svg = d3.select(this).append("svg:svg")
                 .attr("width", "100%")
                 .attr("height", "100%")
-                .call(zoom.on("zoom", function () {
-                    vis.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
-                }))
-              .append("svg:g");
+                .call(zoom);
+            var vis = svg.append("svg:g");
 
             var tooltip = d3.select("body").append("div")
                 .attr("class", "tooltip")
@@ -95,23 +98,30 @@ function interactive_tree() {
                 });
 
             reset = function(){
-                zoom.translate([50,$(target_selector).height()/2]).scale(1);
-                d3.select(target_selector)
-                    .select("svg>g")
-                    .attr("transform", "translate(" + 50 + "," + $(target_selector).height()/2 + ")");
+                var shift;
+                if(vis.select("g.node").node())
+                    shift=vis.select("g.node").node().getBoundingClientRect().width;
+                else
+                    shift=50;
+                var t = d3.zoomIdentity.translate(shift,$(target_selector).height()/2).scale(1);
+                svg.call(zoom.transform, t);
             }
 
             update = function (source) {
                 if (treeSelectedElementAncestors == null){
                     refreshTreeSelectedElementAncestors();
                 }
-                //var duration = d3.event && d3.event.altKey ? 5000 : 500;
 
                 // Compute the new tree layout.
-                var nodes = tree.nodes(root).reverse();
+                var treeData = treemap(root);
+
+                var nodes = treeData.descendants(),
+                    links = treeData.descendants().slice(1);
 
                 // Normalize for fixed-depth.
                 nodes.forEach(function(d) { d.y = d.depth * 180; });
+
+                // ****************** Nodes section ***************************
 
                 // Update the nodes…
                 var node = vis.selectAll("g.node")
@@ -160,9 +170,11 @@ function interactive_tree() {
                                 .style("top",  "-200px");
                     });
 
+                // UPDATE
+                var nodeUpdate = nodeEnter.merge(node);
+
                 // Transition nodes to their new position.
-                var nodeUpdate = node
-                    .transition()
+                nodeUpdate.transition()
                     .duration(duration)
                     .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
                     ;
@@ -184,7 +196,8 @@ function interactive_tree() {
                     .attr("class", function(d) { return isElementSelected(d, treeSelectedElement) ? "selected" : ""; });
 
                 // Transition exiting nodes to the parent's new position.
-                var nodeExit = node.exit().transition()
+                var nodeExit = node.exit()
+                    .transition()
                     .duration(duration)
                     .attr("transform", function(d) {
                         return "translate(" + source.y0 + "," + source.x0 + ")";
@@ -194,42 +207,49 @@ function interactive_tree() {
                 nodeExit.select("circle")
                     .attr("r", 1e-6);
 
-                nodeExit.select("text")
+                nodeExit.selectAll("text")
+                    .style("font-size", '1px')
                     .style("fill-opacity", 1e-6);
+
+                // ****************** links section ***************************
 
                 // Update the links…
                 var link = vis.selectAll("path.link")
-                    .data(tree.links(nodes), function(d) { return d.target.__d3js_id; });
+                    .data(links, function(d) { return d.__d3js_id; });
 
                 // Transition exiting nodes to the parent's new position.
-                link.exit().transition()
-                    .duration(duration)
-                    .attr("d", function(d) {
-                        var o = {x: source.x, y: source.y};
-                        return diagonal({source: o, target: o});
-                    })
-                  .remove();
 
                 // Enter any new links at the parent's previous position.
-                link.enter().insert("svg:path", "g")
-                    .attr("data-id", function(d) { return d.target.__d3js_id; })
+                var linkEnter = link.enter().insert("svg:path", "g")
+                    .attr("data-id", function(d) { return d.__d3js_id; })
                     .attr("d", function(d) {
                         var o = {x: source.x0, y: source.y0};
-                        return diagonal({source: o, target: o});
+                        return diagonal({source:o, target:o});
                     })
                     .attr("class", function(d) {
                         return "link " + additionalCSSClassForLink(d);
                     });
 
+                // UPDATE
+                var linkUpdate = linkEnter.merge(link);
+
                 // Transition links to their new position.
-                link.transition()
+                linkUpdate.transition()
                     .duration(duration)
-                    .attr("d", diagonal)
+                    .attr('d', function(d){ return diagonal({source:d, target:d.parent})})
                     .attr("class", function(d){
-                        if ($.inArray(d.target, treeSelectedElementAncestors) > -1)
+                        if ($.inArray(identifierAccessor(d), treeSelectedElementAncestors) > -1)
                             return "link selected " + additionalCSSClassForLink(d);
                         return "link " + additionalCSSClassForLink(d);
                     });
+
+                var linkExit = link.exit().transition()
+                    .duration(duration)
+                    .attr("d", function(d) {
+                        var o = {x: source.x, y: source.y};
+                        return diagonal({source:o, target:o});
+                    })
+                  .remove();
 
                 // Stash the old positions for transition.
                 nodes.forEach(function(d) {
@@ -239,8 +259,8 @@ function interactive_tree() {
             }//end of update(source)
 
             if(data_url!=null){
-                reset();
                 update(root);
+                reset();
                 loadingDoneHandler();
             }
 
@@ -336,8 +356,10 @@ function interactive_tree() {
         var candidate;
         for(var i=0;i<treeSelectedElement.length;i++){
             candidate=treeSelectedElement[i];
-            while(candidate != null && treeSelectedElementAncestors.indexOf(candidate)==-1){
-                treeSelectedElementAncestors.push(candidate);
+            while(candidate != null/* && treeSelectedElementAncestors.indexOf(identifierAccessor(candidate))==-1*/){
+                var id_candidate = identifierAccessor(candidate);
+                if($.inArray(id_candidate, treeSelectedElementAncestors))
+                    treeSelectedElementAncestors.push(id_candidate);
                 candidate=candidate.parent;
             }
         }
@@ -488,11 +510,12 @@ function interactive_tree() {
     function initTreeAndTriggerUpdate(){
         treeSelectedElement=[];
         treeSelectedElementAncestors=[];
-        metaInformationHandler(root.meta)
+        metaInformationHandler(root.data.meta)
         root.x0 = 0;
         root.y0 = 0;
 
         parenthood(root,null);
+        refreshTreeSelectedElementAncestors()
 
         if(removeElementsWithNoSelectedDescendant){
             shouldRemoveThisElementsAsItHasNoSelectedDescendant(root);
@@ -500,9 +523,9 @@ function interactive_tree() {
         collapseNotSelectedElement(root);
 
         if(update){
-            reset();
             update(root);
             loadingDoneHandler();
+            reset();
         }
     }
 
@@ -729,7 +752,7 @@ function interactive_tree() {
     chart.data = function(value) {
         if (!arguments.length) return root;
         identifierToElement={};
-        root = preTreatmentOfLoadedTree(value);
+        root = d3.hierarchy(preTreatmentOfLoadedTree(value), function(d) { return d.children; });
         initTreeAndTriggerUpdate()
         return chart;
     };
