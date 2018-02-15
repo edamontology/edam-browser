@@ -5,6 +5,7 @@
     border-top: 1px solid #eee;
 }
 .ui-autocomplete {
+    padding-bottom: 1px;
     max-height: 60vh;
     overflow-y: auto;
     overflow-x: hidden;
