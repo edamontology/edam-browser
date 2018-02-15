@@ -71,6 +71,12 @@ function interactive_tree() {
 
             var zoom = d3.zoom()
                 .on("zoom", function () {
+                    var dimS = svg.node().getBoundingClientRect();
+                    var dimG = vis.node().getBoundingClientRect();
+                    d3.event.transform.x = Math.max(dimG.width*-0.8,d3.event.transform.x);
+                    d3.event.transform.y = Math.max(dimG.height*-0.8/2,d3.event.transform.y);
+                    d3.event.transform.x = Math.min((dimS.width-50)*0.8,d3.event.transform.x);
+                    d3.event.transform.y = Math.min((dimS.height+dimG.height/2)*0.8,d3.event.transform.y);
                     vis.attr("transform", d3.event.transform)
                 });
 
