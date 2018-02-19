@@ -33,7 +33,7 @@ bibliography: paper_resources/paper.bib
 
 Labelling, indexing and describing a Bioinformatics resource, whether it is a software, a database, or a service is of a great help when it comes to promoting it to various user communities. As an example, the ELIXIR bio.tools [@ison2015tools] registry contains more than ten thousands software and service entries. In this context, the use of controlled vocabularies to describe the resources is of a paramount importance. In bio.tools, this need is addressed by the EDAM Ontology [@ison2013edam], which proposes a controlled vocabulary hierarchically organized around four axes which describe types of data, formats, operations and topics.
 
-We here present the EDAM Browser, a client-side web-based visualization javascript widget that provides an interface to navigate EDAM tailored to the need of users outside that might not be ontology experts. This interface can, among other things, be used to help describing resources, and to facilitate and foster community contributions to EDAM. Throughout the rest of this paper, (i) we review related work and features that need to be addressed; (ii) we describe how these features are addressed by the EDAM Browser; finally (iii) we discuss its reusability.
+We here present the EDAM Browser, a client-side web-based visualization javascript widget that provides an interface to navigate EDAM. This browser is tailored to the needs of EDAM users that might not be ontology experts. It can, among other things, be used to help describing resources, and to facilitate and foster community contributions to EDAM. Throughout the rest of this paper, (i) we review related work and features that need to be addressed; (ii) we describe how these features are addressed by the EDAM Browser; finally (iii) we discuss its reusability.
 
 ## Related work
 
@@ -53,7 +53,7 @@ We collected from EDAM users and authors features that a browser should have to 
 
 ##### Criteria 1 and 2 - "EDAM is present and publicly available"
 
-The first two criteria designate wether these interfaces allow to navigate EDAM, and to do so in a anonymous manner. The access to the web interface should be as simple and fast as possible, especially for users who do not need ellaborate functionalities. On the one hand the AberOWL, BioPortal and OLS platforms integrate EDAM and let unauthenticated users browse it. On the other hand WebProt&eacute;g&eacute; is meant for ontology edition. It asks users to register before uploading its ontology, or browsing the [latest stable version](https://webprotege.stanford.edu/#projects/98640503-a37d-4404-84da-caf30fadd685/edit/Classes) of EDAM.
+The first two criteria designate wether these interfaces allow to navigate EDAM, and to do so in a anonymous manner. The access to the web interface should be as simple and fast as possible, especially for users who do not need ellaborate functionalities. On the one hand the AberOWL, BioPortal and OLS platforms integrate EDAM and let unauthenticated users browse it. On the other hand, WebProt&eacute;g&eacute; is meant for ontology edition. It asks users to register before uploading its ontology, or browsing the [latest stable version](https://webprotege.stanford.edu/#projects/98640503-a37d-4404-84da-caf30fadd685/edit/Classes) of EDAM.
 
 ##### Criteria 3 - "Display of multiple parents"
 
@@ -61,7 +61,7 @@ The EDAM ontology, while being represented as a tree, is a directed acyclic grap
 
 ##### Criteria 4 - "Can be integrated in external websites"
 
-The integration of such visualisations in external websites in the form of reusable components can prove convenient for resources that use EDAM for the annotation of resources, given the cost for the development and maintenance of such interfaces. Bioportal allows to integrate [widgets](http://bioportal.bioontology.org/ontologies/EDAM/?p=widgets) such as autocomplete form, graph visualization, and tree visualization. Widgets for OLS can be found in [biojs](http://biojs.io) registry. Neither AberOWL nor WebProtégé propose widgets.  
+The integration of such visualisations in external websites in the form of reusable components can prove convenient for resources that use EDAM for the annotation of resources, given the cost for the development and maintenance of such interfaces. Bioportal allows to integrate [widgets](http://bioportal.bioontology.org/ontologies/EDAM/?p=widgets) such as autocomplete forms, graph and tree visualizations. Widgets for OLS can be found in [biojs](http://biojs.io) registry. Neither AberOWL nor WebProtégé propose widgets.  
 
 ##### Criteria 5 - "Facilitate community contributions"
 
@@ -176,7 +176,7 @@ The EDAM Browser proposes links and statistics from several bioinformatics proje
 
 ## Reusability
 
-The tree-based visualization of the EDAM Browser uses [d3.js](https://d3js.org/) v3 [@d3js]. In order to make the tree re-usable we used [Javascript Closures](http://jibbering.com/faq/notes/closures/) following 
+The tree-based visualization of the EDAM Browser uses [d3.js](https://d3js.org/) v4 [@d3js]. In order to make the tree re-usable we used [Javascript Closures](http://jibbering.com/faq/notes/closures/) following 
 [Towards Updatable D3.js Charts](https://www.toptal.com/d3-js/towards-reusable-d3-js-charts)  and
 [Towards Reusable Charts](https://bost.ocks.org/mike/chart/). It allows us to create encapsulated charts which are easily customizable. 
 
@@ -185,7 +185,7 @@ The following example comes from the demo and shows how to visualize the ontolog
 ```javascript
 my_tree = interactive_tree()
     //overriding as the identifier by default consider d.id
-    .identifierAccessor(function(d){return d.data.uri;})
+    .identifierAccessor(function(d){return d.data.data.uri;})
     .debug(true)           //debug enabled
     .duration(1000)        //animation duration is set to 1s
     .tooltipEnabled(true)  //tooltip will be shown chen hovering elements 
@@ -207,7 +207,7 @@ my_tree.data_url("media/topic_extended.biotools.min.json");
 
 The EDAM Browser allows users to browse it with an interface tailored to its structure and properties. Its interface is not designed to be a generic ontology navigation and edition platform, but rather to provide an access to information requested by most users and contributors:
 - navigation between different axes of the ontology, based on the EDAM properties that define their relationships (e.g. this *format* represents this type of *data*, this *data* is an output of this *operation* or is specific of this *topic*),
-- representation of the usage of the different concepts in annotated resource collections (e.g. bio.tools, TeSS).
+- representation of the usage of the different concepts in annotated resource collections (e.g. bio.tools, TeSS, BioSphere, BioWeb).
 From a technical perspective, despite its complexity, this ontology has a relatively small size, which allows to load it completely in a web browser and navigate it much more quickly than through multiple server requests, and its very simple architecture facilitates its local deployment and its reuse in other websites.
 
 # References
