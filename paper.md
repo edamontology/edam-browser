@@ -209,9 +209,11 @@ setTimeout(function() {
 
 ## Conclusion
 
-The EDAM Browser allows users to browse it with an interface tailored to its structure and properties. Its interface is not designed to be a generic ontology navigation and edition platform, but rather to provide an access to information requested by most users and contributors:
-- navigation between different axes of the ontology, based on the EDAM properties that define their relationships (e.g. this *format* represents this type of *data*, this *data* is an output of this *operation* or is specific of this *topic*),
-- representation of the usage of the different concepts in annotated resource collections (e.g. bio.tools, TeSS, BioSphere, BioWeb).
-From a technical perspective, despite its complexity, this ontology has a relatively small size, which allows to load it completely in a web browser and navigate it much more quickly than through multiple server requests, and its very simple architecture facilitates its local deployment and its reuse in other websites.
+The EDAM Browser allows users to browse it with an interface tailored to its structure and properties. Its interface is not designed to be a generic ontology navigation and edition platform, but rather to provide features requested by most users and contributors:
+- navigation between different axes of the ontology, based on the EDAM properties that define their relationships (e.g. this *format* represents this type of *data*, this *data* is an output of this *operation* or is specific of this *topic*)
+- representation of the usage of the different concepts in annotated resource collections (e.g. bio.tools, BioSphere, BioWeb, TeSS)
+- architecture facilitating its local deployment and its reuse in other websites
+- ability to work with edited version of the ontology with or without local installation
+- encouraging community contribution to the ontology
 
 # References
