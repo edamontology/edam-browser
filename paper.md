@@ -41,14 +41,14 @@ We collected from EDAM users and authors features that a browser should have to 
 
 | id  | Feature                                | AberOWL                    | BioPortal          | OLS                        | WebProtégé                 |
 |:---:|----------------------------------------|:--------------------------:|:------------------:|:--------------------------:|:--------------------------:|
-| 1   | EDAM is present                        | &#10004;                   | &#10004;           | &#10004;                   | &#10004;                   |
-| 2   | Publicly available                     | &#10004;                   | &#10004;           | &#10004;                   | registration               |
-| 3   | Display of multiple parents            | &#10008;                   | &#10008;           | &#10004;                   | &#10008;                   |
-| 4   | Can be integrated in external websites | &#10008;                   | &#10004;           | &#10004;                   | &#10008;                   |
-| 5   | Facilitate community contribution      | &#10008;                   | limited            | &#10008;                   | &#10004;                   |
-| 6   | Use edited version of EDAM             | &#10008;                   | &#10008;           | &#10008;                   | &#10004;                   |
-| 7   | Local installation                     | &#10004; (w/ admin rights) | &#10004; (as a VM) | &#10004; (w/ admin rights) | &#10004; (w/ admin rights) |
-| 8   | Links to annotated resources           | &#10008;                   | &#10008;           | &#10008;                   | &#10008;                   |
+| 1   | EDAM is present                        | yes                        | yes                | yes                        | yes                        |
+| 2   | Publicly available                     | yes                        | yes                | yes                        | registration               |
+| 3   | Display of multiple parents            | no                         | no                 | yes                        | no                         |
+| 4   | Can be integrated in external websites | no                         | yes                | yes                        | no                         |
+| 5   | Facilitate community contribution      | no                         | limited            | no                         | yes                        |
+| 6   | Use edited version of EDAM             | no                         | no                 | no                         | yes                        |
+| 7   | Local installation                     | yes      (w/ admin rights) | yes      (as a VM) | yes      (w/ admin rights) | yes      (w/ admin rights) |
+| 8   | Links to annotated resources           | no                         | no                 | no                         | no                         |
 
 
 ##### Criteria 1 and 2 - "EDAM is present and publicly available"
@@ -155,7 +155,8 @@ Using the EDAM Browser to explore an local or development version is possible. T
 
 The resulting file is loaded directly to the EDAM Browser by clicking on the button labelled _Custom_ at the top of its interface, and specifying either a public URL to the file or a local path to load it from.
 
-![Providing a custom ontology](paper_resources/custom_ontology.png)
+![Providing a custom ontology](paper_resources/custom_ontology.png | width=48)
+
 
 Filling this form with the url of the example file and indicating that the identifier is accessible with `d.id` will (i) open the given file and (ii) change the url such that this configuration can be bookmarked and reopen later : [resulting link](https://ifb-elixirfr.github.io/edam-browser/?url=https%3A%2F%2Fraw.githubusercontent.com%2FIFB-ElixirFr%2Fedam-browser%2Fmaster%2Fmedia%2Fregular.example.json&identifier_accessor=d.id&text_accessor=d.text#p9&custom_url).
 
