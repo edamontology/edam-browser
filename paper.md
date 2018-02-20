@@ -39,16 +39,16 @@ We here present the EDAM Browser, a client-side web-based visualization javascri
 
 We collected from EDAM users and authors features that a browser should have to fit their needs. Hereafter we describe collected criteria and their presence or absence in the following platforms: (i) BioPortal[@whetzel2011bioportal], (ii) OLS - Ontology Lookup Service[@jupp2015new], (iii)  WebProt&eacute;g&eacute;[@tudorache2013webprotege] and (iv) AberOWL[@hoehndorf2015aber].
 
-| id  | Feature                                | AberOWL             | BioPortal| OLS              | WebProtégé       |
-|:---:|----------------------------------------|:-------------------:|:-----------:|:-------------------:|:-------------------:|
-| 1   | EDAM is present                        | ✔                   | ✔           | ✔                   | ✔                   |
-| 2   | Publicly available                     | ✔                   | ✔           | ✔                   | registration        |
-| 3   | Display of multiple parents                | ✘                   | ✘           | ✔                   | ✘                   |
-| 4   | Can be integrated in external websites | ✘                   | ✔           | ✔                   | ✘                   |
-| 5   | Facilitate community contribution      | ✘                   | limited     | ✘                   | ✔                   |
-| 6   | Use edited version of EDAM             | ✘                   | ✘           | ✘                   | ✔                   |
-| 7   | Local installation                     | ✔ (w/ admin rights) | ✔ (as a VM) | ✔ (w/ admin rights) | ✔ (w/ admin rights) |
-| 8   | Links to annotated resources         | ✘                   | ✘           | ✘                   | ✘                   |
+| id  | Feature                                | AberOWL                    | BioPortal          | OLS                        | WebProtégé                 |
+|:---:|----------------------------------------|:--------------------------:|:------------------:|:--------------------------:|:--------------------------:|
+| 1   | EDAM is present                        | &#10004;                   | &#10004;           | &#10004;                   | &#10004;                   |
+| 2   | Publicly available                     | &#10004;                   | &#10004;           | &#10004;                   | registration               |
+| 3   | Display of multiple parents            | &#10008;                   | &#10008;           | &#10004;                   | &#10008;                   |
+| 4   | Can be integrated in external websites | &#10008;                   | &#10004;           | &#10004;                   | &#10008;                   |
+| 5   | Facilitate community contribution      | &#10008;                   | limited            | &#10008;                   | &#10004;                   |
+| 6   | Use edited version of EDAM             | &#10008;                   | &#10008;           | &#10008;                   | &#10004;                   |
+| 7   | Local installation                     | &#10004; (w/ admin rights) | &#10004; (as a VM) | &#10004; (w/ admin rights) | &#10004; (w/ admin rights) |
+| 8   | Links to annotated resources           | &#10008;                   | &#10008;           | &#10008;                   | &#10008;                   |
 
 
 ##### Criteria 1 and 2 - "EDAM is present and publicly available"
