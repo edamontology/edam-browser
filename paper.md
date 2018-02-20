@@ -120,8 +120,7 @@ Using the EDAM Browser to explore an local or development version is possible. T
 <!--- https://app.quicktype.io/#l=schema helps generating schema--->
 
 ```json
-{
-    "$ref": "#/definitions/EDAMBrowserTerm",
+{   "$ref": "#/definitions/EDAMBrowserTerm",
     "definitions": {
         "EDAMBrowserTerm": {
             "type": "object",
@@ -133,16 +132,10 @@ Using the EDAM Browser to explore an local or development version is possible. T
                 "children": {
                     "type": "array",
                     "items": {"$ref": "#/definitions/EDAMBrowserTerm"}
-                }
-            },
-            "required": [
-                "id",
-                "text"
-            ],
+            }   },
+            "required": ["id","text"],
             "title": "EDAMBrowserTerm"
-        }
-    }
-}
+}}}
 ```
 
 The resulting file is loaded directly to the EDAM Browser by clicking on the button labelled _Custom_ at the top of its interface, and specifying either a public URL to the file or a local path to load it from (cf Fig. 3).
