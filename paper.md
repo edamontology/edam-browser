@@ -111,9 +111,7 @@ The ability to integrate the EDAM Browser, and its tree representation is major 
 
 Letting users contribute to the ontology improves acceptance by the community as a user propose changes to the ontology to fit his/her needs. By contribution, we mean correction of definitions, proposition of new synonyms, or even new terms. The EDAM Browser gives access to a form letting the user propose the changes and then format his/her changes in a github issue ready to be submitted by the user. 
 
-![The edition form](paper_resources/edition_form.png)
-
-![The formated issue in GitHub](paper_resources/github_issue.png)
+![The edition form and the issue created](paper_resources/edition_form_to_github_issue.png)
 
 ##### Criteria 6 - "Use edited version of EDAM"
 
