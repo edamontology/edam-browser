@@ -155,7 +155,7 @@ Using the EDAM Browser to explore an local or development version is possible. T
 
 The resulting file is loaded directly to the EDAM Browser by clicking on the button labelled _Custom_ at the top of its interface, and specifying either a public URL to the file or a local path to load it from.
 
-![Providing a custom ontology](paper_resources/custom_ontology.png | width=48)
+![Providing a custom ontology](paper_resources/custom_ontology.png)
 
 
 Filling this form with the url of the example file and indicating that the identifier is accessible with `d.id` will (i) open the given file and (ii) change the url such that this configuration can be bookmarked and reopen later : [resulting link](https://ifb-elixirfr.github.io/edam-browser/?url=https%3A%2F%2Fraw.githubusercontent.com%2FIFB-ElixirFr%2Fedam-browser%2Fmaster%2Fmedia%2Fregular.example.json&identifier_accessor=d.id&text_accessor=d.text#p9&custom_url).
