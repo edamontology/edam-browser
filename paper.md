@@ -177,7 +177,7 @@ The EDAM Browser proposes links and statistics from several bioinformatics proje
 
 The tree-based visualization of the EDAM Browser uses [d3.js](https://d3js.org/) v4 [@d3js]. In order to make the tree re-usable we used [Javascript Closures](http://jibbering.com/faq/notes/closures/) following 
 [Towards Updatable D3.js Charts](https://www.toptal.com/d3-js/towards-reusable-d3-js-charts)  and
-[Towards Reusable Charts](https://bost.ocks.org/mike/chart/). It allows us to encapsulate the inner mechanics and variables of the tree while exposing methods to configure the chart and interact with it . Configuration encompasses the animation duration, if the tooltip should be used, and how we construct the html code of the tooltip. Interaction encompasses altering the elements selection, and collapsing node.
+[Towards Reusable Charts](https://bost.ocks.org/mike/chart/). It allows us to encapsulate the inner mechanics and variables of the tree while exposing methods to configure the chart and interact with it. Configuration encompasses the animation duration, if the tooltip should be used, and how we construct the html code of the tooltip. Interaction encompasses altering the elements selection, and collapsing node.
 
 The following example comes from the demo and shows how to visualize the ontology at `media/topic_extended.biotools.min.json` in the div `#tree` with the `Bioinformatics` term initially selected ; and after one second the element `Metagenomics` is added to the selection. Note that as the format of the file does not follow the recommendation, we have to provide a new method to access the identifier.
 
