@@ -99,7 +99,7 @@ The EDAM Browser is publicly available (criteria 1) and does not require authent
 
 ##### Criteria 3 - "Display of multiple parents"
 
-Multiple parents are handled (see [for instance the link to the Phylogeny topic](https://ifb-elixirfr.github.io/edam-browser/#topic_0084)). In order to improve readability when a term is selected (1) all the term's positions are shown; and (2) all paths from the root node are highlighted.
+Multiple parents are handled (see [for instance the link to the Phylogeny topic](https://ifb-elixirfr.github.io/edam-browser/#topic_0084)). In order to improve readability when a term is selected (1) all the term's positions are shown; and (2) all paths from the root node are highlighted (cf Fig. 1).
 
 ![The term Phylogeny has two parents](paper_resources/topics_tree_phylogeny.png)
 
@@ -109,7 +109,7 @@ The ability to integrate the EDAM Browser, and its tree representation is major 
 
 ##### Criteria 5 - "Facilitate community contributions"
 
-Letting users contribute to the ontology improves acceptance by the community as a user propose changes to the ontology to fit his/her needs. By contribution, we mean correction of definitions, proposition of new synonyms, or even new terms. The EDAM Browser gives access to a form letting the user propose the changes and then format his/her changes in a github issue ready to be submitted by the user. 
+Letting users contribute to the ontology improves acceptance by the community as a user propose changes to the ontology to fit his/her needs. By contribution, we mean correction of definitions, proposition of new synonyms, or even new terms. The EDAM Browser gives access to a form letting the user propose the changes and then format his/her changes in a github issue ready to be submitted by the user (cf Fig. 2). 
 
 ![The edition form and the issue created](paper_resources/edition_form_to_github_issue.png)
 
@@ -120,7 +120,8 @@ Using the EDAM Browser to explore an local or development version is possible. T
 <!--- https://app.quicktype.io/#l=schema helps generating schema--->
 
 ```json
-{   "$ref": "#/definitions/EDAMBrowserTerm",
+{
+    "$ref": "#/definitions/EDAMBrowserTerm",
     "definitions": {
         "EDAMBrowserTerm": {
             "type": "object",
@@ -132,13 +133,19 @@ Using the EDAM Browser to explore an local or development version is possible. T
                 "children": {
                     "type": "array",
                     "items": {"$ref": "#/definitions/EDAMBrowserTerm"}
-            }   },
-            "required": ["id","text"],
+                }
+            },
+            "required": [
+                "id",
+                "text"
+            ],
             "title": "EDAMBrowserTerm"
-}}}
+        }
+    }
+}
 ```
 
-The resulting file is loaded directly to the EDAM Browser by clicking on the button labelled _Custom_ at the top of its interface, and specifying either a public URL to the file or a local path to load it from.
+The resulting file is loaded directly to the EDAM Browser by clicking on the button labelled _Custom_ at the top of its interface, and specifying either a public URL to the file or a local path to load it from (cf Fig. 3).
 
 ![Providing a custom ontology](paper_resources/custom_ontology.png)
 
