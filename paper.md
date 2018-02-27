@@ -153,10 +153,10 @@ Once downloaded, the user can also use a custom version of the ontology, includi
 ##### Criteria 8 - "Links to annotated resources"
 
 The EDAM Browser proposes links and statistics from several bioinformatics projects which use the EDAM ontology:
- - [bio.tools](https://bio.tools) which label software and services
- - [BioSphere](https://biosphere.france-bioinformatique.fr/)[@brancotte2017biosphere] which  label appliances,
-- [Bioweb](https://bioweb.pasteur.fr) which label software and databanks available at the Pasteur Institut 
-- [TeSS](https://tess.elixir-europe.org/) which label training materials
+- [bio.tools](https://bio.tools) which labels software and services
+- [BioSphere](https://biosphere.france-bioinformatique.fr/)[@brancotte2017biosphere] which  labels appliances,
+- [Bioweb](https://bioweb.pasteur.fr) which labels software and databanks available at the Pasteur Institut 
+- [TeSS](https://tess.elixir-europe.org/) which labels training materials
 
 ## Reusability
 
