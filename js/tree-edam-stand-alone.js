@@ -249,7 +249,7 @@ function interactive_edam_browser(){
                 append_row(table,entry,d.data[entry]);
         });
         var community = details.find("tbody.community");
-        var caller_b=biotool_api().get_for(current_branch, d['text'], uri, d);
+        var caller_b=biotool_api().get_for(current_branch, d.data['text'], uri, d);
         if (caller_b.is_enabled()){
             var id_b = append_row(community,"<a target=\"_blank\" href=\"https://bio.tools\">bio.tools</a>","<i>loading</i>");
             caller_b.count(function(c,data){
@@ -286,7 +286,7 @@ function interactive_edam_browser(){
                 $('#details-'+identifier+' .'+id_b+' [data-toggle="popover"]').popover();
             });
         }
-        var caller_s=biosphere_api().get_for(current_branch, d['text'], uri, d);
+        var caller_s=biosphere_api().get_for(current_branch, d.data['text'], uri, d);
         if (caller_s.is_enabled()){
             var id_s = append_row(community,"<a target=\"_blank\" href=\"https://biosphere.france-bioinformatique.fr\">Biosphere</a>","<i>loading</i>");
             caller_s.count(function(c,data){
@@ -299,7 +299,7 @@ function interactive_edam_browser(){
                 $('#details-'+identifier+' .'+id_s+' [data-toggle="popover"]').popover();
             });
         }
-        var caller_w=bioweb_api().get_for(current_branch, d['text'], uri, d);
+        var caller_w=bioweb_api().get_for(current_branch, d.data['text'], uri, d);
         if (caller_w.is_enabled()){
             var id_w = append_row(community,"<a target=\"_blank\" href=\"https://bioweb.pasteur.fr/\">BioWeb</a>","<i>loading</i>");
             caller_w.count(function(c,data){
@@ -309,7 +309,7 @@ function interactive_edam_browser(){
                 $('#details-'+identifier+' .'+id_w+' [data-toggle="popover"]').popover();
             });
         }
-        var caller_t=tess_api().get_for(current_branch, d['text'], uri, d);
+        var caller_t=tess_api().get_for(current_branch, d.data['text'], uri, d);
         if (caller_t.is_enabled()){
             var id_t = append_row(community,"<a target=\"_blank\" href=\"https://tess.elixir-europe.org/\">TeSS</a>","<i>loading</i>");
             caller_t.count(function(c,data){
