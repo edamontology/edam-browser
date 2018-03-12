@@ -4,8 +4,6 @@ The EDAM Browser is a client-side web-based visualization javascript widget. Its
 
 ![screenshot](./screenshot.png)
 
-## Demo
-
 ## Use it ...
 
 ### ... online
@@ -24,6 +22,6 @@ It starts a web server allowing you to browse edam on [localhost:20080](http://0
 
 EDAM Browser can render ontology described in json following the [schema](ontology.schema.json), see [here](https://github.com/IFB-ElixirFr/edam-browser/blob/master/paper.md#criteria-6) for more information on how to load a custom ontology.
 
-### ... in your website
+## Third party integration
 
 A demo showing you how to add the tree visualization and how you can interact with the it programmatically is available at https://ifb-elixirfr.github.io/edam-browser/demo.html
