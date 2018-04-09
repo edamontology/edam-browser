@@ -35,7 +35,7 @@ Labelling, indexing and describing a Bioinformatics resource, whether it is a so
 
 We here present the EDAM Browser, a client-side web-based visualization javascript widget that provides an interface to navigate EDAM. This browser is tailored to the needs of EDAM users who might not be ontology experts. It can, among other things, be used to help describing resources, and to facilitate and foster community contributions to EDAM. The EDAM Browser allows users to explore it with an interface tailored to its structure and properties. Its interface is not designed to be a generic ontology navigation and edition platform, a goal already achieved by many other systems such as AberOWL[@hoehndorf2015aber], BioPortal[@whetzel2011bioportal], OLS - Ontology Lookup Service[@jupp2015new], Ontobee[@xiang2011ontobee] and WebProt&eacute;g&eacute;[@tudorache2013webprotege].
 
-Rather, it aims at provide features requested by most users and contributors, who might not be ontology experts or maintainers, which we detail below.
+Rather, it aims at providing features requested by most users and contributors, which we detail below.
 
 ## Availability and re-usablility
 
