@@ -19,7 +19,7 @@ authors:
   orcid: 0000-0002-7552-1009
   affiliation: 1
 affiliations:
-- name: Centre d'Informatique pour la Biologie, C3BI, Institut Pasteur, Paris, France
+- name: Bioinformatics and Biostatistics HUB, Centre de Bioinformatique, Biostatistique et Biologie Intégrative (C3BI, USR 3756 Institut Pasteur et CNRS), Paris, France
   index: 1
 - name: French Institute of Bioinformatics, CNRS IFB-Core, Gif-sur-Yvette, France
   index: 2
