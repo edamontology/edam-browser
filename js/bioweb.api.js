@@ -8,15 +8,15 @@ function bioweb_api(){
 
     //getter for nothing
     var get_for_nothing=function (name){
-        var getter = function(){}
-        getter.count=function(callback){}
+        var getter = function(){};
+        getter.count=function(callback){};
         getter.is_enabled=function(){
             return false;
-        }
-        getter.get_url=function(){}
-        getter.get_api_url=function(){}
+        };
+        getter.get_url=function(){};
+        getter.get_api_url=function(){};
         return getter;
-    }
+    };
 
     // generic getter
     api.get_for=function (branch, name, uri, node){
@@ -26,7 +26,7 @@ function bioweb_api(){
         if (branch!="topic" && (branch.indexOf('edam')==-1 || uri.indexOf('topic')==-1))
             return get_for_nothing();
         //getter object
-        var getter = function(){}
+        var getter = function(){};
         //function to count the number of tools associated
         getter.count=function(callback){
             return $.ajax({
@@ -52,36 +52,36 @@ function bioweb_api(){
                     callback(-1,[],textStatus);
                 },
             });
-        }
+        };
         //is the count function enabled
         getter.is_enabled=function(){
             return true;
-        }
+        };
         //get the url returning the tools for human
         getter.get_url=function(){
             return "https://bioweb.pasteur.fr/packages/topics/"+term_id;
-        }
+        };
         //get the url returning the tools for api call
         getter.get_api_url=function(){
             return "https://cors-anywhere.herokuapp.com/https://bioweb.pasteur.fr/api/packages?search=&topicId="+term_id;
-        }
+        };
         return getter;
-    }
+    };
     //getter for topics
     api.get_for_topic=function (name){
-        return api.get_for("topic",name)
-    }
+        return api.get_for("topic",name);
+    };
     //getter for operations
     api.get_for_operation=function (name){
-        return get_for_nothing()
-    }
+        return get_for_nothing();
+    };
     //getter for data
     api.get_for_data=function (name){
-        return get_for_nothing()
-    }
+        return get_for_nothing();
+    };
     //getter for format
     api.get_for_format=function (name){
-        return get_for_nothing()
-    }
+        return get_for_nothing();
+    };
     return api;
 }

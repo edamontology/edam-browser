@@ -28,13 +28,14 @@ function build_form(target, parentOfNewTerm){
         v=v.join("|");*/
 
         var parents;
+        var i;
         if(target.duplicate){
             parents={};
             parents[target.parent.data.uri]=target.parent;
             $.each(target.duplicate,function(id,clone){
                 parents[clone.parent.data.uri]=clone.parent;
-            })
-            parents=$.map(parents, function(value, key) { return value });
+            });
+            parents=$.map(parents, function(value, key) { return value; });
         }else{
             parents=[target.parent];
         }
@@ -42,33 +43,19 @@ function build_form(target, parentOfNewTerm){
         $(".search-term[name=parent-0]").attr('data-initial',parents[0].data.uri);
         $(".search-term[name=parent-0]").attr('data-selected',parents[0].data.uri);
         $(".search-term[name=parent-0]").val(parents[0].text);
-        for(var i=1;i<parents.length;i++){
-            /*$(".search-term[name=parent-0]")
-                .clone().attr("name","parent-"+i)
-                .insertBefore($(".search-term[name=parent-0]").parent().children("button"));
-            $(".search-term[name=parent-"+i+"]")
-                .val(parents[i].text)
-                .attr('data-initial',parents[i].data.uri);
-            $(".search-term[name=parent-"+i+"]")
-                .val(parents[i].text)
-                .attr('data-selected',parents[i].data.uri);
-//            build_autocomplete(
-//                getTreeFile(getCookie("edam_browser_branch","topic")),
-            build_autocomplete_from_edam_browser(browser,
-                ".search-term[name=parent-"+i+"]"
-            );*/
+        for(i=1;i<parents.length;i++){
             addTermField("#parent_container","parent",parents[i]);
         }
-        for(var i=0;i<(target.has_topic||[]).length;i++){
+        for(i=0;i<(target.has_topic||[]).length;i++){
             addTermField("#has_topic_container","has_topic",browser.interactive_tree.cmd.getElementByIdentifier(target.has_topic[i]));
         }
-        for(var i=0;i<(target.is_format_of||[]).length;i++){
+        for(i=0;i<(target.is_format_of||[]).length;i++){
             addTermField("#is_format_of_container","is_format_of",browser.interactive_tree.cmd.getElementByIdentifier(target.is_format_of[i]));
         }
-        for(var i=0;i<(target.has_input||[]).length;i++){
+        for(i=0;i<(target.has_input||[]).length;i++){
             addTermField("#has_input_container","has_input",browser.interactive_tree.cmd.getElementByIdentifier(target.has_input[i]));
         }
-        for(var i=0;i<(target.has_output||[]).length;i++){
+        for(i=0;i<(target.has_output||[]).length;i++){
             addTermField("#has_output_container","has_output",browser.interactive_tree.cmd.getElementByIdentifier(target.has_output[i]));
         }
     }else{
@@ -116,11 +103,12 @@ window.onload = function() {
         fill_form(identifier, getUrlParameter('parent'), branch);
     });
     browser.current_branch( getUrlParameter('branch'));
-}
+};
 
 function sendToGitHub(){
     var ids=["#id_parent", "#id_label", "#id_definition", "#id_exactSynonyms", "#id_narrowSynonyms"];
-    for (var i=0;i<$(".search-term").length;i++){
+    var i;
+    for (i=0;i<$(".search-term").length;i++){
         ids.push(".search-term[name=parent-"+i+"]");
     }
     msg="";
@@ -132,7 +120,7 @@ function sendToGitHub(){
     msg+="\n\n";
     msg+="[//]: # (End of issue comments)\n";
     msg+="### Hereafter are the initial version et proposed modification of attributes of the given term\n";
-    for(var i =0;i<ids.length;i++){
+    for(i =0;i<ids.length;i++){
         var val = ($(ids[i]).attr('data-selected') || $(ids[i]).val());
         if(val!=$(ids[i]).attr('data-initial')){
             msg+="\n";

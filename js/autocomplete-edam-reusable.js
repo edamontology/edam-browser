@@ -61,7 +61,7 @@ function fake_interactive_edam_browser(){
      */
     function cmd() {
         return cmd;
-    };
+    }
     interactive_tree.cmd = cmd;
     /**
      * Return the element that have this identifier
@@ -69,7 +69,7 @@ function fake_interactive_edam_browser(){
      */
     cmd.getElementByIdentifier = function (identifier){
         return identifierToElement[identifier];
-    }
+    };
     /**
      * Iterate over ell the elements of the tree
      * @return cmd() itself
@@ -77,8 +77,8 @@ function fake_interactive_edam_browser(){
     cmd.forEachElement = function (fcn){
         $.each(identifierToElement,fcn);
         return cmd;
-    }
-    cmd.selectElement = function(){}
+    };
+    cmd.selectElement = function(){};
     /**
      * Read-only proxy to use the identifierAccessor of the interactive_tree
      * @param {object} an element
@@ -146,7 +146,6 @@ function build_autocomplete_from_edam_browser(edam_browser, elt){
 
     $(elt).autocomplete({
         source : function (request, response) {
-            function addIfseedInString(seed,str){ifdata.push(elt)}
             var data=[];
             var tree=edam_browser.interactive_tree().cmd();
             var term=request.term.toUpperCase();
@@ -155,10 +154,10 @@ function build_autocomplete_from_edam_browser(edam_browser, elt){
                     if(typeof elt.__autocomplete_from_edam_browser == "undefined")
                         initIndex();
                     if (elt.__autocomplete_from_edam_browser.indexOf(term)!=-1)
-                        data.push({value:edam_browser.textAccessor(elt),node:elt})
+                        data.push({value:edam_browser.textAccessor(elt),node:elt});
                 }
-            )
-            response(data)
+            );
+            response(data);
         },
         minLength: 2,
         select : function(event, ui){ // lors de la sélection d'une proposition

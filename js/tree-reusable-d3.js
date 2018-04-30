@@ -5,12 +5,12 @@
 function interactive_tree() {
     var debug=false,
         margin = {top: 10, right: 50, bottom: 10, left: 80},
-        voidHandler=function(name){return function(){if(debug)console.log(name);}},
-        voidHandlerStrBlank=function(name){return function(){if(debug)console.log(name);return"";}},
+        voidHandler=function(name){return function(){if(debug)console.log(name);};},
+        voidHandlerStrBlank=function(name){return function(){if(debug)console.log(name);return"";};},
         initiallySelectedElementHandler = voidHandler("initiallySelectedElementHandler"),
         addingElementHandler = voidHandler("addingElementHandler"),
         openElementHandler = voidHandler("openElementHandler"),
-        clickedElementHandler = function(d){if(debug)console.log(identifierAccessor(d))},
+        clickedElementHandler = function(d){if(debug)console.log(identifierAccessor(d));},
         removingElementHandler = voidHandler("removingElementHandler"),
         loadingDoneHandler = voidHandler("loadingDoneHandler"),
         metaInformationHandler = voidHandler("metaInformationHandler"),
@@ -33,7 +33,7 @@ function interactive_tree() {
                     "</div>"+
                     "<div class=\"panel-body\">"+
                     "Identifier: "+identifierAccessor(d)+
-                    "</div></div>"
+                    "</div></div>";
         },
         preTreatmentOfLoadedTree=function(tree){return  tree;},
         tooltipEnabled=false,
@@ -51,7 +51,7 @@ function interactive_tree() {
         duration = 500,
         update,
         reset,
-        id=0
+        id=0,
         identifierToElement={};
 
     function chart(selection){
@@ -77,7 +77,7 @@ function interactive_tree() {
                     d3.event.transform.y = Math.max(dimG.height*-0.8/2,d3.event.transform.y);
                     d3.event.transform.x = Math.min((dimS.width-50)*0.8,d3.event.transform.x);
                     d3.event.transform.y = Math.min((dimS.height+dimG.height/2)*0.8,d3.event.transform.y);
-                    vis.attr("transform", d3.event.transform)
+                    vis.attr("transform", d3.event.transform);
                 });
 
             var svg = d3.select(this).append("svg:svg")
@@ -111,7 +111,7 @@ function interactive_tree() {
                     shift=50;
                 var t = d3.zoomIdentity.translate(shift,$(target_selector).height()/2).scale(1);
                 svg.call(zoom.transform, t);
-            }
+            };
 
             update = function (source) {
                 if (treeSelectedElementAncestors == null){
@@ -137,7 +137,7 @@ function interactive_tree() {
                 var nodeEnter = node.enter().append("svg:g")
                     .attr("class", "node")
                     .attr("transform", function(d) {
-                        return "translate(" + source.y0 + "," + source.x0 + ")";
+                        return "translate(" + (source.y0 || source.y) + "," + (source.x0 || source.x) + ")";
                     })
                     .on("click", function(d,i) { handleClick(d);});
 
@@ -151,8 +151,7 @@ function interactive_tree() {
                 nodeEnter.append("svg:circle")
                     .attr("r", 1e-6)
                     .attr("class", function(d) {
-                        return (d._children || d.children ? "has-children " : " ")
-                        + additionalCSSClassForNode(d);
+                        return (d._children || d.children ? "has-children " : " ") + additionalCSSClassForNode(d);
                     })
                     .on("mouseover", function(d) {
                         if (!tooltipEnabled) return;
@@ -229,7 +228,7 @@ function interactive_tree() {
                 var linkEnter = link.enter().insert("svg:path", "g")
                     .attr("data-id", function(d) { return d.__d3js_id; })
                     .attr("d", function(d) {
-                        var o = {x: source.x0, y: source.y0};
+                        var o = {x: (source.x0 || source.x), y: (source.y0 || source.y)};
                         return diagonal({source:o, target:o});
                     })
                     .attr("class", function(d) {
@@ -242,7 +241,7 @@ function interactive_tree() {
                 // Transition links to their new position.
                 linkUpdate.transition()
                     .duration(duration)
-                    .attr('d', function(d){ return diagonal({source:d, target:d.parent})})
+                    .attr('d', function(d){ return diagonal({source:d, target:d.parent});})
                     .attr("class", function(d){
                         if ($.inArray(identifierAccessor(d), treeSelectedElementAncestors) > -1)
                             return "link selected " + additionalCSSClassForLink(d);
@@ -262,7 +261,7 @@ function interactive_tree() {
                     d.x0 = d.x;
                     d.y0 = d.y;
                 });
-            }//end of update(source)
+            };//end of update(source)
 
             if(data_url!=null){
                 update(root);
@@ -296,13 +295,13 @@ function interactive_tree() {
 
     //Handle selection of a node
     function handleClick(d){
-        if (d3.event.shiftKey && use_shift_to_open
-         || d3.event.ctrlKey  && use_control_to_open
-         || d3.event.altKey   && use_alt_to_open){
+        if (d3.event.shiftKey && use_shift_to_open ||
+            d3.event.ctrlKey  && use_control_to_open ||
+            d3.event.altKey   && use_alt_to_open){
             openElementHandler(d);
-        }else if (d3.event.shiftKey && use_shift_to_add
-               || d3.event.ctrlKey  && use_control_to_add
-               || d3.event.altKey   && use_alt_to_add){
+        }else if (d3.event.shiftKey && use_shift_to_add ||
+                  d3.event.ctrlKey  && use_control_to_add ||
+                  d3.event.altKey   && use_alt_to_add){
             var pos = treeSelectedElement.indexOf(d);
             if(pos>-1){
                 //removing ?
@@ -347,13 +346,14 @@ function interactive_tree() {
     }//end of attemptToSelectElement
 
     function recursivePush(refElement,org) {
+        var i;
         if (elementEquality(refElement,org))
             treeSelectedElement.push(org);
         if (org.children)
-            for(var i=0;i<org.children.length;i++)
+            for(i=0;i<org.children.length;i++)
                 recursivePush(refElement,org.children[i]);
         if (org._children)
-            for(var i=0;i<org._children.length;i++)
+            for(i=0;i<org._children.length;i++)
                 recursivePush(refElement,org._children[i]);
     }//end of recursivePush
 
@@ -387,7 +387,7 @@ function interactive_tree() {
                 element.children.sort(
                     function (a,b) {
                         a=textAccessor(a);
-                        b=textAccessor(b)
+                        b=textAccessor(b);
                         if (a < b)
                             return -1;
                         if (a > b)
@@ -435,9 +435,10 @@ function interactive_tree() {
                 attemptToSelectElement(element);
             return true;
         }
+        var ch,i;
         if (element.children) {
-            var ch=element.children;
-            for(var i=0;i<ch.length;i++){
+            ch=element.children;
+            for(i=0;i<ch.length;i++){
                 if(browseToFromElement(identifier, ch[i], selectedIt, expandToIt)){
                     if (expandToIt)
                         toggleForceExpand(element);
@@ -446,8 +447,8 @@ function interactive_tree() {
             }
         }else
         if (element._children) {
-            var ch=element._children;
-            for(var i=0;i<ch.length;i++){
+            ch=element._children;
+            for(i=0;i<ch.length;i++){
                 if(browseToFromElement(identifier, ch[i], selectedIt, expandToIt)){
                     if (expandToIt)
                         toggleForceExpand(element);
@@ -480,14 +481,15 @@ function interactive_tree() {
 
     function expandSelectedElement(node){
         var hasSelectedDescendant=false;
+        var i;
         if (node._children) {
-            for(var i=0;i<node._children.length;i++){
+            for(i=0;i<node._children.length;i++){
                 if(expandSelectedElement(node._children[i])){
                     hasSelectedDescendant=true;
                 }
             }
         }else if (node.children) {
-            for(var i=0;i<node.children.length;i++){
+            for(i=0;i<node.children.length;i++){
                 if(expandSelectedElement(node.children[i])){
                     hasSelectedDescendant=true;
                 }
@@ -510,18 +512,18 @@ function interactive_tree() {
                 source=pointer;
             pointer=pointer.parent;
         }
-        return source
+        return source;
     }//end of getFartherAncestorCollapsed
 
     function initTreeAndTriggerUpdate(){
         treeSelectedElement=[];
         treeSelectedElementAncestors=[];
-        metaInformationHandler(root.data.meta)
+        metaInformationHandler(root.data.meta);
         root.x0 = 0;
         root.y0 = 0;
 
         parenthood(root,null);
-        refreshTreeSelectedElementAncestors()
+        refreshTreeSelectedElementAncestors();
 
         if(removeElementsWithNoSelectedDescendant){
             shouldRemoveThisElementsAsItHasNoSelectedDescendant(root);
@@ -538,7 +540,7 @@ function interactive_tree() {
     //accessors
     function cmd() {
         return cmd;
-    };
+    }
     /**
      * Ask to expand to element identified by identifier
      * @param {string} identifier - the element identifier that is returned by identifierAccessor
@@ -607,7 +609,7 @@ function interactive_tree() {
         collapseNotSelectedElement(root);
         update(root);
         return cmd;
-    }
+    };
     /**
      * Ask to expand to all selected elements
      * @return cmd() itself
@@ -616,14 +618,14 @@ function interactive_tree() {
         expandSelectedElement(root);
         update(root);
         return cmd;
-    }
+    };
     /**
      * Return the element that have this identifier
      * @return cmd() itself
      */
     cmd.getElementByIdentifier = function (identifier){
         return identifierToElement[identifier];
-    }
+    };
     /**
      * Iterate over ell the elements of the tree
      * @return cmd() itself
@@ -631,7 +633,7 @@ function interactive_tree() {
     cmd.forEachElement = function (fcn){
         $.each(identifierToElement,fcn);
         return cmd;
-    }
+    };
     /**
      * Iterate over ell the elements of the tree
      * @return cmd() itself
@@ -639,7 +641,7 @@ function interactive_tree() {
     cmd.resetPanAndZoom = function (){
         reset();
         return cmd;
-    }
+    };
 
     // getter and setter functions. See Mike Bostocks post "Towards Reusable Charts" for a tutorial on how this works.
     chart.cmd = cmd;
@@ -742,11 +744,11 @@ function interactive_tree() {
         identifierToElement={};
         data_url = value;
         d3.json(value, function(json) {
-                if(typeof json["meta"]=="undefined"){
-                    json["meta"]={"version":"v n/a", "date":"n/a"};
+                if(typeof json.meta=="undefined"){
+                    json.meta={"version":"v n/a", "date":"n/a"};
                 }
-                json["meta"]["data_url"]=data_url;
-                chart.data(json)
+                json.meta.data_url=data_url;
+                chart.data(json);
             }
         );
         return chart;
@@ -759,7 +761,7 @@ function interactive_tree() {
         if (!arguments.length) return root;
         identifierToElement={};
         root = d3.hierarchy(preTreatmentOfLoadedTree(value), function(d) { return d.children; });
-        initTreeAndTriggerUpdate()
+        initTreeAndTriggerUpdate();
         return chart;
     };
     /**

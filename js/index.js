@@ -1,6 +1,7 @@
 var browser = interactive_edam_browser();
 
 window.onload = function() {
+    var id;
     var $inputs = $('#id_file,#id_url');
     $inputs.on('input', function () {
         $inputs.not(this).prop('disabled', $(this).val().length);
@@ -19,15 +20,14 @@ window.onload = function() {
         $("#id_url").change();
         $("[name=text_accessor][value='"+getCookie("edam_browser_custom_text_accessor","")+"']").prop("checked",true);
         if(window.location.hash) {
-            var id = window.location.hash.substring(1);
+            id = window.location.hash.substring(1);
             pos = id.lastIndexOf('&');
             if (pos!=-1){
                 id=id.substring(0,pos);
             }
             setCookie("edam_browser_"+branch,id);
         }
-    }else
-    if(window.location.hash) {
+    }else if(window.location.hash) {
         hash=window.location.hash.substring(1);
         pos = hash.lastIndexOf('&');
         if (pos!=-1){
@@ -63,4 +63,4 @@ window.onload = function() {
     }else{
         browser.current_branch(branch);
     }
-}
+};

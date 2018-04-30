@@ -3,22 +3,22 @@ function tess_api(){
 
     //getter for nothing
     var get_for_nothing=function (name){
-        var getter = function(){}
-        getter.count=function(callback){}
+        var getter = function(){};
+        getter.count=function(callback){};
         getter.is_enabled=function(){
             return false;
-        }
-        getter.get_url=function(){}
-        getter.get_api_url=function(){}
+        };
+        getter.get_url=function(){};
+        getter.get_api_url=function(){};
         return getter;
-    }
+    };
 
     // generic getter
     api.get_for=function (branch, name, uri, node){
         if (uri.indexOf("edam")==-1)
             return get_for_nothing();
         //getter object
-        var getter = function(){}
+        var getter = function(){};
         //function to count the number of tools associated
         getter.count=function(callback){
             return $.ajax({
@@ -35,36 +35,36 @@ function tess_api(){
                     callback(-1,[],textStatus);
                 },
             });
-        }
+        };
         //is the count function enabled
         getter.is_enabled=function(){
             return typeof name != "undefined";
-        }
+        };
         //get the url returning the tools for human
         getter.get_url=function(){
             return "https://tess.elixir-europe.org/materials?scientific_topics="+name.replace(/ /g,'+');
-        }
+        };
         //get the url returning the tools for api call
         getter.get_api_url=function(){
             return "https://tess.elixir-europe.org/materials.json?scientific_topics="+name.replace(/ /g,'+');
-        }
+        };
         return getter;
-    }
+    };
     //getter for topics
     api.get_for_topic=function (name){
-        return api.get_for("topic",name)
-    }
+        return api.get_for("topic",name);
+    };
     //getter for operations
     api.get_for_operation=function (name){
-        return api.get_for("operation",name)
-    }
+        return api.get_for("operation",name);
+    };
     //getter for data
     api.get_for_data=function (name){
-        return api.get_for("data",name)
-    }
+        return api.get_for("data",name);
+    };
     //getter for format
     api.get_for_format=function (name){
-        return api.get_for("format",name)
-    }
+        return api.get_for("format",name);
+    };
     return api;
 }
