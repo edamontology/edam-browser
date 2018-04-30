@@ -1,6 +1,6 @@
 # Edam stand alone browser using d3.js
 
-[![Build Status](https://travis-ci.org/ifb-elixirfr/edam-browser.svg?branch=master)](https://travis-ci.org/ifb-elixirfr/edam-browser)
+[![Build Status](https://travis-ci.org/IFB-ElixirFr/edam-browser.svg?branch=master)](https://travis-ci.org/IFB-ElixirFr/edam-browser)
 
 The EDAM Browser is a client-side web-based visualization javascript widget. Its goals are to help describing bio-related resources and service with EDAM, and to facilitate and foster community contributions to EDAM.
 
