@@ -29,11 +29,7 @@ bibliography: paper_resources/paper.bib
 
 # Summary
 
-## Abstract
-
-Labelling, indexing and describing a Bioinformatics resource, whether it is a software, a database, or a service is of a great help when it comes to promoting it to various user communities. As an example, the ELIXIR bio.tools [@ison2015tools] registry contains more than ten thousands software and service entries. In this context, the use of controlled vocabularies to describe the resources is of a paramount importance. In bio.tools, this need is addressed by the EDAM Ontology [@ison2013edam], which proposes a controlled vocabulary hierarchically organized around four axes which describe types of data, formats, operations and topics.
-
-We here present the EDAM Browser, a client-side web-based visualization javascript widget that provides an interface to navigate EDAM. This browser is tailored to the needs of EDAM users who might not be ontology experts. It can, among other things, be used to help describing resources, and to facilitate and foster community contributions to EDAM. The EDAM Browser allows users to explore it with an interface tailored to its structure and properties. Its interface is not designed to be a generic ontology navigation and edition platform, a goal already achieved by many other systems such as AberOWL[@hoehndorf2015aber], BioPortal[@whetzel2011bioportal], OLS - Ontology Lookup Service[@jupp2015new], Ontobee[@xiang2011ontobee] and WebProt&eacute;g&eacute;[@tudorache2013webprotege].
+The EDAM ontology is a structured and controlled vocabulary describing bioinformatics and computational biology concepts. It is widely used to annotate resource descriptions (tools, web services) for discovery[@ison2015tools], workflow construction and integration. We here present the EDAM Browser, a client-side web-based visualization javascript widget that provides an interface to navigate EDAM[@ison2013edam]. This browser is tailored to the needs of EDAM users who might not be ontology experts. It can, among other things, be used to help describing resources, and to facilitate and foster community contributions to EDAM. The EDAM Browser allows users to explore it with an interface tailored to its structure and properties. Its interface is not designed to be a generic ontology navigation and edition platform, a goal already achieved by many other systems such as AberOWL[@hoehndorf2015aber], BioPortal[@whetzel2011bioportal], OLS - Ontology Lookup Service[@jupp2015new], Ontobee[@xiang2011ontobee] and WebProt&eacute;g&eacute;[@tudorache2013webprotege].
 
 Rather, it aims at providing features requested by most users and contributors, which we detail below.
 
@@ -60,9 +56,9 @@ An ontology is loaded into the EDAM Browser by clicking on the button labelled _
 
 ![Providing a custom ontology](paper_resources/custom_ontology.png)
 
-## Ease of community contributions.
+## Facilitating community feedback.
 
-Letting users contribute to the ontology improves acceptance by the community as a user propose changes to the ontology to fit his/her needs. To facilitate these suggestions, the EDAM Browser lets users access a form letting them propose changes at any point of their exploration. These suggestions are automatically formatted as github issues ready to be submitted by the user (cf Fig. 3). 
+EDAM users can contribute their own expertise to the ontology. In order to make these contributions easier, we have implemented a form that facilitates this communication. These suggestions are automatically formatted as github issues ready to be submitted by the user (cf Fig. 3). 
 
 ![The edition form and the issue created](paper_resources/edition_form_to_github_issue.png)
 
