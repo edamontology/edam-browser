@@ -29,7 +29,7 @@ bibliography: paper_resources/paper.bib
 
 # Summary
 
-The EDAM ontology is a structured and controlled vocabulary describing bioinformatics and computational biology concepts. It is widely used to annotate resource descriptions (tools, web services) for discovery[@ison2015tools], workflow construction and integration. We here present the EDAM Browser, a client-side web-based visualization javascript widget that provides an interface to navigate EDAM[@ison2013edam]. This browser is tailored to the needs of EDAM users who might not be ontology experts. It can, among other things, be used to help describing resources, and to facilitate and foster community contributions to EDAM. The EDAM Browser allows users to explore it with an interface tailored to its structure and properties. Its interface is not designed to be a generic ontology navigation and edition platform, a goal already achieved by many other systems such as AberOWL[@hoehndorf2015aber], BioPortal[@whetzel2011bioportal], OLS - Ontology Lookup Service[@jupp2015new], Ontobee[@xiang2011ontobee] and WebProt&eacute;g&eacute;[@tudorache2013webprotege].
+The EDAM ontology is a structured and controlled vocabulary describing bioinformatics and computational biology concepts. It is widely used to annotate resource descriptions (tools, web services) for discovery [@ison2015tools], workflow construction and integration. We here present the EDAM Browser, a client-side web-based visualization javascript widget that provides an interface to navigate EDAM [@ison2013edam]. This browser is tailored to the needs of EDAM users who might not be ontology experts. It can, among other things, be used to help describing resources, and to facilitate and foster community contributions to EDAM. The EDAM Browser allows users to explore it with an interface tailored to its structure and properties. Its interface is not designed to be a generic ontology navigation and/or edition platform, a goal already achieved by many other systems such as AberOWL [@hoehndorf2015aber], BioPortal [@whetzel2011bioportal], OLS - Ontology Lookup Service [@jupp2015new], Ontobee [@xiang2011ontobee] and WebProt&eacute;g&eacute; [@tudorache2013webprotege].
 
 Rather, it aims at providing features requested by most users and contributors, which we detail below.
 
@@ -45,7 +45,7 @@ We also take into account the specificities of the structure of EDAM: while bein
 
 ![The term Phylogeny has two parents](paper_resources/topics_tree_phylogeny.png)
 
-The interface also permits the navigation between different axes of the ontology, based on the EDAM properties that define their relationships (e.g. this *format* represents this type of *data*, this *data* is an output of this *operation* or is specific of this *topic*). One last salient feature of the interface is the representation of the usage of the selected concept in annotated resource collections, such as bio.tools, BioSphere, BioWeb and TeSS.
+The interface also permits the navigation between different axes of the ontology, based on the EDAM properties that define their relationships (e.g. this *format* represents this type of *data*, this *data* is an output of this *operation* or is specific of this *topic*). One last salient feature of the interface is the representation of the usage of the selected concept in annotated resource collections, such as bio.tools, BioSphere [@brancotte2017biosphere], [BioWeb](http://bioweb.pasteur.fr) and [TeSS](https://tess.elixir-europe.org).
 
 ## Performance and flexibility
 
