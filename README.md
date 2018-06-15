@@ -26,4 +26,10 @@ EDAM Browser can render ontology described in json following the [schema](ontolo
 
 ## Third party integration
 
+### Demo
+
 A demo showing you how to add the tree visualization and how you can interact with the it programmatically is available at https://ifb-elixirfr.github.io/edam-browser/demo.html
+
+### Dependencies
+
+The EDAM Browser relies on D3.js 4.13.0, JQuery 3.2.1, JQuery UI 1.12.1, Boostrap 3.3.7, and Font Awesome 4.7.0
