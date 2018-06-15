@@ -41,7 +41,7 @@ The EDAM browser is available publicly and anonymously at https://ifb-elixirfr.g
 
 As much as possible, the user interface aims at simplicity and relevance to the specific domain of EDAM. The creation of an interface that displays all of the information necessary to users, and avoids the use of ontology development jargon is a major goal of this project. 
 
-The interface also permits the navigation between different axes of the ontology, based on the EDAM properties that define their relationships (e.g. this *format* represents this type of *data*, this *data* is an output of this *operation* or is specific of this *topic*). 
+The interface permits the navigation between different axes of the ontology, based on the EDAM properties that define their relationships (e.g. this *format* represents this type of *data*, this *data* is an output of this *operation* or is specific of this *topic*). 
 
 ![The term Phylogeny has two parents](paper_resources/topics_tree_phylogeny_with_details.png)
 
