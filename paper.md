@@ -29,9 +29,7 @@ bibliography: paper_resources/paper.bib
 
 # Summary
 
-The EDAM Browser, a client-side web-based visualization javascript widget that provides an interface to navigate the EDAM ontology [@ison2013edam]. EDAM is a structured and controlled vocabulary describing bioinformatics and computational biology concepts. It is widely used to annotate resource descriptions (tools, web services) for discovery [@ison2015tools], workflow construction and integration. The EDAM Browser is not designed to be a generic ontology navigation and/or edition platform, a goal already achieved by many other systems such as AberOWL [@hoehndorf2015aber], BioPortal [@whetzel2011bioportal], OLS - Ontology Lookup Service [@jupp2015new], Ontobee [@xiang2011ontobee] and WebProt&eacute;g&eacute; [@tudorache2013webprotege].
-
-Rather, the EDAM Browser is tailored to the structure and properties of EDAM, and targerts both contributors and users who might not be ontology experts. It intend to help describing resources, and to facilitate and foster community contributions to EDAM.
+The EDAM Browser is a client-side web-based visualization javascript widget that provides an interface to navigate the EDAM ontology [@ison2013edam]. EDAM is a structured and controlled vocabulary describing bioinformatics and computational biology concepts. It is widely used to annotate resource descriptions (tools, web services) for discovery [@ison2015tools] and integration in platforms such as galaxy [@afgan2016galaxy]. The EDAM Browser is not designed to be a generic ontology navigation and/or edition platform, a goal already achieved by many other systems such as AberOWL [@hoehndorf2015aber], BioPortal [@whetzel2011bioportal], OLS - Ontology Lookup Service [@jupp2015new], Ontobee [@xiang2011ontobee] and WebProt&eacute;g&eacute; [@tudorache2013webprotege]. Rather it is tailored to the structure and properties of EDAM, and targets both contributors and users who might not be ontology experts. It helps describing resources, and facilitates community contributions to EDAM.
 
 ## Availability and re-usablility
 
@@ -39,9 +37,9 @@ The EDAM browser is available publicly and anonymously at https://ifb-elixirfr.g
 
 ## Information display
 
-As much as possible, the user interface aims at simplicity and relevance to the specific domain of EDAM. The creation of an interface that displays all of the information necessary to users, and avoids the use of ontology development jargon is a major goal of this project. 
+The user interface aims at simplicity and relevance to the specific domain of EDAM. The interface displays all of the information necessary to users, and avoids ontology development jargon.
 
-The interface permits the navigation between different axes of the ontology, based on the EDAM properties that define their relationships (e.g. this *format* represents this type of *data*, this *data* is an output of this *operation* or is specific of this *topic*). 
+Users can navigate between different parts of the ontology, based on the properties that define their relationships (e.g. this *format* represents this type of *data*, this *data* is an output of this *operation* or is specific of this *topic*). 
 
 ![The term Phylogeny has two parents](paper_resources/topics_tree_phylogeny_with_details.png)
 
@@ -51,7 +49,7 @@ On the right part of Figure 1, details of the selected concept are displayed. On
 
 ## Performance and flexibility
 
-One of the specificities of EDAM is its relatively small size in comparison with large ontologies like Gene Ontology. This reduced size makes it easy to load entirely the contents to be displayed in the browser's memory, and enables a very fast navigation, with no need to rely on server calls during this navigation (except for displaying usage statistics from external annotated resources). 
+One of the specificities of EDAM is its relatively small size in comparison with large ontologies like Gene Ontology [ashburner2000go, go2016go]. This reduced size makes it easy to load it entirely in the browser's memory, and enables a very fast navigation that does not rely on server calls (except for displaying usage statistics from external annotated resources).
 Using the EDAM Browser to explore a local or in-development version is possible. The loaded file should be formatted as a JSON file following the schema accessible [here](https://ifb-elixirfr.github.io/edam-browser/ontology.schema.json). The [edam2json utility](https://github.com/edamontology/edam2json) can be used to generate the ontology in this format from any EDAM owl file.  
 
 An ontology is loaded into the EDAM Browser by clicking on the button labelled _Custom_ at the top of its interface, and specifying either a public URL to the file or a local path to load it from (cf Fig. 2). 
@@ -60,7 +58,7 @@ An ontology is loaded into the EDAM Browser by clicking on the button labelled _
 
 ## Facilitating community feedback.
 
-EDAM users can contribute their own expertise to the ontology. In order to make these contributions easier, we have implemented a form that facilitates this communication. These suggestions are automatically formatted as github issues ready to be submitted by the user (cf Fig. 3). 
+EDAM users can contribute their own expertise to the ontology. In order to make these contributions easier, we have implemented a form that directly formats suggestions as github issues ready to be submitted by the user (cf Fig. 3). 
 
 ![The edition form and the issue created](paper_resources/edition_form_to_github_issue.png)
 
