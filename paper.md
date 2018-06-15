@@ -29,9 +29,9 @@ bibliography: paper_resources/paper.bib
 
 # Summary
 
-The EDAM ontology is a structured and controlled vocabulary describing bioinformatics and computational biology concepts. It is widely used to annotate resource descriptions (tools, web services) for discovery [@ison2015tools], workflow construction and integration. We here present the EDAM Browser, a client-side web-based visualization javascript widget that provides an interface to navigate EDAM [@ison2013edam]. This browser is tailored to the needs of EDAM users who might not be ontology experts. It can, among other things, be used to help describing resources, and to facilitate and foster community contributions to EDAM. The EDAM Browser allows users to explore it with an interface tailored to its structure and properties. Its interface is not designed to be a generic ontology navigation and/or edition platform, a goal already achieved by many other systems such as AberOWL [@hoehndorf2015aber], BioPortal [@whetzel2011bioportal], OLS - Ontology Lookup Service [@jupp2015new], Ontobee [@xiang2011ontobee] and WebProt&eacute;g&eacute; [@tudorache2013webprotege].
+The EDAM Browser, a client-side web-based visualization javascript widget that provides an interface to navigate the EDAM ontology [@ison2013edam]. EDAM is a structured and controlled vocabulary describing bioinformatics and computational biology concepts. It is widely used to annotate resource descriptions (tools, web services) for discovery [@ison2015tools], workflow construction and integration. The EDAM Browser is not designed to be a generic ontology navigation and/or edition platform, a goal already achieved by many other systems such as AberOWL [@hoehndorf2015aber], BioPortal [@whetzel2011bioportal], OLS - Ontology Lookup Service [@jupp2015new], Ontobee [@xiang2011ontobee] and WebProt&eacute;g&eacute; [@tudorache2013webprotege].
 
-Rather, it aims at providing features requested by most users and contributors, which we detail below.
+Rather, the EDAM Browser is tailored to the structure and properties of EDAM, and targerts both contributors and users who might not be ontology experts. It intend to help describing resources, and to facilitate and foster community contributions to EDAM.
 
 ## Availability and re-usablility
 
