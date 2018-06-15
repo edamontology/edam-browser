@@ -33,13 +33,13 @@ The EDAM Browser is a client-side web-based visualization javascript widget for 
 
 ## User interface and functionalities
 
-The user interface (cf Fig. 1) is divided in two main panels, a tree representation of the ontology on the left, and a properties card on the right. The tree on the left represents the different parts of the ontology (formats, data, operations and topics). By expanding or closing the nodes, users explore the hierarchy of the EDAM concepts. The selected concept is displayed in bold, and the hierarchically path leading from the root to it is highlighted. In case this concept has multiple direct or indirect superclasses, all the paths that lead to its different locations in the trees are highlighted (see Fig.2). The properties card panel on the right displays the main properties of the concept, such as its definition, comments, synonyms, and its non-hierachical relations to other concepts (e.g. an operation has inputs, outputs, and belongs to a given topic). It also includes the count and links to entries in various databases that use this term,  such as [bio.tools](https://bio.tools), [BioSphere](https://biosphere.france-bioinformatique.fr/catalogue/) [@brancotte2017biosphere], [BioWeb](http://bioweb.pasteur.fr) and [TeSS](https://tess.elixir-europe.org). 
+The user interface (see Fig. 1) is divided in two main panels, a tree representation of the ontology on the left, and a properties card on the right. The tree on the left represents the different parts of the ontology (formats, data, operations and topics). By expanding or closing the nodes, users explore the hierarchy of the EDAM concepts. The selected concept is displayed in bold, and the hierarchically path leading from the root to it is highlighted. In case this concept has multiple direct or indirect superclasses, all the paths that lead to its different locations in the trees are highlighted (see Fig.2). The properties card panel on the right displays the main properties of the concept, such as its definition, comments, synonyms, and its non-hierachical relations to other concepts (e.g. an operation has inputs, outputs, and belongs to a given topic). It also includes the count and links to entries in various databases that use this term,  such as [bio.tools](https://bio.tools), [BioSphere](https://biosphere.france-bioinformatique.fr/catalogue/) [@brancotte2017biosphere], [BioWeb](http://bioweb.pasteur.fr) and [TeSS](https://tess.elixir-europe.org). 
  
 ![EDAM Browser main interface](paper_resources/edam_browser_interface.png)
 
 ![The term Phylogeny has two parents](paper_resources/topics_tree_phylogeny_with_details.png)
 
-The user may directly suggest either the modification or creation of terms by clicking on the "add a child" and "edit" icons at the top-right corner of this panel. These lead the user to a form that directly formats suggestions as github issues ready to be submitted by the user (cf Fig. 3).
+The user may directly suggest either the modification or creation of terms by clicking on the "add a child" and "edit" icons at the top-right corner of this panel. These lead the user to a form that directly formats suggestions as github issues ready to be submitted by the user (see Fig. 3).
 
 ![The edition form and the issue created](paper_resources/edition_form_to_github_issue.png)
 
@@ -51,8 +51,6 @@ One of the specificities of EDAM is its relatively small size in comparison with
 
 ## Conclusion
 
-The EDAM Browser is available publicly and anonymously at https://ifb-elixirfr.github.io/edam-browser/. 
-
-The EDAM Browser aims at simplicity and relevance to EDAM. The interface displays all of the information necessary to users, and avoids ontology development jargon. The EDAM Browser is not a generic ontology navigation and/or edition platform, like other systems such as AberOWL [@hoehndorf2015aber], BioPortal [@whetzel2011bioportal], OLS - Ontology Lookup Service [@jupp2015new], Ontobee [@xiang2011ontobee] and WebProt&eacute;g&eacute; [@tudorache2013webprotege]. Rather, it is tailored to the structure and properties of EDAM, and targets both contributors and users who might not be ontology experts. With this interface, users can both explore quickly and efficiently EDAM, and contribute their own expertise to the ontology. 
+The EDAM Browser is available publicly and anonymously at https://ifb-elixirfr.github.io/edam-browser/. It aims at simplicity and relevance to EDAM. The interface displays all of the information necessary to users, and avoids ontology development jargon. The EDAM Browser is not a generic ontology navigation and/or edition platform, like other systems such as AberOWL [@hoehndorf2015aber], BioPortal [@whetzel2011bioportal], OLS - Ontology Lookup Service [@jupp2015new], Ontobee [@xiang2011ontobee] and WebProt&eacute;g&eacute; [@tudorache2013webprotege]. Rather, it is tailored to the structure and properties of EDAM, and targets both contributors and users who might not be ontology experts. With this interface, users can both explore quickly and efficiently EDAM, and contribute their own expertise to the ontology. 
 
 # References
