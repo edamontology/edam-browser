@@ -41,11 +41,13 @@ The EDAM browser is available publicly and anonymously at https://ifb-elixirfr.g
 
 As much as possible, the user interface aims at simplicity and relevance to the specific domain of EDAM. The creation of an interface that displays all of the information necessary to users, and avoids the use of ontology development jargon is a major goal of this project. 
 
+The interface also permits the navigation between different axes of the ontology, based on the EDAM properties that define their relationships (e.g. this *format* represents this type of *data*, this *data* is an output of this *operation* or is specific of this *topic*). 
+
+![The term Phylogeny has two parents](paper_resources/topics_tree_phylogeny_with_details.png)
+
 We also take into account the specificities of the structure of EDAM: while being represented as a tree, it is in fact a directed acyclic graph, meaning that a term can have more than one parent. In order to improve readability when a term is selected (1) all the term's positions are shown; and (2) all paths from the root node are highlighted. A good example of this display is the [Phylogeny topic](https://ifb-elixirfr.github.io/edam-browser/#topic_0084)) (cf Fig. 1). 
 
-![The term Phylogeny has two parents](paper_resources/topics_tree_phylogeny.png)
-
-The interface also permits the navigation between different axes of the ontology, based on the EDAM properties that define their relationships (e.g. this *format* represents this type of *data*, this *data* is an output of this *operation* or is specific of this *topic*). One last salient feature of the interface is the representation of the usage of the selected concept in annotated resource collections, such as bio.tools, BioSphere [@brancotte2017biosphere], [BioWeb](http://bioweb.pasteur.fr) and [TeSS](https://tess.elixir-europe.org).
+On the right part of Figure 1, details of the selected concept are displayed. One last salient feature is the presentation of the usage of the concept in annotated resource collections, such as bio.tools, [BioSphere](https://biosphere.france-bioinformatique.fr/catalogue/) [@brancotte2017biosphere], [BioWeb](http://bioweb.pasteur.fr) and [TeSS](https://tess.elixir-europe.org).
 
 ## Performance and flexibility
 
