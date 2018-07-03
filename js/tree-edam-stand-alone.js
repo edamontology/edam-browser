@@ -442,8 +442,12 @@ function interactive_edam_browser(){
     identifier_accessor_mapping['d.data.uri']=identifierAccessorEDAM;
 
     function textAccessorDefault(d){
-        if (typeof d.data.text == "undefined")
-            return __my_interactive_tree.identifierAccessor()(d);
+        if (typeof d.data.text == "undefined"){
+            var identifier = __my_interactive_tree.identifierAccessor()(d);
+            if(identifier == "owl:Thing" && branch == "edam")
+                return "EDAM"
+            return identifier;
+        }
         return d.data.text;
     }
     text_accessor_mapping['d.text']=textAccessorDefault;
