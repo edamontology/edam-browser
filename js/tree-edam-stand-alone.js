@@ -242,6 +242,8 @@ function interactive_edam_browser(){
             fields.push("has_input");
         if(typeof d.data.has_output != "undefined")
             fields.push("has_output");
+        if(typeof d.data.see_also != "undefined")
+            fields.push("see_also");
         fields.forEach(function(entry) {
             if("uri"==entry)
                 append_row(table,"URI",uri,false);
@@ -356,8 +358,13 @@ function interactive_edam_browser(){
         if (value.constructor === Object){
             return JSON.stringify(value);
         }
-        if (!(""+value).startsWith("http://edamontology.org/"))
+        value=(""+value).replace("&quot;","").replace("&quot;","");
+        if (!value.startsWith("http://edamontology.org/")){
+            if(value.startsWith("http://")||value.startsWith("https://")){
+                return "<a href=\""+ value + "\" target=\"_blank\">"+value+"</a>";
+            }
             return value;
+        }
 
         if(current_branch.startsWith("custom"))
             return "<a href=\"#"+ value + "&"+current_branch + "\" onclick=\"browser.interactive_tree().cmd().selectElement(this.text,true);\">"+value+"</a>";
