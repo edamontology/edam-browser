@@ -230,9 +230,9 @@ function interactive_edam_browser(){
             "text",
             "definition",
             "comment",
-            "uri",
             "exact_synonyms",
             "narrow_synonyms",
+            "uri",
         ];
         if(typeof d.data.has_topic != "undefined")
             fields.push("has_topic");
@@ -245,6 +245,8 @@ function interactive_edam_browser(){
         fields.forEach(function(entry) {
             if("uri"==entry)
                 append_row(table,"URI",uri,false);
+            else if("text"==entry)
+                append_row(table,"Term",d.data[entry],false);
             else
                 append_row(table,entry,d.data[entry]);
         });
