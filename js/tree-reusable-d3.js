@@ -108,7 +108,7 @@ function interactive_tree() {
                 if(vis.select("g.node").node())
                     shift=vis.select("g.node").node().getBoundingClientRect().width;
                 else
-                    shift=50;
+                    shift=margin.left;
                 var t = d3.zoomIdentity.translate(shift,$(target_selector).height()/2).scale(1);
                 svg.call(zoom.transform, t);
             };
