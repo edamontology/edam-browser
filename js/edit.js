@@ -97,7 +97,9 @@ window.onload = function() {
     }else{
         $('#pageTitle .change').hide();
     }
-    $('#pageTitle .branch').text(branch);
+    var sub_branch = getUrlParameter('term')+getUrlParameter('parent');
+    sub_branch = sub_branch.substring(sub_branch.lastIndexOf('/')+1, sub_branch.lastIndexOf('_'));
+    $('#pageTitle .branch').text(sub_branch);
     browser = fake_interactive_edam_browser();
     browser.interactive_tree.loadingDoneHandler(function(){
         fill_form(identifier, getUrlParameter('parent'), branch);
