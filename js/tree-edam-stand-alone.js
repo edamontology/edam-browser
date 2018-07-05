@@ -454,7 +454,7 @@ function interactive_edam_browser(){
         if (typeof d.data.text == "undefined"){
             var identifier = __my_interactive_tree.identifierAccessor()(d);
             if(identifier == "owl:Thing" && branch == "edam")
-                return "EDAM"
+                return "EDAM";
             return identifier;
         }
         return d.data.text;
