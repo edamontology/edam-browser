@@ -512,7 +512,7 @@ function interactive_tree() {
                 expandAllDescendantElement(children[i]);
             }
         }
-        toggleForceExpand(node);;
+        toggleForceExpand(node);
     }//end of expandAllElement
 
     function getFartherAncestorCollapsed(node){
