@@ -504,6 +504,17 @@ function interactive_tree() {
         return hasSelectedDescendant;
     }//end of expandSelectedElement
 
+    function expandAllDescendantElement(node){
+        var i,
+            children = node._children || node.children;
+        if (children) {
+            for(i=0;i<children.length;i++){
+                expandAllDescendantElement(children[i]);
+            }
+        }
+        toggleForceExpand(node);;
+    }//end of expandAllElement
+
     function getFartherAncestorCollapsed(node){
         var source=node;
         var pointer=node;
@@ -617,6 +628,18 @@ function interactive_tree() {
     cmd.expandSelectedElement = function (){
         expandSelectedElement(root);
         update(root);
+        return cmd;
+    };
+    /**
+     * Ask to expand to all selected elements
+     * @return cmd() itself
+     */
+    cmd.expandAllDescendantElement = function (identifier){
+        console.log(identifierAccessor(root));
+        var node=identifierToElement[identifier];
+        browseToFromElement(identifier,root,false,true);
+        expandAllDescendantElement(node);
+        update(node);
         return cmd;
     };
     /**
