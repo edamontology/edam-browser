@@ -153,8 +153,8 @@ function build_autocomplete_from_edam_browser(edam_browser, elt){
                 function(i,elt){
                     if(typeof elt.__autocomplete_from_edam_browser == "undefined")
                         initIndex();
-                    for(var i=0;i<terms.length;i++){
-                        if (elt.__autocomplete_from_edam_browser.indexOf(terms[i])==-1)
+                    for(var j=0;j<terms.length;j++){
+                        if (elt.__autocomplete_from_edam_browser.indexOf(terms[j])==-1)
                             return;
                     }
                     data.push({value:edam_browser.textAccessor(elt),node:elt});
@@ -178,7 +178,7 @@ function build_autocomplete_from_edam_browser(edam_browser, elt){
             }
             ui.content.sort(function(a, b) {
               return a.lev - b.lev;
-            })
+            });
             ui.content.splice(20);
         }
     })
