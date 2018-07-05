@@ -148,13 +148,16 @@ function build_autocomplete_from_edam_browser(edam_browser, elt){
         source : function (request, response) {
             var data=[];
             var tree=edam_browser.interactive_tree().cmd();
-            var term=request.term.toUpperCase();
+            var terms=request.term.toUpperCase().split(" ");
             tree.forEachElement(
                 function(i,elt){
                     if(typeof elt.__autocomplete_from_edam_browser == "undefined")
                         initIndex();
-                    if (elt.__autocomplete_from_edam_browser.indexOf(term)!=-1)
-                        data.push({value:edam_browser.textAccessor(elt),node:elt});
+                    for(var i=0;i<terms.length;i++){
+                        if (elt.__autocomplete_from_edam_browser.indexOf(terms[i])==-1)
+                            return;
+                    }
+                    data.push({value:edam_browser.textAccessor(elt),node:elt});
                 }
             );
             response(data);
@@ -164,6 +167,20 @@ function build_autocomplete_from_edam_browser(edam_browser, elt){
             $(event.target).attr("data-selected",edam_browser.identifierAccessor(ui.item.node));
             edam_browser.interactive_tree().cmd.selectElement(edam_browser.identifierAccessor(ui.item.node),true);
         },
+        response: function( event, ui ) {
+            if (typeof (window.Levenshtein) == "undefined")
+                return ;
+            var searched = $(event.target).val().toUpperCase(),
+                i;
+            for (i=0;i<ui.content.length;i++){
+                ui.content[i].lev = window.Levenshtein(ui.content[i].label.toUpperCase(),searched);
+                                  //+ window.Levenshtein(ui.content[i].node.__autocomplete_from_edam_browser,searched) / 5;
+            }
+            ui.content.sort(function(a, b) {
+              return a.lev - b.lev;
+            })
+            ui.content.splice(20);
+        }
     })
     .autocomplete( "instance" )._renderItem = function( ul, item ) {
         var identifier = edam_browser.identifierAccessor(item.node);
