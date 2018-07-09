@@ -50,6 +50,11 @@ function interactive_tree() {
         treeSelectedElementAncestors=null,
         duration = 500,
         update,
+        updateWithoutPanAndZoomTuning,
+        minX,
+        minY,
+        maxX,
+        maxY,
         reset,
         id=0,
         identifierToElement={};
@@ -71,12 +76,6 @@ function interactive_tree() {
 
             var zoom = d3.zoom()
                 .on("zoom", function () {
-                    var dimS = svg.node().getBoundingClientRect();
-                    var dimG = vis.node().getBoundingClientRect();
-                    d3.event.transform.x = Math.max(dimG.width*-0.8,d3.event.transform.x);
-                    d3.event.transform.y = Math.max(dimG.height*-0.8/2,d3.event.transform.y);
-                    d3.event.transform.x = Math.min((dimS.width-50)*0.8,d3.event.transform.x);
-                    d3.event.transform.y = Math.min((dimS.height+dimG.height/2)*0.8,d3.event.transform.y);
                     vis.attr("transform", d3.event.transform);
                 });
 
@@ -114,6 +113,16 @@ function interactive_tree() {
             };
 
             update = function (source) {
+                minX=null;
+                minY=null;
+                maxX=null;
+                maxY=null;
+                updateWithoutPanAndZoomTuning(source);
+                var xShift=(maxX-minX)/2;
+                zoom.translateExtent([[minX-xShift,minY-xShift], [maxX+xShift/2,maxY+xShift]]);
+            };
+
+            updateWithoutPanAndZoomTuning = function (source) {
                 if (treeSelectedElementAncestors == null){
                     refreshTreeSelectedElementAncestors();
                 }
@@ -181,7 +190,13 @@ function interactive_tree() {
                 // Transition nodes to their new position.
                 nodeUpdate.transition()
                     .duration(duration)
-                    .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+                    .attr("transform", function(d) {
+                        minX= minX ? Math.min(minX,d.y  ):d.y   ;
+                        minY= minY ? Math.min(minY,d.x  ):d.x   ;
+                        maxX=(maxX ? Math.max(maxX,d.y  ):d.y  );
+                        maxY=(maxY ? Math.max(maxY,d.x  ):d.x  );
+                        return "translate(" + d.y + "," + d.x + ")";
+                    })
                     ;
 
                 nodeUpdate.select("circle")
@@ -636,7 +651,7 @@ function interactive_tree() {
      */
     cmd.expandAllDescendantElement = function (identifier){
         console.log(identifierAccessor(root));
-        var node=identifierToElement[identifier];
+        var node=identifierToElement[identifier] || root;
         browseToFromElement(identifier,root,false,true);
         expandAllDescendantElement(node);
         update(node);
