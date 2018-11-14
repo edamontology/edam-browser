@@ -390,7 +390,7 @@ function interactive_tree() {
         node=identifierToElement[identifierAccessor(element)];
         if (typeof node != "undefined"){
             if (typeof node.duplicate == "undefined")
-                node.duplicate=[];
+                node.duplicate=[node];
             node.duplicate.push(element);
             element.duplicate=node.duplicate;
         }else{
