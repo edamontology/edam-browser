@@ -244,11 +244,23 @@ function interactive_edam_browser(){
             fields.push("has_output");
         if(typeof d.data.see_also != "undefined")
             fields.push("see_also");
+        fields.push("parents");
         fields.forEach(function(entry) {
             if("uri"==entry)
                 append_row(table,"URI",uri,false);
             else if("text"==entry)
                 append_row(table,"Term",d.data[entry],false);
+            else if("parents"==entry){
+                if (typeof d['duplicate'] == "undefined"){
+                    append_row(table,entry,d.parent.data.data["uri"]);
+                }else{
+                    var parents_uris = []
+                    for(var i=d.duplicate.length-1;i>=0;i--){
+                        parents_uris.push(d.duplicate[i].parent.data.data["uri"]);
+                    }
+                    append_row(table,entry,parents_uris);
+                }
+            }
             else
                 append_row(table,entry,d.data[entry]);
         });
