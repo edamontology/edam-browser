@@ -383,7 +383,13 @@ function interactive_edam_browser(){
         }
         return "<a "+
         "href=\"#"+ value + (current_branch=="deprecated"?"&deprecated":"")+"\" "+
-        "onclick=\"setCookie('edam_browser_'+'"+current_branch+"','"+value+"');browser.current_branch('"+branch_of_term+"');browser.interactive_tree().cmd().selectElement('"+value+"',true)\""+
+        (
+            current_branch.startsWith("edam")
+            ?
+            "onclick=\"browser.interactive_tree().cmd().selectElement('"+value+"',true)\""
+            :
+            "onclick=\"setCookie('edam_browser_'+'"+current_branch+"','"+value+"');browser.current_branch('"+branch_of_term+"');browser.interactive_tree().cmd().selectElement('"+value+"',true)\""
+        )+
         "class=\"label bg-edam-"+branch_of_term+"-light fg-edam-"+branch_of_term+" border-one-solid border-edam-"+branch_of_term+"\" "+
         ">"+
         text+
