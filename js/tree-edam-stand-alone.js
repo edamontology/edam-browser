@@ -394,6 +394,7 @@ function interactive_edam_browser(){
         }else{
             text=value;
         }
+        /* jshint -W014 */
         return "<a "+
         "href=\"#"+ value + (current_branch=="deprecated"?"&deprecated":"")+"\" "+
         (
