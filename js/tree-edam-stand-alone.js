@@ -244,19 +244,20 @@ function interactive_edam_browser(){
             fields.push("has_output");
         if(typeof d.data.see_also != "undefined")
             fields.push("see_also");
-        fields.push("parents");
+        if (browser.identifierAccessor(d.parent)!="owl:Thing")
+            fields.push("parents");
         fields.forEach(function(entry) {
             if("uri"==entry)
                 append_row(table,"URI",uri,false);
             else if("text"==entry)
                 append_row(table,"Term",d.data[entry],false);
             else if("parents"==entry){
-                if (typeof d['duplicate'] == "undefined"){
-                    append_row(table,entry,d.parent.data.data["uri"]);
+                if (typeof d.duplicate == "undefined"){
+                    append_row(table,entry,browser.identifierAccessor(d.parent));
                 }else{
-                    var parents_uris = []
+                    var parents_uris = [];
                     for(var i=d.duplicate.length-1;i>=0;i--){
-                        parents_uris.push(d.duplicate[i].parent.data.data["uri"]);
+                        parents_uris.push(browser.identifierAccessor(d.duplicate[i].parent));
                     }
                     append_row(table,entry,parents_uris);
                 }
@@ -397,10 +398,8 @@ function interactive_edam_browser(){
         "href=\"#"+ value + (current_branch=="deprecated"?"&deprecated":"")+"\" "+
         (
             current_branch.startsWith("edam")
-            ?
-            "onclick=\"browser.interactive_tree().cmd().selectElement('"+value+"',true)\""
-            :
-            "onclick=\"setCookie('edam_browser_'+'"+current_branch+"','"+value+"');browser.current_branch('"+branch_of_term+"');browser.interactive_tree().cmd().selectElement('"+value+"',true)\""
+            ?"onclick=\"browser.interactive_tree().cmd().selectElement('"+value+"',true)\""
+            :"onclick=\"setCookie('edam_browser_'+'"+current_branch+"','"+value+"');browser.current_branch('"+branch_of_term+"');browser.interactive_tree().cmd().selectElement('"+value+"',true)\""
         )+
         "class=\"label bg-edam-"+branch_of_term+"-light fg-edam-"+branch_of_term+" border-one-solid border-edam-"+branch_of_term+"\" "+
         ">"+
