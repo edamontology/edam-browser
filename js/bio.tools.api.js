@@ -102,6 +102,7 @@ function biotool_api(){
     //getter for term with single usage (tagging)
     var get_for_single_search=function(uiKey, apiKey){
         return function (name, uri, node){
+            var identifier = uri.substring(uri.lastIndexOf("/")+1);
             //getter object
             var getter = function(){};
             //function to count the number of tools associated
@@ -118,7 +119,7 @@ function biotool_api(){
             };
             //get the url returning the tools for human
             getter.get_url=function(){
-                return "https://bio.tools/?"+uiKey+"=%22"+name+"%22";
+                return "https://bio.tools/?"+uiKey+"=%22"+identifier+"%22";
             };
             //get the url returning the tools for api call
             getter.get_api_url=function(value){
@@ -127,12 +128,13 @@ function biotool_api(){
             return getter;
         };
     };//end of function get_for_single_search
-    api.get_for_topic=get_for_single_search("topic", "topicID");
-    api.get_for_operation=get_for_single_search("operation", "operationID");
+    api.get_for_topic=get_for_single_search("topicID", "topicID");
+    api.get_for_operation=get_for_single_search("operationID", "operationID");
 
     //getter for term with two usage (input and output)
     var get_for_double_search=function(uiInKey,uiOutKey,apiInKey,apiOutKey){
         return function (name, uri, node){
+            var identifier = uri.substring(uri.lastIndexOf("/")+1);
             //getter object
             var getter = function(){};
             //function to count the number of tools associated
@@ -177,8 +179,8 @@ function biotool_api(){
             //get the url returning the tools for human
             getter.get_url=function(){
                 return [
-                    "https://bio.tools/?"+uiInKey+"=%22"+name+"%22",
-                    "https://bio.tools/?"+uiOutKey+"=%22"+name+"%22"
+                    "https://bio.tools/?"+uiInKey+"=%22"+identifier+"%22",
+                    "https://bio.tools/?"+uiOutKey+"=%22"+identifier+"%22"
                 ];
             };
             //get the url returning the tools for api call
@@ -192,7 +194,7 @@ function biotool_api(){
         };
     };//end of function get_for_double_search
 
-    api.get_for_data=get_for_double_search("input","output","inputDataTypeID","outputDataTypeID");
-    api.get_for_format=get_for_double_search("input","output","inputDataFormatID","outputDataFormatID");
+    api.get_for_data=get_for_double_search("inputDataTypeID","outputDataTypeID","inputDataTypeID","outputDataTypeID");
+    api.get_for_format=get_for_double_search("inputDataFormatID","outputDataFormatID","inputDataFormatID","outputDataFormatID");
     return api;
 }
