@@ -101,7 +101,7 @@ The EDAM Browser is publicly available (criteria 1) and does not require authent
 
 Multiple parents are handled (see [for instance the link to the Phylogeny topic](https://ifb-elixirfr.github.io/edam-browser/#topic_0084)). In order to improve readability when a term is selected (1) all the term's positions are shown; and (2) all paths from the root node are highlighted (cf Fig. 1).
 
-![The term Phylogeny has two parents](paper_resources/topics_tree_phylogeny.png)
+![The term Phylogeny has two parents](topics_tree_phylogeny.png)
 
 ##### Criteria 4 - "Can be integrated in external websites"
 
@@ -111,7 +111,7 @@ The ability to integrate the EDAM Browser, and its tree representation is major 
 
 Letting users contribute to the ontology improves acceptance by the community as a user propose changes to the ontology to fit his/her needs. By contribution, we mean correction of definitions, proposition of new synonyms, or even new terms. The EDAM Browser gives access to a form letting the user propose the changes and then format his/her changes in a github issue ready to be submitted by the user (cf Fig. 2). 
 
-![The edition form and the issue created](paper_resources/edition_form_to_github_issue.png)
+![The edition form and the issue created](edition_form_to_github_issue.png)
 
 ##### Criteria 6 - "Use edited version of EDAM"
 
@@ -140,7 +140,7 @@ Using the EDAM Browser to explore an local or development version is possible. T
 
 The resulting file is loaded directly to the EDAM Browser by clicking on the button labelled _Custom_ at the top of its interface, and specifying either a public URL to the file or a local path to load it from (cf Fig. 3).
 
-![Providing a custom ontology](paper_resources/custom_ontology.png)
+![Providing a custom ontology](custom_ontology.png)
 
 
 Filling this form with the url of the example file and indicating that the identifier is accessible with `d.id` will (i) open the given file and (ii) change the url such that this configuration can be bookmarked and reopen later : [resulting link](https://ifb-elixirfr.github.io/edam-browser/?url=https%3A%2F%2Fraw.githubusercontent.com%2FIFB-ElixirFr%2Fedam-browser%2Fmaster%2Fmedia%2Fregular.example.json&identifier_accessor=d.id&text_accessor=d.text#p9&custom_url).
@@ -164,7 +164,7 @@ The tree-based visualization of the EDAM Browser uses [d3.js](https://d3js.org/)
 [Towards Updatable D3.js Charts](https://www.toptal.com/d3-js/towards-reusable-d3-js-charts)  and
 [Towards Reusable Charts](https://bost.ocks.org/mike/chart/). It allows us to encapsulate the inner mechanics and variables of the tree while exposing methods to configure the chart and interact with it. Configuration encompasses the animation duration, if the tooltip should be used, and how we construct the html code of the tooltip. Interaction encompasses altering the elements selection, and collapsing node.
 
-The following example comes from the demo and shows how to visualize the ontology at `media/topic_extended.biotools.min.json` in the div `#tree` with the `Bioinformatics` term initially selected ; and after one second the element `Metagenomics` is added to the selection. Note that as the format of the file does not follow the recommendation, we have to provide a new method to access the identifier.
+The following example comes from the [demo](https://ifb-elixirfr.github.io/edam-browser/demo.html) and shows how to visualize the ontology at `media/topic_extended.biotools.min.json` in the div `#tree` with the `Bioinformatics` term initially selected ; and after one second the element `Metagenomics` is added to the selection. Note that as the format of the file does not follow the recommendation, we have to provide a new method to access the identifier.
 
 ```javascript
 my_tree = interactive_tree()
