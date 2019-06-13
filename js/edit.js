@@ -90,9 +90,9 @@ uri = "";
 parent_uri=null;
 
 window.onload = function() {
-    var identifier=getUrlParameter('term');
+    uri=getUrlParameter('term');
     var branch=getUrlParameter('branch');
-    if(identifier){
+    if(uri){
         $('#pageTitle .new').hide();
     }else{
         $('#pageTitle .change').hide();
@@ -102,7 +102,7 @@ window.onload = function() {
     $('#pageTitle .branch').text(sub_branch);
     browser = fake_interactive_edam_browser();
     browser.interactive_tree.loadingDoneHandler(function(){
-        fill_form(identifier, getUrlParameter('parent'), branch);
+        fill_form(uri, getUrlParameter('parent'), branch);
     });
     browser.current_branch( getUrlParameter('branch'));
 };
