@@ -1,0 +1,33 @@
+cff-version: 1.0.3
+message: If you use this software, please cite it as below.
+authors:
+  - family-names: Brancotte
+    given-names: Bryan
+    orcid: https://orcid.org/0000-0001-8669-5525
+  - family-names: Blanchet
+    given-names: Christophe
+  - family-names: Ménager
+    given-names: Hervé
+    orcid: https://orcid.org/0000-0002-7552-1009
+title: edam-browser
+version: v1.0.1
+doi: 10.5281/zenodo.1314288
+date-released: 2018-07-18
+references:
+  - type: article
+    authors:
+    - family-names: Brancotte
+      given-names: Bryan
+      orcid: https://orcid.org/0000-0001-8669-5525
+    - family-names: Blanchet
+      given-names: Christophe
+    - family-names: Ménager
+      given-names: Hervé
+      orcid: https://orcid.org/0000-0002-7552-1009
+    title: "A reusable tree-based web-visualization to browse EDAM ontology, and contribute to it"
+    year: 2018
+    journal: Journal of Open Source Software
+    volume: 3
+    issue: e86
+    doi: 10.21105/joss.00698
+    url: https://doi.org/10.21105/joss.00698
