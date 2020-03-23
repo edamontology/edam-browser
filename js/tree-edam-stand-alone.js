@@ -246,6 +246,8 @@ function interactive_edam_browser(){
             fields.push("see_also");
         if (browser.identifierAccessor(d.parent)!="owl:Thing")
             fields.push("parents");
+        if(typeof d.data.see_also != "undefined")
+            fields.push("see_also");
         fields.forEach(function(entry) {
             if("uri"==entry)
                 append_row(table,"URI",uri,false);
