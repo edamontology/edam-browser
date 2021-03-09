@@ -119,7 +119,7 @@ function biotool_api(){
             };
             //get the url returning the tools for human
             getter.get_url=function(){
-                return "https://bio.tools/?"+uiKey+"=%22"+identifier+"%22";
+                return "https://bio.tools/t?"+uiKey+"=%22"+identifier+"%22";
             };
             //get the url returning the tools for api call
             getter.get_api_url=function(value){
@@ -179,8 +179,8 @@ function biotool_api(){
             //get the url returning the tools for human
             getter.get_url=function(){
                 return [
-                    "https://bio.tools/?"+uiInKey+"=%22"+identifier+"%22",
-                    "https://bio.tools/?"+uiOutKey+"=%22"+identifier+"%22"
+                    "https://bio.tools/t?"+uiInKey+"=%22"+identifier+"%22",
+                    "https://bio.tools/t?"+uiOutKey+"=%22"+identifier+"%22"
                 ];
             };
             //get the url returning the tools for api call
@@ -195,6 +195,6 @@ function biotool_api(){
     };//end of function get_for_double_search
 
     api.get_for_data=get_for_double_search("inputDataTypeID","outputDataTypeID","inputDataTypeID","outputDataTypeID");
-    api.get_for_format=get_for_double_search("inputDataFormatID","outputDataFormatID","inputDataFormatID","outputDataFormatID");
+    api.get_for_format=get_for_double_search("inputID","outputID","inputDataFormatID","outputDataFormatID");
     return api;
 }
