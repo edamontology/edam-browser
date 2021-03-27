@@ -8,7 +8,7 @@ except Exception:
 import os.path
 import os.path
 
-tsv_url = "https://raw.githubusercontent.com/edamontology/edamontology/master/releases/%s.tsv"
+tsv_url = "https://raw.githubusercontent.com/edamontology/edamontology/main/releases/%s.tsv"
 tsv_file = tempfile.gettempdir() + "/%s.tsv"
 
 
