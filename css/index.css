@@ -67,3 +67,9 @@ input:disabled+.text-for-disabled-input{
     text-align: right;
 
 }
+
+@media screen and (min-width: 1200px) {
+  a.back-to-top {
+    display: none;
+  }
+}
