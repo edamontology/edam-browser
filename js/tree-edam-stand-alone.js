@@ -429,7 +429,9 @@ function interactive_edam_browser(){
         if (value.constructor === Array){
             if (value.length>1){
                 //removing duplicates
-                var uniqueValues=[...new Set(value)];
+                var uniqueValues=value.filter(function (element, index) {
+                    return value.indexOf(element) === index;
+                  });
                 value=uniqueValues; 
                 value_txt="";
                 for (i=0; i<value.length;i++){
