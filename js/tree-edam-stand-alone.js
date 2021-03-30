@@ -428,6 +428,9 @@ function interactive_edam_browser(){
         name=name.charAt(0).toUpperCase()+name.substring(1);
         if (value.constructor === Array){
             if (value.length>1){
+                //removing duplicates
+                var uniqueValues=[...new Set(value)];
+                value=uniqueValues; 
                 value_txt="";
                 for (i=0; i<value.length;i++){
                     if (value[i] != ""){
