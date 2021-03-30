@@ -17,7 +17,7 @@ Go to https://edamontology.github.io/edam-browser/
 
 Download/clone the repository
 
-Run `python start_edam_stand_alone_browser.py`
+Run `start_edam_stand_alone_browser.sh`
 
 It starts a web server allowing you to browse EDAM on [localhost:20080](http://0.0.0.0:20080).
 
