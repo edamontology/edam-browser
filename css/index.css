@@ -59,3 +59,11 @@ input:disabled+.text-for-disabled-input{
     word-break: break-all;
     white-space: normal;
 }
+
+.footer-tools {
+    position: relative;
+    right: 2rem;
+    height: 0;
+    text-align: right;
+
+}
