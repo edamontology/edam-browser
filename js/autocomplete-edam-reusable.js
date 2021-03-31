@@ -117,8 +117,9 @@ function fake_interactive_edam_browser(){
 * Build the autocomplete from the edam browser.
 * @param {object} the edam browser instance
 * @param {str} the target where we should build the autocomplete
+* @param {object} the filter dictionary (if a filter is applied)
 */
-function build_autocomplete_from_edam_browser(edam_browser, elt){
+function build_autocomplete_from_edam_browser(edam_browser, elt,dict){
     if(typeof elt == "undefined"){
         elt='.search-term';
     }
@@ -163,6 +164,10 @@ function build_autocomplete_from_edam_browser(edam_browser, elt){
                 }
             );
 
+            //if a filter dictionary is applied
+            if (dict)
+            {
+
             //match type with the parent's container id
             var type=typeDict[$(this.element).parent().attr('id')];
             
@@ -172,6 +177,8 @@ function build_autocomplete_from_edam_browser(edam_browser, elt){
                 return matcher.test(item.node.__autocomplete_from_edam_browser);
         
             });
+
+            }
 
             response(data);
         },

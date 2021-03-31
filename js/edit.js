@@ -4,7 +4,7 @@ var typeDict={"has_topic_container":"topic","is_format_of_container":"data","has
 
 function fill_form(identifier, parent, branch){
     tree_file = getTreeFile(branch);
-    build_autocomplete_from_edam_browser(browser);
+    build_autocomplete_from_edam_browser(browser,undefined,typeDict);
     browser.interactive_tree.cmd.getElementByIdentifier(identifier);
  
     build_form(
@@ -85,7 +85,7 @@ function addTermField(container, kind, initial_term){
 //    build_autocomplete(
 //        getTreeFile(getCookie("edam_browser_branch","topic")),
     build_autocomplete_from_edam_browser(browser,
-        ".search-term[name="+kind+"-"+i+"]"
+        ".search-term[name="+kind+"-"+i+"]",typeDict
     );
 }
 
