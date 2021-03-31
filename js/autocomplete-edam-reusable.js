@@ -170,10 +170,10 @@ function build_autocomplete_from_edam_browser(edam_browser, elt,dict){
 
             //match type with the parent's container id
             var type=typeDict[$(this.element).parent().attr('id')];
+            var matcher=new RegExp( type+'_', "i" );
             
             //apply type filter to data
             data=data.filter(function filterCategories(item){
-                var matcher=new RegExp( type+'_', "i" );
                 return matcher.test(item.node.__autocomplete_from_edam_browser);
         
             });
