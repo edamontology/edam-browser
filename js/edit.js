@@ -103,7 +103,7 @@ window.onload = function() {
     var sub_branch = getUrlParameter('term')+getUrlParameter('parent');
     sub_branch = sub_branch.substring(sub_branch.lastIndexOf('/')+1, sub_branch.lastIndexOf('_'));
     $('#pageTitle .branch').text(sub_branch);
-    typeDict['parent_container']=sub_branch;
+    typeDict.parent_container=sub_branch;
     browser = fake_interactive_edam_browser();
 
     browser.interactive_tree.loadingDoneHandler(function(){
