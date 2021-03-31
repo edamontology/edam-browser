@@ -1,5 +1,3 @@
-var typeDict={"has_topic_container":"topic","is_format_of_container":"data","has_input_container":"data","has_output_container":"data"};
-
 
 function fake_interactive_edam_browser(){
     var identifierToElement={},
@@ -167,8 +165,8 @@ function build_autocomplete_from_edam_browser(edam_browser, elt){
 
             //match type with the parent's container id
             var type=typeDict[$(this.element).parent().attr('id')];
-            console.log(type);
-
+            
+            //apply type filter to data
             data=data.filter(function filterCategories(item){
                 var matcher=new RegExp( type+'_', "i" );
                 return matcher.test(item.node.__autocomplete_from_edam_browser);
