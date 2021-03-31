@@ -76,6 +76,11 @@ input:disabled+.text-for-disabled-input{
 .communicate {
     position: relative;
     left: 50%;
+    color: #33CAFF;
+}
+
+a:before {
+  display: inline-block;
 }
 
 .fa:hover {
