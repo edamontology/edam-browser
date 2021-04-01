@@ -2,7 +2,9 @@
 
 ### Pull requests
 
-The recommended way for contributors to submit code to EDAM Browser is to fork the repository on GitHub and then submit a pull request after committing the changes. The maintainers will then review the request before it is merged into the main branch.
+The recommended way for contributors to submit code to EDAM Browser is to fork the repository on GitHub and then submit a pull request (PR) after committing the changes. The maintainers will then review the request before it is merged into the main branch.
+
+Please make one PR per issue, solving multiple issues in the same PR make it harder to assess independently each solution and delay the moment changes can be merge.
 
 The contributed code will be [**licensed under EDAM Browser's license**](https://github.com/edamontology/edam-browser/blob/main/LICENSE).
 If you did not write the code yourself, please ensure that the license is compatible, or obtain a permission from the original author to relicense the contributed code.

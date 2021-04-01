@@ -1,3 +1,4 @@
+
 function fake_interactive_edam_browser(){
     var identifierToElement={},
         identifierAccessor = function (d) {
@@ -116,8 +117,9 @@ function fake_interactive_edam_browser(){
 * Build the autocomplete from the edam browser.
 * @param {object} the edam browser instance
 * @param {str} the target where we should build the autocomplete
+* @param {object} the filter dictionary (if a filter is applied)
 */
-function build_autocomplete_from_edam_browser(edam_browser, elt){
+function build_autocomplete_from_edam_browser(edam_browser, elt,dict){
     if(typeof elt == "undefined"){
         elt='.search-term';
     }
@@ -144,6 +146,7 @@ function build_autocomplete_from_edam_browser(edam_browser, elt){
       return '<span class="matched">'+match+'</span>';
     }
 
+
     $(elt).autocomplete({
         source : function (request, response) {
             var data=[];
@@ -160,6 +163,23 @@ function build_autocomplete_from_edam_browser(edam_browser, elt){
                     data.push({value:edam_browser.textAccessor(elt),node:elt});
                 }
             );
+
+            //if a filter dictionary is applied
+            if (dict)
+            {
+
+            //match type with the parent's container id
+            var type=typeDict[$(this.element).parent().attr('id')];
+            var matcher=new RegExp( type+'_', "i" );
+            
+            //apply type filter to data
+            data=data.filter(function filterCategories(item){
+                return matcher.test(item.node.__autocomplete_from_edam_browser);
+        
+            });
+
+            }
+
             response(data);
         },
         minLength: 2,
@@ -175,7 +195,7 @@ function build_autocomplete_from_edam_browser(edam_browser, elt){
             for (i=0;i<ui.content.length;i++){
                 ui.content[i].lev = window.Levenshtein(ui.content[i].label.toUpperCase(),searched);
                                   //+ window.Levenshtein(ui.content[i].node.__autocomplete_from_edam_browser,searched) / 5;
-            }
+                                }
             ui.content.sort(function(a, b) {
               return a.lev - b.lev;
             });
