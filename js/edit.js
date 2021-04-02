@@ -1,9 +1,12 @@
 var browser;
 
+var typeDict={"has_topic_container":"topic","is_format_of_container":"data","has_input_container":"data","has_output_container":"data"};
+
 function fill_form(identifier, parent, branch){
     tree_file = getTreeFile(branch);
-    build_autocomplete_from_edam_browser(browser);
+    build_autocomplete_from_edam_browser(browser,undefined,typeDict);
     browser.interactive_tree.cmd.getElementByIdentifier(identifier);
+ 
     build_form(
         browser.interactive_tree.cmd.getElementByIdentifier(identifier),
         browser.interactive_tree.cmd.getElementByIdentifier(parent)
@@ -82,7 +85,7 @@ function addTermField(container, kind, initial_term){
 //    build_autocomplete(
 //        getTreeFile(getCookie("edam_browser_branch","topic")),
     build_autocomplete_from_edam_browser(browser,
-        ".search-term[name="+kind+"-"+i+"]"
+        ".search-term[name="+kind+"-"+i+"]",typeDict
     );
 }
 
@@ -100,7 +103,9 @@ window.onload = function() {
     var sub_branch = getUrlParameter('term')+getUrlParameter('parent');
     sub_branch = sub_branch.substring(sub_branch.lastIndexOf('/')+1, sub_branch.lastIndexOf('_'));
     $('#pageTitle .branch').text(sub_branch);
+    typeDict.parent_container=sub_branch;
     browser = fake_interactive_edam_browser();
+
     browser.interactive_tree.loadingDoneHandler(function(){
         fill_form(uri, getUrlParameter('parent'), branch);
     });
