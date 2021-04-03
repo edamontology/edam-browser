@@ -61,7 +61,7 @@ input:disabled+.text-for-disabled-input{
 }
 
 .footer-tools {
-    position: absolute;
+    position: relative;
     right: 2rem;
     height: 0;
     text-align: right;
