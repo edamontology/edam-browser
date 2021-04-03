@@ -121,7 +121,7 @@ function sendToGitHub(){
     msg+=$("#id_github_comments").val();
     msg+="\n\n";
     msg+="[//]: # (End of issue comments)\n";
-    msg+="### Hereafter are the initial version et proposed modification of attributes of the given term\n";
+    msg+="### Hereafter are the initial version and proposed modification of attributes of the given term\n";
     for(i =0;i<ids.length;i++){
         var val = ($(ids[i]).attr('data-selected') || $(ids[i]).val());
         if(val!=$(ids[i]).attr('data-initial')){
