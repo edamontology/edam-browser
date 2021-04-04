@@ -61,7 +61,7 @@ input:disabled+.text-for-disabled-input{
 }
 
 .footer-tools {
-    position: relative;
+    position: absolute;
     right: 2rem;
     height: 0;
     text-align: right;
@@ -74,7 +74,7 @@ input:disabled+.text-for-disabled-input{
 }
 
 .communicate {
-    position: relative;
+    position: absolute;
     left: 50%;
     color: #33CAFF;
 }
