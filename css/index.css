@@ -1,70 +1,70 @@
-.panel-separator{
-    border-top: 1px solid #eee;
-    margin-bottom: 15px;
-    padding-top: 10px;
+.panel-separator {
+  border-top: 1px solid #eee;
+  margin-bottom: 15px;
+  padding-top: 10px;
 }
-.page-header{
-    margin-top:0;
+.page-header {
+  margin-top: 0;
 }
-.meta-info>*{
-    font-size:0;
-    color:white;
-    -webkit-transition: color 0.3s, font-size 0.3s;
-       -moz-transition: color 0.3s, font-size 0.3s;
-         -o-transition: color 0.3s, font-size 0.3s;
-            transition: color 0.3s, font-size 0.3s;
+.meta-info > * {
+  font-size: 0;
+  color: white;
+  -webkit-transition: color 0.3s, font-size 0.3s;
+  -moz-transition: color 0.3s, font-size 0.3s;
+  -o-transition: color 0.3s, font-size 0.3s;
+  transition: color 0.3s, font-size 0.3s;
 }
-.meta-info .not-hidden, .meta-info .not-hidden>*{
-    font-size:inherit;
-    color:inherit;
-
+.meta-info .not-hidden,
+.meta-info .not-hidden > * {
+  font-size: inherit;
+  color: inherit;
 }
 .meta-info:hover {
-    background-color: #f5f5f5;
-    border: #ddd solid 1px;
-    border-radius: 3px;
+  background-color: #f5f5f5;
+  border: #ddd solid 1px;
+  border-radius: 3px;
 }
-.meta-info:hover>*{
-    font-size:inherit;
-    color:inherit;
+.meta-info:hover > * {
+  font-size: inherit;
+  color: inherit;
 }
-.modal-dialog .modal-body+.modal-body {
-    border-top: 1px solid #e5e5e5;
-    margin-top: -10px;
+.modal-dialog .modal-body + .modal-body {
+  border-top: 1px solid #e5e5e5;
+  margin-top: -10px;
 }
-input+.text-for-disabled-input{
-    display:none;
+input + .text-for-disabled-input {
+  display: none;
 }
-input:disabled+.text-for-disabled-input{
-    display:initial;
+input:disabled + .text-for-disabled-input {
+  display: initial;
 }
-#history-separator{
-    display:none;
+#history-separator {
+  display: none;
 }
-.panel-group+#history-separator{
-    display:initial;
+.panel-group + #history-separator {
+  display: initial;
 }
-#edamAccordion table    .label{
-    font-size:inherit;
+#edamAccordion table .label {
+  font-size: inherit;
 }
-#edamAccordion ul{
-    margin-bottom:0px;
-    line-height:2;
+#edamAccordion ul {
+  margin-bottom: 0px;
+  line-height: 2;
 }
 #tree {
-    height:70vh;
+  height: 70vh;
 }
 
-#edamAccordion table .details td a{
-    word-break: break-all;
-    white-space: normal;
+#edamAccordion table .details td a {
+  word-break: break-all;
+  white-space: normal;
 }
 
 .footer-tools {
-    position: absolute;
-    right: 2rem;
-    height: 0;
-    text-align: right;
+  position: absolute;
+  right: 2rem;
+  height: 0;
+  text-align: right;
 }
 
 @media screen and (min-width: 1200px) {
@@ -74,9 +74,9 @@ input:disabled+.text-for-disabled-input{
 }
 
 .communicate {
-    position: relative;
-    left: 50%;
-    color: #33CAFF;
+  position: relative;
+  left: 50%;
+  color: #33caff;
 }
 
 a:before {
@@ -84,10 +84,13 @@ a:before {
 }
 
 .fa:hover {
-    opacity: 0.7;
-    text-decoration: none;
+  opacity: 0.7;
+  text-decoration: none;
 }
 
 body {
   overflow-x: hidden;
+}
+.branch {
+  cursor: pointer;
 }
