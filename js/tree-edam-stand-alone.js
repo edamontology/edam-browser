@@ -353,7 +353,7 @@ function interactive_edam_browser(){
             );
         }
         if (community.children().length>0){
-            community.parent().prepend($(<thead><tr><th colspan="2"><div data-toggle=\"tooltip\" data-placement=\"top\" title=\"Usage of this concept in various databases and registries\">Community usage</div></th></tr></thead>''));
+            community.parent().prepend($('<thead><tr><th colspan="2"><div data-toggle=\"tooltip\" data-placement=\"top\" title=\"Usage of this concept in various databases and registries\">Community usage</div></th></tr></thead>'));
         }else{
             community.parent().remove();
         }
