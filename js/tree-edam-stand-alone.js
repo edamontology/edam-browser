@@ -1,3 +1,5 @@
+function () {
+  $('[data-toggle="tooltip"]').tooltip()
 function getInitURI(branch){
     if (branch == "deprecated")
         return getCookie("edam_browser_"+branch,"owl:DeprecatedClass");
@@ -248,9 +250,9 @@ function interactive_edam_browser(){
             fields.push("see_also");
         fields.forEach(function(entry) {
             if("uri"==entry)
-                append_row(table,"URI",uri,false);
+                append_row(table,"<div data-toggle=\"tooltip\" data-placement=\"top\" title=\"Permanent concept identifier\">URI</div>",uri,false);
             else if("text"==entry)
-                append_row(table,"Term",d.data[entry],false);
+                append_row(table,"<div data-toggle=\"tooltip\" data-placement=\"top\" title=\"Preferred name for the concept\">Term</div>",d.data[entry],false);
             else if("parents"==entry){
                 if (typeof d.duplicate == "undefined"){
                     append_row(table,entry,browser.identifierAccessor(d.parent));
@@ -337,7 +339,7 @@ function interactive_edam_browser(){
             });
         }
         if(uri.startsWith("http://edamontology.org/")){
-            append_row(community,"Links",
+            append_row(community,"<div data-toggle=\"tooltip\" data-placement=\"top\" title=\"Links to this concept in other ontology browsers\">Links</div>",
             "Open in "+
             "<a target=\"_blank\" href=\"http://aber-owl.net/ontology/EDAM/#/Browse/%3Chttp%3A%2F%2Fedamontology.org%2F"+identifier+"%3E\">AberOWL</a>"+
             ", "+
@@ -350,7 +352,7 @@ function interactive_edam_browser(){
             );
         }
         if (community.children().length>0){
-            community.parent().prepend($('<thead><tr><th colspan="2">Community usage</th></tr></thead>'));
+            community.parent().prepend($(''<thead><tr><th colspan="2"><div data-toggle=\"tooltip\" data-placement=\"top\" title=\"Usage of this concept in various databases and registries\">Community usage</div></th></tr></thead>''));
         }else{
             community.parent().remove();
         }
