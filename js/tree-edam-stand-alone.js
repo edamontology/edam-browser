@@ -1,5 +1,6 @@
-function () {
+$(function () {
   $('[data-toggle="tooltip"]').tooltip()
+})
 function getInitURI(branch){
     if (branch == "deprecated")
         return getCookie("edam_browser_"+branch,"owl:DeprecatedClass");
