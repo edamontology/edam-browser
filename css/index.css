@@ -88,6 +88,10 @@ a:before {
     text-decoration: none;
 }
 
+.tree-controls {
+    position: absolute;right:0px;
+}
+
 body {
   overflow-x: hidden;
 }
