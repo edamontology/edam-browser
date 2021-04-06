@@ -146,6 +146,12 @@
                     <button type="button" class="btn btn-default"
                     onclick="browser.interactive_tree().cmd().expandAllDescendantElement()">Expand all tree
                     </button>
+                    <button type="button" class="btn btn-default"
+                    onclick="browser.interactive_tree().cmd().manualZoomInAndOut('in')">+
+                    </button>
+                    <button type="button" class="btn btn-default"
+                    onclick="browser.interactive_tree().cmd().manualZoomInAndOut('out')">-
+                    </button>
    
                 </div>
                 <div id="tree" class="d3js-tree-container"></div>
