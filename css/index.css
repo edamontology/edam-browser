@@ -74,7 +74,7 @@ input:disabled+.text-for-disabled-input{
 }
 
 .communicate {
-    position: relative;
+    position: absolute;
     left: 50%;
     color: #33CAFF;
 }
