@@ -88,8 +88,13 @@ a:before {
     text-decoration: none;
 }
 
-.tree-controls {
-    position: absolute;right:0px;
+#tree-and-controls
+{
+    position:relative;
+}
+
+#tree-controls {
+    position: absolute ;right:0px;top:0px;
 }
 
 body {
