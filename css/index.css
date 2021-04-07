@@ -1,3 +1,6 @@
+font{
+    cursor: pointer;/*to set cursor pointer to all tooltip*/
+}
 .panel-separator{
     border-top: 1px solid #eee;
     margin-bottom: 15px;

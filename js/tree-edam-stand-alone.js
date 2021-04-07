@@ -248,22 +248,45 @@ function interactive_edam_browser(){
             fields.push("see_also");
         fields.forEach(function(entry) {
             if("uri"==entry)
-                append_row(table,"URI",uri,false);
+                append_row(table,"<font title=\"Permanent concept identifier\">URI</font>",uri,false);
             else if("text"==entry)
-                append_row(table,"Term",d.data[entry],false);
+                append_row(table,"<font title=\"Preferred name for the concept\">Term</font>",d.data[entry],false);
             else if("parents"==entry){
                 if (typeof d.duplicate == "undefined"){
-                    append_row(table,entry,browser.identifierAccessor(d.parent));
+                    append_row(table,"<font title=\"Link(s) to the parent concept(s) which represent broader concepts\">"+entry+"</font>",browser.identifierAccessor(d.parent));
                 }else{
                     var parents_uris = [];
                     for(var i=d.duplicate.length-1;i>=0;i--){
                         parents_uris.push(browser.identifierAccessor(d.duplicate[i].parent));
                     }
-                    append_row(table,entry,parents_uris);
+                    
+                    append_row(table,"<font title=\"Link(s) to the parent concept(s) which represent broader concepts\">"+entry+"</font>",parents_uris);
                 }
             }
-            else
-                append_row(table,entry,d.data[entry]);
+            else{
+                if(entry=="definition"){
+                    append_row(table,"<font title=\"Short definition of the concept\">"+entry+"</font>",d.data[entry]);
+                }
+                else if(entry=="comment"){
+                    append_row(table,"<font title=\"Misc. information that may help understand the scope of the concept\">"+entry+"</font>",d.data[entry]);
+                }
+                else if(entry=="exact_synonyms"){
+                    append_row(table,"<font title=\"Alternative term(s) that represent exactly the same concept\">"+entry+"</font>",d.data[entry]);
+                }
+                else if(entry=="narrow_synonyms"){
+                    append_row(table,"<font title=\"Alternative term(s) that represent a slightly narrower scope\">"+entry+"</font>",d.data[entry]);
+                }
+                else if(entry=="broad_synonyms"){
+                    append_row(table,"<font title=\"Alternative term(s) that represent a slightly broader scope\">"+entry+"</font>",d.data[entry]);
+                }
+                else if(entry=="related_synonyms"){
+                    append_row(table,"<font title=\"Alternative term(s) that represent a closely overlapping scope\">"+entry+"</font>",d.data[entry]);
+                }
+                else{
+                    append_row(table,entry,d.data[entry]);
+                }
+            }
+               
         });
         var community = details.find("tbody.community");
         var caller_b=biotool_api().get_for(current_branch, d.data.text, uri, d);
