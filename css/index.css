@@ -94,7 +94,11 @@ a:before {
 }
 
 #tree-controls {
-    position: absolute ;right:0px;top:0px;
+    position: absolute ;
+    right:0px;
+    top:0px;
+    padding: 1em 1em;
+
 }
 
 body {
