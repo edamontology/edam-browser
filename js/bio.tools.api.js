@@ -41,10 +41,14 @@ function biotool_api(){
         job_length+=queue.length;
         // create a callback caller that sum all descendant usage and call the actual callback
         function call_callback(){
-            var total=0;
+            var total=0,
+                total_d={};
             $.each(queue,function(i,e){
-                total+=e[field_name];
+                total_d[e.data.data.uri]=e[field_name];
             });
+            for (var key in total_d){
+                total+=total_d[key];
+            }
             callback({
                 'descendants':queue.length,
                 'total':total
