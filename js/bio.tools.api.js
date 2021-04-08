@@ -23,6 +23,7 @@ function biotool_api(){
         var field_name='__biotool_api_count'+(suffix||'');
         var queue = [];
         var job_length=0;
+        // recursive function that add in queue the element and all its descendant
         var pusher = function(n){
             queue.push(n);
             var i;
@@ -35,6 +36,7 @@ function biotool_api(){
                 pusher(n.children[i]);
             }
         };
+        // run pusher, fill queue with all the elements
         pusher(node);
         job_length+=queue.length;
         function call_callback(){
@@ -47,16 +49,21 @@ function biotool_api(){
                 'total':total
             });
         }
+        // if nothing to do, just run the callback
         if (job_length==0)
             call_callback();
+        // create function that will call generic_counter not for the current elements, but an element passed as arg
         var generic_counter_for_this_i = function(j){
             generic_counter(
                 function(){
+                    // get the api url for the focused elements
                     return get_api_url(queue[j].text);
                 },
                 function(data,count,status){
+                    // decorate the element with the count returned by bio.tools
                     queue[j][field_name]=count.count;
                     if(job_length==1){
+                        // when we are the last job, run the callback
                         call_callback();
                     }
                     job_length--;
@@ -65,6 +72,7 @@ function biotool_api(){
         };
         for(var i=0;i<queue.length;i++){
             if (typeof queue[i][field_name] == "undefined")
+                // for each element, run the custom generic_counter
                 generic_counter_for_this_i(i);
         }
     }//end of decorate_children_with_count
@@ -123,6 +131,7 @@ function biotool_api(){
             };
             //get the url returning the tools for api call
             getter.get_api_url=function(value){
+                // use value when provided, otherwise user uri
                 return "https://bio.tools/api/tool/?format=json&"+apiKey+"=%22"+(value||uri)+"%22";
             };
             return getter;
@@ -185,6 +194,7 @@ function biotool_api(){
             };
             //get the url returning the tools for api call
             getter.get_api_url=function(value){
+                // use value when provided, otherwise user uri
                 return [
                     "https://bio.tools/api/tool/?format=json&"+apiInKey+"=%22"+(value||uri)+"%22",
                     "https://bio.tools/api/tool/?format=json&"+apiOutKey+"=%22"+(value||uri)+"%22"
