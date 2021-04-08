@@ -57,7 +57,7 @@ function biotool_api(){
             generic_counter(
                 function(){
                     // get the api url for the focused elements
-                    return get_api_url(queue[j].text);
+                    return get_api_url(queue[j].data.data.uri);
                 },
                 function(data,count,status){
                     // decorate the element with the count returned by bio.tools
