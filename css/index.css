@@ -88,6 +88,11 @@ a:before {
     text-decoration: none;
 }
 
+#tree-and-controls:hover {
+    border-color: #606060;
+    border-width: 2px;
+}
+
 body {
   overflow-x: hidden;
 }
