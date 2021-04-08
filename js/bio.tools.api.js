@@ -39,6 +39,7 @@ function biotool_api(){
         // run pusher, fill queue with all the elements
         pusher(node);
         job_length+=queue.length;
+        // create a callback caller that sum all descendant usage and call the actual callback
         function call_callback(){
             var total=0;
             $.each(queue,function(i,e){
