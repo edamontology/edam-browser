@@ -140,22 +140,32 @@
                 <div id="tree" class="d3js-tree-container"></div>
 
                 <div id="tree-controls">
+                    <div>
                     <button type="button" class="btn btn-default"
-                    onclick="browser.interactive_tree().cmd().collapseNotSelectedElement()">Collapse not selected elements
+                    onclick="browser.interactive_tree().cmd().manualZoomInAndOut('in')"><i class="fas fa-plus"></i>
                     </button>
+                    </div>
+                    <div>
                     <button type="button" class="btn btn-default"
-                    onclick="browser.interactive_tree().cmd().resetPanAndZoom()">Reset zoom
+                    onclick="browser.interactive_tree().cmd().manualZoomInAndOut('out')"><i class="fas fa-minus"></i>
                     </button>
+                    </div>
+                    <div>
                     <button type="button" class="btn btn-default"
-                    onclick="browser.interactive_tree().cmd().expandAllDescendantElement()">Expand all tree
+                    onclick="browser.interactive_tree().cmd().resetPanAndZoom()"><i class="fas fa-home"></i><span class="on-controls-hover">Reset zoom</span>
                     </button>
+                    </div>
+                    <div>
                     <button type="button" class="btn btn-default"
-                    onclick="browser.interactive_tree().cmd().manualZoomInAndOut('in')">+
+                    onclick="browser.interactive_tree().cmd().collapseNotSelectedElement()"><i class="fas fa-compress-arrows-alt"></i><span class="on-controls-hover">Collapse not selected elements</span>
                     </button>
+                    </div>
+                    <div>
                     <button type="button" class="btn btn-default"
-                    onclick="browser.interactive_tree().cmd().manualZoomInAndOut('out')">-
+                    onclick="browser.interactive_tree().cmd().expandAllDescendantElement()"><i class="fas fa-expand-arrows-alt"></i><span class="on-controls-hover">Expand all tree</span>
                     </button>
-   
+                    </div>
+
                 </div>
             </div>
             
