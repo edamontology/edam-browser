@@ -135,26 +135,30 @@
     </div>
     <div class="content row" id="main">
         <div class="col-xs-12 col-lg-8">
-            <div class="panel panel-default">
+            <div class="panel panel-default" id="tree-and-controls">
+    
                 <div id="tree" class="d3js-tree-container"></div>
-            </div>
-            <button type="button" class="btn btn-default"
+
+                <div id="tree-controls">
+                    <button type="button" class="btn btn-default"
                     onclick="browser.interactive_tree().cmd().collapseNotSelectedElement()">Collapse not selected elements
-            </button>
-            <button type="button" class="btn btn-default"
+                    </button>
+                    <button type="button" class="btn btn-default"
                     onclick="browser.interactive_tree().cmd().resetPanAndZoom()">Reset zoom
-            </button>
-            <div class="btn-group dropup">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-plus"></i>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#" onclick="browser.interactive_tree().cmd().expandAllDescendantElement()">Expand all tree</a></li>
-                    <!--<li role="separator" class="divider"></li>-->
-                    <!--<li><a href="#">Separated link</a></li>-->
-                </ul>
+                    </button>
+                    <button type="button" class="btn btn-default"
+                    onclick="browser.interactive_tree().cmd().expandAllDescendantElement()">Expand all tree
+                    </button>
+                    <button type="button" class="btn btn-default"
+                    onclick="browser.interactive_tree().cmd().manualZoomInAndOut('in')">+
+                    </button>
+                    <button type="button" class="btn btn-default"
+                    onclick="browser.interactive_tree().cmd().manualZoomInAndOut('out')">-
+                    </button>
+   
+                </div>
             </div>
+            
             <div class="pull-right">
                 <dl class="dl-horizontal meta-info">
                     <dt>Current version</dt>

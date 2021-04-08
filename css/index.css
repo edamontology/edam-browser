@@ -88,9 +88,22 @@ a:before {
     text-decoration: none;
 }
 
+#tree-and-controls
+{
+    position:relative;
+}
+
 #tree-and-controls:hover {
     border-color: #606060;
     border-width: 2px;
+}
+
+#tree-controls {
+    position: absolute ;
+    right:0px;
+    top:0px;
+    padding: 1em 1em;
+
 }
 
 body {
