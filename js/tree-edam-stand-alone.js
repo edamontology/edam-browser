@@ -437,7 +437,7 @@ function interactive_edam_browser(){
         return value.substring(value.lastIndexOf('/')+1,value.lastIndexOf('_'));
     }
 
-    function append_row(table, name, value, translate_uri_to_text,tootip="test test"){
+    function append_row(table, name, value, translate_uri_to_text,tootip=""){
         if (arguments.length === 4){
             tootip = arguments[3];
            
