@@ -107,3 +107,6 @@ body {
 .branch {
     cursor: pointer;
 }
+#edamAccordion table .details td a {
+    word-break: break-word;
+}
