@@ -56,6 +56,7 @@ function interactive_tree() {
         maxX,
         maxY,
         reset,
+        manualZoom,
         id=0,
         identifierToElement={};
 
@@ -110,6 +111,16 @@ function interactive_tree() {
                     shift=margin.left;
                 var t = d3.zoomIdentity.translate(shift,$(target_selector).height()/2).scale(1);
                 svg.call(zoom.transform, t);
+            };
+
+            manualZoom = function(type){
+                if(type=='in'){
+                    zoom.scaleBy(svg, 2);                
+                }
+                else if (type=='out'){
+                    zoom.scaleBy(svg, 0.5);                
+                }
+
             };
 
             update = function (source) {
@@ -678,6 +689,16 @@ function interactive_tree() {
      */
     cmd.resetPanAndZoom = function (){
         reset();
+        return cmd;
+    };
+
+    /**
+     * Zooming in and out with buttons
+     * @param {string} type Zooming type (in or out)
+     * @return cmd() itself
+     */
+    cmd.manualZoomInAndOut = function (type){
+        manualZoom(type);
         return cmd;
     };
 
