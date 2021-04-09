@@ -24,7 +24,7 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"
             integrity="sha256-hYXbQJK4qdJiAeDVjjQ9G0D6A0xLnDQ4eJI9dkm7Fpk=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/levenshtein/1.0.5/levenshtein.min.js"></script>
@@ -160,22 +160,32 @@ btn.addEventListener("click", function () {
                 <div id="tree" class="d3js-tree-container"></div>
 
                 <div id="tree-controls">
+                    <div>
                     <button type="button" class="btn btn-default"
-                    onclick="browser.interactive_tree().cmd().collapseNotSelectedElement()">Collapse not selected elements
+                    onclick="browser.interactive_tree().cmd().manualZoomInAndOut('in')"><i class="fas fa-plus"></i>
                     </button>
+                    </div>
+                    <div>
                     <button type="button" class="btn btn-default"
-                    onclick="browser.interactive_tree().cmd().resetPanAndZoom()">Reset zoom
+                    onclick="browser.interactive_tree().cmd().manualZoomInAndOut('out')"><i class="fas fa-minus"></i>
                     </button>
+                    </div>
+                    <div>
                     <button type="button" class="btn btn-default"
-                    onclick="browser.interactive_tree().cmd().expandAllDescendantElement()">Expand all tree
+                    onclick="browser.interactive_tree().cmd().resetPanAndZoom()"><i class="fas fa-home"></i><span class="on-controls-hover">Reset zoom</span>
                     </button>
+                    </div>
+                    <div>
                     <button type="button" class="btn btn-default"
-                    onclick="browser.interactive_tree().cmd().manualZoomInAndOut('in')">+
+                    onclick="browser.interactive_tree().cmd().collapseNotSelectedElement()"><i class="fas fa-compress-arrows-alt"></i><span class="on-controls-hover">Collapse not selected elements</span>
                     </button>
+                    </div>
+                    <div>
                     <button type="button" class="btn btn-default"
-                    onclick="browser.interactive_tree().cmd().manualZoomInAndOut('out')">-
+                    onclick="browser.interactive_tree().cmd().expandAllDescendantElement()"><i class="fas fa-expand-arrows-alt"></i><span class="on-controls-hover">Expand all tree</span>
                     </button>
-   
+                    </div>
+
                 </div>
             </div>
             

@@ -93,16 +93,37 @@ a:before {
     position:relative;
 }
 
-#tree-controls {
+#tree-controls{
     position: absolute ;
     right:0px;
-    top:0px;
-    padding: 1em 1em;
-
+    top:1em;
+    display:flex;
+    flex-direction:column;
 }
-
+#tree-controls>*{
+    text-align: end;
+    margin-bottom: 1em;
+}
+#tree-controls>*>*{
+    border-width: 0;
+    color: white;
+    background: #000000c3;
+    min-width:3em;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+#tree-controls .on-controls-hover{
+    display:none;
+    padding-left: 1rem;
+}
+#tree-controls *:hover>.on-controls-hover{
+    display:initial;
+}
 body {
   overflow-x: hidden;
+}
+.branch {
+    cursor: pointer;
 }
 
 /*styling for dark theme starts here*/
@@ -282,3 +303,4 @@ body {
   border-color: #050505;
 }
 /*styling for dark theme ends here*/
+
