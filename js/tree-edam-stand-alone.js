@@ -279,7 +279,7 @@ function interactive_edam_browser(){
                 append_row(table,entry,d.data[entry],"Alternative term(s) that represent a slightly broader scope");
             }
             else if(entry=="related_synonyms"){
-                append_row(table,entry,d.data[entry]),"Alternative term(s) that represent a closely overlapping scope";
+                append_row(table,entry,d.data[entry],"Alternative term(s) that represent a closely overlapping scope");
             }
             else{
                 append_row(table,entry,d.data[entry]);
@@ -367,8 +367,7 @@ function interactive_edam_browser(){
             "<a target=\"_blank\" href=\"https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">OLS</a>"+
             " or "+
             "<a target=\"_blank\" href=\"https://webprotege.stanford.edu/#projects/98640503-a37d-4404-84da-caf30fadd685/edit/Classes?selection=Class(%3Chttp://edamontology.org/"+identifier+"%3E)\">WebProt&eacuteg&eacute</a>"+
-            "."
-            ,"Links to this concept in other ontology browsers");
+            ".","Links to this concept in other ontology browsers");
         }
         if (community.children().length>0){
             community.parent().prepend($('<thead><tr><th colspan="2" data-toggle=\"tooltip\" title=\"Usage of this concept in various databases and registries\">Community usage</th></tr></thead>'));
@@ -437,7 +436,7 @@ function interactive_edam_browser(){
         return value.substring(value.lastIndexOf('/')+1,value.lastIndexOf('_'));
     }
 
-    function append_row(table, name, value, translate_uri_to_text,tootip=""){
+    function append_row(table, name, value, translate_uri_to_text,tootip){
         if (arguments.length === 4){
             tootip = arguments[3];
            
