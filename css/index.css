@@ -61,17 +61,48 @@ input:disabled+.text-for-disabled-input{
 }
 
 .footer-tools {
-    position: relative;
+    position: absolute;
     right: 2rem;
     height: 0;
     text-align: right;
-
 }
 
 @media screen and (min-width: 1200px) {
   a.back-to-top {
     display: none;
   }
+}
+
+.communicate {
+    position: absolute;
+    left: 50%;
+    color: #33CAFF;
+}
+
+a:before {
+  display: inline-block;
+}
+
+.fa:hover {
+    opacity: 0.7;
+    text-decoration: none;
+}
+
+#tree-and-controls
+{
+    position:relative;
+}
+
+#tree-controls {
+    position: absolute ;
+    right:0px;
+    top:0px;
+    padding: 1em 1em;
+
+}
+
+body {
+  overflow-x: hidden;
 }
 
 /*styling for dark theme starts here*/
