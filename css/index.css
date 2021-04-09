@@ -104,3 +104,6 @@ a:before {
 body {
   overflow-x: hidden;
 }
+.branch {
+    cursor: pointer;
+}
