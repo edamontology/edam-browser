@@ -424,8 +424,10 @@ function interactive_edam_browser(){
         if (typeof value == "undefined"){
             value="";
         }
-        name=name.replace(/[_]/g,"&nbsp;");
-        name=name.charAt(0).toUpperCase()+name.substring(1);
+        if (name.indexOf("<")==-1){
+            name=name.replace(/[_]/g,"&nbsp;");
+            name=name.charAt(0).toUpperCase()+name.substring(1);
+        }
         if (value.constructor === Array){
             if (value.length>1){
                 //removing duplicates
