@@ -277,3 +277,27 @@
     border-top: 1px solid #ebebeb;
     border-radius: 0 0 5px 5px;
 }
+
+/*dark theme styling starts here*/
+.dark-mode textarea {
+    background-color: #202020;
+  color: #B8B8B8;
+  border-color: #181818;
+}
+
+.dark-mode span.branch {
+background-color: #101010;
+  color: #B8B8B8;
+  border: none;
+}
+
+.dark-mode span.branch:hover {
+background-color: #101010;
+  color: #B8B8B8;
+  border: none;
+}
+
+.dark-mode .container {
+    background-color: #101010!important;
+}
+/*dark theme styling ends here*/
