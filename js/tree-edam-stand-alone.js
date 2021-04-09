@@ -248,27 +248,48 @@ function interactive_edam_browser(){
             fields.push("see_also");
         fields.forEach(function(entry) {
             if("uri"==entry)
-                append_row(table,"URI",uri,false);
+                append_row(table,"URI",uri,false,"Permanent concept identifier");
             else if("text"==entry)
-                append_row(table,"Term",d.data[entry],false);
+                append_row(table,"Term",d.data[entry],false,"Preferred name for the concept");
             else if("parents"==entry){
                 if (typeof d.duplicate == "undefined"){
-                    append_row(table,entry,browser.identifierAccessor(d.parent));
+                    append_row(table,entry,browser.identifierAccessor(d.parent),"Link(s) to the parent concept(s) which represent broader concepts");
                 }else{
                     var parents_uris = [];
                     for(var i=d.duplicate.length-1;i>=0;i--){
                         parents_uris.push(browser.identifierAccessor(d.duplicate[i].parent));
                     }
-                    append_row(table,entry,parents_uris);
+                    append_row(table,entry,parents_uris,"Link(s) to the parent concept(s) which represent broader concepts");
                 }
             }
-            else
+            else{
+            if(entry=="definition"){
+                append_row(table,entry,d.data[entry],"Short definition of the concept");
+            }
+            else if(entry=="comment"){
+                append_row(table,entry,d.data[entry],"Misc. information that may help understand the scope of the concept");
+            }
+            else if(entry=="exact_synonyms"){
+                append_row(table,entry,d.data[entry],"Alternative term(s) that represent exactly the same concept");
+            }
+            else if(entry=="narrow_synonyms"){
+                append_row(table,entry,d.data[entry],"Alternative term(s) that represent a slightly narrower scope");
+            }
+            else if(entry=="broad_synonyms"){
+                append_row(table,entry,d.data[entry],"Alternative term(s) that represent a slightly broader scope");
+            }
+            else if(entry=="related_synonyms"){
+                append_row(table,entry,d.data[entry]),"Alternative term(s) that represent a closely overlapping scope";
+            }
+            else{
                 append_row(table,entry,d.data[entry]);
+            }
+            }
         });
         var community = details.find("tbody.community");
         var caller_b=biotool_api().get_for(current_branch, d.data.text, uri, d);
         if (caller_b.is_enabled()){
-            var id_b = append_row(community,"<a target=\"_blank\" href=\"https://bio.tools\" title=\"Bioinformatics Tools and Services Discovery Portal\">bio.tools</a>","<i>loading</i>");
+            var id_b = append_row(community,"<a target=\"_blank\" href=\"https://bio.tools\">bio.tools</a>","<i>loading</i>","Bioinformatics Tools and Services Discovery Portal");
             caller_b.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_b);
                 var has_descendants=browser.identifierAccessor(d.parent)!="owl:Thing" && (d.children||d._children) && browser.identifierAccessor(d)!="http://edamontology.org/data_0842";
@@ -305,7 +326,7 @@ function interactive_edam_browser(){
         }
         var caller_s=biosphere_api().get_for(current_branch, d.data.text, uri, d);
         if (caller_s.is_enabled()){
-            var id_s = append_row(community,"<a target=\"_blank\" href=\"https://biosphere.france-bioinformatique.fr\" title=\"IFB (ELIXIR France) Cloud Services to analyze life science data\">Biosphere</a>","<i>loading</i>");
+            var id_s = append_row(community,"<a target=\"_blank\" href=\"https://biosphere.france-bioinformatique.fr\">Biosphere</a>","<i>loading</i>","IFB (ELIXIR France) Cloud Services to analyze life science data");
             caller_s.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_s);
                 elt.empty();
@@ -318,7 +339,7 @@ function interactive_edam_browser(){
         }
         var caller_w=bioweb_api().get_for(current_branch, d.data.text, uri, d);
         if (caller_w.is_enabled()){
-            var id_w = append_row(community,"<a target=\"_blank\" href=\"https://bioweb.pasteur.fr/\" title=\"Online catalog of bioinformatics programs and databanks available at the Institut Pasteur\">BioWeb</a>","<i>loading</i>");
+            var id_w = append_row(community,"<a target=\"_blank\" href=\"https://bioweb.pasteur.fr/\">BioWeb</a>","<i>loading</i>","Online catalog of bioinformatics programs and databanks available at the Institut Pasteur");
             caller_w.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_w);
                 elt.empty();
@@ -328,7 +349,7 @@ function interactive_edam_browser(){
         }
         var caller_t=tess_api().get_for(current_branch, d.data.text, uri, d);
         if (caller_t.is_enabled()){
-            var id_t = append_row(community,"<a target=\"_blank\" href=\"https://tess.elixir-europe.org/\" title=\"ELIXIR Training Portal\">TeSS</a>","<i>loading</i>");
+            var id_t = append_row(community,"<a target=\"_blank\" href=\"https://tess.elixir-europe.org/\">TeSS</a>","<i>loading</i>","ELIXIR Training Portal");
             caller_t.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_t);
                 elt.empty();
@@ -347,10 +368,10 @@ function interactive_edam_browser(){
             " or "+
             "<a target=\"_blank\" href=\"https://webprotege.stanford.edu/#projects/98640503-a37d-4404-84da-caf30fadd685/edit/Classes?selection=Class(%3Chttp://edamontology.org/"+identifier+"%3E)\">WebProt&eacuteg&eacute</a>"+
             "."
-            );
+            ,"Links to this concept in other ontology browsers");
         }
         if (community.children().length>0){
-            community.parent().prepend($('<thead><tr><th colspan="2">Community usage</th></tr></thead>'));
+            community.parent().prepend($('<thead><tr><th colspan="2" data-toggle=\"tooltip\" title=\"Usage of this concept in various databases and registries\">Community usage</th></tr></thead>'));
         }else{
             community.parent().remove();
         }
@@ -416,7 +437,11 @@ function interactive_edam_browser(){
         return value.substring(value.lastIndexOf('/')+1,value.lastIndexOf('_'));
     }
 
-    function append_row(table, name, value, translate_uri_to_text){
+    function append_row(table, name, value, translate_uri_to_text,tootip="test test"){
+        if (arguments.length === 4){
+            tootip = arguments[3];
+           
+          }
         var id=(name
             .replace(/[^a-zA-Z]/g,'-')
             .toLowerCase()+"-val")
@@ -444,7 +469,7 @@ function interactive_edam_browser(){
                 value=interactive_edam_uri(value[0], translate_uri_to_text);
             }
         }
-        $("<tr><th>"+name+"</th><td class=\""+id+"\">"+interactive_edam_uri(value, translate_uri_to_text)+"</td></tr>").appendTo(table);
+        $("<tr><th data-toogle=\"tooltip\" title=\""+tootip+"\">"+name+"</th><td class=\""+id+"\">"+interactive_edam_uri(value, translate_uri_to_text)+"</td></tr>").appendTo(table);
         return id;
     }
 

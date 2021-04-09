@@ -1,3 +1,6 @@
+th[data-toogle="tooltip"]{
+    cursor: pointer;
+}
 .panel-separator{
     border-top: 1px solid #eee;
     margin-bottom: 15px;
