@@ -55,7 +55,7 @@ function bioweb_api(){
         };
         //is the count function enabled
         getter.is_enabled=function(){
-            return true;
+            return false;
         };
         //get the url returning the tools for human
         getter.get_url=function(){
