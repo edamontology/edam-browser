@@ -341,7 +341,7 @@ function interactive_edam_browser(){
             "Open in "+
             "<a target=\"_blank\" href=\"http://aber-owl.net/ontology/EDAM/#/Browse/%3Chttp%3A%2F%2Fedamontology.org%2F"+identifier+"%3E\">AberOWL</a>"+
             ", "+
-            "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">BioPortal</a>"+
+            "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid="+uri+"\">BioPortal</a>"+
             ", "+
             "<a target=\"_blank\" href=\"https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">OLS</a>"+
             " or "+
@@ -424,8 +424,10 @@ function interactive_edam_browser(){
         if (typeof value == "undefined"){
             value="";
         }
-        name=name.replace(/[_]/g,"&nbsp;");
-        name=name.charAt(0).toUpperCase()+name.substring(1);
+        if (name.indexOf("<")==-1){
+            name=name.replace(/[_]/g,"&nbsp;");
+            name=name.charAt(0).toUpperCase()+name.substring(1);
+        }
         if (value.constructor === Array){
             if (value.length>1){
                 //removing duplicates
