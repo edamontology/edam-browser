@@ -7,6 +7,9 @@
     "test": "jshint js/*js"
   },
   "devDependencies": {
-    "jshint": "^2.9.5"
+    "jshint": "^2.9.5",
+    "jshintConfig":{
+    "esversion": 6 
+}
   }
 }
