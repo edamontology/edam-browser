@@ -33,4 +33,4 @@ A demo showing you how to add the tree visualization and how you can interact wi
 
 ### Dependencies
 
-The EDAM Browser relies on D3.js 4.13.0, JQuery 3.2.1, JQuery UI 1.12.1, Boostrap 3.3.7, and Font Awesome 4.7.0
+The EDAM Browser relies on D3.js 4.13.0, JQuery 3.2.1, JQuery UI 1.12.1, Boostrap 3.3.7, and Font Awesome 5.6.0
