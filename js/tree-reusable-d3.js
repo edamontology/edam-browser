@@ -132,7 +132,7 @@ function interactive_tree() {
                 maxY=svgBox.height+svgBox.y;
                 updateWithoutPanAndZoomTuning(source);
                 var xShift=(maxX-minX)/2;
-                zoom.translateExtent([[minX-xShift,minY-yShift], [maxX+xShift,maxY+yShift]]);
+                zoom.translateExtent([[minX-xShift,minY-xShift], [maxX+xShift,maxY+xShift]]);
             };
 
             updateWithoutPanAndZoomTuning = function (source) {
