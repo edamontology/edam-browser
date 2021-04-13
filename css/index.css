@@ -51,8 +51,14 @@ input:disabled+.text-for-disabled-input{
     margin-bottom:0px;
     line-height:2;
 }
-#tree {
+@media only screen and (min-width: 600px) {
+  #tree {
     height:70vh;
+  }
+}
+
+#tree {
+    height:60vh;
 }
 
 #edamAccordion table .details td a{
