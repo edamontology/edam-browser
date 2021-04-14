@@ -1,3 +1,9 @@
+//enabling bootstrap tooltip
+$(document).ready(function() { 
+    $('[data-toggle="tooltip"]').tooltip();    
+});
+
+
 function getInitURI(branch){
     if (branch == "deprecated")
         return getCookie("edam_browser_"+branch,"owl:DeprecatedClass");
@@ -468,7 +474,7 @@ function interactive_edam_browser(){
                 value=interactive_edam_uri(value[0], translate_uri_to_text);
             }
         }
-        $("<tr><th data-toogle=\"tooltip\" title=\""+tootip+"\">"+name+"</th><td class=\""+id+"\">"+interactive_edam_uri(value, translate_uri_to_text)+"</td></tr>").appendTo(table);
+        $("<tr><th data-toggle=\"tooltip\" title=\""+tootip+"\">"+name+"</th><td class=\""+id+"\">"+interactive_edam_uri(value, translate_uri_to_text)+"</td></tr>").appendTo(table);
         return id;
     }
 
