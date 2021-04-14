@@ -579,7 +579,7 @@ function interactive_tree() {
         return cmd;
     }
     /**
-     * Ask to expand to element identified by identifier
+     * Ask to collapse to element identified by identifier
      * @param {string} identifier - the element identifier that is returned by identifierAccessor
      * @return cmd() itself
      */
@@ -589,7 +589,7 @@ function interactive_tree() {
         return cmd;
     };
     /**
-     * Ask to collapse an element
+     * Ask to expand an element
      * @param {string} identifier - the element identifier that is returned by identifierAccessor
      * @return cmd() itself
      */
