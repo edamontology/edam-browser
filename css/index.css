@@ -73,3 +73,8 @@ input:disabled+.text-for-disabled-input{
     display: none;
   }
 }
+
+.tree-border{
+    border-color: #606060;
+    border-width: 2px;
+}
