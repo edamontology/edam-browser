@@ -17,9 +17,14 @@ Go to https://edamontology.github.io/edam-browser/
 
 Download/clone the repository
 
-Run `start_edam_stand_alone_browser.sh`
+##### On Linux or macOS
+> Run `yarn start`
+> It starts a web server allowing you to browse EDAM on [localhost:20080](http://0.0.0.0:20080).
 
-It starts a web server allowing you to browse EDAM on [localhost:20080](http://0.0.0.0:20080).
+##### On WIndows
+- Open Visual Studio Code extensions explorer, and search for "Live Server"
+- Install the "Liver Server" extension
+- With the index the html file open in the editor, right-click and select "Open with Live Server" to launch EDAM browser on [http://127.0.0.1:5500](http://127.0.0.1:5500) in your default web browser
 
 ### ... with a custom ontology
 
