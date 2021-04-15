@@ -274,7 +274,7 @@ $("document").ready(function () {
         var community = details.find("tbody.community");
         var caller_b=biotool_api().get_for(current_branch, d.data.text, uri, d);
         if (caller_b.is_enabled()){
-            var id_b = append_row(community,"<a target=\"_blank\" href=\"https://bio.tools\">bio.tools</a>","<i>loading</i>");
+            var id_b = append_row(community,"<a target=\"_blank\" href=\"https://bio.tools\" title=\"Bioinformatics Tools and Services Discovery Portal\">bio.tools</a>","<i>loading</i>");
             caller_b.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_b);
                 var has_descendants=browser.identifierAccessor(d.parent)!="owl:Thing" && (d.children||d._children) && browser.identifierAccessor(d)!="http://edamontology.org/data_0842";
@@ -311,7 +311,7 @@ $("document").ready(function () {
         }
         var caller_s=biosphere_api().get_for(current_branch, d.data.text, uri, d);
         if (caller_s.is_enabled()){
-            var id_s = append_row(community,"<a target=\"_blank\" href=\"https://biosphere.france-bioinformatique.fr\">Biosphere</a>","<i>loading</i>");
+            var id_s = append_row(community,"<a target=\"_blank\" href=\"https://biosphere.france-bioinformatique.fr\" title=\"IFB (ELIXIR France) Cloud Services to analyze life science data\">Biosphere</a>","<i>loading</i>");
             caller_s.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_s);
                 elt.empty();
@@ -324,7 +324,7 @@ $("document").ready(function () {
         }
         var caller_w=bioweb_api().get_for(current_branch, d.data.text, uri, d);
         if (caller_w.is_enabled()){
-            var id_w = append_row(community,"<a target=\"_blank\" href=\"https://bioweb.pasteur.fr/\">BioWeb</a>","<i>loading</i>");
+            var id_w = append_row(community,"<a target=\"_blank\" href=\"https://bioweb.pasteur.fr/\" title=\"Online catalog of bioinformatics programs and databanks available at the Institut Pasteur\">BioWeb</a>","<i>loading</i>");
             caller_w.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_w);
                 elt.empty();
@@ -334,7 +334,7 @@ $("document").ready(function () {
         }
         var caller_t=tess_api().get_for(current_branch, d.data.text, uri, d);
         if (caller_t.is_enabled()){
-            var id_t = append_row(community,"<a target=\"_blank\" href=\"https://tess.elixir-europe.org/\">TeSS</a>","<i>loading</i>");
+            var id_t = append_row(community,"<a target=\"_blank\" href=\"https://tess.elixir-europe.org/\" title=\"ELIXIR Training Portal\">TeSS</a>","<i>loading</i>");
             caller_t.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_t);
                 elt.empty();
@@ -347,7 +347,7 @@ $("document").ready(function () {
             "Open in "+
             "<a target=\"_blank\" href=\"http://aber-owl.net/ontology/EDAM/#/Browse/%3Chttp%3A%2F%2Fedamontology.org%2F"+identifier+"%3E\">AberOWL</a>"+
             ", "+
-            "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">BioPortal</a>"+
+            "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid="+uri+"\">BioPortal</a>"+
             ", "+
             "<a target=\"_blank\" href=\"https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">OLS</a>"+
             " or "+
@@ -430,10 +430,17 @@ $("document").ready(function () {
         if (typeof value == "undefined"){
             value="";
         }
-        name=name.replace(/[_]/g,"&nbsp;");
-        name=name.charAt(0).toUpperCase()+name.substring(1);
+        if (name.indexOf("<")==-1){
+            name=name.replace(/[_]/g,"&nbsp;");
+            name=name.charAt(0).toUpperCase()+name.substring(1);
+        }
         if (value.constructor === Array){
             if (value.length>1){
+                //removing duplicates
+                var uniqueValues=value.filter(function (element, index) {
+                    return value.indexOf(element) === index;
+                  });
+                value=uniqueValues; 
                 value_txt="";
                 for (i=0; i<value.length;i++){
                     if (value[i] != ""){

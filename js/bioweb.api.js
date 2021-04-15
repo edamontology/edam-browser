@@ -55,7 +55,7 @@ function bioweb_api(){
         };
         //is the count function enabled
         getter.is_enabled=function(){
-            return true;
+            return false;
         };
         //get the url returning the tools for human
         getter.get_url=function(){
@@ -63,7 +63,7 @@ function bioweb_api(){
         };
         //get the url returning the tools for api call
         getter.get_api_url=function(){
-            return "https://cors-anywhere.herokuapp.com/https://bioweb.pasteur.fr/api/packages?search=&topicId="+term_id;
+            return "https://cors-anywhere.pasteur.cloud/https://bioweb.pasteur.fr/api/packages?search=&topicId="+term_id;
         };
         return getter;
     };
