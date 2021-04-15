@@ -40,7 +40,6 @@ div.tooltip {
     stroke: #FFFA;
     stroke-width: 0.2em;
     cursor: pointer;
-
 }
 .node text+text{
     stroke: initial;
