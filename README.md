@@ -17,8 +17,6 @@ Go to https://edamontology.github.io/edam-browser/
 
 Download/clone the repository
 
-Download/clone the repository
-
 ##### Option 1:
 > Run `yarn start`
 > It starts a web server allowing you to browse EDAM on [localhost:20080](http://0.0.0.0:20080).
