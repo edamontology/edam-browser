@@ -4,20 +4,22 @@
     stroke: steelblue;
     stroke-width: 1.5px;
 }
+
 .node circle.selected {
     fill: green;
 }
+
 .node circle.has-children {
     fill: lightsteelblue;
 }
 
 .node text {
     font-size: 12px;
-    fill-opacity:1;
-
+    fill-opacity: 1;
 }
-text.selected{
-    font-weight:bold;
+
+text.selected {
+    font-weight: bold;
 }
 
 path.link {
@@ -34,13 +36,16 @@ path.link.selected {
 
 div.tooltip {
     position: absolute;
-    width:300px;
+    width: 300px;
 }
-.node text{
+
+.node text {
     stroke: #FFFA;
     stroke-width: 0.2em;
+    pointer-events: none;
 }
-.node text+text{
+
+.node text+text {
     stroke: initial;
     stroke-width: initial;
 }
