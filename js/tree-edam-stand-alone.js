@@ -356,11 +356,7 @@ function interactive_edam_browser(){
         }
         $("#edamAccordion").find(".panel-group").first().find(".collapse").collapse("hide");
         var length=$("#edamAccordion").find(".panel-group").length;
-         if(length == 0){
-            $("#edamAccordion").find($("#history-separator")).fadeOut(3000,function() { $(this).hide(); });
-        }
         if(length>0){
-            $("#edamAccordion").find($("#history-separator")).show();
             $("#edamAccordion").prepend($("#history-separator"));
         }
         if(length>5){
