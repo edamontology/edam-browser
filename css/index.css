@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Crete+Round&family=Playfair+Display&display=swap');
 .panel-separator{
     border-top: 1px solid #eee;
     margin-bottom: 15px;
@@ -5,6 +6,8 @@
 }
 .page-header{
     margin-top:0;
+    box-shadow:4px 0px 6px rgb(172, 172, 172);
+    background-color:#eee;
 }
 .meta-info>*{
     font-size:0;
@@ -124,4 +127,71 @@ body {
 }
 .branch {
     cursor: pointer;
+}
+
+.search-term{
+    font-family: 'Playfair Display', serif;
+    outline: none;
+    padding:0.5em;
+    border:none;
+    border-bottom:2px groove black;    
+}
+.btn-default{
+    padding:0.5em 0.9em;
+    border-radius: 5px;
+    margin:0.3em;
+    font-weight: bold;
+}
+.btn-default:hover{
+    
+    border-width: 0;
+    color: white;
+    background: #000000c3;
+    min-width: 3em;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-radius: 5px;
+}
+div.col-xs-12 h4{
+    text-align: center;
+    font-weight: 500;
+}
+h4.tb a, h4.tb a:active, h4.tb a:visited,h4.tb a:focus{
+    color:inherit;
+    font-family: inherit;
+    text-transform: uppercase;
+    background-color:#ecebeb;
+    text-decoration: none;
+    padding:0.1em 0.4em;
+    border-radius:3px;
+    border:1px groove #ecebeb;
+    
+}
+
+div.panel-body.border-edam-data{
+    background-color:rgb(247, 241, 241)
+}
+a[data-toggle="collapse"]{
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: capitalize;
+}
+
+tr{
+    display:flex;
+    align-items: center;
+    border:1px solid rgb(235, 232, 232);
+}
+td, th{
+    border-top: none !important;
+}
+td{
+    text-align: justify;
+    
+}
+a[title="add a child to this term"], a[title="add a child to this term"]:hover{
+    color:blue;
+}
+a[title="edit this term"], a[title="edit this term"]:hover{
+    color:tomato;
 }
