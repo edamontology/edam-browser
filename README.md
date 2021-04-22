@@ -15,11 +15,13 @@ Go to https://edamontology.github.io/edam-browser/
 
 ### ... locally
 
-Download/clone the repository
+1. Download/clone the repository
 
-Run `start_edam_stand_alone_browser.sh`
+2. Change to working directory : `cd edam-browser`
 
-It starts a web server allowing you to browse EDAM on [localhost:20080](http://0.0.0.0:20080).
+3. Run the command : `./start_edam_stand_alone_browser.sh`
+
+    It starts a web server allowing you to browse EDAM on [localhost:20080](http://0.0.0.0:20080).
 
 ### ... with a custom ontology
 
