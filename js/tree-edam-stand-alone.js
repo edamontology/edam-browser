@@ -647,7 +647,8 @@ function interactive_edam_browser(){
         __my_interactive_tree.identifierAccessor(identifierAccessorEDAM);
         __my_interactive_tree.textAccessor(textAccessorDefault);
         loadTree(value);
-        return browser;
+        console.log(value);
+        // return browser;
     };
     /**
      * Read-only proxy to use the identifierAccessor of the interactive_tree

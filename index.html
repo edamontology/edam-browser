@@ -11,6 +11,8 @@
 
       gtag('config', 'UA-115521967-1');
     </script>
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -24,7 +26,7 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.css">
+    <link rel="stylesheet" href="">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"
             integrity="sha256-hYXbQJK4qdJiAeDVjjQ9G0D6A0xLnDQ4eJI9dkm7Fpk=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/levenshtein/1.0.5/levenshtein.min.js"></script>
@@ -47,8 +49,13 @@
 <div class="container-fluid">
     <div class="page-header row">
         <div class="col-xs-12 col-sm-6 col-lg-3">
-            <h1 id="pageTitle">EDAM ontology</h1>
-        </div>
+
+            <span id="pageTitle">
+                <img src="./edam_ontology.svg" alt="no logo" width="80%">
+
+
+            </span>
+                </div>
         <div class="col-xs-12 col-sm-6 col-lg-5">
             <h1 class="no-icon text-center">
                 <!--<div class="btn-group" role="group" style="z-index:1;vertical-align: bottom;">-->
@@ -133,7 +140,7 @@
                 bioinformatics [<a target="_blank" href="http://edamontology.org/">edamontology.org</a>]</h4>
         </div>
     </div>
-    <div class="content row" id="main">
+    <div class="content row " id="main">
         <div class="col-xs-12 col-lg-8">
             <div class="panel panel-default" id="tree-and-controls">
     
@@ -252,6 +259,8 @@
             </form>
         </div>
     </div>
+</div>
+<div>
 </div>
 </body>
 </html>

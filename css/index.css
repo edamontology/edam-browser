@@ -52,7 +52,7 @@ input:disabled+.text-for-disabled-input{
     line-height:2;
 }
 #tree {
-    height:70vh;
+    height:100vh;
 }
 
 #edamAccordion table .details td a{
@@ -98,7 +98,6 @@ a:before {
     right:0px;
     top:0px;
     padding: 1em 1em;
-
 }
 
 body {
