@@ -93,6 +93,20 @@ uri = "";
 parent_uri=null;
 
 window.onload = function() {
+    const btn = document.querySelector(".btn-toggle");
+    const currentTheme = localStorage.getItem("theme");
+    if (currentTheme == "dark") {
+        document.body.classList.add("dark-mode");
+    }
+    btn.addEventListener("click", function () {
+    document.body.classList.toggle("dark-mode");
+
+    let theme = "light";
+    if (document.body.classList.contains("dark-mode")) {
+        theme = "dark";
+    }
+    localStorage.setItem("theme", theme);
+    });
     uri=getUrlParameter('term');
     var branch=getUrlParameter('branch');
     if(uri){
