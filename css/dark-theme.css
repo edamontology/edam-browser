@@ -1,4 +1,3 @@
-
 /*dark theme styling for propose change page starts here*/
 .dark-mode textarea {
   background-color: #202020;
@@ -145,7 +144,7 @@
 }
 
 .dark-mode li {
-  background-color: #303030;
+  background-color: #151515;
   color: #B8B8B8;
   border-color: #181818;
 }
