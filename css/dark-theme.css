@@ -17,7 +17,7 @@
   border: none;
 }
 
-.dark-mode .container {
+.dark-mode .container .row {
   background-color: #101010!important;
 }
 /*dark theme styling for propose change page ends here*/
