@@ -199,4 +199,19 @@
   color: #B8B8B8;
   border-color: #050505;
 }
+
+.dark-mode .popover {
+  background-color: #303030;
+  color: black;
+}
+
+.dark-mode .popover td {
+  background-color: #404040;
+  color: white;
+  border-color: #282828;
+}
+
+.dark-mode .popover tr {
+  border-width: 1px;
+}
 /*styling for dark theme for main page ends here*/
