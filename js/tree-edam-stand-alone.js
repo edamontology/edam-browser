@@ -682,6 +682,6 @@ document.getElementById("toggle-text").innerHTML="Open Fullscreen";
         document.exitFullscreen();
         document.getElementById("toggle-text").innerHTML="Open Fullscreen";
     }
-    };
+    }
     
 $( document ).ready( toggleFullscreen );
