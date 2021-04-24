@@ -125,3 +125,6 @@ body {
 .branch {
     cursor: pointer;
 }
+.temp:last-child {
+    opacity: 0;
+}
