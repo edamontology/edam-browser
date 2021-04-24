@@ -136,7 +136,7 @@
     <div class="content row" id="main">
         <div class="col-xs-12 col-lg-8">
             <div class="panel panel-default" id="tree-and-controls">
-    
+                
                 <div id="tree" class="d3js-tree-container"></div>
 
                 <div id="tree-controls">
@@ -165,7 +165,11 @@
                     onclick="browser.interactive_tree().cmd().expandAllDescendantElement()"><i class="fas fa-expand-arrows-alt"></i><span class="on-controls-hover">Expand all tree</span>
                     </button>
                     </div>
-
+                    <div>
+                        <button type="button" class="btn btn-default"
+                        onclick="toggleFullscreen();" ><i class="fas fa-expand" aria-hidden="true"></i><span id="toggle-text" class="on-controls-hover">Open Full Screen</span>
+                        </button>
+                    </div>
                 </div>
             </div>
             
