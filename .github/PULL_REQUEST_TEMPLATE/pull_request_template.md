@@ -1,6 +1,5 @@
 <!--
 Thank you for your pull request!
-
 -->
 
 PR Checklist:
