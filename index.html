@@ -47,7 +47,7 @@
 <div class="container-fluid">
     <div class="page-header row">
         <div class="col-xs-12 col-sm-6 col-lg-3">
-           <a href="http://edamontology.org/page"> <img src="./edam_ontology.svg" alt="no logo" width="70%" ></a>
+           <a href="http://edamontology.org/page"> <img src="./assets/edam_ontology.svg" alt="no logo" width="70%" ></a>
         </div>
         <div class="col-xs-12 col-sm-6 col-lg-5">
             <h1 class="no-icon text-center">
@@ -233,24 +233,30 @@
                         the schema are allowed hereafter:
                     </div>
                     <div class="form-group">
-                        <label for="id_identifier_accessor">How to access to the identifier of a term <tt>d</tt></label>
+                        <label for="id_identifier_accessor">How to get access to the identifier of a term <tt>d</tt></label>
                         <div class="radio" id="id_identifier_accessor">
-                            <label><input type="radio" name="identifier_accessor"
-                                          value="d.id"><tt>d.id</tt></label>
+                            <label>
+                                <input type="radio" name="identifier_accessor"
+                                          value="d.id">
+                                          <tt>d.id</tt>
+                                        </label>
                         </div>
                         <div class="radio">
-                            <label><input type="radio" name="identifier_accessor" value="d.data.uri"><tt>d.data.uri</tt></label>
+                            <label>
+                                <input type="radio" name="identifier_accessor" value="d.data.uri">
+                                <tt>d.data.uri</tt>
+                            </label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="id_text_accessor">How to access to the text of a term <tt>d</tt></label>
+                        <label for="id_text_accessor">How to get access to the text of a term <tt>d</tt></label>
                         <div class="radio" id="id_text_accessor">
                             <label><input type="radio" name="text_accessor" value="d.text"><tt>d.text</tt></label>
                         </div>
                         <div class="radio">
                             <label><input type="radio" name="text_accessor" value="d.name"><tt>d.name</tt></label>
                         </div>
-                    </div>
+                       </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

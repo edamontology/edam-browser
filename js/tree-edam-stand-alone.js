@@ -80,6 +80,8 @@ function interactive_edam_browser(){
     }
 
     function loadCustom(){
+
+        console.log('want to see where i am');
         var branch;
         var from=$("#custom_ontology_from")[0];
         if(!from.checkValidity()){
@@ -98,7 +100,7 @@ function interactive_edam_browser(){
         __my_interactive_tree.identifierAccessor(identifier_accessor_mapping[getUrlParameter("identifier_accessor")]);
         __my_interactive_tree.textAccessor(text_accessor_mapping[getUrlParameter("text_accessor")]);
 
-        $("#myModal").modal('hide');
+        //$("#myModal").modal('hide');
         $("#edamAccordion>.panel-group").remove();
         if(branch=="custom_url"){
             loadTree(branch);
