@@ -172,7 +172,7 @@ function interactive_edam_browser(){
     function to_generic_href(c,url,data, get_length, get_name, has_next){
         var data_content="";
         if(c>0){
-            data_content = "title=\"Some associated elements\" data-toggle=\"popover\" data-placement=\"auto left\" data-trigger=\"hover\" data-html=\"true\" data-content=\"<table class='table table-condensed'>";
+            data_content = "title=\"Some associated elements\" data-toggle=\"popover\" data-placement=\"auto right\" data-trigger=\"hover\" data-html=\"true\" data-content=\"<table class='table table-condensed'>";
             var i=0;
             for(;i<get_length(data)&&i<10;i++){
                 data_content+="<tr><td>"+get_name(data,i)+"</td></tr>";
