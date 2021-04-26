@@ -4,8 +4,7 @@
   "author": "Bryan Brancotte",
   "version": "1.0.0",
   "scripts": {
-    "test": "jshint js/*js",
-    "unit_tests": "mocha"
+    "test": "jshint js/*js"
   },
   "devDependencies": {
     "jshint": "^2.9.5"
