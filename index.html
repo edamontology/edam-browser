@@ -165,10 +165,15 @@
                     onclick="browser.interactive_tree().cmd().expandAllDescendantElement()"><i class="fas fa-expand-arrows-alt"></i><span class="on-controls-hover">Expand all tree</span>
                     </button>
                     </div>
-                    <div>
-                        <button type="button" class="btn btn-default"
-                        onclick="toggleFullscreen();" ><i class="fas fa-expand" aria-hidden="true"></i><span id="toggle-text" class="on-controls-hover">Open Full Screen</span>
-                        </button>
+                    <div id="go-fullscreen">
+                    <button type="button" class="btn btn-default" 
+                    onclick="toggleFullscreen();" ><i class="fas fa-expand" aria-hidden="true"></i><span class="on-controls-hover" >Open Full Screen</span>
+                    </button>
+                    </div>
+                    <div id="exit-fullscreen" style="display: none;">
+                    <button type="button" class="btn btn-default" 
+                    onclick="toggleFullscreen();" ><i class="fas fa-compress" aria-hidden="true"></i><span class="on-controls-hover" >Exit Full Screen</span>
+                    </button>
                     </div>
                 </div>
             </div>

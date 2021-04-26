@@ -669,19 +669,18 @@ function interactive_edam_browser(){
     };
     return browser;
 }
-document.getElementById("toggle-text").innerHTML="Open Fullscreen";
-    function toggleFullscreen( jQuery){
+function toggleFullscreen( jQuery){
     var treeResize= document.getElementById("tree-and-controls");
     if(!document.fullscreenElement)
     {
         treeResize.requestFullscreen();
-        document.getElementById("toggle-text").innerHTML="Close Fullscreen";
+        $('#go-fullscreen').hide();
+        $('#exit-fullscreen').show();
     }
     else
     {
         document.exitFullscreen();
-        document.getElementById("toggle-text").innerHTML="Open Fullscreen";
+        $('#exit-fullscreen').hide()
+        $('#go-fullscreen').show();
     }
-    };
-    
-$( document ).ready( toggleFullscreen );
+};
