@@ -680,7 +680,7 @@ function toggleFullscreen( jQuery){
     else
     {
         document.exitFullscreen();
-        $('#exit-fullscreen').hide()
+        $('#exit-fullscreen').hide();
         $('#go-fullscreen').show();
     }
-};
+}
