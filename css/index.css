@@ -84,7 +84,7 @@ input:disabled+.text-for-disabled-input{
 }
 
 #edamAccordion table .details td a{
-    word-break: break-word;
+    word-break: break-all;
     white-space: normal;
 }
 
@@ -152,7 +152,4 @@ body {
 }
 .branch {
     cursor: pointer;
-}
-.temp:last-child {
-    opacity: 0;
 }
