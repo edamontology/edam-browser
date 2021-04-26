@@ -4,6 +4,7 @@
   "author": "Bryan Brancotte",
   "version": "1.0.0",
   "scripts": {
+    "start": "sh start_edam_stand_alone_browser.sh",
     "test": "jshint js/*js"
   },
   "devDependencies": {
