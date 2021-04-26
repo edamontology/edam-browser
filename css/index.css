@@ -6,6 +6,46 @@
 .page-header{
     margin-top:0;
 }
+
+#header-desc {
+    width: 100%;
+}
+
+#header-desc img {
+    float: left;
+    margin: 25px 10px;
+    width: 95px;
+    height: 95px;  
+}
+
+#header-desc p.edam-defn {
+    margin-left: 0px;
+    overflow: auto;
+    display: block;
+}
+
+@media screen and (min-width: 1200px) {
+  #edam-branches {
+    float: right; 
+    left: 40%; 
+    top: -50px; 
+  }
+  #search-bar {
+    float:right; 
+    position: absolute; 
+    top: 50px; 
+    right: 10px;
+  }
+  .page-header {
+    height: 170px;
+  }
+}
+
+.header-icon p {
+    max-width: 230px;
+    display: inline-block;
+}
+
 .meta-info>*{
     font-size:0;
     color:white;
