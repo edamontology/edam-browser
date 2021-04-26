@@ -683,5 +683,3 @@ function toggleFullscreen( jQuery){
         document.getElementById("toggle-text").innerHTML="Open Fullscreen";
     }
 }
-    
-$( document ).ready( toggleFullscreen );
