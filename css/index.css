@@ -13,37 +13,25 @@
 
 #header-desc img {
     float: left;
-    margin: 25px 10px;
-    width: 95px;
-    height: 95px;  
-}
-
-#header-desc p.edam-defn {
-    margin-left: 0px;
-    overflow: auto;
-    display: block;
-}
-
-@media screen and (min-width: 1200px) {
-  #edam-branches {
-    float: right; 
-    left: 40%; 
-    top: -50px; 
-  }
-  #search-bar {
-    float:right; 
-    position: absolute; 
-    top: 50px; 
-    right: 10px;
-  }
-  .page-header {
-    height: 170px;
-  }
+    margin: 10px 10px;
+    width: 108px;
+    height: 108px;  
 }
 
 .header-icon p {
     max-width: 230px;
     display: inline-block;
+}
+
+@media screen and (min-width: 1200px) { 
+    .flex-container {
+        display: flex;
+        align-items: center;
+    }
+    
+    #header-desc p.edam-defn {
+        width: max-content;
+    }
 }
 
 .meta-info>*{
@@ -96,7 +84,7 @@ input:disabled+.text-for-disabled-input{
 }
 
 #edamAccordion table .details td a{
-    word-break: break-all;
+    word-break: break-word;
     white-space: normal;
 }
 
@@ -164,4 +152,7 @@ body {
 }
 .branch {
     cursor: pointer;
+}
+.temp:last-child {
+    opacity: 0;
 }
