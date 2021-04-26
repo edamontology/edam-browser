@@ -19,9 +19,25 @@ Go to https://edamontology.github.io/edam-browser/
 
 2. Change to working directory : `cd edam-browser`
 
-3. Run the command : `./start_edam_stand_alone_browser.sh`
+3. Run it
 
-    It starts a web server allowing you to browse EDAM on [localhost:20080](http://0.0.0.0:20080).
+##### Option 1:
+> Run `yarn start`
+> It starts a web server allowing you to browse EDAM on [localhost:20080](http://0.0.0.0:20080).
+
+##### Option 2:
+> Run `python3 -m http.server 20080`
+> It starts a web server allowing you to browse EDAM on [localhost:20080](http://0.0.0.0:20080).
+
+##### Option 3:
+> Run `start_edam_stand_alone_browser.sh`
+> It starts a web server allowing you to browse EDAM on [localhost:20080](http://0.0.0.0:20080).
+
+##### Optionally on Windows:
+- Open Visual Studio Code extensions explorer, and search for [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+- Install the "Liver Server" extension
+- With the index.html file open in the editor, right-click and select "Open with Live Server" to launch EDAM browser on [http://127.0.0.1:5500](http://127.0.0.1:5500) in your default web browser
+
 
 ### ... with a custom ontology
 
