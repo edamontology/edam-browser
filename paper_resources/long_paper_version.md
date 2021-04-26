@@ -8,7 +8,6 @@ tags:
 - ontology
 - visualization
 - edamontology
-- ontology
 authors:
 - name: Bryan Brancotte
   orcid: 0000-0001-8669-5525
