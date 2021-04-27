@@ -46,10 +46,10 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="page-header row">
-        <div class="col-xs-12 col-sm-6 col-lg-3 flex-container" id="header-desc">
-	                    <img src="https://github.com/edamontology/edamontology/raw/main/EDAMrelations.png" alt="EDAM Logo"/>
-            <div>
+    <div class="d-flex" id="page-header">
+        <div class="d-flex" id="header-desc">
+            <img src="https://github.com/edamontology/edamontology/raw/main/EDAMrelations.png" alt="EDAM Logo"/>
+            <div class="d-flex flex-column">
             <h1 id="pageTitle">EDAM ontology</h1>
             <p class="edam-defn">EDAM is a simple ontology of well established, familiar concepts that are prevalent within bioinformatics.</p>
             <div class="header-icon">
@@ -66,8 +66,9 @@
                     <a target="_blank" href="https://gitter.im/edamontology/edam-browser#">edam-browser</a>
                 </span>
             </div>
+            </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-lg-5">
+        <div>
             <h1 class="no-icon text-center">
                 <!--<div class="btn-group" role="group" style="z-index:1;vertical-align: bottom;">-->
                     <!--<a type="button" class="btn btn-default branch data" onclick="browser.current_branch('data')">Data</a>-->
@@ -129,7 +130,7 @@
             </div>
             </h1>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-6 col-lg-offset-0 col-lg-4">
+        <div>
             <h1 class="no-icon text-center">
                 <div class="btn-group" role="group" style="width: 100%;z-index:1">
                     <input
@@ -145,7 +146,6 @@
 
                 </div>
             </h1>
-        </div>
         </div>
     </div>
     <div class="content row" id="main">

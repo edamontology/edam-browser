@@ -3,30 +3,28 @@
     margin-bottom: 15px;
     padding-top: 10px;
 }
-.page-header{
+#page-header{
     margin-top:0;
+    margin-bottom:1em;
 }
-
-#header-desc {
-    width: 100%;
+#page-header>*{
+    flex:1 0 auto;
 }
-
+#page-header>*:first-child{
+    flex:0 1 auto;
+}
 #header-desc img {
-    float: left;
-    margin: 10px 10px;
-    width: 108px;
+    margin-right: 1em;
     height: 108px;  
 }
-
-@media screen and (min-width: 1200px) { 
-    .flex-container {
-        display: flex;
-        align-items: center;
-    }
-    
-    #header-desc p.edam-defn {
-        width: max-content;
-    }
+.header-icon>* {
+    margin-right:1em;
+}
+.d-flex {
+    display: flex;
+}
+.flex-column{
+    flex-direction: column;
 }
 
 .meta-info>*{
