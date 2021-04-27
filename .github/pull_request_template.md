@@ -13,7 +13,7 @@ As a reminder here is a checklist
 ### Issue
 
 close/fix/resolve #???
-<!-- replace ??? with the issue number -->
+<!-- pick on of close/fix/resolve, remove the other and then replace ??? with the issue number -->
 
 ### Details
 <!-- Put any relevant information below, or remove Details section -->
