@@ -1,25 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
 <head>
     <title>EDAM ontology browser</title>
-    <link rel="icon" type="image/png" href="favicon.ico"/>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script
-            src="https://code.jquery.com/jquery-3.2.1.min.js"
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
-    <script
-            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/bootstrap.xl.css"/>
+    <link rel="icon" type="image/png" href="favicon.ico" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" />
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.xl.css" />
     <script src="js/utils.js"></script>
     <script src="js/tree-edam-stand-alone.js"></script>
     <script src="js/autocomplete-edam-reusable.js"></script>
@@ -27,140 +18,135 @@
     <link href="css/edam.css" rel="stylesheet">
     <script src="js/edit.js"></script>
 </head>
+
 <body>
-<div class="container">
-    <div class="page-header row">
-        <div class="col-xs-12">
-            <h1 id="pageTitle">Propose a <span class="change">change</span><span class="new">new term</span> in "<span
-                    class="branch"></span>" of EDAM ontology </h1>
+    <div class="container">
+        <div class="page-header row">
+            <div class="col-xs-12">
+                <h1 id="pageTitle">Propose a <span class="change">change</span><span class="new">new term</span> in "<span class="branch"></span>" of EDAM ontology </h1>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <form method="post">
-                <div class="row">
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 col-md-2 " for="id_label">Label</label>
-                        <div class=" col-xs-12 col-sm-9 col-md-10 ">
-                            <input class=" form-control" id="id_label" maxlength="512" name="label" type="text"
-                                   value="" disabled="disabled">
+        <div class="row">
+            <div class="col-xs-12">
+                <form method="post">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-3 col-md-2 " for="id_label">Label</label>
+                            <div class=" col-xs-12 col-sm-9 col-md-10 ">
+                                <input class=" form-control" id="id_label" maxlength="512" name="label" type="text" value="" disabled="disabled">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br/>
-                <!--<div class="row">-->
+                    <br/>
+                    <!--<div class="row">-->
                     <!--<div class="form-group">-->
-                        <!--<div class=" col-xs-offset-3 col-xs-12 col-sm-9 col-md-10">-->
-                            <!--<div class="checkbox">-->
-                                <!--<label>-->
-                                    <!--<input id="id_deprecated" name="deprecated" type="checkbox" disabled="disabled">-->
-                                    <!--<span>Deprecated</span>-->
-                                <!--</label>-->
-                                <!--<p class="help-block">-->
-                                    <!--Should the term be detached from the tree, and not be used anymore?-->
-                                <!--</p>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                    <!--<div class=" col-xs-offset-3 col-xs-12 col-sm-9 col-md-10">-->
+                    <!--<div class="checkbox">-->
+                    <!--<label>-->
+                    <!--<input id="id_deprecated" name="deprecated" type="checkbox" disabled="disabled">-->
+                    <!--<span>Deprecated</span>-->
+                    <!--</label>-->
+                    <!--<p class="help-block">-->
+                    <!--Should the term be detached from the tree, and not be used anymore?-->
+                    <!--</p>-->
                     <!--</div>-->
-                <!--</div>-->
-                <!--<br/>-->
-                <div class="row">
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 col-md-2 " for="id_definition">Definition</label>
-                        <div class=" col-xs-12 col-sm-9 col-md-10 ">
-                            <textarea class=" form-control" cols="40" id="id_definition" name="definition" rows="2"
-                                      disabled="disabled"></textarea>
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--<br/>-->
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-3 col-md-2 " for="id_definition">Definition</label>
+                            <div class=" col-xs-12 col-sm-9 col-md-10 ">
+                                <textarea class=" form-control" cols="40" id="id_definition" name="definition" rows="2" disabled="disabled"></textarea>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-xs-12 col-sm-3 col-md-2" style="font-weight: 700;">Parent</div>
-                        <div class=" col-xs-12 col-sm-9 col-md-10 " id="parent_container">
-                            <input disabled="disabled" type="text" tabindex="1" class="form-control ui-autocomplete-input search-term" placeholder="Type at least 2 letters" onclick="$(this).select();" autocomplete="off" name="parent-0">
-                            <button type="button" title="add another parent" class="btn btn-default btn-xs pull-right" onclick="addTermField($(this).parent(),'parent')"><span class="glyphicon glyphicon-plus"></span></button>
+                    <br/>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-3 col-md-2" style="font-weight: 700;">Parent</div>
+                            <div class=" col-xs-12 col-sm-9 col-md-10 " id="parent_container">
+                                <input disabled="disabled" type="text" tabindex="1" class="form-control ui-autocomplete-input search-term" placeholder="Type at least 2 letters" onclick="$(this).select();" autocomplete="off" name="parent-0">
+                                <button type="button" title="add another parent" class="btn btn-default btn-xs pull-right" onclick="addTermField($(this).parent(),'parent')"><span class="glyphicon glyphicon-plus"></span></button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 col-md-2 " for="id_exactSynonyms">Exact synonyms</label>
-                        <div class=" col-xs-12 col-sm-9 col-md-10 ">
-                            <textarea class=" form-control" cols="40" id="id_exactSynonyms" name="exactSynonyms"
-                                      rows="2" disabled="disabled"></textarea>
+                    <br/>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-3 col-md-2 " for="id_exactSynonyms">Exact synonyms</label>
+                            <div class=" col-xs-12 col-sm-9 col-md-10 ">
+                                <textarea class=" form-control" cols="40" id="id_exactSynonyms" name="exactSynonyms" rows="2" disabled="disabled"></textarea>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 col-md-2 " for="id_narrowSynonyms">Narrow synonyms</label>
-                        <div class=" col-xs-12 col-sm-9 col-md-10 ">
-                            <textarea class=" form-control" cols="40" id="id_narrowSynonyms" name="narrowSynonyms"
-                                      rows="2" disabled="disabled"></textarea>
+                    <br/>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-3 col-md-2 " for="id_narrowSynonyms">Narrow synonyms</label>
+                            <div class=" col-xs-12 col-sm-9 col-md-10 ">
+                                <textarea class=" form-control" cols="40" id="id_narrowSynonyms" name="narrowSynonyms" rows="2" disabled="disabled"></textarea>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-xs-12 col-sm-3 col-md-2" style="font-weight: 700;">Has Topic</div>
-                        <div class=" col-xs-12 col-sm-9 col-md-10 " id="has_topic_container">
-                            <button type="button" title="add another term" class="btn btn-default btn-xs pull-right" onclick="addTermField($(this).parent(),'has_topic')"><span class="glyphicon glyphicon-plus"></span></button>
+                    <br/>
+                    <div class="row operation_rel data_rel">
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-3 col-md-2" style="font-weight: 700;">Has Topic</div>
+                            <div class=" col-xs-12 col-sm-9 col-md-10 " id="has_topic_container">
+                                <button type="button" title="add another term" class="btn btn-default btn-xs pull-right" onclick="addTermField($(this).parent(),'has_topic')"><span class="glyphicon glyphicon-plus"></span></button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-xs-12 col-sm-3 col-md-2" style="font-weight: 700;">Is Format Of</div>
-                        <div class=" col-xs-12 col-sm-9 col-md-10 " id="is_format_of_container">
-                            <button type="button" title="add another term" class="btn btn-default btn-xs pull-right" onclick="addTermField($(this).parent(),'is_format_of')"><span class="glyphicon glyphicon-plus"></span></button>
+                    <br/>
+                    <div class="row format_rel">
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-3 col-md-2" style="font-weight: 700;">Is Format Of</div>
+                            <div class=" col-xs-12 col-sm-9 col-md-10 " id="is_format_of_container">
+                                <button type="button" title="add another term" class="btn btn-default btn-xs pull-right" onclick="addTermField($(this).parent(),'is_format_of')"><span class="glyphicon glyphicon-plus"></span></button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-xs-12 col-sm-3 col-md-2" style="font-weight: 700;">Has Input</div>
-                        <div class=" col-xs-12 col-sm-9 col-md-10 " id="has_input_container">
-                            <button type="button" title="add another term" class="btn btn-default btn-xs pull-right" onclick="addTermField($(this).parent(),'has_input')"><span class="glyphicon glyphicon-plus"></span></button>
+                    <br/>
+                    <div class="row operation_rel">
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-3 col-md-2" style="font-weight: 700;">Has Input</div>
+                            <div class=" col-xs-12 col-sm-9 col-md-10 " id="has_input_container">
+                                <button type="button" title="add another term" class="btn btn-default btn-xs pull-right" onclick="addTermField($(this).parent(),'has_input')"><span class="glyphicon glyphicon-plus"></span></button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-xs-12 col-sm-3 col-md-2" style="font-weight: 700;">Has Output</div>
-                        <div class=" col-xs-12 col-sm-9 col-md-10 " id="has_output_container">
-                            <button type="button" title="add another term" class="btn btn-default btn-xs pull-right" onclick="addTermField($(this).parent(),'has_output')"><span class="glyphicon glyphicon-plus"></span></button>
+                    <br/>
+                    <div class="row operation_rel">
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-3 col-md-2" style="font-weight: 700;">Has Output</div>
+                            <div class=" col-xs-12 col-sm-9 col-md-10 " id="has_output_container">
+                                <button type="button" title="add another term" class="btn btn-default btn-xs pull-right" onclick="addTermField($(this).parent(),'has_output')"><span class="glyphicon glyphicon-plus"></span></button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 col-md-2 " for="id_github_comments">Issue comments</label>
-                        <div class=" col-xs-12 col-sm-9 col-md-10 ">
-                            <textarea class=" form-control" cols="40" id="id_github_comments" name="github_comments"
-                                      rows="10" disabled="disabled"></textarea>
+                    <br/>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-3 col-md-2 " for="id_github_comments">Issue comments</label>
+                            <div class=" col-xs-12 col-sm-9 col-md-10 ">
+                                <textarea class=" form-control" cols="40" id="id_github_comments" name="github_comments" rows="10" disabled="disabled"></textarea>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br/>
-                <button type="button" disabled="disabled" role="button" class="btn btn-primary pull-right"
-                        onclick="sendToGitHub();">
+                    <br/>
+                    <button type="button" disabled="disabled" role="button" class="btn btn-primary pull-right" onclick="sendToGitHub();">
                     <i class="fa fa-github"></i> Continue to GitHub
                 </button>
-            </form>
-            <form id="sender" method="GET" action="https://github.com/edamontology/edamontology/issues/new">
-                <input type="hidden" name="title"/>
-                <input type="hidden" name="body"/>
-            </form>
+                </form>
+                <form id="sender" method="GET" action="https://github.com/edamontology/edamontology/issues/new">
+                    <input type="hidden" name="title" />
+                    <input type="hidden" name="body" />
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </body>
+
 </html>
