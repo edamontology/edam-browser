@@ -669,7 +669,7 @@ function interactive_edam_browser(){
     };
     return browser;
 }
-function toggleFullscreen( jQuery){
+function toggleFullscreen(){
     if(!document.fullscreenElement){
         document.getElementById("tree-and-controls").requestFullscreen();
         $('#go-fullscreen').hide();
