@@ -10,6 +10,9 @@
 #page-header>*{
     flex:1 0 auto;
 }
+#page-header>*:first-child{
+    flex:0 1 auto;
+}
 #header-desc img {
     margin-right: 1em;
     height: 108px;  
