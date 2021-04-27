@@ -1,6 +1,7 @@
 var browser = interactive_edam_browser();
 
 window.onload = function() {
+    getDarkMode();
     var id;
     var $inputs = $('#id_file,#id_url');
     $inputs.on('input', function () {
