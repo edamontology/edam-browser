@@ -18,11 +18,6 @@
     height: 108px;  
 }
 
-.header-icon p {
-    max-width: 230px;
-    display: inline-block;
-}
-
 @media screen and (min-width: 1200px) { 
     .flex-container {
         display: flex;
