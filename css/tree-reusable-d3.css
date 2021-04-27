@@ -42,7 +42,8 @@ div.tooltip {
 .node text {
     stroke: #FFFA;
     stroke-width: 0.2em;
-    pointer-events: none;
+    cursor: pointer;
+
 }
 
 .node text+text {
