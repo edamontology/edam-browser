@@ -669,3 +669,14 @@ function interactive_edam_browser(){
     };
     return browser;
 }
+function toggleFullscreen(){
+    if(!document.fullscreenElement){
+        document.getElementById("tree-and-controls").requestFullscreen();
+        $('#go-fullscreen').hide();
+        $('#exit-fullscreen').show();
+    }else{
+        document.exitFullscreen();
+        $('#exit-fullscreen').hide();
+        $('#go-fullscreen').show();
+    }
+}
