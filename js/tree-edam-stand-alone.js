@@ -670,15 +670,11 @@ function interactive_edam_browser(){
     return browser;
 }
 function toggleFullscreen( jQuery){
-    var treeResize= document.getElementById("tree-and-controls");
-    if(!document.fullscreenElement)
-    {
-        treeResize.requestFullscreen();
+    if(!document.fullscreenElement){
+        document.getElementById("tree-and-controls").requestFullscreen();
         $('#go-fullscreen').hide();
         $('#exit-fullscreen').show();
-    }
-    else
-    {
+    }else{
         document.exitFullscreen();
         $('#exit-fullscreen').hide();
         $('#go-fullscreen').show();
