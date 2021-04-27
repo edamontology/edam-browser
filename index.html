@@ -48,104 +48,104 @@
 <div class="container-fluid">
     <div class="page-header row">
         <div class="col-xs-12 col-sm-6 col-lg-3 flex-container" id="header-desc">
-	        <img src="https://github.com/edamontology/edamontology/raw/main/EDAMrelations.png" alt="EDAM Logo"/>
-	        <div>
-	            <h1 id="pageTitle">EDAM ontology</h1>
-	            <p class="edam-defn">EDAM is a simple ontology of well established, familiar concepts that are prevalent within bioinformatics.</p>
-		            <div class="header-icon">
-		                <span>
-		                    <i class='fas fa-link'></i>
-		                    <a target="_blank" href="http://edamontology.org/">edamontology.org</a>
-		                </span>&emsp;
-		                <span>
-		                    <i class='fab fa-github'></i>
-		                    <a target="_blank" href="https://github.com/edamontology/edam-browser">edam-browser</a>
-		                </span>&emsp;
-		                <span>
-		                    <i class='fab fa-gitter'></i>
-		                    <a target="_blank" href="https://gitter.im/edamontology/edam-browser#">edam-browser</a>
-		                </span>
-		            </div>   
-	        </div>
-	        <div class="col-xs-12 col-sm-6 col-lg-5">
-	            <h1 class="no-icon text-center">
-	                <!--<div class="btn-group" role="group" style="z-index:1;vertical-align: bottom;">-->
-	                    <!--<a type="button" class="btn btn-default branch data" onclick="browser.current_branch('data')">Data</a>-->
-	                    <!--<a type="button" class="btn btn-default branch format" onclick="browser.current_branch('format')">Format</a>-->
-	                    <!--<a type="button" class="btn btn-default branch operation"-->
-	                       <!--onclick="browser.current_branch('operation')">Operation</a>-->
-	                    <!--<a type="button" class="btn btn-default branch topic" onclick="browser.current_branch('topic')">Topic</a>-->
-	                    <!--<a type="button" class="btn btn-default branch deprecated" onclick="browser.current_branch('deprecated')">Deprecated</a>-->
-	                    <!--<a type="button"-->
-	                       <!--class="btn btn-default branch custom custom_url custom_file"-->
-	                       <!--title="Load a custom ontology"-->
-	                       <!--onclick="browser.cmd.selectCustom()"-->
-	                    <!--&gt;Custom</a>-->
-	                <!--</div>-->
-	            <div class="btn-group" id="edam-branches">
-	                <div class="btn-group">
-	                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-	                        EDAM <span class="caret"></span></button>
-	                    <ul class="dropdown-menu" role="menu">
-	                    <li>
-	                        <a class="branch" onclick="browser.current_branch('edam')">All EDAM</a>
-	                    </li>
-	                    <li role="separator" class="divider"></li>
-	                    <li>
-	                        <a class="branch data bd-edam-data" onclick="browser.current_branch('data')">
-	                            <i class="glyphicon glyphicon-stop fg-edam-data pull-right"></i> Only Data
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a class="branch format bd-edam-format" onclick="browser.current_branch('format')">
-	                            <i class="glyphicon glyphicon-stop fg-edam-format pull-right"></i> Only Format
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a class="branch operation bd-edam-operation" onclick="browser.current_branch('operation')">
-	                            <i class="glyphicon glyphicon-stop fg-edam-operation pull-right"></i> Only Operation
-	                        </a></li>
-	                    <li>
-	                        <a class="branch topic bd-edam-topic" onclick="browser.current_branch('topic')">
-	                            <i class="glyphicon glyphicon-stop fg-edam-topic pull-right"></i> Only Topic
-	                        </a>
-	                    </li>
-	                    <li role="separator" class="divider"></li>
-	                    <li>
-	                        <a class="branch deprecated" onclick="browser.current_branch('deprecated')">
-	                            <i class="glyphicon glyphicon-stop fg-edam-deprecated pull-right"></i> Deprecated
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a class="branch" onclick="browser.current_branch('edam_w_deprecated')">All branches and deprecated terms</a>
-	                    </li>
-	                    </ul>
-	                </div>
-	                <button type="button"
-	                   class="btn btn-default branch custom custom_url custom_file"
-	                   title="Load a custom ontology"
-	                   onclick="browser.cmd.selectCustom()"
-	                >Custom</button>
-	            </div>
-	            </h1>
-	        </div>
-	        <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-6 col-lg-offset-0 col-lg-4" id="search-bar">
-	            <h1 class="no-icon text-center">
-	                <div class="btn-group" role="group" style="width: 100%;z-index:1">
-	                    <input
-	                            type="text"
-	                            tabindex="1"
-	                            class="form-control ui-autocomplete-input search-term"                           
-	                            placeholder="Search for concepts here, enter at least two letters"
-	                            onclick="$(this).select();"
-	                    >
-	                    <span class="input-group-text border-0" id="search-addon" >
-	                        <i class="glyphicon glyphicon-search form-control-feedback text-muted" style="font-size: 15px;"></i>
-	                      </span>
-	                    
-	                </div>
-	            </h1>
-	        </div>
+	                    <img src="https://github.com/edamontology/edamontology/raw/main/EDAMrelations.png" alt="EDAM Logo"/>
+            <div>
+            <h1 id="pageTitle">EDAM ontology</h1>
+            <p class="edam-defn">EDAM is a simple ontology of well established, familiar concepts that are prevalent within bioinformatics.</p>
+            <div class="header-icon">
+                <span>
+                    <i class='fas fa-link'></i>
+                    <a target="_blank" href="http://edamontology.org/">edamontology.org</a>
+                </span>&emsp;
+                <span>
+                    <i class='fab fa-github'></i>
+                    <a target="_blank" href="https://github.com/edamontology/edam-browser">edam-browser</a>
+                </span>&emsp;
+                <span>
+                    <i class='fab fa-gitter'></i>
+                    <a target="_blank" href="https://gitter.im/edamontology/edam-browser#">edam-browser</a>
+                </span>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-5">
+            <h1 class="no-icon text-center">
+                <!--<div class="btn-group" role="group" style="z-index:1;vertical-align: bottom;">-->
+                    <!--<a type="button" class="btn btn-default branch data" onclick="browser.current_branch('data')">Data</a>-->
+                    <!--<a type="button" class="btn btn-default branch format" onclick="browser.current_branch('format')">Format</a>-->
+                    <!--<a type="button" class="btn btn-default branch operation"-->
+                       <!--onclick="browser.current_branch('operation')">Operation</a>-->
+                    <!--<a type="button" class="btn btn-default branch topic" onclick="browser.current_branch('topic')">Topic</a>-->
+                    <!--<a type="button" class="btn btn-default branch deprecated" onclick="browser.current_branch('deprecated')">Deprecated</a>-->
+                    <!--<a type="button"-->
+                       <!--class="btn btn-default branch custom custom_url custom_file"-->
+                       <!--title="Load a custom ontology"-->
+                       <!--onclick="browser.cmd.selectCustom()"-->
+                    <!--&gt;Custom</a>-->
+                <!--</div>-->
+            <div class="btn-group" id="edam-branches">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        EDAM <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a class="branch" onclick="browser.current_branch('edam')">All EDAM</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <a class="branch data bd-edam-data" onclick="browser.current_branch('data')">
+                            <i class="glyphicon glyphicon-stop fg-edam-data pull-right"></i> Only Data
+                        </a>
+                    </li>
+                    <li>
+                        <a class="branch format bd-edam-format" onclick="browser.current_branch('format')">
+                            <i class="glyphicon glyphicon-stop fg-edam-format pull-right"></i> Only Format
+                        </a>
+                    </li>
+                    <li>
+                        <a class="branch operation bd-edam-operation" onclick="browser.current_branch('operation')">
+                            <i class="glyphicon glyphicon-stop fg-edam-operation pull-right"></i> Only Operation
+                        </a></li>
+                    <li>
+                        <a class="branch topic bd-edam-topic" onclick="browser.current_branch('topic')">
+                            <i class="glyphicon glyphicon-stop fg-edam-topic pull-right"></i> Only Topic
+                        </a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <a class="branch deprecated" onclick="browser.current_branch('deprecated')">
+                            <i class="glyphicon glyphicon-stop fg-edam-deprecated pull-right"></i> Deprecated
+                        </a>
+                    </li>
+                    <li>
+                        <a class="branch" onclick="browser.current_branch('edam_w_deprecated')">All branches and deprecated terms</a>
+                    </li>
+                    </ul>
+                </div>
+                <button type="button"
+                   class="btn btn-default branch custom custom_url custom_file"
+                   title="Load a custom ontology"
+                   onclick="browser.cmd.selectCustom()"
+                >Custom</button>
+            </div>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-6 col-lg-offset-0 col-lg-4">
+            <h1 class="no-icon text-center">
+                <div class="btn-group" role="group" style="width: 100%;z-index:1">
+                    <input
+                            type="text"
+                            tabindex="1"
+                            class="form-control ui-autocomplete-input search-term"                           
+                            placeholder="Search for concepts here, enter at least two letters"
+                            onclick="$(this).select();"
+                    >
+                    <span class="input-group-text border-0" id="search-addon" >
+                        <i class="glyphicon glyphicon-search form-control-feedback text-muted" style="font-size: 15px;"></i>
+                      </span>
+
+                </div>
+            </h1>
+        </div>
         </div>
     </div>
     <div class="content row" id="main">
