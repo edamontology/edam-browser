@@ -14,6 +14,9 @@
 #page-header>*:first-child{
     flex:0 1 auto;
 }
+#page-header>*:last-child{
+    min-width:30em;
+}
 #header-desc img {
     margin-right: 1em;
     height: 108px;  
