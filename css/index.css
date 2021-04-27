@@ -6,6 +6,7 @@
 #page-header{
     margin-top:0;
     margin-bottom:1em;
+    flex-wrap: wrap!important;
 }
 #page-header>*{
     flex:1 0 auto;
