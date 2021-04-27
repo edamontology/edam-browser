@@ -412,11 +412,13 @@ function interactive_tree() {
             if (sortChildren) {
                 element.children.sort(
                     function (a,b) {
-                        a=textAccessor(a);
-                        b=textAccessor(b);
-                        if (a < b)
+                        a=textAccessor(a).toString();
+                        a=a.toUpperCase();
+                        b=textAccessor(b).toString();
+                        b=b.toUpperCase();
+                        if (parseInt(a) < parseInt(b))
                             return -1;
-                        if (a > b)
+                        if (parseInt(a) > parseInt(b))
                             return 1;
                         return 0;
                     }
