@@ -141,13 +141,14 @@
                 <div id="tree" class="d3js-tree-container"></div>
 
                 <div id="tree-controls">
+                    <div class="tree-controls-group">
                     <div>
-                    <button type="button" class="btn btn-default"
+                    <button type="button" class="btn btn-default no-on-controls-hover"
                     onclick="browser.interactive_tree().cmd().manualZoomInAndOut('in')"><i class="fas fa-plus"></i>
                     </button>
                     </div>
                     <div>
-                    <button type="button" class="btn btn-default"
+                    <button type="button" class="btn btn-default no-on-controls-hover"
                     onclick="browser.interactive_tree().cmd().manualZoomInAndOut('out')"><i class="fas fa-minus"></i>
                     </button>
                     </div>
@@ -156,6 +157,8 @@
                     onclick="browser.interactive_tree().cmd().resetPanAndZoom()"><i class="fas fa-home"></i><span class="on-controls-hover">Reset zoom</span>
                     </button>
                     </div>
+                    </div>
+                    <div class="tree-controls-group">
                     <div>
                     <button type="button" class="btn btn-default"
                     onclick="browser.interactive_tree().cmd().collapseNotSelectedElement()"><i class="fas fa-compress-arrows-alt"></i><span class="on-controls-hover">Collapse not selected elements</span>
@@ -165,6 +168,7 @@
                     <button type="button" class="btn btn-default"
                     onclick="browser.interactive_tree().cmd().expandAllDescendantElement()"><i class="fas fa-expand-arrows-alt"></i><span class="on-controls-hover">Expand all tree</span>
                     </button>
+                    </div>
                     </div>
                     <div id="go-fullscreen">
                     <button type="button" class="btn btn-default" 
