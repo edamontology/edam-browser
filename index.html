@@ -46,25 +46,33 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="page-header row">
-        <div class="col-xs-12 col-sm-6 col-lg-3">
+    <div class="d-flex" id="page-header">
+        <div class="d-flex" id="header-desc">
+            <img src="https://github.com/edamontology/edamontology/raw/main/EDAM-logo-square.svg" alt="EDAM Logo" onerror='this.style.display = "none"'/>
+            <div class="d-flex flex-column">
             <h1 id="pageTitle">EDAM ontology</h1>
+            <p class="edam-defn">EDAM is a simple ontology of well established, familiar concepts that are prevalent within bioinformatics.</p>
+            <div class="header-icon">
+                <span>
+                    <i class='fas fa-link'></i>
+                    <a target="_blank" href="http://edamontology.org/">edamontology.org</a>
+                </span>&emsp;
+                <span>
+                    <i class='fab fa-github'></i>
+                    <a target="_blank" href="https://github.com/edamontology/edam-browser">edam-browser</a>
+                </span>&emsp;
+                <span>
+                    <i class='fab fa-gitter'></i>
+                    <a target="_blank" href="https://gitter.im/edamontology/edam-browser#">edam-browser</a>
+                </span>&emsp;
+                <span>
+                    <i class="fab fa-twitter"></i>
+                    <a target="_blank" href="https://twitter.com/edamontology">edamontology</a>
+                </span>
+            </div>
+            </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-lg-5">
-            <h1 class="no-icon text-center">
-                <!--<div class="btn-group" role="group" style="z-index:1;vertical-align: bottom;">-->
-                    <!--<a type="button" class="btn btn-default branch data" onclick="browser.current_branch('data')">Data</a>-->
-                    <!--<a type="button" class="btn btn-default branch format" onclick="browser.current_branch('format')">Format</a>-->
-                    <!--<a type="button" class="btn btn-default branch operation"-->
-                       <!--onclick="browser.current_branch('operation')">Operation</a>-->
-                    <!--<a type="button" class="btn btn-default branch topic" onclick="browser.current_branch('topic')">Topic</a>-->
-                    <!--<a type="button" class="btn btn-default branch deprecated" onclick="browser.current_branch('deprecated')">Deprecated</a>-->
-                    <!--<a type="button"-->
-                       <!--class="btn btn-default branch custom custom_url custom_file"-->
-                       <!--title="Load a custom ontology"-->
-                       <!--onclick="browser.cmd.selectCustom()"-->
-                    <!--&gt;Custom</a>-->
-                <!--</div>-->
+        <div>
             <div class="btn-group" id="edam-branches">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -110,10 +118,8 @@
                    onclick="browser.cmd.selectCustom()"
                 >Custom</button>
             </div>
-            </h1>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-6 col-lg-offset-0 col-lg-4">
-            <h1 class="no-icon text-center">
+        <div>
                 <div class="btn-group" role="group" style="width: 100%;z-index:1">
                     <input
                             type="text"
@@ -125,13 +131,7 @@
                     <span class="input-group-text border-0" id="search-addon" >
                         <i class="glyphicon glyphicon-search form-control-feedback text-muted" style="font-size: 15px;"></i>
                       </span>
-                    
                 </div>
-            </h1>
-        </div>
-        <div class="col-xs-12">
-            <h4>EDAM is a simple ontology of well established, familiar concepts that are prevalent within
-                bioinformatics [<a target="_blank" href="http://edamontology.org/">edamontology.org</a>]</h4>
         </div>
     </div>
     <div class="content row" id="main">
