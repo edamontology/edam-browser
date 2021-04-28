@@ -4,10 +4,11 @@
   "author": "Bryan Brancotte",
   "version": "1.0.0",
   "scripts": {
-    "start": "sh start_edam_stand_alone_browser.sh",
+    "dev": "live-server",
     "test": "jshint js/*js"
   },
   "devDependencies": {
+    "live-server": "^1.2.1",
     "jshint": "^2.9.5"
   }
 }
