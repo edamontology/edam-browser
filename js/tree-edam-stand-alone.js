@@ -248,9 +248,9 @@ function interactive_edam_browser(){
             fields.push("see_also");
         fields.forEach(function(entry) {
             if("uri"==entry)
-                append_row(table,"URI",uri,false,"Permanent concept identifier");
+                append_row_all_opt(table,"URI",uri,false,"Permanent concept identifier");
             else if("text"==entry)
-                append_row(table,"Term",d.data[entry],false,"Preferred name for the concept");
+                append_row_all_opt(table,"Term",d.data[entry],false,"Preferred name for the concept");
             else if("parents"==entry){
                 if (typeof d.duplicate == "undefined"){
                     append_row(table,entry,browser.identifierAccessor(d.parent),"Link(s) to the parent concept(s) which represent broader concepts");
@@ -437,10 +437,11 @@ function interactive_edam_browser(){
         return value.substring(value.lastIndexOf('/')+1,value.lastIndexOf('_'));
     }
 
-    function append_row(table, name, value, translate_uri_to_text,tootip){
-        if (arguments.length === 4){
-            tootip = arguments[3];  
-          }
+    function append_row(table, name, value, tootip){
+        append_row_all_opt(table, name, value, undefined, tootip);
+    }
+
+    function append_row_all_opt(table, name, value, translate_uri_to_text, tootip){
         var id=(name
             .replace(/[^a-zA-Z]/g,'-')
             .toLowerCase()+"-val")
@@ -470,7 +471,11 @@ function interactive_edam_browser(){
                 value=interactive_edam_uri(value[0], translate_uri_to_text);
             }
         }
-        $("<tr><th><span data-toggle=\"tooltip\" data-placement='top' title=\""+tootip+"\">"+name+"</span></th><td class=\""+id+"\">"+interactive_edam_uri(value, translate_uri_to_text)+"</td></tr>").appendTo(table);
+        var html_tootip='';
+        if (tootip !== undefined) {
+            html_tootip=" data-toggle=\"tooltip\" data-placement='top' title=\""+tootip+"\"";
+        }
+        $("<tr><th><span"+html_tootip+">"+name+"</span></th><td class=\""+id+"\">"+interactive_edam_uri(value, translate_uri_to_text)+"</td></tr>").appendTo(table);
         return id;
     }
 
