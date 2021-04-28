@@ -72,8 +72,7 @@
 }
 
 .dark-mode #page-header {
-  background-color: #080808;
-  border-bottom: none !important;
+  border-bottom-color: #252525;
 }
 
 .dark-mode .panel-heading {
