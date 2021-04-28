@@ -49,6 +49,11 @@ input[type="search"] {
 input[type="search"]:focus {
   width: 60vw;
 }
+@media screen and (min-width: 1200px) {
+   input[type="search"]:focus {
+     width: 50vw;
+   }
+}
 .meta-info>*{
     font-size:0;
     color:white;
