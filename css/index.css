@@ -38,7 +38,17 @@
 .flex-column{
     flex-direction: column;
 }
-
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: searchfield-cancel-button;
+}
+input[type="search"] {
+  width: 6.5em;
+  -webkit-transition: width 0.1s ease-in-out;
+  transition: width 0.1s ease-in-out;
+}
+input[type="search"]:focus {
+  width: 60vw;
+}
 .meta-info>*{
     font-size:0;
     color:white;
