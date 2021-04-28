@@ -138,13 +138,21 @@ a:before {
     text-align: end;
     margin-bottom: 1em;
 }
-#tree-controls>*>*{
+#tree-controls button{
     border-width: 0;
     color: white;
     background: #000000c3;
     min-width:3em;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
+}
+#tree-controls .tree-controls-group>*:not(:first-child) button.no-on-controls-hover,
+#tree-controls .tree-controls-group>*:not(:first-child) button:not(:hover){
+    border-top-left-radius: 0;
+}
+#tree-controls .tree-controls-group>*:not(:last-child)  button.no-on-controls-hover,
+#tree-controls .tree-controls-group>*:not(:last-child)  button:not(:hover){
+    border-bottom-left-radius: 0;
 }
 #tree-controls .on-controls-hover{
     display:none;
