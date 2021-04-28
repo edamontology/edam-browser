@@ -468,8 +468,7 @@ function interactive_edam_browser(){
                 value=interactive_edam_uri(value[0], translate_uri_to_text);
             }
         }
-        $("<tr><th><a href='#' data-toggle=\"tooltip\" data-placement='top' title=\""+tootip+"\">"+name+"</a></th><td class=\""+id+"\">"+interactive_edam_uri(value, translate_uri_to_text)+"</td></tr>").appendTo(table);
-        $('[data-toggle="tooltip"]').tooltip("show"); 
+        $("<tr><th><span data-toggle=\"tooltip\" data-placement='top' title=\""+tootip+"\">"+name+"</span></th><td class=\""+id+"\">"+interactive_edam_uri(value, translate_uri_to_text)+"</td></tr>").appendTo(table);
         return id;
     }
 
