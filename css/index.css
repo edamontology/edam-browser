@@ -7,9 +7,13 @@
     margin-top:0;
     margin-bottom:1em;
     flex-wrap: wrap!important;
+    border-bottom: 1px solid #eee;
 }
 #page-header>*{
     flex:1 0 auto;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 #page-header>*:first-child{
     flex:0 1 auto;
@@ -150,3 +154,4 @@ body {
 .branch {
     cursor: pointer;
 }
+
