@@ -1,9 +1,3 @@
-//enabling bootstrap tooltip
-// $().ready(function() { 
-//     $('[data-toggle="tooltip"]').tooltip();    
-// });
-
-
 function getInitURI(branch){
     if (branch == "deprecated")
         return getCookie("edam_browser_"+branch,"owl:DeprecatedClass");
@@ -380,6 +374,7 @@ function interactive_edam_browser(){
         }else{
             community.parent().remove();
         }
+        details.find('[data-toggle="tooltip"]').tooltip();
         $("#edamAccordion").find(".panel-group").first().find(".collapse").collapse("hide");
         var length=$("#edamAccordion").find(".panel-group").length;
         if(length>0){
