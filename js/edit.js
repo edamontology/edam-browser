@@ -93,7 +93,6 @@ uri = "";
 parent_uri=null;
 
 window.onload = function() {
-    getDarkMode();
     uri=getUrlParameter('term');
     var branch=getUrlParameter('branch');
     if(uri){
@@ -111,6 +110,7 @@ window.onload = function() {
         fill_form(uri, getUrlParameter('parent'), branch);
     });
     browser.current_branch( getUrlParameter('branch'));
+    getDarkMode();
 };
 
 function sendToGitHub(){
