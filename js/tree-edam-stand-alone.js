@@ -444,8 +444,7 @@ function interactive_edam_browser(){
 
     function append_row(table, name, value, translate_uri_to_text,tootip){
         if (arguments.length === 4){
-            tootip = arguments[3];
-           
+            tootip = arguments[3];  
           }
         var id=(name
             .replace(/[^a-zA-Z]/g,'-')
@@ -475,6 +474,7 @@ function interactive_edam_browser(){
             }
         }
         $("<tr><th><a href='#' data-toggle=\"tooltip\" data-placement='top' title=\""+tootip+"\">"+name+"</a></th><td class=\""+id+"\">"+interactive_edam_uri(value, translate_uri_to_text)+"</td></tr>").appendTo(table);
+        $('[data-toggle="tooltip"]').tooltip("show"); 
         return id;
     }
 
