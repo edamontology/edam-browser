@@ -4,7 +4,7 @@
     padding-top: 10px;
 }
 #page-header{
-    margin-top:0;
+    margin-top:15px;
     margin-bottom:9px;
     flex-wrap: wrap!important;
     border-bottom: 1px solid #eee;
@@ -25,6 +25,9 @@
 #header-desc img {
     margin-right: 1em;
     height: 108px;  
+}
+#pageTitle{
+    margin-top:0;
 }
 .header-icon>* {
     margin-right:1em;
