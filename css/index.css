@@ -84,6 +84,9 @@ input:disabled+.text-for-disabled-input{
     margin-bottom:0px;
     line-height:2;
 }
+#edamAccordion tbody.details th *[data-toggle="tooltip"]{
+    cursor:default;
+}
 #tree {
     height:100%;
 }
