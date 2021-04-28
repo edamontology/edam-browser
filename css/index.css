@@ -1,4 +1,3 @@
-
 .panel-separator{
     border-top: 1px solid #eee;
     margin-bottom: 15px;
@@ -51,6 +50,9 @@ input:disabled+.text-for-disabled-input{
 #edamAccordion ul{
     margin-bottom:0px;
     line-height:2;
+}
+#edamAccordion tbody.details th *[data-toggle="tooltip"]{
+    cursor:default;
 }
 #tree {
     height:70vh;
