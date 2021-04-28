@@ -124,13 +124,15 @@ function interactive_tree() {
             };
 
             update = function (source) {
-                minX=null;
-                minY=null;
-                maxX=null;
-                maxY=null;
+                //getting the box surronding the svg element ()
+                var svgBox=vis.node().getBBox();
+                minX=svgBox.x;
+                minY=svgBox.y;
+                maxX=svgBox.width+svgBox.x;
+                maxY=svgBox.height+svgBox.y;
                 updateWithoutPanAndZoomTuning(source);
                 var xShift=(maxX-minX)/2;
-                zoom.translateExtent([[minX-xShift,minY-xShift], [maxX+xShift/2,maxY+xShift]]);
+                zoom.translateExtent([[minX-xShift,minY-xShift], [maxX+xShift,maxY+xShift]]);
             };
 
             updateWithoutPanAndZoomTuning = function (source) {
@@ -579,7 +581,7 @@ function interactive_tree() {
         return cmd;
     }
     /**
-     * Ask to expand to element identified by identifier
+     * Ask to collapse to element identified by identifier
      * @param {string} identifier - the element identifier that is returned by identifierAccessor
      * @return cmd() itself
      */
@@ -589,7 +591,7 @@ function interactive_tree() {
         return cmd;
     };
     /**
-     * Ask to collapse an element
+     * Ask to expand an element
      * @param {string} identifier - the element identifier that is returned by identifierAccessor
      * @return cmd() itself
      */

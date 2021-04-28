@@ -82,11 +82,11 @@ input:disabled+.text-for-disabled-input{
     line-height:2;
 }
 #tree {
-    height:70vh;
+    height:100%;
 }
 
 #edamAccordion table .details td a{
-    word-break: break-all;
+    word-break: break-word;
     white-space: normal;
 }
 
@@ -121,6 +121,7 @@ a:before {
 #tree-and-controls
 {
     position:relative;
+    height: 70vh !important;
 }
 
 #tree-controls{
@@ -155,4 +156,7 @@ body {
 .branch {
     cursor: pointer;
 }
-
+.temp:last-child {
+    opacity: 0;
+}
+/*end of file*/

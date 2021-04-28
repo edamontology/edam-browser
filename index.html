@@ -162,7 +162,16 @@
                     onclick="browser.interactive_tree().cmd().expandAllDescendantElement()"><i class="fas fa-expand-arrows-alt"></i><span class="on-controls-hover">Expand all tree</span>
                     </button>
                     </div>
-
+                    <div id="go-fullscreen">
+                    <button type="button" class="btn btn-default" 
+                    onclick="toggleFullscreen();" ><i class="fas fa-expand" aria-hidden="true"></i><span class="on-controls-hover" >Open Full Screen</span>
+                    </button>
+                    </div>
+                    <div id="exit-fullscreen" style="display: none;">
+                    <button type="button" class="btn btn-default" 
+                    onclick="toggleFullscreen();" ><i class="fas fa-compress" aria-hidden="true"></i><span class="on-controls-hover" >Exit Full Screen</span>
+                    </button>
+                    </div>
                 </div>
             </div>
             <button class="btn-toggle" title="Change theme mode">
@@ -184,7 +193,7 @@
             </div>
         </div>
         <div class="col-xs-12 col-lg-4" id="edamAccordion">
-            <div id="history-separator" class="panel-separator">
+            <div id="history-separator" class="panel-separator temp">
                 Previously seen:
             </div>
         </div>
@@ -219,6 +228,7 @@
                         <label for="id_url">Ontology URL</label>
                         <input type="text" class="form-control" id="id_url" required name="url">
                         <small class="form-text text-muted text-for-disabled-input">Erase the hereafter <em>File</em> field to be able to provide here an URL.</small>
+                        <small class="form-text text-muted">You can try with https://raw.githubusercontent.com/edamontology/edam-browser/main/media/regular.example.json , <code>d.id</code> as identifier and <code>d.text</code> as text.</small>
                     </div>
                     <div class="form-group">
                         <label for="id_file">Ontology File</label>

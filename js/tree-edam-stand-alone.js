@@ -172,7 +172,7 @@ function interactive_edam_browser(){
     function to_generic_href(c,url,data, get_length, get_name, has_next){
         var data_content="";
         if(c>0){
-            data_content = "title=\"Some associated elements\" data-toggle=\"popover\" data-trigger=\"hover\" data-html=\"true\" data-content=\"<table class='table table-condensed'>";
+            data_content = "title=\"Some associated elements\" data-toggle=\"popover\" data-placement=\"auto right\" data-trigger=\"hover\" data-html=\"true\" data-content=\"<table class='table table-condensed'>";
             var i=0;
             for(;i<get_length(data)&&i<10;i++){
                 data_content+="<tr><td>"+get_name(data,i)+"</td></tr>";
@@ -341,7 +341,7 @@ function interactive_edam_browser(){
             "Open in "+
             "<a target=\"_blank\" href=\"http://aber-owl.net/ontology/EDAM/#/Browse/%3Chttp%3A%2F%2Fedamontology.org%2F"+identifier+"%3E\">AberOWL</a>"+
             ", "+
-            "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">BioPortal</a>"+
+            "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid="+uri+"\">BioPortal</a>"+
             ", "+
             "<a target=\"_blank\" href=\"https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">OLS</a>"+
             " or "+
@@ -668,4 +668,15 @@ function interactive_edam_browser(){
         return __my_interactive_tree.textAccessor()(value);
     };
     return browser;
+}
+function toggleFullscreen(){
+    if(!document.fullscreenElement){
+        document.getElementById("tree-and-controls").requestFullscreen();
+        $('#go-fullscreen').hide();
+        $('#exit-fullscreen').show();
+    }else{
+        document.exitFullscreen();
+        $('#exit-fullscreen').hide();
+        $('#go-fullscreen').show();
+    }
 }
