@@ -146,12 +146,12 @@ a:before {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
 }
-#tree-controls .tree-controls-group>*:visible:not(:first-child) button.no-on-controls-hover,
-#tree-controls .tree-controls-group>*:visible:not(:first-child) button:not(:hover){
+#tree-controls .tree-controls-group>*:not(:first-child) button.no-on-controls-hover,
+#tree-controls .tree-controls-group>*:not(:first-child) button:not(:hover){
     border-top-left-radius: 0;
 }
-#tree-controls .tree-controls-group>*:visible:not(:last-child)  button.no-on-controls-hover,
-#tree-controls .tree-controls-group>*:visible:not(:last-child)  button:not(:hover){
+#tree-controls .tree-controls-group>*:not(:last-child)  button.no-on-controls-hover,
+#tree-controls .tree-controls-group>*:not(:last-child)  button:not(:hover){
     border-bottom-left-radius: 0;
 }
 #tree-controls .on-controls-hover{
