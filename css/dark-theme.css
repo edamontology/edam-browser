@@ -1,0 +1,215 @@
+/*dark theme styling for propose change page starts here*/
+.dark-mode textarea {
+  background-color: #202020;
+  color: #B8B8B8;
+  border-color: #181818;
+}
+
+.dark-mode span.branch {
+  background-color: #101010;
+  color: #B8B8B8;
+  border: none;
+}
+
+.dark-mode span.branch:hover {
+  background-color: #101010;
+  color: #B8B8B8;
+  border: none;
+}
+
+.dark-mode .container .row {
+  background-color: #101010!important;
+}
+/*dark theme styling for propose change page ends here*/
+
+
+/*styling for dark theme for main page starts here*/
+.dark-mode {
+  background-color: #101010;
+  color: #B8B8B8;
+}
+
+/*for edam main box*/
+.dark-mode .d3js-tree-container {
+  background-color: #151515;
+  fill: #8b949e;
+}
+
+.dark-mode .panel {
+  border-color: #252525;
+}
+
+.dark-mode .panel-separator {
+  border-color: #252525;
+}
+
+.dark-mode .node text {
+  stroke: none;   
+}
+
+.dark-mode .node text+text {
+  stroke: none;  
+  stroke-width: 0px;    
+}
+
+/* for term details table*/
+.dark-mode .panel-collapse {
+  background-color: #151515;
+  color: #B8B8B8;
+}
+
+/* toggle dark mode button*/
+.dark-mode button {
+  background-color: #303030;
+  color: #B8B8B8;
+  border-color: #505050;
+}
+
+.dark-mode button:hover {
+  background-color: #202020;
+  color: #B8B8B8;
+  border-color: #050505;
+}
+
+.dark-mode #page-header {
+  border-bottom-color: #252525;
+}
+
+.dark-mode .panel-heading {
+  background-color: #111111;
+  color: #B8B8B8;
+}
+
+.dark-mode .panel-body tr {
+  border: solid #181818;
+}
+
+.dark-mode .btn {
+  background-color: #303030;
+  color: #B8B8B8;
+  border-color: #050505;
+}
+
+.dark-mode .modal-content {
+  background-color: #303030;
+  overflow: hidden;
+}
+
+.dark-mode input {
+  background-color: #202020;
+  color: #B8B8B8;
+  border-color: #181818;
+}
+
+.dark-mode .modal-body {
+  border-bottom-color: #252525;
+  border-top-color: #252525!important;
+}
+
+.dark-mode .modal-header {
+  border-bottom-color: #252525;
+}
+
+.dark-mode .modal-footer {
+  border-top-color: #252525;
+}
+
+.dark-mode .form-control[disabled] {
+  background-color: #282828;
+
+}
+
+.dark-mode small {
+  color: #BEBEBE;
+}
+
+.dark-mode .dropdown-toggle {
+  background-color: #353535!important;
+  color: #B8B8B8!important;
+  border-color: #181818!important;
+}
+
+.dark-mode .dropdown-toggle:hover {
+  background-color: #202020!important;
+  color: #B8B8B8!important;
+  border-color: #181818!important;
+}
+
+.dark-mode ul {
+  background-color: #303030;
+  color: #B8B8B8;
+  border-color: #181818;
+}
+
+.dark-mode li {
+  background-color: #151515;
+  color: #B8B8B8;
+  border-color: #181818;
+}
+
+.dark-mode .divider {
+  background-color: #252525;
+}
+
+.dark-mode .branch {
+  background-color: #303030;
+  color: #B8B8B8;
+  border-color: #252525;
+}
+
+.dark-mode .branch:hover {
+  background-color: #404040;
+  color: #B8B8B8;
+  border-color: #252525;
+}
+
+.dark-mode dl:hover {
+  background-color: #303030;
+  color: #B8B8B8;
+  border-color: #252525;
+}
+
+.dark-mode .autocomplete-entry {
+  background-color: #404040!important;
+  color: #B8B8B8!important;
+  border-color: #202020;
+}
+
+.dark-mode .ui-widget-content div:hover {
+  background: #909090;
+  color: black;
+  border-color: #202020;
+}
+
+.dark-mode #ui-id-2 {
+  background-color: #303030;
+  border-color: #000000;
+}
+
+.dark-mode ul li a {
+  background-color: #353535;
+  color: #B8B8B8;
+  border-color: #181818;
+}
+
+.dark-mode ul li a:hover {
+  background-color: #202020;
+  color: #B8B8B8;
+  border-color: #050505;
+}
+
+.dark-mode .popover {
+  background-color: #303030;
+  color: black;
+}
+
+.dark-mode .popover td {
+  background-color: #404040;
+  color: white;
+  border-color: #282828;
+}
+
+.dark-mode .popover tr {
+  border-width: 1px;
+}
+/*styling for dark theme for main page ends here*/

@@ -23,9 +23,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"
             integrity="sha256-hYXbQJK4qdJiAeDVjjQ9G0D6A0xLnDQ4eJI9dkm7Fpk=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/levenshtein/1.0.5/levenshtein.min.js"></script>
@@ -43,28 +42,37 @@
     <link href="css/autocomplete-edam-reusable.css" rel="stylesheet">
     <link href="css/index.css" rel="stylesheet">
     <link href="css/edam.css" rel="stylesheet">
+    <link href="css/dark-theme.css" rel="stylesheet">	
 </head>
 <body>
 <div class="container-fluid">
-    <div class="page-header row">
-        <div class="col-xs-12 col-sm-6 col-lg-3">
+    <div class="d-flex" id="page-header">
+        <div class="d-flex" id="header-desc">
+            <img src="https://github.com/edamontology/edamontology/raw/main/EDAM-logo-square.svg" alt="EDAM Logo" onerror='this.style.display = "none"'/>
+            <div class="d-flex flex-column">
             <h1 id="pageTitle">EDAM ontology</h1>
+            <p class="edam-defn">EDAM is a simple ontology of well established, familiar concepts that are prevalent within bioinformatics.</p>
+            <div class="header-icon">
+                <span>
+                    <i class='fas fa-link'></i>
+                    <a target="_blank" href="http://edamontology.org/">edamontology.org</a>
+                </span>&emsp;
+                <span>
+                    <i class='fab fa-github'></i>
+                    <a target="_blank" href="https://github.com/edamontology/edam-browser">edam-browser</a>
+                </span>&emsp;
+                <span>
+                    <i class='fab fa-gitter'></i>
+                    <a target="_blank" href="https://gitter.im/edamontology/edam-browser#">edam-browser</a>
+                </span>&emsp;
+                <span>
+                    <i class="fab fa-twitter"></i>
+                    <a target="_blank" href="https://twitter.com/edamontology">edamontology</a>
+                </span>
+            </div>
+            </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-lg-5">
-            <h1 class="no-icon text-center">
-                <!--<div class="btn-group" role="group" style="z-index:1;vertical-align: bottom;">-->
-                    <!--<a type="button" class="btn btn-default branch data" onclick="browser.current_branch('data')">Data</a>-->
-                    <!--<a type="button" class="btn btn-default branch format" onclick="browser.current_branch('format')">Format</a>-->
-                    <!--<a type="button" class="btn btn-default branch operation"-->
-                       <!--onclick="browser.current_branch('operation')">Operation</a>-->
-                    <!--<a type="button" class="btn btn-default branch topic" onclick="browser.current_branch('topic')">Topic</a>-->
-                    <!--<a type="button" class="btn btn-default branch deprecated" onclick="browser.current_branch('deprecated')">Deprecated</a>-->
-                    <!--<a type="button"-->
-                       <!--class="btn btn-default branch custom custom_url custom_file"-->
-                       <!--title="Load a custom ontology"-->
-                       <!--onclick="browser.cmd.selectCustom()"-->
-                    <!--&gt;Custom</a>-->
-                <!--</div>-->
+        <div>
             <div class="btn-group" id="edam-branches">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -110,49 +118,75 @@
                    onclick="browser.cmd.selectCustom()"
                 >Custom</button>
             </div>
-            </h1>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-6 col-lg-offset-0 col-lg-4">
-            <h1 class="no-icon text-center">
+        <div>
                 <div class="btn-group" role="group" style="width: 100%;z-index:1">
-                    <span class="fa fa-search form-control-feedback"></span>
                     <input
                             type="text"
                             tabindex="1"
-                            class="form-control ui-autocomplete-input search-term"
-                            placeholder="Search for concepts, type at least two characters here."
+                            class="form-control ui-autocomplete-input search-term"                           
+                            placeholder="Search for concepts here, enter at least two letters"
                             onclick="$(this).select();"
                     >
+                    <span class="input-group-text border-0" id="search-addon" >
+                        <i class="glyphicon glyphicon-search form-control-feedback text-muted" style="font-size: 15px;"></i>
+                      </span>
                 </div>
-            </h1>
-        </div>
-        <div class="col-xs-12">
-            <h4>EDAM is a simple ontology of well established, familiar concepts that are prevalent within
-                bioinformatics [<a target="_blank" href="http://edamontology.org/">edamontology.org</a>]</h4>
         </div>
     </div>
     <div class="content row" id="main">
         <div class="col-xs-12 col-lg-8">
-            <div class="panel panel-default">
+            <div class="panel panel-default" id="tree-and-controls">
+    
                 <div id="tree" class="d3js-tree-container"></div>
+
+                <div id="tree-controls">
+                    <div class="tree-controls-group">
+                    <div>
+                    <button type="button" class="btn btn-default no-on-controls-hover"
+                    onclick="browser.interactive_tree().cmd().manualZoomInAndOut('in')"><i class="fas fa-plus"></i>
+                    </button>
+                    </div>
+                    <div>
+                    <button type="button" class="btn btn-default no-on-controls-hover"
+                    onclick="browser.interactive_tree().cmd().manualZoomInAndOut('out')"><i class="fas fa-minus"></i>
+                    </button>
+                    </div>
+                    <div>
+                    <button type="button" class="btn btn-default"
+                    onclick="browser.interactive_tree().cmd().resetPanAndZoom()"><i class="fas fa-home"></i><span class="on-controls-hover">Reset zoom</span>
+                    </button>
+                    </div>
+                    </div>
+                    <div class="tree-controls-group">
+                    <div>
+                    <button type="button" class="btn btn-default"
+                    onclick="browser.interactive_tree().cmd().collapseNotSelectedElement()"><i class="fas fa-compress-arrows-alt"></i><span class="on-controls-hover">Collapse not selected elements</span>
+                    </button>
+                    </div>
+                    <div>
+                    <button type="button" class="btn btn-default"
+                    onclick="browser.interactive_tree().cmd().expandAllDescendantElement()"><i class="fas fa-expand-arrows-alt"></i><span class="on-controls-hover">Expand all tree</span>
+                    </button>
+                    </div>
+                    </div>
+                    <div id="go-fullscreen">
+                    <button type="button" class="btn btn-default" 
+                    onclick="toggleFullscreen();" ><i class="fas fa-expand" aria-hidden="true"></i><span class="on-controls-hover" >Open Full Screen</span>
+                    </button>
+                    </div>
+                    <div id="exit-fullscreen" style="display: none;">
+                    <button type="button" class="btn btn-default" 
+                    onclick="toggleFullscreen();" ><i class="fas fa-compress" aria-hidden="true"></i><span class="on-controls-hover" >Exit Full Screen</span>
+                    </button>
+                    </div>
+                </div>
             </div>
-            <button type="button" class="btn btn-default"
-                    onclick="browser.interactive_tree().cmd().collapseNotSelectedElement()">Collapse not selected elements
+            <button class="btn-toggle" title="Change theme mode">
+            <svg style="fill: var(--color-profile-color-modes-toggle-moon);" aria-hidden="true" width="20" height="20" viewBox="0 0 14 13" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z"></path>
+            </svg>
             </button>
-            <button type="button" class="btn btn-default"
-                    onclick="browser.interactive_tree().cmd().resetPanAndZoom()">Reset zoom
-            </button>
-            <div class="btn-group dropup">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-plus"></i>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#" onclick="browser.interactive_tree().cmd().expandAllDescendantElement()">Expand all tree</a></li>
-                    <!--<li role="separator" class="divider"></li>-->
-                    <!--<li><a href="#">Separated link</a></li>-->
-                </ul>
-            </div>
             <div class="pull-right">
                 <dl class="dl-horizontal meta-info">
                     <dt>Current version</dt>
@@ -167,13 +201,22 @@
             </div>
         </div>
         <div class="col-xs-12 col-lg-4" id="edamAccordion">
-            <div id="history-separator" class="panel-separator">
+            <div id="history-separator" class="panel-separator temp">
                 Previously seen:
             </div>
         </div>
     </div>
 </div>
 <div class="footer-tools"> <a class="back-to-top" href="#top" title="Reach the top of the page">Back to top</a> </div>    
+<br>
+<br>
+<div class="communicate">
+	<a rel="noopener noreferrer nofollow" target="_blank" href="https://github.com/edamontology/edamontology" title="Collaborate on GitHub" class="fab fa-github fa-2x"></a>
+
+	<a rel="noopener noreferrer nofollow" target="_blank" href="https://gitter.im/edamontology/edamontology" title="Discuss on Gitter" class="fab fa-gitter fa-2x"></a>
+
+	<a rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/edamontology" title="Follow on Twitter" class="fab fa-twitter fa-2x"></a>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -193,6 +236,7 @@
                         <label for="id_url">Ontology URL</label>
                         <input type="text" class="form-control" id="id_url" required name="url">
                         <small class="form-text text-muted text-for-disabled-input">Erase the hereafter <em>File</em> field to be able to provide here an URL.</small>
+                        <small class="form-text text-muted">You can try with https://raw.githubusercontent.com/edamontology/edam-browser/main/media/regular.example.json , <code>d.id</code> as identifier and <code>d.text</code> as text.</small>
                     </div>
                     <div class="form-group">
                         <label for="id_file">Ontology File</label>

@@ -3,9 +3,42 @@
     margin-bottom: 15px;
     padding-top: 10px;
 }
-.page-header{
+#page-header{
+    margin-top:15px;
+    margin-bottom:9px;
+    flex-wrap: wrap!important;
+    border-bottom: 1px solid #eee;
+}
+#page-header>*{
+    flex:1 0 auto;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-bottom:9px;
+}
+#page-header>*:first-child{
+    flex:0 1 auto;
+}
+#page-header>*:last-child{
+    min-width:30em;
+}
+#header-desc img {
+    margin-right: 1em;
+    height: 108px;  
+}
+#pageTitle{
     margin-top:0;
 }
+.header-icon>* {
+    margin-right:1em;
+}
+.d-flex {
+    display: flex;
+}
+.flex-column{
+    flex-direction: column;
+}
+
 .meta-info>*{
     font-size:0;
     color:white;
@@ -51,21 +84,23 @@ input:disabled+.text-for-disabled-input{
     margin-bottom:0px;
     line-height:2;
 }
+#edamAccordion tbody.details th *[data-toggle="tooltip"]{
+    cursor:default;
+}
 #tree {
-    height:70vh;
+    height:100%;
 }
 
 #edamAccordion table .details td a{
-    word-break: break-all;
+    word-break: break-word;
     white-space: normal;
 }
 
 .footer-tools {
-    position: relative;
+    position: absolute;
     right: 2rem;
     height: 0;
     text-align: right;
-
 }
 
 @media screen and (min-width: 1200px) {
@@ -73,3 +108,69 @@ input:disabled+.text-for-disabled-input{
     display: none;
   }
 }
+
+.communicate {
+    position: absolute;
+    left: 50%;
+    color: #33CAFF;
+}
+
+a:before {
+  display: inline-block;
+}
+
+.fa:hover {
+    opacity: 0.7;
+    text-decoration: none;
+}
+
+#tree-and-controls
+{
+    position:relative;
+    height: 70vh !important;
+}
+
+#tree-controls{
+    position: absolute ;
+    right:0px;
+    top:1em;
+    display:flex;
+    flex-direction:column;
+}
+#tree-controls>*{
+    text-align: end;
+    margin-bottom: 1em;
+}
+#tree-controls button{
+    border-width: 0;
+    color: white;
+    background: #000000c3;
+    min-width:3em;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+#tree-controls .tree-controls-group>*:not(:first-child) button.no-on-controls-hover,
+#tree-controls .tree-controls-group>*:not(:first-child) button:not(:hover){
+    border-top-left-radius: 0;
+}
+#tree-controls .tree-controls-group>*:not(:last-child)  button.no-on-controls-hover,
+#tree-controls .tree-controls-group>*:not(:last-child)  button:not(:hover){
+    border-bottom-left-radius: 0;
+}
+#tree-controls .on-controls-hover{
+    display:none;
+    padding-left: 1rem;
+}
+#tree-controls *:hover>.on-controls-hover{
+    display:initial;
+}
+body {
+  overflow-x: hidden;
+}
+.branch {
+    cursor: pointer;
+}
+.temp:last-child {
+    opacity: 0;
+}
+/*end of file*/

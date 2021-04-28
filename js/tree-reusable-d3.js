@@ -56,6 +56,7 @@ function interactive_tree() {
         maxX,
         maxY,
         reset,
+        manualZoom,
         id=0,
         identifierToElement={};
 
@@ -112,14 +113,26 @@ function interactive_tree() {
                 svg.call(zoom.transform, t);
             };
 
+            manualZoom = function(type){
+                if(type=='in'){
+                    zoom.scaleBy(svg, 2);                
+                }
+                else if (type=='out'){
+                    zoom.scaleBy(svg, 0.5);                
+                }
+
+            };
+
             update = function (source) {
-                minX=null;
-                minY=null;
-                maxX=null;
-                maxY=null;
+                //getting the box surronding the svg element ()
+                var svgBox=vis.node().getBBox();
+                minX=svgBox.x;
+                minY=svgBox.y;
+                maxX=svgBox.width+svgBox.x;
+                maxY=svgBox.height+svgBox.y;
                 updateWithoutPanAndZoomTuning(source);
                 var xShift=(maxX-minX)/2;
-                zoom.translateExtent([[minX-xShift,minY-xShift], [maxX+xShift/2,maxY+xShift]]);
+                zoom.translateExtent([[minX-xShift,minY-xShift], [maxX+xShift,maxY+xShift]]);
             };
 
             updateWithoutPanAndZoomTuning = function (source) {
@@ -568,7 +581,7 @@ function interactive_tree() {
         return cmd;
     }
     /**
-     * Ask to expand to element identified by identifier
+     * Ask to collapse to element identified by identifier
      * @param {string} identifier - the element identifier that is returned by identifierAccessor
      * @return cmd() itself
      */
@@ -578,7 +591,7 @@ function interactive_tree() {
         return cmd;
     };
     /**
-     * Ask to collapse an element
+     * Ask to expand an element
      * @param {string} identifier - the element identifier that is returned by identifierAccessor
      * @return cmd() itself
      */
@@ -678,6 +691,16 @@ function interactive_tree() {
      */
     cmd.resetPanAndZoom = function (){
         reset();
+        return cmd;
+    };
+
+    /**
+     * Zooming in and out with buttons
+     * @param {string} type Zooming type (in or out)
+     * @return cmd() itself
+     */
+    cmd.manualZoomInAndOut = function (type){
+        manualZoom(type);
         return cmd;
     };
 

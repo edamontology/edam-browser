@@ -105,3 +105,6 @@ ENV/
 .mypy_cache/
 
 .idea
+node_modules/
+.vscode/
+# end of file
