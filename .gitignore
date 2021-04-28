@@ -106,3 +106,5 @@ ENV/
 
 .idea
 node_modules/
+.vscode/
+# end of file
