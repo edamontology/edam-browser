@@ -38,28 +38,15 @@
 .flex-column{
     flex-direction: column;
 }
-
-.meta-info>*{
-    font-size:0;
-    color:white;
-    -webkit-transition: color 0.3s, font-size 0.3s;
-       -moz-transition: color 0.3s, font-size 0.3s;
-         -o-transition: color 0.3s, font-size 0.3s;
-            transition: color 0.3s, font-size 0.3s;
+.tree-controls .meta-info span{
+    padding-left:0;
 }
-.meta-info .not-hidden, .meta-info .not-hidden>*{
-    font-size:inherit;
-    color:inherit;
-
-}
-.meta-info:hover {
-    background-color: #f5f5f5;
-    border: #ddd solid 1px;
-    border-radius: 3px;
-}
-.meta-info:hover>*{
-    font-size:inherit;
-    color:inherit;
+.tree-controls .meta-info{
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
 }
 .modal-dialog .modal-body+.modal-body {
     border-top: 1px solid #e5e5e5;
@@ -147,6 +134,7 @@ a:before {
     text-align: end;
     margin-bottom: 1em;
 }
+.tree-controls .tree-control-element,
 .tree-controls button{
     border-width: 0;
     color: white;
@@ -169,6 +157,13 @@ a:before {
 }
 .tree-controls *:hover>.on-controls-hover{
     display:initial;
+}
+.tree-controls .tree-control-element a {
+    color: #98bfe2;
+}
+.tree-controls .tree-control-element a:focus,
+.tree-controls .tree-control-element a:hover {
+    color: #5c9ad1;
 }
 body {
   overflow-x: hidden;
