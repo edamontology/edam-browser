@@ -438,7 +438,7 @@ function interactive_edam_browser(){
     }
 
     function append_row(table, name, value, tootip){
-        append_row_all_opt(table, name, value, undefined, tootip);
+        return append_row_all_opt(table, name, value, undefined, tootip);
     }
 
     function append_row_all_opt(table, name, value, translate_uri_to_text, tootip){
