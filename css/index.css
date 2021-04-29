@@ -130,18 +130,24 @@ a:before {
     height: 70vh !important;
 }
 
-#tree-controls{
+.tree-controls{
     position: absolute ;
-    right:0px;
-    top:1em;
     display:flex;
     flex-direction:column;
 }
-#tree-controls>*{
+.tree-controls-right-bottom{
+    right:0px;
+    bottom:1em;
+}
+.tree-controls-right-top{
+    right:0px;
+    top:1em;
+}
+.tree-controls>*{
     text-align: end;
     margin-bottom: 1em;
 }
-#tree-controls button{
+.tree-controls button{
     border-width: 0;
     color: white;
     background: #000000c3;
@@ -149,19 +155,19 @@ a:before {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
 }
-#tree-controls .tree-controls-group>*:not(:first-child) button.no-on-controls-hover,
-#tree-controls .tree-controls-group>*:not(:first-child) button:not(:hover){
+.tree-controls .tree-controls-group>*:not(:first-child) button.no-on-controls-hover,
+.tree-controls .tree-controls-group>*:not(:first-child) button:not(:hover){
     border-top-left-radius: 0;
 }
-#tree-controls .tree-controls-group>*:not(:last-child)  button.no-on-controls-hover,
-#tree-controls .tree-controls-group>*:not(:last-child)  button:not(:hover){
+.tree-controls .tree-controls-group>*:not(:last-child)  button.no-on-controls-hover,
+.tree-controls .tree-controls-group>*:not(:last-child)  button:not(:hover){
     border-bottom-left-radius: 0;
 }
-#tree-controls .on-controls-hover{
+.tree-controls .on-controls-hover{
     display:none;
     padding-left: 1rem;
 }
-#tree-controls *:hover>.on-controls-hover{
+.tree-controls *:hover>.on-controls-hover{
     display:initial;
 }
 body {
