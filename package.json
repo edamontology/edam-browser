@@ -8,7 +8,7 @@
     "test": "jshint js/*js"
   },
   "devDependencies": {
-    "live-server": "^1.2.1",
-    "jshint": "^2.9.5"
+    "jshint": "^2.9.5",
+    "live-server": "^1.2.1"
   }
 }
