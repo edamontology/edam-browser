@@ -135,7 +135,7 @@ a:before {
     margin-bottom: 1em;
 }
 .tree-controls .tree-control-element,
-.tree-controls button{
+.tree-controls button.btn{
     border-width: 0;
     color: white;
     background: #000000c3;
