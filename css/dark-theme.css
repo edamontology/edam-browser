@@ -73,7 +73,7 @@
 div.btn-toggle-wrapper {
   position: absolute;
   top: 12px;
-  right: -160px;
+  right: 15px;
   width: fit-content !important;
   height: 22px;
 }
