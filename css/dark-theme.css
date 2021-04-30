@@ -79,10 +79,11 @@ div.btn-toggle-wrapper {
   top: 12px;
   right: 15px;
   width: fit-content !important;
-  height: 22px;
+  
 }
 .btn-toggle {
-  width: 70px;
+  width: 60px;
+  height: 24px;
   outline: none;
   border-radius: 30px;
   border: 1px solid #bdbdbd;
