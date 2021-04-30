@@ -93,6 +93,10 @@ uri = "";
 parent_uri=null;
 
 window.onload = function() {
+    const currentTheme = localStorage.getItem("theme");
+    if (currentTheme == "dark") {
+        document.body.classList.add("dark-mode");
+    }
     uri=getUrlParameter('term');
     var branch=getUrlParameter('branch');
     if(uri){
@@ -110,7 +114,6 @@ window.onload = function() {
         fill_form(uri, getUrlParameter('parent'), branch);
     });
     browser.current_branch( getUrlParameter('branch'));
-    getDarkMode();
 };
 
 function sendToGitHub(){
