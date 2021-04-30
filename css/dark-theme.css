@@ -1,4 +1,8 @@
 /*dark theme styling for propose change page starts here*/
+.dark-mode .page-header {
+  border-bottom-color: #252525;
+}
+
 .dark-mode textarea {
   background-color: #202020;
   color: #B8B8B8;
