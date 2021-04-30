@@ -70,6 +70,22 @@
   color: #B8B8B8;
   border-color: #050505;
 }
+div.btn-toggle-wrapper {
+  position: absolute;
+  top: 12px;
+  right: -160px;
+  width: fit-content !important;
+  height: 22px;
+}
+.btn-toggle {
+  width: 70px;
+  outline: none;
+  border-radius: 30px;
+  border: 1px solid #bdbdbd;
+}
+.dark-mode .toggle-icon {
+  fill: #eeeeee;
+}
 
 .dark-mode #page-header {
   border-bottom-color: #252525;
