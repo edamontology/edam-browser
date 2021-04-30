@@ -149,14 +149,15 @@
     
                 <div id="tree" class="d3js-tree-container"></div>
 
-                <div id="tree-controls">
+                <div class="tree-controls tree-controls-right-top">
+                    <div class="tree-controls-group">
                     <div>
-                    <button type="button" class="btn btn-default"
+                    <button type="button" class="btn btn-default no-on-controls-hover"
                     onclick="browser.interactive_tree().cmd().manualZoomInAndOut('in')"><i class="fas fa-plus"></i>
                     </button>
                     </div>
                     <div>
-                    <button type="button" class="btn btn-default"
+                    <button type="button" class="btn btn-default no-on-controls-hover"
                     onclick="browser.interactive_tree().cmd().manualZoomInAndOut('out')"><i class="fas fa-minus"></i>
                     </button>
                     </div>
@@ -165,6 +166,8 @@
                     onclick="browser.interactive_tree().cmd().resetPanAndZoom()"><i class="fas fa-home"></i><span class="on-controls-hover">Reset zoom</span>
                     </button>
                     </div>
+                    </div>
+                    <div class="tree-controls-group">
                     <div>
                     <button type="button" class="btn btn-default"
                     onclick="browser.interactive_tree().cmd().collapseNotSelectedElement()"><i class="fas fa-compress-arrows-alt"></i><span class="on-controls-hover">Collapse not selected elements</span>
@@ -175,15 +178,27 @@
                     onclick="browser.interactive_tree().cmd().expandAllDescendantElement()"><i class="fas fa-expand-arrows-alt"></i><span class="on-controls-hover">Expand all tree</span>
                     </button>
                     </div>
+                    </div>
                     <div id="go-fullscreen">
-                    <button type="button" class="btn btn-default" 
+                    <button type="button" class="btn btn-default"
                     onclick="toggleFullscreen();" ><i class="fas fa-expand" aria-hidden="true"></i><span class="on-controls-hover" >Open Full Screen</span>
                     </button>
                     </div>
                     <div id="exit-fullscreen" style="display: none;">
-                    <button type="button" class="btn btn-default" 
+                    <button type="button" class="btn btn-default"
                     onclick="toggleFullscreen();" ><i class="fas fa-compress" aria-hidden="true"></i><span class="on-controls-hover" >Exit Full Screen</span>
                     </button>
+                    </div>
+                </div>
+                <div class="tree-controls tree-controls-right-bottom">
+                    <div class="tree-control-element meta-info">
+                        <span class="on-controls-hover"><b>Current version</b><br/></span>
+                        <span id="version"><i class="fas fa-circle-notch fa-spin"></i></span>
+                        <span class="on-controls-hover"><br/><b>Release date</b><br/></span>
+                        <span class="on-controls-hover" id="release_date"></span>
+                        <span class="on-controls-hover"><br/></span>
+                        <span class="on-controls-hover"><b for="meta_data_url">Data URL<br/></b><a href="" target="_blank" id="meta_data_url">Open here <i class="fas fa-external-link-alt"></i></a></span>
+                        <span class="on-controls-hover"><b for="meta_data_file">Data File<br/></b><span id="meta_data_file"></span></span>
                     </div>
                 </div>
             </div>
