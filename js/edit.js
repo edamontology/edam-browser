@@ -93,10 +93,7 @@ uri = "";
 parent_uri=null;
 
 window.onload = function() {
-    const currentTheme = localStorage.getItem("theme");
-    if (currentTheme == "dark") {
-        document.body.classList.add("dark-mode");
-    }
+    getDarkMode();
     uri=getUrlParameter('term');
     var branch=getUrlParameter('branch');
     if(uri){
