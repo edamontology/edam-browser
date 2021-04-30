@@ -107,4 +107,9 @@ ENV/
 .idea
 node_modules/
 .vscode/
+
+# don't follow it for now considering the low number of dependencies, and the
+# fact that it can change when you run npm install, and thus new commiters could
+# colide commit by commiting new version of it
+package-lock.json
 # end of file

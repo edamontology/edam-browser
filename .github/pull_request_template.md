@@ -17,3 +17,4 @@ close/fix/resolve #???
 
 ### Details
 <!-- Put any relevant information below, or remove Details section -->
+<!-- If you PR is about new visual effect, screenshot or screen recording are warmly welcome, I personnaly recommend https://github.com/phw/peek to record as gif. -->
