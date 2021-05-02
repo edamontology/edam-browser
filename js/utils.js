@@ -82,3 +82,13 @@ function getDarkMode() {
     localStorage.setItem("theme", theme);
     });
 }
+
+function tree_border() {
+$("document").ready(function () {
+    $("#tree-and-controls").on('mousemove touchstart',function () {
+        $(this).addClass("tree-border");
+    }).on('mouseleave touchend',function () {
+        $(this).removeClass("tree-border");
+    });
+});
+}
