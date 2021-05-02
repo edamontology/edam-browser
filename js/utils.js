@@ -68,9 +68,9 @@ function setUrlParameters(serializedParameters){
 
 function tree_border() {
 $("document").ready(function () {
-    $("#tree-and-controls").mousemove(function () {
+    $("#tree-and-controls").touchmove(function () {
         $(this).addClass("tree-border");
-    }).mouseleave(function () {
+    }).touchleave(function () {
         $(this).removeClass("tree-border");
     });
 });
