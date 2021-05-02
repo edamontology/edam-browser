@@ -46,9 +46,9 @@ function getTreeFile(branch){
 
 function interactive_edam_browser(){
 $("document").ready(function () {
-    $("#tree-and-controls").mousemove(function () {
+    $("#tree-and-controls").touchmove(function () {
         $(this).addClass("tree-border");
-    }).mouseleave(function () {
+    }).touchleave(function () {
         $(this).removeClass("tree-border");
     });
 });
