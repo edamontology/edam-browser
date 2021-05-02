@@ -65,3 +65,12 @@ function setUrlParameters(serializedParameters){
                   window.location.hash;
     window.history.pushState({path:new_url},'',new_url);
 }
+
+function tree_border() {
+$("document").ready(function () {
+    $("#tree-and-controls").mousemove(function () {
+        $(this).addClass("tree-border");
+    }).mouseleave(function () {
+        $(this).removeClass("tree-border");
+    });
+});
