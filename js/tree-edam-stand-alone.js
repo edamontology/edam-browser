@@ -45,6 +45,7 @@ function getTreeFile(branch){
 }
 
 function interactive_edam_browser(){
+    
     var __my_interactive_tree,
         current_branch="",
         identifier_accessor_mapping={},
