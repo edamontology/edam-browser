@@ -111,6 +111,11 @@ a:before {
     text-decoration: none;
 }
 
+.tree-border {
+    border-color: #606060;
+    border-width: 2px;
+}
+
 #tree-and-controls
 {
     position:relative;
