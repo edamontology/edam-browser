@@ -67,23 +67,19 @@ function setUrlParameters(serializedParameters){
 }
 
 function getDarkMode() {
-    if($(".btn-toggle")[0])  {
-        const btn = document.querySelector(".btn-toggle");
+	const btn = document.querySelector(".btn-toggle");
+    if (null == btn || undefined == btn) {
         const currentTheme = localStorage.getItem("theme");
-        if (currentTheme == "dark") {
+        if (currentTheme == "dark")
             document.body.classList.add("dark-mode");
-        }
+    }
+    else {
         btn.addEventListener("click", function () {
-        document.body.classList.toggle("dark-mode");
-
-        let theme = "light";
-        if (document.body.classList.contains("dark-mode")) {
-            theme = "dark";
-        }
-        localStorage.setItem("theme", theme);
+            document.body.classList.toggle("dark-mode");
+            let theme = "light";
+            if (document.body.classList.contains("dark-mode"))
+                theme = "dark";
+            localStorage.setItem("theme", theme);
         });
     }
-    else if(localStorage.getItem("theme") == "dark") {
-            document.body.classList.add("dark-mode");
-    }	
 }
