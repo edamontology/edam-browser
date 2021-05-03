@@ -112,7 +112,7 @@ a:before {
 }
 
 #tree-and-controls.tree-border:not(:fullscreen) {
-    box-shadow: inset 0 0px 10px #000000;
+    box-shadow: inset 0 0px 5px #000000;
 }
 
 #tree-and-controls
@@ -120,7 +120,7 @@ a:before {
     position:relative;
     height: 70vh !important;
     box-shadow: none;
-    transition: box-shadow .5s ease-out;
+    transition: box-shadow .2s ease-out;
 }
 
 .tree-controls{
