@@ -563,7 +563,6 @@ function interactive_edam_browser(){
             return;
         })
         .addingElementHandler(function(d){
-            __my_interactive_tree.cmd.clearSelectedElements(false);
             standAloneSelectedElementHandler(d,false);
             return true;
         })

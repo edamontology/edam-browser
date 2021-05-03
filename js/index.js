@@ -64,4 +64,5 @@ window.onload = function() {
     }else{
         browser.current_branch(branch);
     }
+    $(".loader-wrapper").fadeOut("slow");
 };
