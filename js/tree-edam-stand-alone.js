@@ -626,7 +626,7 @@ function interactive_edam_browser(){
         .use_shift_to_open(false)
         .use_control_to_open(false)
         .use_alt_to_open(false)
-        .use_shift_to_add(true)
+        .use_shift_to_add(false)
         .use_control_to_add(false)
         .use_alt_to_add(false)
     ;
