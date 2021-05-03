@@ -339,6 +339,7 @@ function interactive_tree() {
                 attemptToSelectElement(d);
             }
         }else if (!d3.event.shiftKey && !d3.event.ctrlKey && !d3.event.altKey){
+            chart.cmd.clearSelectedElements(false);
             toggle(d);
             clickedElementHandler(d);
         }
