@@ -76,7 +76,6 @@ function getDarkMode() {
         return;
     btn.addEventListener("click", function () {
         document.body.classList.toggle("dark-mode");
-    
         let theme = "light";
         if (document.body.classList.contains("dark-mode")) {
             theme = "dark";
