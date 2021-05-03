@@ -95,9 +95,10 @@ uri = "";
 parent_uri = null;
 
 window.onload = function() {
-    uri = getUrlParameter('term');
-    var branch = getUrlParameter('branch');
-    if (uri) {
+    getDarkMode();
+    uri=getUrlParameter('term');
+    var branch=getUrlParameter('branch');
+    if(uri){
         $('#pageTitle .new').hide();
     } else {
         $('#pageTitle .change').hide();

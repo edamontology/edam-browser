@@ -3,30 +3,58 @@
     margin-bottom: 15px;
     padding-top: 10px;
 }
-.page-header{
+#page-header{
+    margin-top:15px;
+    margin-bottom:9px;
+    flex-wrap: wrap!important;
+    border-bottom: 1px solid #eee;
+}
+#page-header>*{
+    flex:1 0 auto;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-bottom:9px;
+}
+#page-header>*:first-child{
+    flex:0 1 auto;
+}
+#page-header>*:last-child{
+    min-width:30em;
+}
+#header-desc img {
+    margin-right: 1em;
+    height: 108px;  
+}
+#pageTitle{
     margin-top:0;
 }
-.meta-info>*{
-    font-size:0;
-    color:white;
-    -webkit-transition: color 0.3s, font-size 0.3s;
-       -moz-transition: color 0.3s, font-size 0.3s;
-         -o-transition: color 0.3s, font-size 0.3s;
-            transition: color 0.3s, font-size 0.3s;
+.header-icon>* {
+    margin-right:1em;
 }
-.meta-info .not-hidden, .meta-info .not-hidden>*{
-    font-size:inherit;
-    color:inherit;
-
+.d-flex {
+    display: flex;
 }
-.meta-info:hover {
-    background-color: #f5f5f5;
-    border: #ddd solid 1px;
-    border-radius: 3px;
+.flex-column{
+    flex-direction: column;
 }
-.meta-info:hover>*{
-    font-size:inherit;
-    color:inherit;
+.loader-wrapper{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.tree-controls .meta-info span{
+    padding-left:0;
+}
+.tree-controls .meta-info{
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
 }
 .modal-dialog .modal-body+.modal-body {
     border-top: 1px solid #e5e5e5;
@@ -51,12 +79,15 @@ input:disabled+.text-for-disabled-input{
     margin-bottom:0px;
     line-height:2;
 }
+#edamAccordion tbody.details th *[data-toggle="tooltip"]{
+    cursor:default;
+}
 #tree {
-    height:70vh;
+    height:100%;
 }
 
 #edamAccordion table .details td a{
-    word-break: break-all;
+    word-break: break-word;
     white-space: normal;
 }
 
@@ -88,6 +119,67 @@ a:before {
     text-decoration: none;
 }
 
+#tree-and-controls
+{
+    position:relative;
+    height: 70vh !important;
+}
+
+.tree-controls{
+    position: absolute ;
+    display:flex;
+    flex-direction:column;
+}
+.tree-controls-right-bottom{
+    right:0px;
+    bottom:1em;
+}
+.tree-controls-right-top{
+    right:0px;
+    top:1em;
+}
+.tree-controls>*{
+    text-align: end;
+    margin-bottom: 1em;
+}
+.tree-controls .tree-control-element,
+.tree-controls button.btn{
+    border-width: 0;
+    color: white;
+    background: #000000c3;
+    min-width:3em;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+.tree-controls .tree-controls-group>*:not(:first-child) button.no-on-controls-hover,
+.tree-controls .tree-controls-group>*:not(:first-child) button:not(:hover){
+    border-top-left-radius: 0;
+}
+.tree-controls .tree-controls-group>*:not(:last-child)  button.no-on-controls-hover,
+.tree-controls .tree-controls-group>*:not(:last-child)  button:not(:hover){
+    border-bottom-left-radius: 0;
+}
+.tree-controls .on-controls-hover{
+    display:none;
+    padding-left: 1rem;
+}
+.tree-controls *:hover>.on-controls-hover{
+    display:initial;
+}
+.tree-controls .tree-control-element a {
+    color: #98bfe2;
+}
+.tree-controls .tree-control-element a:focus,
+.tree-controls .tree-control-element a:hover {
+    color: #5c9ad1;
+}
 body {
   overflow-x: hidden;
 }
+.branch {
+    cursor: pointer;
+}
+.temp:last-child {
+    opacity: 0;
+}
+/*end of file*/

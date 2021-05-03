@@ -172,7 +172,7 @@ function interactive_edam_browser(){
     function to_generic_href(c,url,data, get_length, get_name, has_next){
         var data_content="";
         if(c>0){
-            data_content = "title=\"Some associated elements\" data-toggle=\"popover\" data-trigger=\"hover\" data-html=\"true\" data-content=\"<table class='table table-condensed'>";
+            data_content = "title=\"Some associated elements\" data-toggle=\"popover\" data-placement=\"auto right\" data-trigger=\"hover\" data-html=\"true\" data-content=\"<table class='table table-condensed'>";
             var i=0;
             for(;i<get_length(data)&&i<10;i++){
                 data_content+="<tr><td>"+get_name(data,i)+"</td></tr>";
@@ -248,27 +248,48 @@ function interactive_edam_browser(){
             fields.push("see_also");
         fields.forEach(function(entry) {
             if("uri"==entry)
-                append_row(table,"URI",uri,false);
+                append_row_all_opt(table,"URI",uri,false,"Permanent concept identifier");
             else if("text"==entry)
-                append_row(table,"Term",d.data[entry],false);
+                append_row_all_opt(table,"Term",d.data[entry],false,"Preferred name for the concept");
             else if("parents"==entry){
                 if (typeof d.duplicate == "undefined"){
-                    append_row(table,entry,browser.identifierAccessor(d.parent));
+                    append_row(table,entry,browser.identifierAccessor(d.parent),"Link(s) to the parent concept(s) which represent broader concepts");
                 }else{
                     var parents_uris = [];
                     for(var i=d.duplicate.length-1;i>=0;i--){
                         parents_uris.push(browser.identifierAccessor(d.duplicate[i].parent));
                     }
-                    append_row(table,entry,parents_uris);
+                    append_row(table,entry,parents_uris,"Link(s) to the parent concept(s) which represent broader concepts");
                 }
             }
-            else
+            else{
+            if(entry=="definition"){
+                append_row(table,entry,d.data[entry],"Short definition of the concept");
+            }
+            else if(entry=="comment"){
+                append_row(table,entry,d.data[entry],"Misc. information that may help understand the scope of the concept");
+            }
+            else if(entry=="exact_synonyms"){
+                append_row(table,entry,d.data[entry],"Alternative term(s) that represent exactly the same concept");
+            }
+            else if(entry=="narrow_synonyms"){
+                append_row(table,entry,d.data[entry],"Alternative term(s) that represent a slightly narrower scope");
+            }
+            else if(entry=="broad_synonyms"){
+                append_row(table,entry,d.data[entry],"Alternative term(s) that represent a slightly broader scope");
+            }
+            else if(entry=="related_synonyms"){
+                append_row(table,entry,d.data[entry],"Alternative term(s) that represent a closely overlapping scope");
+            }
+            else{
                 append_row(table,entry,d.data[entry]);
+            }
+            }
         });
         var community = details.find("tbody.community");
         var caller_b=biotool_api().get_for(current_branch, d.data.text, uri, d);
         if (caller_b.is_enabled()){
-            var id_b = append_row(community,"<a target=\"_blank\" href=\"https://bio.tools\" title=\"Bioinformatics Tools and Services Discovery Portal\">bio.tools</a>","<i>loading</i>");
+            var id_b = append_row(community,"<a target=\"_blank\" href=\"https://bio.tools\">bio.tools</a>","<i>loading</i>","Bioinformatics Tools and Services Discovery Portal");
             caller_b.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_b);
                 var has_descendants=browser.identifierAccessor(d.parent)!="owl:Thing" && (d.children||d._children) && browser.identifierAccessor(d)!="http://edamontology.org/data_0842";
@@ -305,7 +326,7 @@ function interactive_edam_browser(){
         }
         var caller_s=biosphere_api().get_for(current_branch, d.data.text, uri, d);
         if (caller_s.is_enabled()){
-            var id_s = append_row(community,"<a target=\"_blank\" href=\"https://biosphere.france-bioinformatique.fr\" title=\"IFB (ELIXIR France) Cloud Services to analyze life science data\">Biosphere</a>","<i>loading</i>");
+            var id_s = append_row(community,"<a target=\"_blank\" href=\"https://biosphere.france-bioinformatique.fr\">Biosphere</a>","<i>loading</i>","IFB (ELIXIR France) Cloud Services to analyze life science data");
             caller_s.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_s);
                 elt.empty();
@@ -318,7 +339,7 @@ function interactive_edam_browser(){
         }
         var caller_w=bioweb_api().get_for(current_branch, d.data.text, uri, d);
         if (caller_w.is_enabled()){
-            var id_w = append_row(community,"<a target=\"_blank\" href=\"https://bioweb.pasteur.fr/\" title=\"Online catalog of bioinformatics programs and databanks available at the Institut Pasteur\">BioWeb</a>","<i>loading</i>");
+            var id_w = append_row(community,"<a target=\"_blank\" href=\"https://bioweb.pasteur.fr/\">BioWeb</a>","<i>loading</i>","Online catalog of bioinformatics programs and databanks available at the Institut Pasteur");
             caller_w.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_w);
                 elt.empty();
@@ -328,7 +349,7 @@ function interactive_edam_browser(){
         }
         var caller_t=tess_api().get_for(current_branch, d.data.text, uri, d);
         if (caller_t.is_enabled()){
-            var id_t = append_row(community,"<a target=\"_blank\" href=\"https://tess.elixir-europe.org/\" title=\"ELIXIR Training Portal\">TeSS</a>","<i>loading</i>");
+            var id_t = append_row(community,"<a target=\"_blank\" href=\"https://tess.elixir-europe.org/\">TeSS</a>","<i>loading</i>","ELIXIR Training Portal");
             caller_t.count(function(c,data){
                 var elt=$('#details-'+identifier+' .'+id_t);
                 elt.empty();
@@ -341,19 +362,19 @@ function interactive_edam_browser(){
             "Open in "+
             "<a target=\"_blank\" href=\"http://aber-owl.net/ontology/EDAM/#/Browse/%3Chttp%3A%2F%2Fedamontology.org%2F"+identifier+"%3E\">AberOWL</a>"+
             ", "+
-            "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">BioPortal</a>"+
+            "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid="+uri+"\">BioPortal</a>"+
             ", "+
             "<a target=\"_blank\" href=\"https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">OLS</a>"+
             " or "+
             "<a target=\"_blank\" href=\"https://webprotege.stanford.edu/#projects/98640503-a37d-4404-84da-caf30fadd685/edit/Classes?selection=Class(%3Chttp://edamontology.org/"+identifier+"%3E)\">WebProt&eacuteg&eacute</a>"+
-            "."
-            );
+            ".","Links to this concept in other ontology browsers");
         }
         if (community.children().length>0){
-            community.parent().prepend($('<thead><tr><th colspan="2">Community usage</th></tr></thead>'));
+            community.parent().prepend($('<thead><tr><th colspan="2" data-toggle=\"tooltip\" title=\"Usage of this concept in various databases and registries\">Community usage</th></tr></thead>'));
         }else{
             community.parent().remove();
         }
+        details.find('[data-toggle="tooltip"]').tooltip();
         $("#edamAccordion").find(".panel-group").first().find(".collapse").collapse("hide");
         var length=$("#edamAccordion").find(".panel-group").length;
         if(length>0){
@@ -416,7 +437,11 @@ function interactive_edam_browser(){
         return value.substring(value.lastIndexOf('/')+1,value.lastIndexOf('_'));
     }
 
-    function append_row(table, name, value, translate_uri_to_text){
+    function append_row(table, name, value, tootip){
+        return append_row_all_opt(table, name, value, undefined, tootip);
+    }
+
+    function append_row_all_opt(table, name, value, translate_uri_to_text, tootip){
         var id=(name
             .replace(/[^a-zA-Z]/g,'-')
             .toLowerCase()+"-val")
@@ -424,8 +449,10 @@ function interactive_edam_browser(){
         if (typeof value == "undefined"){
             value="";
         }
-        name=name.replace(/[_]/g,"&nbsp;");
-        name=name.charAt(0).toUpperCase()+name.substring(1);
+        if (name.indexOf("<")==-1){
+            name=name.replace(/[_]/g,"&nbsp;");
+            name=name.charAt(0).toUpperCase()+name.substring(1);
+        }
         if (value.constructor === Array){
             if (value.length>1){
                 //removing duplicates
@@ -444,7 +471,11 @@ function interactive_edam_browser(){
                 value=interactive_edam_uri(value[0], translate_uri_to_text);
             }
         }
-        $("<tr><th>"+name+"</th><td class=\""+id+"\">"+interactive_edam_uri(value, translate_uri_to_text)+"</td></tr>").appendTo(table);
+        var html_tootip='';
+        if (tootip !== undefined) {
+            html_tootip=" data-toggle=\"tooltip\" data-placement='top' title=\""+tootip+"\"";
+        }
+        $("<tr><th><span"+html_tootip+">"+name+"</span></th><td class=\""+id+"\">"+interactive_edam_uri(value, translate_uri_to_text)+"</td></tr>").appendTo(table);
         return id;
     }
 
@@ -532,7 +563,6 @@ function interactive_edam_browser(){
             return;
         })
         .addingElementHandler(function(d){
-            __my_interactive_tree.cmd.clearSelectedElements(false);
             standAloneSelectedElementHandler(d,false);
             return true;
         })
@@ -666,4 +696,15 @@ function interactive_edam_browser(){
         return __my_interactive_tree.textAccessor()(value);
     };
     return browser;
+}
+function toggleFullscreen(){
+    if(!document.fullscreenElement){
+        document.getElementById("tree-and-controls").requestFullscreen();
+        $('#go-fullscreen').hide();
+        $('#exit-fullscreen').show();
+    }else{
+        document.exitFullscreen();
+        $('#exit-fullscreen').hide();
+        $('#go-fullscreen').show();
+    }
 }

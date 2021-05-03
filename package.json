@@ -4,9 +4,11 @@
   "author": "Bryan Brancotte",
   "version": "1.0.0",
   "scripts": {
+    "dev": "live-server",
     "test": "jshint js/*js"
   },
   "devDependencies": {
-    "jshint": "^2.9.5"
+    "jshint": "^2.9.5",
+    "live-server": "^1.2.1"
   }
 }

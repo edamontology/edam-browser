@@ -65,3 +65,21 @@ function setUrlParameters(serializedParameters){
                   window.location.hash;
     window.history.pushState({path:new_url},'',new_url);
 }
+
+function getDarkMode() {
+    const btn = document.querySelector(".btn-toggle");
+    const currentTheme = localStorage.getItem("theme");
+    if (currentTheme == "dark") {
+        document.body.classList.add("dark-mode");
+    }
+    if (null == btn || undefined == btn)
+        return;
+    btn.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+        let theme = "light";
+        if (document.body.classList.contains("dark-mode")) {
+            theme = "dark";
+        }
+        localStorage.setItem("theme", theme);
+    });
+}
