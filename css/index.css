@@ -111,15 +111,16 @@ a:before {
     text-decoration: none;
 }
 
-.tree-border {
-    border-color: #606060;
-    border-width: 2px;
+#tree-and-controls.tree-border:not(:fullscreen) {
+    box-shadow: inset 0 0px 10px #000000;
 }
 
 #tree-and-controls
 {
     position:relative;
     height: 70vh !important;
+    box-shadow: none;
+    transition: box-shadow .5s ease-out;
 }
 
 .tree-controls{
