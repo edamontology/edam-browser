@@ -182,4 +182,12 @@ body {
 .temp:last-child {
     opacity: 0;
 }
+@media (max-width: 768px){
+    #page-header>*:last-child{
+        min-width:90vw;
+    }
+    #logo{
+        display:none;
+    }
+}
 /*end of file*/
