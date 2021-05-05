@@ -401,7 +401,7 @@ function interactive_edam_browser(){
         }
 
         if(current_branch.startsWith("custom"))
-            return "<a href=\"#"+ value + "&"+current_branch + "\" onclick=\"browser.interactive_tree().cmd().selectElement(this.text,true);\">"+value+"</a>";
+            return "<a href=\"#"+ value + "&"+current_branch + "\" onclick=\"browser.interactive_tree().cmd().clearSelectedElements(false);browser.interactive_tree().cmd().selectElement(this.text,true);\">"+value+"</a>";
 
         branch_of_term = get_branch_of_term(value);
         var text;
@@ -420,8 +420,8 @@ function interactive_edam_browser(){
         "href=\"#"+ value + (current_branch=="deprecated"?"&deprecated":"")+"\" "+
         (
             current_branch.startsWith("edam")
-            ?"onclick=\"browser.interactive_tree().cmd().selectElement('"+value+"',true)\""
-            :"onclick=\"setCookie('edam_browser_'+'"+current_branch+"','"+value+"');browser.current_branch('"+branch_of_term+"');browser.interactive_tree().cmd().selectElement('"+value+"',true)\""
+            ?"onclick=\"browser.interactive_tree().cmd().clearSelectedElements(false);browser.interactive_tree().cmd().selectElement('"+value+"',true)\""
+            :"onclick=\"setCookie('edam_browser_'+'"+current_branch+"','"+value+"');browser.current_branch('"+branch_of_term+"');browser.interactive_tree().cmd().clearSelectedElements(false);browser.interactive_tree().cmd().selectElement('"+value+"',true)\""
         )+
         "class=\"label bg-edam-"+branch_of_term+"-light fg-edam-"+branch_of_term+" border-one-solid border-edam-"+branch_of_term+"\" "+
         ">"+
