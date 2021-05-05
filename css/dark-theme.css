@@ -233,4 +233,8 @@ div.btn-toggle-wrapper {
 .dark-mode .popover tr {
   border-width: 1px;
 }
+
+.dark-mode .input-group-addon {
+  background-color: #A9A9A9;
+}
 /*styling for dark theme for main page ends here*/
