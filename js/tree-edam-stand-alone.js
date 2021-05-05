@@ -204,7 +204,7 @@ function interactive_edam_browser(){
         }
         $("#details-"+identifier).remove();
         details = "";
-        details += '<div class="panel-group" id="details-'+identifier+'">';
+        details += '<div class="panel-group edam-details" id="details-'+identifier+'">';
         details +=     '<div class="panel panel-default border-edam-'+branch_of_term+'">';
         details +=         '<div class="panel-heading xbg-edam-'+branch_of_term+'-light">';
         details +=             '<h4 class="panel-title">';

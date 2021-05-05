@@ -72,21 +72,21 @@ input:disabled+.text-for-disabled-input{
 .panel-group+#history-separator{
     display:initial;
 }
-#edamAccordion table    .label{
+.edam-details table    .label{
     font-size:inherit;
 }
-#edamAccordion ul{
+.edam-details ul{
     margin-bottom:0px;
     line-height:2;
 }
-#edamAccordion tbody.details th *[data-toggle="tooltip"]{
+.edam-details tbody.details th *[data-toggle="tooltip"]{
     cursor:default;
 }
 #tree {
     height:100%;
 }
 
-#edamAccordion table .details td a{
+.edam-details table .details td a{
     word-break: break-word;
     white-space: normal;
 }
