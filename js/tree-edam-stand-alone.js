@@ -498,6 +498,19 @@ function interactive_edam_browser(){
         return id;
     }
 
+    function tooltipBuilder(d, tooltipContainer){
+        var uri=__my_interactive_tree.identifierAccessor()(d);
+        var branch_of_term = get_branch_of_term(uri);
+        var identifier=uri.substring(uri.lastIndexOf('/')+1)
+            .replace(/[^a-zA-Z_0-9]/g,'-')
+            .toLowerCase()
+            .replace(/[-]+/g,'-');
+        var details = build_detail_panel(d, uri, branch_of_term, identifier, false);
+        fill_detail_panel(d, uri, branch_of_term, identifier, details);
+        tooltipContainer.node().innerHTML = '';
+        $(tooltipContainer.node()).append(details);
+    }
+
     function metaInformationHandler(meta){
         if (typeof meta == "undefined"){
             $("#version").html("<i>n/a</i>");
@@ -649,6 +662,8 @@ function interactive_edam_browser(){
         .use_shift_to_add(false)
         .use_control_to_add(false)
         .use_alt_to_add(false)
+        .tooltipEnabled(true)
+        .tooltipBuilder(tooltipBuilder)
     ;
 
     /**
