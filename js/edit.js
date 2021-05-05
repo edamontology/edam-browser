@@ -111,23 +111,16 @@ window.onload = function() {
         fill_form(uri, getUrlParameter('parent'), branch);
     });
     browser.current_branch( getUrlParameter('branch'));
-    var s_branch = getUrlParameter('term') + getUrlParameter('parent');
+    var s_branch = getUrlParameter('term') || getUrlParameter('parent');
     s_branch = s_branch.substring(s_branch.lastIndexOf('/') + 1, s_branch.lastIndexOf('_'));
+    $('.optional_rel').hide();
     if (s_branch === "operation") {
         $('.operation_rel').show();
-        $('.format_rel').hide();
+        //$('.format_rel').hide();
     } else if (s_branch === "data") {
-        $('.operation_rel').hide();
-        $('.format_rel').hide();
         $('.data_rel').show();
     } else if (s_branch === "format") {
-        $('.operation_rel').hide();
-        $('.format_rel').show();
-        $('.data_rel').hide();
-    } else if (s_branch === "topic") {
-        $('.operation_rel').hide();
-        $('.format_rel').hide();
-        $('.data_rel').hide();
+        $('.format_rel').show(); 
     }
 };
 
