@@ -87,9 +87,10 @@ function interactive_tree() {
                 .call(zoom);
             var vis = svg.append("svg:g");
 
-            var tooltip = (d3.select("body").select("div.tooltip").empty()
-                            ?d3.select("body").append("div")
-                            :d3.select("body").select("div.tooltip")
+            /* jshint -W014 */
+            var tooltip = (d3.select("body").select("div.tooltip").empty() /* if no div.tooltip*/
+                            ?d3.select("body").append("div")               /* then create one */
+                            :d3.select("body").select("div.tooltip")       /* otherwise use existing div.tooltip */
                            )
                 .attr("class", "tooltip")
                 .style("opacity", 0)
