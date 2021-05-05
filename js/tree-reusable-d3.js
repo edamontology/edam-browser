@@ -87,7 +87,10 @@ function interactive_tree() {
                 .call(zoom);
             var vis = svg.append("svg:g");
 
-            var tooltip = d3.select("body").append("div")
+            var tooltip = (d3.select("body").select("div.tooltip").empty()
+                            ?d3.select("body").append("div")
+                            :d3.select("body").select("div.tooltip")
+                           )
                 .attr("class", "tooltip")
                 .style("opacity", 0)
                 .on("mouseover", function(d) {
@@ -101,7 +104,7 @@ function interactive_tree() {
                     .style("opacity", 0);
                     tooltip.transition()
                     .delay(200)
-                    .style("top",  "-200px");
+                    .style("top",  "-2000px");
                 });
 
             reset = function(){
@@ -184,8 +187,8 @@ function interactive_tree() {
                             .duration(200)
                             .style("opacity", 1);
                         tooltip
-                            .style("left", (d3.event.pageX+20) + "px")
-                            .style("top", (d3.event.pageY - 28) + "px");
+                            .style("left", (d3.event.layerX+20) + "px")
+                            .style("top", (d3.event.layerY-5) + "px");
                     })
                     .on("mouseout", function(d) {
                             tooltip
@@ -195,7 +198,7 @@ function interactive_tree() {
                             tooltip
                                 .transition()
                                 .delay(200)
-                                .style("top",  "-200px");
+                                .style("top",  "-2000px");
                     });
 
                 // UPDATE
