@@ -185,6 +185,7 @@ function interactive_tree() {
                         if (!tooltipEnabled) return;
                         tooltipBuilder(d, tooltip);
                         tooltip
+                            .interrupt()
                             .transition()
                             .duration(200)
                             .style("opacity", 1);
