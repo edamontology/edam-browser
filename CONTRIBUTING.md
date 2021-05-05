@@ -6,7 +6,7 @@ The recommended way for contributors to submit code to EDAM Browser is to fork t
 
 Please make one PR per issue, solving multiple issues in the same PR make it harder to assess independently each solution and delay the moment changes can be merge.
 
-Do not reformat code that you would not changing otherwise with you commit.
+No bulk reformatting, only reformat code that is already changed by the code you wrote when solving the issue you are addressing.
 
 The contributed code will be [**licensed under EDAM Browser's license**](https://github.com/edamontology/edam-browser/blob/main/LICENSE).
 If you did not write the code yourself, please ensure that the license is compatible, or obtain a permission from the original author to relicense the contributed code.

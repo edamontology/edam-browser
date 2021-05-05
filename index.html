@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <title>EDAM ontology browser</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="favicon.ico"/>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115521967-1"></script>
     <script>
@@ -46,25 +47,33 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="page-header row">
-        <div class="col-xs-12 col-sm-6 col-lg-3">
+    <div class="d-flex" id="page-header">
+        <div class="d-flex" id="header-desc">
+            <img id="logo" src="https://github.com/edamontology/edamontology/raw/main/EDAM-logo-square.svg" alt="EDAM Logo" onerror='this.style.display = "none"'/>
+            <div class="d-flex flex-column">
             <h1 id="pageTitle">EDAM ontology</h1>
+            <p class="edam-defn">EDAM is a simple ontology of well established, familiar concepts that are prevalent within bioinformatics.</p>
+            <div class="header-icon">
+                <span>
+                    <i class='fas fa-link'></i>
+                    <a target="_blank" href="http://edamontology.org/">edamontology.org</a>
+                </span>&emsp;
+                <span>
+                    <i class='fab fa-github'></i>
+                    <a target="_blank" href="https://github.com/edamontology/edam-browser">edam-browser</a>
+                </span>&emsp;
+                <span>
+                    <i class='fab fa-gitter'></i>
+                    <a target="_blank" href="https://gitter.im/edamontology/edam-browser#">edam-browser</a>
+                </span>&emsp;
+                <span>
+                    <i class="fab fa-twitter"></i>
+                    <a target="_blank" href="https://twitter.com/edamontology">edamontology</a>
+                </span>
+            </div>
+            </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-lg-5">
-            <h1 class="no-icon text-center">
-                <!--<div class="btn-group" role="group" style="z-index:1;vertical-align: bottom;">-->
-                    <!--<a type="button" class="btn btn-default branch data" onclick="browser.current_branch('data')">Data</a>-->
-                    <!--<a type="button" class="btn btn-default branch format" onclick="browser.current_branch('format')">Format</a>-->
-                    <!--<a type="button" class="btn btn-default branch operation"-->
-                       <!--onclick="browser.current_branch('operation')">Operation</a>-->
-                    <!--<a type="button" class="btn btn-default branch topic" onclick="browser.current_branch('topic')">Topic</a>-->
-                    <!--<a type="button" class="btn btn-default branch deprecated" onclick="browser.current_branch('deprecated')">Deprecated</a>-->
-                    <!--<a type="button"-->
-                       <!--class="btn btn-default branch custom custom_url custom_file"-->
-                       <!--title="Load a custom ontology"-->
-                       <!--onclick="browser.cmd.selectCustom()"-->
-                    <!--&gt;Custom</a>-->
-                <!--</div>-->
+        <div>
             <div class="btn-group" id="edam-branches">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -110,44 +119,38 @@
                    onclick="browser.cmd.selectCustom()"
                 >Custom</button>
             </div>
-            </h1>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-6 col-lg-offset-0 col-lg-4">
-            <h1 class="no-icon text-center">
-                <div class="btn-group" role="group" style="width: 100%;z-index:1">
+        <div>
+                <div class="input-group" style="width: 100%;z-index:1">
                     <input
                             type="text"
                             tabindex="1"
                             class="form-control ui-autocomplete-input search-term"                           
-                            placeholder="Search for concepts here, enter at least two letters"
+                            placeholder="Search for concepts, enter at least two letters"
                             onclick="$(this).select();"
                     >
-                    <span class="input-group-text border-0" id="search-addon" >
-                        <i class="glyphicon glyphicon-search form-control-feedback text-muted" style="font-size: 15px;"></i>
-                      </span>
-                    
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                 </div>
-            </h1>
-        </div>
-        <div class="col-xs-12">
-            <h4>EDAM is a simple ontology of well established, familiar concepts that are prevalent within
-                bioinformatics [<a target="_blank" href="http://edamontology.org/">edamontology.org</a>]</h4>
         </div>
     </div>
     <div class="content row" id="main">
         <div class="col-xs-12 col-lg-8">
             <div class="panel panel-default" id="tree-and-controls">
+		<div class="loader-wrapper">
+                  <i class="fa fa-spinner fa-spin fa-10x"></i>
+                </div>     
     
                 <div id="tree" class="d3js-tree-container"></div>
 
-                <div id="tree-controls">
+                <div class="tree-controls tree-controls-right-top">
+                    <div class="tree-controls-group">
                     <div>
-                    <button type="button" class="btn btn-default"
+                    <button type="button" class="btn btn-default no-on-controls-hover"
                     onclick="browser.interactive_tree().cmd().manualZoomInAndOut('in')"><i class="fas fa-plus"></i>
                     </button>
                     </div>
                     <div>
-                    <button type="button" class="btn btn-default"
+                    <button type="button" class="btn btn-default no-on-controls-hover"
                     onclick="browser.interactive_tree().cmd().manualZoomInAndOut('out')"><i class="fas fa-minus"></i>
                     </button>
                     </div>
@@ -156,6 +159,8 @@
                     onclick="browser.interactive_tree().cmd().resetPanAndZoom()"><i class="fas fa-home"></i><span class="on-controls-hover">Reset zoom</span>
                     </button>
                     </div>
+                    </div>
+                    <div class="tree-controls-group">
                     <div>
                     <button type="button" class="btn btn-default"
                     onclick="browser.interactive_tree().cmd().collapseNotSelectedElement()"><i class="fas fa-compress-arrows-alt"></i><span class="on-controls-hover">Collapse not selected elements</span>
@@ -166,25 +171,29 @@
                     onclick="browser.interactive_tree().cmd().expandAllDescendantElement()"><i class="fas fa-expand-arrows-alt"></i><span class="on-controls-hover">Expand all tree</span>
                     </button>
                     </div>
-
+                    </div>
+                    <div id="go-fullscreen">
+                    <button type="button" class="btn btn-default"
+                    onclick="toggleFullscreen();" ><i class="fas fa-expand" aria-hidden="true"></i><span class="on-controls-hover" >Open Full Screen</span>
+                    </button>
+                    </div>
+                    <div id="exit-fullscreen" style="display: none;">
+                    <button type="button" class="btn btn-default"
+                    onclick="toggleFullscreen();" ><i class="fas fa-compress" aria-hidden="true"></i><span class="on-controls-hover" >Exit Full Screen</span>
+                    </button>
+                    </div>
                 </div>
-            </div>
-            <button class="btn-toggle" title="Change theme mode">
-            <svg style="fill: var(--color-profile-color-modes-toggle-moon);" aria-hidden="true" width="20" height="20" viewBox="0 0 14 13" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z"></path>
-            </svg>
-            </button>
-            <div class="pull-right">
-                <dl class="dl-horizontal meta-info">
-                    <dt>Current version</dt>
-                    <dd class="not-hidden"><span id="version"></span></dd>
-                    <dt>Release date</dt>
-                    <dd id="release_date"></dd>
-                    <dt for="meta_data_url">Data URL</dt>
-                    <dd><a href="" target="_blank" id="meta_data_url">Open here</a></dd>
-                    <dt for="meta_data_file">Data File</dt>
-                    <dd id="meta_data_file"></dd>
-                </dl>
+                <div class="tree-controls tree-controls-right-bottom">
+                    <div class="tree-control-element meta-info">
+                        <span class="on-controls-hover"><b>Current version</b><br/></span>
+                        <span id="version"><i class="fas fa-circle-notch fa-spin"></i></span>
+                        <span class="on-controls-hover"><br/><b>Release date</b><br/></span>
+                        <span class="on-controls-hover" id="release_date"></span>
+                        <span class="on-controls-hover"><br/></span>
+                        <span class="on-controls-hover"><b for="meta_data_url">Data URL<br/></b><a href="" target="_blank" id="meta_data_url">Open here <i class="fas fa-external-link-alt"></i></a></span>
+                        <span class="on-controls-hover"><b for="meta_data_file">Data File<br/></b><span id="meta_data_file"></span></span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-xs-12 col-lg-4" id="edamAccordion">
@@ -268,6 +277,12 @@
             </form>
         </div>
     </div>
+</div>
+<!--Theme Button-->
+<div class="btn-toggle-wrapper">
+    <button class="btn-toggle" title="Change theme mode">
+        <i class="fas fa-moon"></i>
+    </button>
 </div>
 </body>
 </html>
