@@ -94,6 +94,8 @@ function interactive_tree() {
                 .attr("class", "tooltip")
                 .style("opacity", 0)
                 .on("mouseover", function(d) {
+                    if(tooltip.style("opacity")==0)
+                        return;
                     tooltip.transition()
                         .duration(200)
                         .style("opacity", 1);
