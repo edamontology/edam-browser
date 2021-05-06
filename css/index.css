@@ -137,6 +137,8 @@ a:before {
     margin-bottom: 1em;
 }
 .tree-controls .tree-control-element,
+.tree-controls button.btn:active,
+.tree-controls button.btn:focus:active,
 .tree-controls button.btn{
     padding: 6px 12px;
     border-radius: 4px;
