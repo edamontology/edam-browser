@@ -225,7 +225,7 @@ function interactive_edam_browser(){
         details +=                 '</span>';
         details +=             '</h4>';
         details +=         '</div>';
-        details +=         '<div id="collapse-'+identifier+'" '+(collapsed?'class="panel-collapse collapse">':'');
+        details +=         '<div id="collapse-'+identifier+'" '+(collapsed?'class="panel-collapse collapse"':'')+ '>';
         details +=             '<div class="panel-body border-edam-'+branch_of_term+'"><table class="table table-condensed xborder-edam-'+branch_of_term+'"><tbody class="details"></tbody></table><table class="table table-condensed xborder-edam-'+branch_of_term+'"><tbody class="community"></tbody></table></div>';
         details +=         '</div>';
         details +=     '</div>';
