@@ -148,6 +148,7 @@ a:before {
     min-width:3em;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
+    display: inline-block;
 }
 .tree-controls .tree-controls-group>*:not(:first-child) button.no-on-controls-hover,
 .tree-controls .tree-controls-group>*:not(:first-child) button:not(:hover){
