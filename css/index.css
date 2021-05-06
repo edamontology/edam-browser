@@ -32,12 +32,6 @@
 .header-icon>* {
     margin-right:1em;
 }
-.d-flex {
-    display: flex;
-}
-.flex-column{
-    flex-direction: column;
-}
 .loader-wrapper{
   width: 100%;
   height: 100%;
@@ -189,5 +183,15 @@ body {
     #logo{
         display:none;
     }
+}
+/*boostrap 4 like classes*/
+.p-0{
+    padding:0 !important;
+}
+.d-flex {
+    display: flex;
+}
+.flex-column{
+    flex-direction: column;
 }
 /*end of file*/
