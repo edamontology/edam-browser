@@ -80,8 +80,10 @@ input:disabled+.text-for-disabled-input{
     height:100%;
 }
 
+.edam-details table .details td,
 .edam-details table .details td a{
-    word-break: break-word;
+    overflow-wrap: anywhere;
+    word-break: normal;
     white-space: normal;
 }
 
