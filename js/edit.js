@@ -1,6 +1,6 @@
 var browser;
 
-var typeDict={"has_topic_container":"topic","is_format_of_container":"data","has_input_container":"data","has_output_container":"data"};
+var typeDict={"has_topic_container":"topic","is_format_of_container":"data","has_input_container":"data","has_output_container":"data","is_identifier_of_container":"data"};
 
 function fill_form(identifier, parent, branch){
     tree_file = getTreeFile(branch);
@@ -60,6 +60,9 @@ function build_form(target, parentOfNewTerm){
         }
         for(i=0;i<(target.has_output||[]).length;i++){
             addTermField("#has_output_container","has_output",browser.interactive_tree.cmd.getElementByIdentifier(target.has_output[i]));
+        }
+        for(i=0;i<(target.is_identifier_of||[]).length;i++){
+            addTermField("#is_identifier_of_container","is_identifier_of",browser.interactive_tree.cmd.getElementByIdentifier(target.is_identifier_of[i]));
         }
     }else{
         $(".search-term").val(parentOfNewTerm.text);
