@@ -499,6 +499,10 @@ function interactive_edam_browser(){
     }
 
     function tooltipBuilder(d, tooltipContainer){
+        tooltipContainer.node().innerHTML = '';
+        if ($("#tree-and-controls:not(:fullscreen)").length
+            && $("input[name='show-tooltip-only-full-screen']:checked").length)
+            return;
         var uri=__my_interactive_tree.identifierAccessor()(d);
         var branch_of_term = get_branch_of_term(uri);
         var identifier=uri.substring(uri.lastIndexOf('/')+1)
