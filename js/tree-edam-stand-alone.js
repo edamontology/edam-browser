@@ -203,12 +203,21 @@ function interactive_edam_browser(){
             setUrlParameters("");
         }
         $("#details-"+identifier).remove();
+        var details = build_detail_panel(d, uri, branch_of_term, identifier, true);
+        fill_detail_panel(d, uri, branch_of_term, identifier, details);
+        fill_community_panel(d, uri, branch_of_term, identifier, details);
+        append_detail_panel_to_edam_accordion(d, uri, branch_of_term, identifier, details);
+    }
+
+    function build_detail_panel (d, uri, branch_of_term, identifier, collapsed){
         details = "";
-        details += '<div class="panel-group" id="details-'+identifier+'">';
+        details += '<div class="panel-group edam-details" id="details-'+identifier+'">';
         details +=     '<div class="panel panel-default border-edam-'+branch_of_term+'">';
         details +=         '<div class="panel-heading xbg-edam-'+branch_of_term+'-light">';
         details +=             '<h4 class="panel-title">';
-        details +=                 '<a data-toggle="collapse" href="#collapse-'+identifier+'">Details of term "<span class="term-name-heading"></span>"</a> ';
+        details +=                 (collapsed?'<a data-toggle="collapse" href="#collapse-'+identifier+'">Details of term "':'');
+        details +=                 '<span class="term-name-heading"></span>';
+        details +=                 (collapsed?'"</a> ':'');
 //        details +=                 '<span class="label label-default bg-edam-'+branch_of_term+'-light border-one-solid fg-edam-'+branch_of_term+' border-edam-'+branch_of_term+'">'+branch_of_term+'</span>';
         details +=                 '<span>';
         details +=                 '<a title="edit this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?term='+uri+'&branch='+current_branch+'"><span class="glyphicon glyphicon-pencil"></span></a>';
@@ -216,13 +225,17 @@ function interactive_edam_browser(){
         details +=                 '</span>';
         details +=             '</h4>';
         details +=         '</div>';
-        details +=         '<div id="collapse-'+identifier+'" class="panel-collapse collapse">';
+        details +=         '<div id="collapse-'+identifier+'" '+(collapsed?'class="panel-collapse collapse"':'')+ '>';
         details +=             '<div class="panel-body border-edam-'+branch_of_term+'"><table class="table table-condensed xborder-edam-'+branch_of_term+'"><tbody class="details"></tbody></table><table class="table table-condensed xborder-edam-'+branch_of_term+'"><tbody class="community"></tbody></table></div>';
         details +=         '</div>';
         details +=     '</div>';
         details += '</div>';
         details=$(details);
         details.find(".term-name-heading").text(d.data.text);
+        return details;
+    }
+
+    function fill_detail_panel (d, uri, branch_of_term, identifier, details){
         var table = details.find("tbody.details");
         table.children().remove();
         var table_parent = details.find("table").parent();
@@ -286,6 +299,9 @@ function interactive_edam_browser(){
             }
             }
         });
+    }
+
+    function fill_community_panel (d, uri, branch_of_term, identifier, details){
         var community = details.find("tbody.community");
         var caller_b=biotool_api().get_for(current_branch, d.data.text, uri, d);
         if (caller_b.is_enabled()){
@@ -375,6 +391,9 @@ function interactive_edam_browser(){
             community.parent().remove();
         }
         details.find('[data-toggle="tooltip"]').tooltip();
+    }
+
+    function append_detail_panel_to_edam_accordion (d, uri, branch_of_term, identifier, details){
         $("#edamAccordion").find(".panel-group").first().find(".collapse").collapse("hide");
         var length=$("#edamAccordion").find(".panel-group").length;
         if(length>0){
@@ -477,6 +496,30 @@ function interactive_edam_browser(){
         }
         $("<tr><th><span"+html_tootip+">"+name+"</span></th><td class=\""+id+"\">"+interactive_edam_uri(value, translate_uri_to_text)+"</td></tr>").appendTo(table);
         return id;
+    }
+
+    function tooltipBuilder(d, tooltipContainer){
+        tooltipContainer.node().innerHTML = '';
+        if ($("#tree-and-controls:not(:fullscreen)").length &&
+            $("input[name='show-tooltip-only-full-screen']:checked").length)
+            return;
+        var uri=__my_interactive_tree.identifierAccessor()(d);
+        var branch_of_term = get_branch_of_term(uri);
+        var identifier=uri.substring(uri.lastIndexOf('/')+1)
+            .replace(/[^a-zA-Z_0-9]/g,'-')
+            .toLowerCase()
+            .replace(/[-]+/g,'-');
+        var details = build_detail_panel(d, uri, branch_of_term, identifier, false);
+        if ($("input[name='show-detail']:checked").length)
+            fill_detail_panel(d, uri, branch_of_term, identifier, details);
+        else
+            details.find("tbody.details").parent().remove();
+        if ($("input[name='show-community-usage']:checked").length)
+            fill_community_panel(d, uri, branch_of_term, identifier, details);
+        else
+            details.find("tbody.community").parent().remove();
+        details.find(".panel-body:empty").remove();
+        $(tooltipContainer.node()).append(details);
     }
 
     function metaInformationHandler(meta){
@@ -630,6 +673,8 @@ function interactive_edam_browser(){
         .use_shift_to_add(false)
         .use_control_to_add(false)
         .use_alt_to_add(false)
+        .tooltipEnabled(true)
+        .tooltipBuilder(tooltipBuilder)
     ;
 
     /**

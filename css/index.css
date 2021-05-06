@@ -32,12 +32,6 @@
 .header-icon>* {
     margin-right:1em;
 }
-.d-flex {
-    display: flex;
-}
-.flex-column{
-    flex-direction: column;
-}
 .loader-wrapper{
   width: 100%;
   height: 100%;
@@ -72,22 +66,24 @@ input:disabled+.text-for-disabled-input{
 .panel-group+#history-separator{
     display:initial;
 }
-#edamAccordion table    .label{
+.edam-details table    .label{
     font-size:inherit;
 }
-#edamAccordion ul{
+.edam-details ul{
     margin-bottom:0px;
     line-height:2;
 }
-#edamAccordion tbody.details th *[data-toggle="tooltip"]{
+.edam-details tbody.details th *[data-toggle="tooltip"]{
     cursor:default;
 }
 #tree {
     height:100%;
 }
 
-#edamAccordion table .details td a{
-    word-break: break-word;
+.edam-details table .details td,
+.edam-details table .details td a{
+    overflow-wrap: anywhere;
+    word-break: normal;
     white-space: normal;
 }
 
@@ -143,13 +139,18 @@ a:before {
     margin-bottom: 1em;
 }
 .tree-controls .tree-control-element,
+.tree-controls button.btn:active,
+.tree-controls button.btn:focus:active,
 .tree-controls button.btn{
+    padding: 6px 12px;
+    border-radius: 4px;
     border-width: 0;
     color: white;
     background: #000000c3;
     min-width:3em;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
+    display: inline-block;
 }
 .tree-controls .tree-controls-group>*:not(:first-child) button.no-on-controls-hover,
 .tree-controls .tree-controls-group>*:not(:first-child) button:not(:hover){
@@ -173,6 +174,20 @@ a:before {
 .tree-controls .tree-control-element a:hover {
     color: #5c9ad1;
 }
+.tree-control-element input[type="checkbox"]{
+    display:none;
+}
+.tree-control-element input[type="checkbox"]:checked+span:before{
+    content: "\f205";
+}
+.tree-control-element input[type="checkbox"]+span:before{
+    content: "\f204";
+    font-family: 'Font Awesome 5 Free';
+}
+.tree-control-element label{
+    cursor: pointer;
+    margin-bottom:0;
+}
 body {
   overflow-x: hidden;
 }
@@ -189,5 +204,15 @@ body {
     #logo{
         display:none;
     }
+}
+/*boostrap 4 like classes*/
+.p-0{
+    padding:0 !important;
+}
+.d-flex {
+    display: flex;
+}
+.flex-column{
+    flex-direction: column;
 }
 /*end of file*/
