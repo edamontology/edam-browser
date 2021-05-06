@@ -114,14 +114,7 @@ window.onload = function() {
     var s_branch = getUrlParameter('term') || getUrlParameter('parent');
     s_branch = s_branch.substring(s_branch.lastIndexOf('/') + 1, s_branch.lastIndexOf('_'));
     $('.optional_rel').hide();
-    if (s_branch === "operation") {
-        $('.operation_rel').show();
-        //$('.format_rel').hide();
-    } else if (s_branch === "data") {
-        $('.data_rel').show();
-    } else if (s_branch === "format") {
-        $('.format_rel').show(); 
-    }
+    $('.' + s_branch + '_rel').show();
 };
 
 function sendToGitHub(){
