@@ -131,18 +131,11 @@ function sendToGitHub(){
     msg+=$("#id_github_comments").val();
     msg+="\n\n";
     msg+="[//]: # (End of issue comments)\n";
-    msg+="### Hereafter are the initial version and proposed modification of attributes of the given term\n";
     for(i =0;i<ids.length;i++){
         var val = ($(ids[i]).attr('data-selected') || $(ids[i]).val());
         if(val!=$(ids[i]).attr('data-initial')){
-            msg+="\n";
-            msg+="| key | value |\n";
-            msg+="| --- | --- |\n";
-            msg+="| Attr  | **"+$(ids[i]).attr('name')+"** |\n";
-            msg+="| Old | "+$(ids[i]).attr('data-initial')+" |\n";
-            msg+="| New | "+val+" |\n";
-            msg+="|  |  |\n";
-            msg+="\n";
+            msg+="\n\n";
+            msg+=$(ids[i]).attr('name')+":&lt;"+val+"&gt;";
         }
     }
     if($('#pageTitle .new:visible').length>0){
