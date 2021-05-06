@@ -27,13 +27,14 @@ function interactive_tree() {
             return d.data.text;
         },
         elementEquality=function (e,f){return identifierAccessor(e)==identifierAccessor(f);},
-        tooltipBuilder=function(d) {
-            return  "<div class=\"panel panel-default card\"><div class=\"panel-heading\">"+
+        tooltipBuilder=function(d, tooltipContainer) {
+            var c = "<div class=\"panel panel-default card\"><div class=\"panel-heading\">"+
                     textAccessor(d)+
                     "</div>"+
                     "<div class=\"panel-body\">"+
                     "Identifier: "+identifierAccessor(d)+
                     "</div></div>";
+            tooltipContainer.html(c);
         },
         preTreatmentOfLoadedTree=function(tree){return  tree;},
         tooltipEnabled=false,
@@ -86,10 +87,13 @@ function interactive_tree() {
                 .call(zoom);
             var vis = svg.append("svg:g");
 
-            var tooltip = d3.select("body").append("div")
+            var body = d3.select("body");
+            var tooltip = (body.select("div.tooltip").empty() ? body.append("div") : body.select("div.tooltip"))
                 .attr("class", "tooltip")
                 .style("opacity", 0)
                 .on("mouseover", function(d) {
+                    if(tooltip.style("opacity")==0)
+                        return;
                     tooltip.transition()
                         .duration(200)
                         .style("opacity", 1);
@@ -100,7 +104,7 @@ function interactive_tree() {
                     .style("opacity", 0);
                     tooltip.transition()
                     .delay(200)
-                    .style("top",  "-200px");
+                    .style("top",  "-2000px");
                 });
 
             reset = function(){
@@ -177,14 +181,15 @@ function interactive_tree() {
                     })
                     .on("mouseover", function(d) {
                         if (!tooltipEnabled) return;
+                        tooltipBuilder(d, tooltip);
                         tooltip
+                            .interrupt()
                             .transition()
                             .duration(200)
                             .style("opacity", 1);
                         tooltip
-                            .html(tooltipBuilder(d))
-                            .style("left", (d3.event.pageX+20) + "px")
-                            .style("top", (d3.event.pageY - 28) + "px");
+                            .style("left", (d3.event.layerX+20) + "px")
+                            .style("top", (d3.event.layerY-5) + "px");
                     })
                     .on("mouseout", function(d) {
                             tooltip
@@ -194,7 +199,7 @@ function interactive_tree() {
                             tooltip
                                 .transition()
                                 .delay(200)
-                                .style("top",  "-200px");
+                                .style("top",  "-2000px");
                     });
 
                 // UPDATE
