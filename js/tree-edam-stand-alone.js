@@ -510,8 +510,15 @@ function interactive_edam_browser(){
             .toLowerCase()
             .replace(/[-]+/g,'-');
         var details = build_detail_panel(d, uri, branch_of_term, identifier, false);
-        fill_detail_panel(d, uri, branch_of_term, identifier, details);
-        tooltipContainer.node().innerHTML = '';
+        if ($("input[name='show-detail']:checked").length)
+            fill_detail_panel(d, uri, branch_of_term, identifier, details);
+        else
+            details.find("tbody.details").parent().remove();
+        if ($("input[name='show-community-usage']:checked").length)
+            fill_community_panel(d, uri, branch_of_term, identifier, details);
+        else
+            details.find("tbody.community").parent().remove();
+        details.find(".panel-body:empty").remove();
         $(tooltipContainer.node()).append(details);
     }
 
