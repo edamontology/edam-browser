@@ -34,7 +34,8 @@ path.link.selected {
 
 div.tooltip {
     position: absolute;
-    width:300px;
+    width: 20vw;
+    min-width:300px;
 }
 .node text{
     stroke: #FFFA;
