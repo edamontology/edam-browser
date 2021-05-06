@@ -182,6 +182,28 @@
                     onclick="toggleFullscreen();" ><i class="fas fa-compress" aria-hidden="true"></i><span class="on-controls-hover" >Exit Full Screen</span>
                     </button>
                     </div>
+                    <div class="tree-controls-group">
+                        <div>
+                            <div class="tree-control-element text-left">
+                                <i class="fas fa-cogs"></i><span class="on-controls-hover p-0"><b> Settings</b><br/></span>
+                                <label class="on-controls-hover p-0">
+                                    <input type="checkbox" name="show-tooltip-only-full-screen" checked="checked"/>
+                                    <span></span>
+                                    <span title="Always show tooltips otherwise">Show tooltips only in full screen</span><br/>
+                                </label>
+                                <label class="on-controls-hover p-0">
+                                    <input type="checkbox" name="show-detail" checked="checked"/>
+                                    <span></span>
+                                    Show details in tooltip<br/>
+                                </label>
+                                <label class="on-controls-hover p-0">
+                                    <input type="checkbox" name="show-community-usage"/>
+                                    <span></span>
+                                    Show community usage in tooltip<br/>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="tree-controls tree-controls-right-bottom">
                     <div class="tree-control-element meta-info">
@@ -194,6 +216,7 @@
                         <span class="on-controls-hover"><b for="meta_data_file">Data File<br/></b><span id="meta_data_file"></span></span>
                     </div>
                 </div>
+                <div class="tooltip"></div>
             </div>
         </div>
         <div class="col-xs-12 col-lg-4" id="edamAccordion">
