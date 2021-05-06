@@ -171,6 +171,20 @@ a:before {
 .tree-controls .tree-control-element a:hover {
     color: #5c9ad1;
 }
+.tree-control-element input[type="checkbox"]{
+    display:none;
+}
+.tree-control-element input[type="checkbox"]:checked+span:before{
+    content: "\f205";
+}
+.tree-control-element input[type="checkbox"]+span:before{
+    content: "\f204";
+    font-family: 'Font Awesome 5 Free';
+}
+.tree-control-element label{
+    cursor: pointer;
+    margin-bottom:0;
+}
 body {
   overflow-x: hidden;
 }
