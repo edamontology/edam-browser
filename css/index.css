@@ -191,6 +191,9 @@ a:before {
 body {
   overflow-x: hidden;
 }
+.d3js-tree-container {
+    cursor: grabbing;
+}
 .branch {
     cursor: pointer;
 }
