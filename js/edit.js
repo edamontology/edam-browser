@@ -67,10 +67,12 @@ function build_form(target, parentOfNewTerm){
     }else{
         $(".search-term").val(parentOfNewTerm.text);
     }
+    // toggle per-branch attributs
     var s_branch = getUrlParameter('term') || getUrlParameter('parent');
     s_branch = s_branch.substring(s_branch.lastIndexOf('/') + 1, s_branch.lastIndexOf('_'));
     $('.optional_rel').hide();
     $('.' + s_branch + '_rel').show();
+    // unlock form
     $("form [disabled=disabled]").attr("disabled", false);
 }
 function join_if_exists(tab){
