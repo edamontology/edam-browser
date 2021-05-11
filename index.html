@@ -192,12 +192,14 @@
                                     <span title="Always show tooltips otherwise">Show tooltips only in full screen</span><br/>
                                 </label>
                                 <label class="on-controls-hover p-0">
-                                    <input type="checkbox" name="show-detail" checked="checked"/>
+                                    <input type="checkbox" name="show-detail"
+                                        onchange="localStorage.setItem('show-detail', $(this).prop('checked'))"/>
                                     <span></span>
                                     Show details in tooltip<br/>
                                 </label>
                                 <label class="on-controls-hover p-0">
-                                    <input type="checkbox" name="show-community-usage"/>
+                                    <input type="checkbox" name="show-community-usage"
+                                        onchange="localStorage.setItem('show-community-usage', $(this).prop('checked'))"/>
                                     <span></span>
                                     Show community usage in tooltip<br/>
                                 </label>
