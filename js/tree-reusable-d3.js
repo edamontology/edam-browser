@@ -811,9 +811,9 @@ function interactive_tree() {
         identifierToElement={};
         data_url = value;
         d3.json(value, function(json) {
-            if(json==null)
-            alert("Please enter a valid json file/link!");
-            else{
+            if(json==null) {
+                alert('Unable to read content of "' + data_url + '"');
+            }else{
                 if(typeof json.meta=="undefined"){
                     json.meta={"version":"v n/a", "date":"n/a"};
                 }
