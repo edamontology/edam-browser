@@ -108,14 +108,15 @@ function interactive_edam_browser(){
         reader.readAsText(file);
         reader.onload = function(event) {
             json = JSON.parse(event.target.result);
-            if(json!=null){
-                if(typeof json.meta=="undefined"){
-                    json.meta={"version":"v n/a"};
-                }
-                json.meta.data_file=file.name;
-                json.meta.date=file.lastModifiedDate.toLocaleString();
-                loadTree(branch, json);
+            if(json==null){
+                return;
             }
+            if(typeof json.meta=="undefined"){
+                json.meta={"version":"v n/a"};
+            }
+            json.meta.data_file=file.name;
+            json.meta.date=file.lastModifiedDate.toLocaleString();
+            loadTree(branch, json);
         };
         reader.onerror = function() {
             alert('Unable to read ' + file.fileName);
