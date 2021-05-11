@@ -30,7 +30,7 @@
     margin-top:0;
 }
 .header-icon>* {
-    margin-right:1em;
+    display: inline-block;
 }
 .loader-wrapper{
   width: 100%;
