@@ -99,6 +99,7 @@ function interactive_edam_browser(){
         __my_interactive_tree.textAccessor(text_accessor_mapping[getUrlParameter("text_accessor")]);
 
         $("#myModal").modal('hide');
+        $("#edamAccordion>.panel-group").remove();
         if(branch=="custom_url"){
             loadTree(branch);
             return;
