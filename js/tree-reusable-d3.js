@@ -420,16 +420,10 @@ function interactive_tree() {
             if (sortChildren) {
                 element.children.sort(
                     function (a,b) {
-                        if(textAccessor(a)) {
-                            a=textAccessor(a).toString();
-                            a=a.toUpperCase();
-                            b=textAccessor(b).toString();
-                            b=b.toUpperCase();
-                        }
-                        else {
-                            a=textAccessor(a).toUpperCase();
-                            b=textAccessor(b).toUpperCase();
-                        }
+                        a=textAccessor(a).toString() || textAccessor(a);
+                        a=a.toUpperCase();
+                        b=textAccessor(b).toString() || textAccessor(b);
+                        b=b.toUpperCase();
                         if (a < b)
                             return -1;
                         if (a > b)
