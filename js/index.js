@@ -64,4 +64,6 @@ window.onload = function() {
     }else{
         browser.current_branch(branch);
     }
+    $("input[name='show-detail']").prop("checked" , (localStorage.getItem("show-detail")||"true") == "true");
+    $("input[name='show-community-usage']").prop("checked" , (localStorage.getItem("show-community-usage")||"false") == "true");
 };
