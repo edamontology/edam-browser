@@ -115,12 +115,23 @@ a:before {
     text-decoration: none;
 }
 
-#tree-and-controls
+#tree-and-controls 
 {
     position:relative;
-    height: 70vh !important;
+    height: 70vh;
+    min-height: 400px;
+    resize: vertical !important;
 }
-
+.resizer 
+{
+    background-color: grey;
+    width: 100%;
+    height: 5px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: row-resize;
+}
 .tree-controls{
     position: absolute ;
     display:flex;
@@ -128,7 +139,7 @@ a:before {
 }
 .tree-controls-right-bottom{
     right:0px;
-    bottom:1em;
+    bottom:2em;
 }
 .tree-controls-right-top{
     right:0px;

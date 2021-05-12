@@ -64,4 +64,24 @@ window.onload = function() {
     }else{
         browser.current_branch(branch);
     }
+    var treeElement = document.getElementById("tree-and-controls");
+    var resizer = document.getElementById("handle");
+    resizer.addEventListener("mousedown", initDrag, false);
+    var startY, startHeight;
+    function initDrag(e) {
+        startY = e.clientY;
+        startHeight = parseInt(
+        document.defaultView.getComputedStyle(treeElement).height,
+        10
+        );
+        document.documentElement.addEventListener("mousemove", doDrag, false);
+        document.documentElement.addEventListener("mouseup", stopDrag, false);
+    }
+    function doDrag(e) {
+        treeElement.style.height = startHeight + e.clientY - startY + "px";
+    }
+    function stopDrag(e) {
+        document.documentElement.removeEventListener("mousemove", doDrag, false);
+        document.documentElement.removeEventListener("mouseup", stopDrag, false);
+    }
 };
