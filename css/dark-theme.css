@@ -219,18 +219,18 @@ div.btn-toggle-wrapper {
   border-color: #050505;
 }
 
-.dark-mode .popover {
+.dark-mode .popover, .tooltip .panel-body {
   background-color: #303030;
   color: black;
 }
 
-.dark-mode .popover td {
+.dark-mode .popover td, .tooltip .list-unstyled li , .tooltip .panel-body tbody td, .tooltip .panel-body tbody th {
   background-color: #404040;
   color: white;
   border-color: #282828;
 }
 
-.dark-mode .popover tr {
+.dark-mode .popover tr, .tooltip .panel-body tbody tr {
   border-width: 1px;
 }
 
