@@ -115,7 +115,7 @@ a:before {
     text-decoration: none;
 }
 
-#tree-and-controls 
+#tree-and-controls
 {
     position:relative;
     height: 70vh;
@@ -132,6 +132,7 @@ a:before {
     bottom: 0;
     cursor: row-resize;
 }
+
 .tree-controls{
     position: absolute ;
     display:flex;
