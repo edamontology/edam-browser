@@ -16,6 +16,14 @@ As a reminder here is a checklist
 close/fix/resolve #???
 <!-- pick one of close/fix/resolve, remove the other and then replace ??? with the issue number -->
 
+### PR
+
+<!--If your PR requires another PR to be merged first then replace ??? with the PR number, else remove this.-->
+Resolve #???
+
+<!--If your PR solves similar problem as any other PR but proposes a better solution, then replace ??? with the PR number, else remove this.-->
+Close #???
+
 ### Details
 <!-- Put any relevant information below, or remove Details section -->
-<!-- If your PR is about a new visual effect, screenshot or screen recording are warmly welcome, I personally recommend https://github.com/phw/peek to record as gif. -->
+<!-- If your PR is about a new visual effect, screenshot or screen recording are warmly welcomed, I personally recommend https://github.com/phw/peek to record as gif. -->
