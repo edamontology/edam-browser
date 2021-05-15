@@ -148,7 +148,7 @@ function sendToGitHub(){
     if($('#pageTitle .new:visible').length>0){
         $("#sender [name=title]").val("[Edam Browser User] New child proposition for " + $("#id_parent").val());
     }else{
-        $("#sender [name=title]").val("[Edam Browser User] Change proposition for " + uri);
+        $("#sender [name=title]").val("[Edam Browser User] Proposing changes to " + uri);
     }
     $("#sender [name=body]").val(msg);
     $("#sender").submit();
