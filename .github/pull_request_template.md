@@ -19,4 +19,4 @@ close/fix/resolve #???
 
 ### Details
 <!-- Put any relevant information below, or remove Details section -->
-<!-- If you PR is about new visual effect, screenshot or screen recording are warmly welcome, I personally recommend https://github.com/phw/peek to record as gif. -->
+<!-- If your PR is about a new visual effect, screenshot or screen recording are warmly welcome, I personally recommend https://github.com/phw/peek to record as gif. -->
