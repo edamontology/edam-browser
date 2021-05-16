@@ -64,4 +64,30 @@ window.onload = function() {
     }else{
         browser.current_branch(branch);
     }
+    let keys = Object.keys(sessionStorage);
+    if (keys != "IsThisFirstTime_Log_From_LiveServer") {
+        if ($(".bookmarks").length == 0) {
+            $(".parentContainer").append("<div class='bookmarks'></div>");
+        }
+        for (let key of keys) {
+            if (key != "IsThisFirstTime_Log_From_LiveServer") {
+                $(".bookmarks").append(
+                `<button id="bookClick">${key}</button>`
+                );
+            }
+        }
+
+        const buttons = document.querySelectorAll("#bookClick");
+        for (const button of buttons) {
+            console.log(button);
+            button.addEventListener("click", function () {
+                console.log(sessionStorage.getItem(button.innerHTML));
+                browser.interactive_tree().cmd().clearSelectedElements(false);
+                browser
+                .interactive_tree()
+                .cmd()
+                .selectElement(`${sessionStorage.getItem(button.innerHTML)}`, true);
+            });
+        }
+  }
 };

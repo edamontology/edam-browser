@@ -222,6 +222,7 @@ function interactive_edam_browser(){
         details +=                 '<span>';
         details +=                 '<a title="edit this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?term='+uri+'&branch='+current_branch+'"><span class="glyphicon glyphicon-pencil"></span></a>';
         details +=                 '<a title="add a child to this term" type="button" class="btn btn-default btn-xs pull-right" target="_blank" href="edit.html?parent='+uri+'&branch='+current_branch+'"><span class="glyphicon glyphicon-plus"></span></a>';
+        details +=                 `<a title="bookmark this term" type="button" class="btn btn-default btn-xs pull-right" id="bookmark" target="_blank"><span class="glyphicon glyphicon-bookmark"></span></a>`;
         details +=                 '</span>';
         details +=             '</h4>';
         details +=         '</div>';
@@ -232,6 +233,9 @@ function interactive_edam_browser(){
         details += '</div>';
         details=$(details);
         details.find(".term-name-heading").text(d.data.text);
+        details.find("#bookmark").click(function () {
+            bookmark(d.data.text, d.data.data.uri);
+          });
         return details;
     }
 
@@ -754,3 +758,33 @@ function toggleFullscreen(){
         $('#go-fullscreen').show();
     }
 }
+function bookmark(bramch, uri) {
+    sessionStorage.setItem(bramch, uri);
+    let keys = Object.keys(sessionStorage);
+    for (const key of keys) {
+        $("#bookClick").remove();
+    }
+    for (const key of keys) {
+        console.log($(".bookmarks").length);
+        if (key != "IsThisFirstTime_Log_From_LiveServer") {
+            if ($(".bookmarks").length == 0) {
+                $(".parentContainer").append("<div class='bookmarks'></div>");
+            }
+            $(".bookmarks").append(
+            `<button id="bookClick">${key}</button>`
+            );
+        }
+    }
+    const buttons = document.querySelectorAll("#bookClick");
+    for (const button of buttons) {
+        console.log(button);
+        button.addEventListener("click", function () {
+            console.log(sessionStorage.getItem(button.innerHTML));
+            browser.interactive_tree().cmd().clearSelectedElements(false);
+            browser
+            .interactive_tree()
+            .cmd()
+            .selectElement(`${sessionStorage.getItem(button.innerHTML)}`, true);
+        });
+    }
+}  
