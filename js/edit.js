@@ -111,6 +111,10 @@ window.onload = function() {
         fill_form(uri, getUrlParameter('parent'), branch);
     });
     browser.current_branch( getUrlParameter('branch'));
+    var s_branch = getUrlParameter('term') || getUrlParameter('parent');
+    s_branch = s_branch.substring(s_branch.lastIndexOf('/') + 1, s_branch.lastIndexOf('_'));
+    $('.optional_rel').hide();
+    $('.' + s_branch + '_rel').show();
 };
 
 function sendToGitHub(){
