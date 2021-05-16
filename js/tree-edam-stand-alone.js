@@ -758,14 +758,13 @@ function toggleFullscreen(){
         $('#go-fullscreen').show();
     }
 }
-function bookmark(bramch, uri) {
-    sessionStorage.setItem(bramch, uri);
+function bookmark(branch, uri) {
+    sessionStorage.setItem(branch, uri);
     let keys = Object.keys(sessionStorage);
     for (const key of keys) {
         $("#bookClick").remove();
     }
     for (const key of keys) {
-        console.log($(".bookmarks").length);
         if (key != "IsThisFirstTime_Log_From_LiveServer") {
             if ($(".bookmarks").length == 0) {
                 $(".parentContainer").append("<div class='bookmarks'></div>");
@@ -777,9 +776,7 @@ function bookmark(bramch, uri) {
     }
     const buttons = document.querySelectorAll("#bookClick");
     for (const button of buttons) {
-        console.log(button);
         button.addEventListener("click", function () {
-            console.log(sessionStorage.getItem(button.innerHTML));
             browser.interactive_tree().cmd().clearSelectedElements(false);
             browser
             .interactive_tree()

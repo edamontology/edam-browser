@@ -79,9 +79,7 @@ window.onload = function() {
 
         const buttons = document.querySelectorAll("#bookClick");
         for (const button of buttons) {
-            console.log(button);
             button.addEventListener("click", function () {
-                console.log(sessionStorage.getItem(button.innerHTML));
                 browser.interactive_tree().cmd().clearSelectedElements(false);
                 browser
                 .interactive_tree()
