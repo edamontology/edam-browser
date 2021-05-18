@@ -1,313 +1,382 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTDXHTML1.0Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-    <title>EDAM ontology browser</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="favicon.ico"/>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115521967-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    <head>
+        <title>EDAM ontology browser</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="icon" type="image/png" href="favicon.ico"/>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115521967-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
 
-      gtag('config', 'UA-115521967-1');
-    </script>
-    <script
-            src="https://code.jquery.com/jquery-3.2.1.min.js"
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
-    <script
-            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"
-            integrity="sha256-hYXbQJK4qdJiAeDVjjQ9G0D6A0xLnDQ4eJI9dkm7Fpk=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/levenshtein/1.0.5/levenshtein.min.js"></script>
-    <link rel="stylesheet" href="css/bootstrap.xl.css"/>
-    <script src="js/utils.js"></script>
-    <script src="js/tree-reusable-d3.js"></script>
-    <script src="js/tree-edam-stand-alone.js"></script>
-    <script src="js/bio.tools.api.js"></script>
-    <script src="js/biosphere.api.js"></script>
-    <script src="js/tess.api.js"></script>
-    <script src="js/bioweb.api.js"></script>
-    <script src="js/index.js"></script>
-    <script src="js/autocomplete-edam-reusable.js"></script>
-    <link href="css/tree-reusable-d3.css" rel="stylesheet">
-    <link href="css/autocomplete-edam-reusable.css" rel="stylesheet">
-    <link href="css/index.css" rel="stylesheet">
-    <link href="css/edam.css" rel="stylesheet">
-    <link href="css/dark-theme.css" rel="stylesheet">	
-</head>
-<body>
-<div class="container-fluid">
-    <div class="d-flex" id="page-header">
-        <div class="d-flex" id="header-desc">
-            <img id="logo" src="https://github.com/edamontology/edamontology/raw/main/EDAM-logo-square.svg" alt="EDAM Logo" onerror='this.style.display = "none"'/>
-            <div class="d-flex flex-column">
-            <h1 id="pageTitle">EDAM ontology</h1>
-            <p class="edam-defn">EDAM is a simple ontology of well established, familiar concepts that are prevalent within bioinformatics.</p>
-            <div class="header-icon">
-                <span>
-                    <i class='fas fa-link'></i>
-                    <a target="_blank" href="http://edamontology.org/">edamontology.org</a>
-                </span>&emsp;
-                <span>
-                    <i class='fab fa-github'></i>
-                    <a target="_blank" href="https://github.com/edamontology/edam-browser">edam-browser</a>
-                </span>&emsp;
-                <span>
-                    <i class='fab fa-gitter'></i>
-                    <a target="_blank" href="https://gitter.im/edamontology/edam-browser#">edam-browser</a>
-                </span>&emsp;
-                <span>
-                    <i class="fab fa-twitter"></i>
-                    <a target="_blank" href="https://twitter.com/edamontology">edamontology</a>
-                </span>
-            </div>
-            </div>
-        </div>
-        <div>
-            <div class="btn-group" id="edam-branches">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        EDAM <span class="caret"></span></button>
-                    <ul class="dropdown-menu" role="menu">
-                    <li>
-                        <a class="branch" onclick="browser.current_branch('edam')">All EDAM</a>
-                    </li>
-                    <li role="separator" class="divider"></li>
-                    <li>
-                        <a class="branch data bd-edam-data" onclick="browser.current_branch('data')">
-                            <i class="glyphicon glyphicon-stop fg-edam-data pull-right"></i> Only Data
-                        </a>
-                    </li>
-                    <li>
-                        <a class="branch format bd-edam-format" onclick="browser.current_branch('format')">
-                            <i class="glyphicon glyphicon-stop fg-edam-format pull-right"></i> Only Format
-                        </a>
-                    </li>
-                    <li>
-                        <a class="branch operation bd-edam-operation" onclick="browser.current_branch('operation')">
-                            <i class="glyphicon glyphicon-stop fg-edam-operation pull-right"></i> Only Operation
-                        </a></li>
-                    <li>
-                        <a class="branch topic bd-edam-topic" onclick="browser.current_branch('topic')">
-                            <i class="glyphicon glyphicon-stop fg-edam-topic pull-right"></i> Only Topic
-                        </a>
-                    </li>
-                    <li role="separator" class="divider"></li>
-                    <li>
-                        <a class="branch deprecated" onclick="browser.current_branch('deprecated')">
-                            <i class="glyphicon glyphicon-stop fg-edam-deprecated pull-right"></i> Deprecated
-                        </a>
-                    </li>
-                    <li>
-                        <a class="branch" onclick="browser.current_branch('edam_w_deprecated')">All branches and deprecated terms</a>
-                    </li>
-                    </ul>
+            gtag("config", "UA-115521967-1");
+        </script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js" integrity="sha256-hYXbQJK4qdJiAeDVjjQ9G0D6A0xLnDQ4eJI9dkm7Fpk=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/levenshtein/1.0.5/levenshtein.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.xl.css"/>
+        <script src="js/utils.js"></script>
+        <script src="js/tree-reusable-d3.js"></script>
+        <script src="js/tree-edam-stand-alone.js"></script>
+        <script src="js/bio.tools.api.js"></script>
+        <script src="js/biosphere.api.js"></script>
+        <script src="js/tess.api.js"></script>
+        <script src="js/bioweb.api.js"></script>
+        <script src="js/index.js"></script>
+        <script src="js/autocomplete-edam-reusable.js"></script>
+        <link href="css/tree-reusable-d3.css" rel="stylesheet"/>
+        <link href="css/autocomplete-edam-reusable.css" rel="stylesheet"/>
+        <link href="css/index.css" rel="stylesheet"/>
+        <link href="css/edam.css" rel="stylesheet"/>
+        <link href="css/dark-theme.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="d-flex" id="page-header">
+                <div class="d-flex" id="header-desc">
+                    <img id="logo" src="https://github.com/edamontology/edamontology/raw/main/EDAM-logo-square.svg" alt="EDAM Logo" onerror='this.style.display = "none"'/>
+                    <div class="d-flex flex-column">
+                        <h1 id="pageTitle">EDAM ontology</h1>
+                        <p class="edam-defn">
+                            EDAM is a simple ontology of well established, familiar concepts
+                                                                      that are prevalent within bioinformatics.
+                        </p>
+                        <div class="header-icon">
+                            <span>
+                                <i class="fas fa-link"></i>
+                                <a target="_blank" href="http://edamontology.org/">edamontology.org</a>
+                            </span>&emsp;
+                            <span>
+                                <i class="fab fa-github"></i>
+                                <a target="_blank" href="https://github.com/edamontology/edam-browser">edam-browser</a>
+                            </span>&emsp;
+                            <span>
+                                <i class="fab fa-gitter"></i>
+                                <a target="_blank" href="https://gitter.im/edamontology/edam-browser#">edam-browser</a>
+                            </span>&emsp;
+                            <span>
+                                <i class="fab fa-twitter"></i>
+                                <a target="_blank" href="https://twitter.com/edamontology">edamontology</a>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <button type="button"
-                   class="btn btn-default branch custom custom_url custom_file"
-                   title="Load a custom ontology"
-                   onclick="browser.cmd.selectCustom()"
-                >Custom</button>
-            </div>
-        </div>
-        <div>
-                <div class="input-group" style="width: 100%;z-index:1">
-                    <input
-                            type="text"
-                            tabindex="1"
-                            class="form-control ui-autocomplete-input search-term"                           
-                            placeholder="Search for concepts, enter at least two letters"
-                            onclick="$(this).select();"
-                    >
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                <div>
+                    <div class="btn-group" id="edam-branches">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                EDAM
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a class="branch" onclick="browser.current_branch('edam')">All EDAM</a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <a class="branch data bd-edam-data" onclick="browser.current_branch('data')">
+                                        <i class="glyphicon glyphicon-stop fg-edam-data pull-right"></i>
+                                        Only Data
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="branch format bd-edam-format" onclick="browser.current_branch('format')">
+                                        <i class="glyphicon glyphicon-stop fg-edam-format pull-right"></i>
+                                        Only Format
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="branch operation bd-edam-operation" onclick="browser.current_branch('operation')">
+                                        <i class="
+                                                                                                                glyphicon glyphicon-stop
+                                                                                                                fg-edam-operation
+                                                                                                                pull-right
+                                                                                                              "></i>
+                                        Only Operation
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="branch topic bd-edam-topic" onclick="browser.current_branch('topic')">
+                                        <i class="glyphicon glyphicon-stop fg-edam-topic pull-right"></i>
+                                        Only Topic
+                                    </a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <a class="branch deprecated" onclick="browser.current_branch('deprecated')">
+                                        <i class="
+                                                                                                                glyphicon glyphicon-stop
+                                                                                                                fg-edam-deprecated
+                                                                                                                pull-right
+                                                                                                              "></i>
+                                        Deprecated
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="branch" onclick="browser.current_branch('edam_w_deprecated')">All branches and deprecated terms</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <button type="button" class="btn btn-default branch custom custom_url custom_file" title="Load a custom ontology" onclick="browser.cmd.selectCustom()">
+                            Custom
+                        </button>
+                    </div>
                 </div>
-        </div>
-    </div>
-    <div class="content row" id="main">
-        <div class="col-xs-12 col-lg-8">
-            <div class="panel panel-default" id="tree-and-controls">
-		<div class="loader-wrapper">
-                  <i class="fa fa-spinner fa-spin fa-10x"></i>
-                </div>     
-    
-                <div id="tree" class="d3js-tree-container"></div>
+                <div>
+                    <div class="input-group" style="width: 100%; z-index: 1">
+                        <input type="text" tabindex="1" class="form-control ui-autocomplete-input search-term" placeholder="Search for concepts, enter at least two letters" onclick="$(this).select();"/>
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="content row" id="main">
+                <div class="col-xs-12 col-lg-8">
+                    <div class="panel panel-default" id="tree-and-controls">
+                        <div class="loader-wrapper">
+                            <i class="fa fa-spinner fa-spin fa-10x"></i>
+                        </div>
 
-                <div class="tree-controls tree-controls-right-top">
-                    <div class="tree-controls-group">
-                    <div>
-                    <button type="button" class="btn btn-default no-on-controls-hover"
-                    onclick="browser.interactive_tree().cmd().manualZoomInAndOut('in')"><i class="fas fa-plus"></i>
-                    </button>
-                    </div>
-                    <div>
-                    <button type="button" class="btn btn-default no-on-controls-hover"
-                    onclick="browser.interactive_tree().cmd().manualZoomInAndOut('out')"><i class="fas fa-minus"></i>
-                    </button>
-                    </div>
-                    <div>
-                    <button type="button" class="btn btn-default"
-                    onclick="browser.interactive_tree().cmd().resetPanAndZoom()"><i class="fas fa-home"></i><span class="on-controls-hover">Reset zoom</span>
-                    </button>
-                    </div>
-                    </div>
-                    <div class="tree-controls-group">
-                    <div>
-                    <button type="button" class="btn btn-default"
-                    onclick="browser.interactive_tree().cmd().collapseNotSelectedElement()"><i class="fas fa-compress-arrows-alt"></i><span class="on-controls-hover">Collapse not selected elements</span>
-                    </button>
-                    </div>
-                    <div>
-                    <button type="button" class="btn btn-default"
-                    onclick="browser.interactive_tree().cmd().expandAllDescendantElement()"><i class="fas fa-expand-arrows-alt"></i><span class="on-controls-hover">Expand all tree</span>
-                    </button>
-                    </div>
-                    </div>
-                    <div id="go-fullscreen">
-                    <button type="button" class="btn btn-default"
-                    onclick="toggleFullscreen();" ><i class="fas fa-expand" aria-hidden="true"></i><span class="on-controls-hover" >Open Full Screen</span>
-                    </button>
-                    </div>
-                    <div id="exit-fullscreen" style="display: none;">
-                    <button type="button" class="btn btn-default"
-                    onclick="toggleFullscreen();" ><i class="fas fa-compress" aria-hidden="true"></i><span class="on-controls-hover" >Exit Full Screen</span>
-                    </button>
-                    </div>
-                    <div class="tree-controls-group">
-                        <div>
-                            <div class="tree-control-element text-left">
-                                <i class="fas fa-cogs"></i><span class="on-controls-hover p-0"><b> Settings</b><br/></span>
-                                <label class="on-controls-hover p-0">
-                                    <input type="checkbox" name="show-tooltip-only-full-screen" checked="checked"/>
-                                    <span></span>
-                                    <span title="Always show tooltips otherwise">Show tooltips only in full screen</span><br/>
-                                </label>
-                                <label class="on-controls-hover p-0">
-                                    <input type="checkbox" name="show-detail"
-                                        onchange="localStorage.setItem('show-detail', $(this).prop('checked'))"/>
-                                    <span></span>
-                                    Show details in tooltip<br/>
-                                </label>
-                                <label class="on-controls-hover p-0">
-                                    <input type="checkbox" name="show-community-usage"
-                                        onchange="localStorage.setItem('show-community-usage', $(this).prop('checked'))"/>
-                                    <span></span>
-                                    Show community usage in tooltip<br/>
-                                </label>
+                        <div id="tree" class="d3js-tree-container"></div>
+
+                        <div class="tree-controls tree-controls-right-top">
+                            <div class="tree-controls-group">
+                                <div>
+                                    <button type="button" class="btn btn-default no-on-controls-hover" onclick="browser.interactive_tree().cmd().manualZoomInAndOut('in')">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-default no-on-controls-hover" onclick="browser.interactive_tree().cmd().manualZoomInAndOut('out')">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-default" onclick="browser.interactive_tree().cmd().resetPanAndZoom()">
+                                        <i class="fas fa-home"></i>
+                                        <span class="on-controls-hover">Reset zoom</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="tree-controls-group">
+                                <div>
+                                    <button type="button" class="btn btn-default" onclick="browser.interactive_tree().cmd().collapseNotSelectedElement()">
+                                        <i class="fas fa-compress-arrows-alt"></i>
+                                        <span class="on-controls-hover">Collapse not selected elements</span>
+                                    </button>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-default" onclick="browser.interactive_tree().cmd().expandAllDescendantElement()">
+                                        <i class="fas fa-expand-arrows-alt"></i>
+                                        <span class="on-controls-hover">Expand all tree</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="go-fullscreen">
+                                <button type="button" class="btn btn-default" onclick="toggleFullscreen();">
+                                    <i class="fas fa-expand" aria-hidden="true"></i>
+                                    <span class="on-controls-hover">Open Full Screen</span>
+                                </button>
+                            </div>
+                            <div id="exit-fullscreen" style="display: none">
+                                <button type="button" class="btn btn-default" onclick="toggleFullscreen();">
+                                    <i class="fas fa-compress" aria-hidden="true"></i>
+                                    <span class="on-controls-hover">Exit Full Screen</span>
+                                </button>
+                            </div>
+                            <div class="tree-controls-group">
+                                <div>
+                                    <div class="tree-control-element text-left">
+                                        <i class="fas fa-cogs"></i>
+                                        <span class="on-controls-hover p-0">
+                                            <b>
+                                                Settings</b><br/></span>
+                                        <label class="on-controls-hover p-0">
+                                            <input type="checkbox" name="show-tooltip-only-full-screen" checked="checked"/>
+                                            <span></span>
+                                            <span title="Always show tooltips otherwise">Show tooltips only in full screen</span><br/>
+                                        </label>
+                                        <label class="on-controls-hover p-0">
+                                            <input type="checkbox" name="show-detail" onchange="localStorage.setItem('show-detail', $(this).prop('checked'))"/>
+                                            <span></span>
+                                            Show details in tooltip<br/>
+                                        </label>
+                                        <label class="on-controls-hover p-0">
+                                            <input type="checkbox" name="show-community-usage" onchange="localStorage.setItem('show-community-usage', $(this).prop('checked'))"/>
+                                            <span></span>
+                                            Show community usage in tooltip<br/>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="tree-controls tree-controls-right-bottom">
+                            <div class="tree-control-element meta-info">
+                                <span class="on-controls-hover">
+                                    <b>Current version</b><br/></span>
+                                <span id="version">
+                                    <i class="fas fa-circle-notch fa-spin"></i>
+                                </span>
+                                <span class="on-controls-hover"><br/><b>Release date</b><br/></span>
+                                <span class="on-controls-hover" id="release_date"></span>
+                                <span class="on-controls-hover"><br/></span>
+                                <span class="on-controls-hover">
+                                    <b for="meta_data_url">Data URL<br/></b>
+                                    <a href="" target="_blank" id="meta_data_url">Open here
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </span>
+                                <span class="on-controls-hover">
+                                    <b for="meta_data_file">Data File<br/></b>
+                                    <span id="meta_data_file"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="tooltip"></div>
                     </div>
                 </div>
-                <div class="tree-controls tree-controls-right-bottom">
-                    <div class="tree-control-element meta-info">
-                        <span class="on-controls-hover"><b>Current version</b><br/></span>
-                        <span id="version"><i class="fas fa-circle-notch fa-spin"></i></span>
-                        <span class="on-controls-hover"><br/><b>Release date</b><br/></span>
-                        <span class="on-controls-hover" id="release_date"></span>
-                        <span class="on-controls-hover"><br/></span>
-                        <span class="on-controls-hover"><b for="meta_data_url">Data URL<br/></b><a href="" target="_blank" id="meta_data_url">Open here <i class="fas fa-external-link-alt"></i></a></span>
-                        <span class="on-controls-hover"><b for="meta_data_file">Data File<br/></b><span id="meta_data_file"></span></span>
+                <div class="col-xs-12 col-lg-4" id="edamAccordion">
+                    <div id="history-separator" class="panel-separator temp">
+                        Previously seen:
                     </div>
                 </div>
-                <div class="tooltip"></div>
             </div>
         </div>
-        <div class="col-xs-12 col-lg-4" id="edamAccordion">
-            <div id="history-separator" class="panel-separator temp">
-                Previously seen:
-            </div>
+        <div>
+            <a href="#top" id="scrolltotop" style=" position: absolute;top: 80%;left: 85%; position: fixed; float: left; display: none; " title="scroll to top"><img src="./backtotop.png" width="20%" alt="scrolltotop"/>
+            </a>
         </div>
-    </div>
-</div>
-<div class="footer-tools"> <a class="back-to-top" href="#top" title="Reach the top of the page">Back to top</a> </div>    
-<br>
-<br>
-<div class="communicate">
-	<a rel="noopener noreferrer nofollow" target="_blank" href="https://github.com/edamontology/edamontology" title="Collaborate on GitHub" class="fab fa-github fa-2x"></a>
+        <br/>
+        <br/>
+        <div class="communicate">
+            <a rel="noopener noreferrer nofollow" target="_blank" href="https://github.com/edamontology/edamontology" title="Collaborate on GitHub" class="fab fa-github fa-2x"></a>
 
-	<a rel="noopener noreferrer nofollow" target="_blank" href="https://gitter.im/edamontology/edamontology" title="Discuss on Gitter" class="fab fa-gitter fa-2x"></a>
+            <a rel="noopener noreferrer nofollow" target="_blank" href="https://gitter.im/edamontology/edamontology" title="Discuss on Gitter" class="fab fa-gitter fa-2x"></a>
 
-	<a rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/edamontology" title="Follow on Twitter" class="fab fa-twitter fa-2x"></a>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">Load custom ontology</h4>
-            </div>
-            <form action="/" method="get" onsubmit="" id="custom_ontology_from">
-                <div class="modal-body">
-                    <div class="form-group">
-                        The ontology can be loaded from an URL, or directly uploaded. Note that if one of the fields
-                        <em>URL</em>  and <em>file</em> is provided, the other is disabled so empty one field before filling the other.
-                    </div>
-                    <div class="form-group">
-                        <label for="id_url">Ontology URL</label>
-                        <input type="text" class="form-control" id="id_url" required name="url">
-                        <small class="form-text text-muted text-for-disabled-input">Erase the hereafter <em>File</em> field to be able to provide here an URL.</small>
-                        <small class="form-text text-muted">You can try with https://raw.githubusercontent.com/edamontology/edam-browser/main/media/regular.example.json , <code>d.id</code> as identifier and <code>d.text</code> as text.</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="id_file">Ontology File</label>
-                        <input type="file" class="form-control" name="file" id="id_file" required accept=".json" />
-                        <small class="form-text text-muted text-for-disabled-input">Erase the herebefore <em>URL</em> field to be able to provide here a file.</small>
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        The ontology has to be in json following
-                        <a href="ontology.schema.json" target="_blank">this format</a>, a validator is available
-                        <a href="https://jsonschemalint.com/" target="_blank">here</a>. Note that slight modifications of
-                        the schema are allowed hereafter:
-                    </div>
-                    <div class="form-group">
-                        <label for="id_identifier_accessor">How to access to the identifier of a term <tt>d</tt></label>
-                        <div class="radio" id="id_identifier_accessor">
-                            <label><input type="radio" name="identifier_accessor"
-                                          value="d.id"><tt>d.id</tt></label>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" name="identifier_accessor" value="d.data.uri"><tt>d.data.uri</tt></label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="id_text_accessor">How to access to the text of a term <tt>d</tt></label>
-                        <div class="radio" id="id_text_accessor">
-                            <label><input type="radio" name="text_accessor" value="d.text"><tt>d.text</tt></label>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" name="text_accessor" value="d.name"><tt>d.name</tt></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="browser.cmd.loadCustom();">Load
-                        ontology
-                    </button>
-                    <button type="submit" style="display:none;"></button>
-                </div>
-            </form>
+            <a rel="noopener noreferrer nofollow" target="_blank" href="https://twitter.com/edamontology" title="Follow on Twitter" class="fab fa-twitter fa-2x"></a>
         </div>
-    </div>
-</div>
-<!--Theme Button-->
-<div class="btn-toggle-wrapper">
-    <button class="btn-toggle" title="Change theme mode">
-        <i class="fas fa-moon"></i>
-    </button>
-</div>
-</body>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Load custom ontology</h4>
+                    </div>
+                    <form action="/" method="get" onsubmit="" id="custom_ontology_from">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                The ontology can be loaded from an URL, or directly uploaded.
+                                                                                Note that if one of the fields
+                                <em>URL</em>
+                                and
+                                <em>file</em>
+                                is provided, the other is
+                                                                                disabled so empty one field before filling the other.
+                            </div>
+                            <div class="form-group">
+                                <label for="id_url">Ontology URL</label>
+                                <input type="text" class="form-control" id="id_url" required name="url"/>
+                                <small class="form-text text-muted text-for-disabled-input">Erase the hereafter
+                                    <em>File</em>
+                                    field to be able to provide
+                                                                                          here an URL.</small>
+                                <small class="form-text text-muted">You can try with
+                                                                                          https://raw.githubusercontent.com/edamontology/edam-browser/main/media/regular.example.json
+                                                                                          ,
+                                    <code>d.id</code>
+                                    as identifier and
+                                    <code>d.text</code>
+                                    as
+                                                                                          text.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_file">Ontology File</label>
+                                <input type="file" class="form-control" name="file" id="id_file" required accept=".json"/>
+                                <small class="form-text text-muted text-for-disabled-input">Erase the herebefore
+                                    <em>URL</em>
+                                    field to be able to provide
+                                                                                          here a file.</small>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                The ontology has to be in json following
+                                <a href="ontology.schema.json" target="_blank">this format</a>,
+                                                                                        a validator is available
+                                <a href="https://jsonschemalint.com/" target="_blank">here</a>.
+                                                                                        Note that slight modifications of the schema are allowed
+                                                                                        hereafter:
+                            </div>
+                            <div class="form-group">
+                                <label for="id_identifier_accessor">How to access to the identifier of a term
+                                    <tt>d</tt>
+                                </label>
+                                <div class="radio" id="id_identifier_accessor">
+                                    <label><input type="radio" name="identifier_accessor" value="d.id"/><tt>d.id</tt>
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="identifier_accessor" value="d.data.uri"/><tt>d.data.uri</tt>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_text_accessor">How to access to the text of a term
+                                    <tt>d</tt>
+                                </label>
+                                <div class="radio" id="id_text_accessor">
+                                    <label><input type="radio" name="text_accessor" value="d.text"/><tt>d.text</tt>
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="text_accessor" value="d.name"/><tt>d.name</tt>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancel
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="browser.cmd.loadCustom();">
+                                Load ontology
+                            </button>
+                            <button type="submit" style="display: none"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--Theme Button-->
+        <div class="btn-toggle-wrapper">
+            <button class="btn-toggle" title="Change theme mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </body>
+    <script>
+        var scroll = document.getElementById("scrolltotop");
+        window.onscroll = function () {
+            scrollFunction();
+        };
+        function scrollFunction() {
+            if (document.body.scroll > 100 || document.documentElement.scrollTop > 100) {
+                scroll.style.display = "block";
+            } else {
+                scroll.style.display = "none";
+            }
+        }
+    </script>
 </html>
