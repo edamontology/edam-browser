@@ -65,6 +65,7 @@ window.onload = function() {
         browser.current_branch(branch);
     }
     var treeElement = document.getElementById("tree-and-controls");
+    treeElement.style.height = localStorage.getItem("tree-and-controls-height");
     var resizer = document.getElementById("handle");
     resizer.addEventListener("mousedown", initDrag, false);
     var startY, startHeight;
@@ -83,6 +84,7 @@ window.onload = function() {
     function stopDrag(e) {
         document.documentElement.removeEventListener("mousemove", doDrag, false);
         document.documentElement.removeEventListener("mouseup", stopDrag, false);
+        localStorage.setItem("tree-and-controls-height", treeElement.style.height);
     }
     $("input[name='show-detail']").prop("checked" , (localStorage.getItem("show-detail")||"true") == "true");
     $("input[name='show-community-usage']").prop("checked" , (localStorage.getItem("show-community-usage")||"false") == "true");
