@@ -214,4 +214,25 @@ body {
 .flex-column{
     flex-direction: column;
 }
+#bookClick{
+    width: 100%;
+    margin: 8px 8px;
+    border-radius: 100px;
+    font-size: 18px;
+    align-items: center;
+    box-sizing: border-box;
+    max-height: none;
+    min-height: 48px;
+    padding: 0 17px;
+    position: relative;
+    border-color: black;
+}
+.bookmarks {
+    column-count: 2;
+}
+@media screen and (max-width: 600px) {
+    .bookmarks {
+        column-count: 1;
+    }
+}
 /*end of file*/
