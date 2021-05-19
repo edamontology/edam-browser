@@ -811,13 +811,16 @@ function interactive_tree() {
         identifierToElement={};
         data_url = value;
         d3.json(value, function(json) {
+            if(json==null) {
+                alert('Unable to read content of "' + data_url + '"');
+            }else{
                 if(typeof json.meta=="undefined"){
                     json.meta={"version":"v n/a", "date":"n/a"};
                 }
                 json.meta.data_url=data_url;
                 chart.data(json);
             }
-        );
+        });
         return chart;
     };
     /**
