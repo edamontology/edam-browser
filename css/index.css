@@ -117,7 +117,25 @@ a:before {
 #tree-and-controls
 {
     position:relative;
-    height: 70vh !important;
+    height: 70vh;
+    min-height: 400px;
+    resize: vertical !important;
+}
+.resizer:hover
+{
+    background-color: grey;
+}
+.resizer
+{
+    background-color: #8884;
+    width: 100%;
+    height: 5px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: row-resize;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
 }
 
 .tree-controls{
@@ -127,7 +145,7 @@ a:before {
 }
 .tree-controls-right-bottom{
     right:0px;
-    bottom:1em;
+    bottom:2em;
 }
 .tree-controls-right-top{
     right:0px;
