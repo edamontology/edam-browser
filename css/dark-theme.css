@@ -57,6 +57,7 @@
 }
 
 /* for term details table*/
+.dark-mode .tooltip .panel-body,
 .dark-mode .panel-collapse {
   background-color: #151515;
   color: #B8B8B8;
