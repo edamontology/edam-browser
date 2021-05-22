@@ -82,9 +82,17 @@ input:disabled+.text-for-disabled-input{
 
 .edam-details table .details td,
 .edam-details table .details td a{
-    overflow-wrap: anywhere;
-    word-break: normal;
+    overflow-wrap:anywhere;
+    word-break: break-word;
     white-space: normal;
+    
+}
+.edam-details table .details .uri-val{
+    font-size: 10px;
+    
+}
+.edam-details table .details .uri-val a{
+    width:100%;
 }
 
 .footer-tools {
