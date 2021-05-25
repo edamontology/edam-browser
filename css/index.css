@@ -214,13 +214,6 @@ body {
 .temp:last-child {
     opacity: 0;
 }
-.tree-controls:hover {
-    user-select: auto;
-}
-.tree-controls,
-.d3js-tree-container>svg{
-    user-select:none;
-}
 @media (max-width: 768px){
     #page-header>*:last-child{
         min-width:90vw;
@@ -238,5 +231,8 @@ body {
 }
 .flex-column{
     flex-direction: column;
+}
+.user-select-none{
+    user-select:none;
 }
 /*end of file*/
