@@ -214,6 +214,9 @@ body {
 .temp:last-child {
     opacity: 0;
 }
+.d3js-tree-container>svg{
+    use-select:none;
+}
 @media (max-width: 768px){
     #page-header>*:last-child{
         min-width:90vw;
