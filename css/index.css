@@ -214,8 +214,12 @@ body {
 .temp:last-child {
     opacity: 0;
 }
+.tree-controls:hover {
+    user-select: auto;
+}
+.tree-controls,
 .d3js-tree-container>svg{
-    use-select:none;
+    user-select:none;
 }
 @media (max-width: 768px){
     #page-header>*:last-child{
