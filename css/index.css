@@ -83,7 +83,7 @@ input:disabled+.text-for-disabled-input{
 .edam-details table .details td,
 .edam-details table .details td a{
     overflow-wrap: anywhere;
-    word-break: normal;
+    word-break: break-word;
     white-space: normal;
 }
 
