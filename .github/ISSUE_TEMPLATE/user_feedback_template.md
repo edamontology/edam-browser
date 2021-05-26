@@ -1,6 +1,7 @@
 ---
 
 title: 'Short title of your feedback'
+name: provide-feedback
 about: 'Tell us what you think about Edam-Browser'
 labels: feedback
 
