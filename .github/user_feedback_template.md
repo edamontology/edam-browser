@@ -1,31 +1,19 @@
 ---
 
-title: '[User Feedback Information]'
+title: 'Short title of your feedback'
 about: 'Tell us what you think about Edam-Browser'
-labels: 
-assignees: '@bryan-brancotte'
+labels: feedback
 
 ---
+<!-- Thanks for your interest in the Edam-Browser. -->
 
-<!-- Thanks for your  interest to give feedback to the Edam-Browser team. -->
-
-please provide your name
-
-### Name
-
-please provide your email
-
-### Email
-
-please provide a message you will like to tell us
 
 ### Message
 
-On what devices do you use Edam-Browser? (desktop,labtop,tablet,smart phone)
+<!-- Please enter here your feedback, note that you also can add image -->
+
 
 ### Devices
 
-please rate this site from 1 to 5 (one for needs work till 5 for Great)
-
-### Rating
+<!-- On what devices do you use Edam-Browser? (desktop,labtop,tablet,smart phone) --> 
 
