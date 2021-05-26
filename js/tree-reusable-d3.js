@@ -78,7 +78,15 @@ function interactive_tree() {
 
             var zoom = d3.zoom()
                 .on("zoom", function () {
+                    var currentTransform=vis.attr("transform")||'';
+                    currentTransform=currentTransform.replace("(1)","(1.0000000)")
+                    if (currentTransform.includes((d3.zoomTransform(svg.node()).k.toString()+".0000000").substring(0,6)))
+                        svg.node().classList.add("dragged-or-moved")
                     vis.attr("transform", d3.event.transform);
+                })
+                .on("end", function () {
+                    vis.attr("transform", d3.event.transform);
+                    svg.node().classList.remove("dragged-or-moved")
                 });
 
             var svg = d3.select(this).append("svg:svg")
