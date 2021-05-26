@@ -2,7 +2,7 @@
 
 title: 'Short title of your feedback'
 name: 'Suggestion a new feature'
-about: 'The browser cannot keep you tea warm or poor you some coffee, but it can definitly be improved with new feature!'
+about: 'The browser cannot keep your tea warm or pour you coffee, but it can definitly be improved with new feature!'
 labels: new+feature
 
 ---
