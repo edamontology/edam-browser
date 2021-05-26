@@ -1,7 +1,7 @@
 ---
 
 title: 'Short title of your feedback'
-name: 'Suggestion a new feature'
+name: 'Suggesting a new feature / feature request'
 about: 'The browser cannot keep your tea warm or pour you coffee, but it can definitly be improved with new feature!'
 labels: new+feature
 
