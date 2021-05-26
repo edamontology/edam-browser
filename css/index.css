@@ -137,7 +137,12 @@ a:before {
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
 }
-
+@media (pointer: none),
+       (pointer: coarse) {
+    .resizer{
+        display:None
+    }
+}
 .tree-controls{
     position: absolute ;
     display:flex;
