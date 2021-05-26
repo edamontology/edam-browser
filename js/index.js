@@ -77,6 +77,7 @@ window.onload = function() {
         );
         document.documentElement.addEventListener("mousemove", doDrag, false);
         document.documentElement.addEventListener("mouseup", stopDrag, false);
+        document.getElementsByTagName("body")[0].classList.add("user-select-none");
     }
     function doDrag(e) {
         treeElement.style.height = startHeight + e.clientY - startY + "px";
@@ -85,6 +86,7 @@ window.onload = function() {
         document.documentElement.removeEventListener("mousemove", doDrag, false);
         document.documentElement.removeEventListener("mouseup", stopDrag, false);
         localStorage.setItem("tree-and-controls-height", treeElement.style.height);
+        document.getElementsByTagName("body")[0].classList.remove("user-select-none");
     }
     $("input[name='show-detail']").prop("checked" , (localStorage.getItem("show-detail")||"true") == "true");
     $("input[name='show-community-usage']").prop("checked" , (localStorage.getItem("show-community-usage")||"false") == "true");

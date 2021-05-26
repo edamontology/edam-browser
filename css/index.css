@@ -232,4 +232,7 @@ body {
 .flex-column{
     flex-direction: column;
 }
+.user-select-none{
+    user-select:none;
+}
 /*end of file*/
