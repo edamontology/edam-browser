@@ -185,6 +185,7 @@ function build_autocomplete_from_edam_browser(edam_browser, elt,dict){
         minLength: 2,
         select : function(event, ui){ // lors de la sélection d'une proposition
             $(event.target).attr("data-selected",edam_browser.identifierAccessor(ui.item.node));
+            browser.interactive_tree().cmd().clearSelectedElements(false);
             edam_browser.interactive_tree().cmd.selectElement(edam_browser.identifierAccessor(ui.item.node),true);
         },
         response: function( event, ui ) {
