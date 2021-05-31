@@ -173,7 +173,13 @@ function interactive_tree() {
                     .attr("transform", function(d) {
                         return "translate(" + (source.y0 || source.y) + "," + (source.x0 || source.x) + ")";
                     })
-                    .on("click", function(d,i) { handleClick(d);});
+                    .on("click", function(d,i) {
+                         handleClick(d);})
+                    .on("dblclick", () => {
+                        //stop doubleclick zoom effect
+                        d3.event.stopPropagation();
+                    });
+                    
 
                 nodeEnter.append("svg:text")
                     .text(textAccessor)
@@ -351,7 +357,7 @@ function interactive_tree() {
                 //adding ?
                 attemptToSelectElement(d);
             }
-        }else if (!d3.event.shiftKey && !d3.event.ctrlKey && !d3.event.altKey){
+        }else if (!d3.event.shiftKey && !d3.event.ctrlKey && !d3.event.altKey && d3.event.detail == 1){
             chart.cmd.clearSelectedElements(false);
             toggle(d);
             clickedElementHandler(d);
