@@ -173,11 +173,11 @@ function interactive_tree() {
                     .attr("transform", function(d) {
                         return "translate(" + (source.y0 || source.y) + "," + (source.x0 || source.x) + ")";
                     })
-                    .on("click", function(d,i) { handleClick(d);})
                     .on("dblclick", () => {
                         //stop doubleclick zoom effect
                         d3.event.stopPropagation();
-                    });
+                    })
+                    .on("click", function(d,i) { handleClick(d);});
                     
 
                 nodeEnter.append("svg:text")
