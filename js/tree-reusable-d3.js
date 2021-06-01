@@ -178,7 +178,6 @@ function interactive_tree() {
                         d3.event.stopPropagation();
                     })
                     .on("click", function(d,i) { handleClick(d);});
-                    
 
                 nodeEnter.append("svg:text")
                     .text(textAccessor)
