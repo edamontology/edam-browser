@@ -90,4 +90,22 @@ window.onload = function() {
     }
     $("input[name='show-detail']").prop("checked" , (localStorage.getItem("show-detail")||"true") == "true");
     $("input[name='show-community-usage']").prop("checked" , (localStorage.getItem("show-community-usage")||"false") == "true");
+
+    //copies the uri to the clipboard
+    //placed here because it needs the DOM to be fully loaded first
+    $(document).on('click','#cpy-uri',function(e){
+            var text = document.querySelector('.uri-val > .label')
+            //copying to the clipboard
+            navigator.clipboard.writeText(text.innerText)
+           
+            //showing the copied tooltip
+            $("#cpy-uri").attr('title', "Copied!")
+            .tooltip('show');
+
+            //changing the icon to a check shape indicating success
+            $(this).addClass("fa-check").removeClass("fa-copy");
+           
+        
+        }
+    )
 };
