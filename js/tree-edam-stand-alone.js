@@ -498,13 +498,9 @@ function interactive_edam_browser(){
         }
 
         //adding the copy icon, can be extendable to other rows
-        let cpyInfo =""
+        let cpyInfo ="";
         if (id=="uri-val"){
-         cpyInfo ="" + 
-        "<i class=\"fas fa-copy cpy-clipboard\""+ "id=\"cpy-uri\""+
-        ">"
-        "      </i>" + 
-        "";
+        cpyInfo ="" + "<i class=\"fas fa-copy cpy-clipboard\""+ "id=\"cpy-uri\""+">" + " </i>" ;
         }
         $("<tr><th><span"+html_tootip+">"+name+"</span></th><td class=\""+id+"\">"+interactive_edam_uri(value, translate_uri_to_text)+cpyInfo+"</td></tr>").appendTo(table);
         return id;

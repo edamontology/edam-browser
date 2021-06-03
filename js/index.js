@@ -94,9 +94,9 @@ window.onload = function() {
     //copies the uri to the clipboard
     //placed here because it needs the DOM to be fully loaded first
     $(document).on('click','#cpy-uri',function(e){
-            var text = document.querySelector('.uri-val > .label')
+            var text = document.querySelector('.uri-val > .label');
             //copying to the clipboard
-            navigator.clipboard.writeText(text.innerText)
+            navigator.clipboard.writeText(text.innerText);
            
             //showing the copied tooltip
             $("#cpy-uri").attr('title', "Copied!")
