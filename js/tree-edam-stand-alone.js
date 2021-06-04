@@ -434,7 +434,7 @@ function interactive_edam_browser(){
             text=value;
             }
         }else{
-            text=value;
+            text=value.substring(value.lastIndexOf('/')+1);
         }
         /* jshint -W014 */
         return '<div class="btn-group btn-group-xs"><a '+
