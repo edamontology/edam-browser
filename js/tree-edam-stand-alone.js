@@ -437,17 +437,23 @@ function interactive_edam_browser(){
             text=value;
         }
         /* jshint -W014 */
-        return "<a "+
+        return '<div class="btn-group btn-group-xs"><a '+
+        'role="button" '+
+        'style="font-size: 1em;" '+
         "href=\"#"+ value + (current_branch=="deprecated"?"&deprecated":"")+"\" "+
         (
             current_branch.startsWith("edam")
             ?"onclick=\"browser.interactive_tree().cmd().clearSelectedElements(false);browser.interactive_tree().cmd().selectElement('"+value+"',true)\""
             :"onclick=\"setCookie('edam_browser_'+'"+current_branch+"','"+value+"');browser.current_branch('"+branch_of_term+"');browser.interactive_tree().cmd().clearSelectedElements(false);browser.interactive_tree().cmd().selectElement('"+value+"',true)\""
         )+
-        "class=\"label bg-edam-"+branch_of_term+"-light fg-edam-"+branch_of_term+" border-one-solid border-edam-"+branch_of_term+"\" "+
+        "class=\"btn bg-edam-"+branch_of_term+"-light fg-edam-"+branch_of_term+" border-one-solid border-edam-"+branch_of_term+"\" "+
         ">"+
         text+
-        "</a>"
+        "</a>"+
+        '<button class="btn bg-edam-'+branch_of_term+' fg-edam-'+branch_of_term+'-light" type="button" style="font-size: 1em;">'+
+        '<i class="fas fa-copy""></i> URI'+
+        '</button>'+
+        '</div>'
         //+' <i class="glyphicon glyphicon-stop bg-edam-'+branch_of_term+' fg-edam-'+branch_of_term+'"></i></a>'
         //+'<span class="badge bg-edam-'+branch_of_term+'">'+branch_of_term+'</span>'
         //+'<span class="label label-default bg-edam-'+branch_of_term+'-light fg-edam-'+branch_of_term+' border-edam-'+branch_of_term+'">'+branch_of_term+'</span>'
