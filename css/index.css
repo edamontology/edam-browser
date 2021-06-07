@@ -248,15 +248,4 @@ svg{
 .user-select-none{
     user-select:none;
 }
-
-.cpy-clipboard {
-    padding-left: 1rem;
-    padding-top: 1rem;
-    color : #01308d ;
-}
-
-.cpy-clipboard:hover {
-    color : #020c22 ;
-    cursor: pointer;
-}
 /*end of file*/
