@@ -451,7 +451,7 @@ function interactive_edam_browser(){
         text+
         "</a>"+
         '<button class="btn bg-edam-'+branch_of_term+' fg-edam-'+branch_of_term+'-light" type="button" style="font-size: 1em;">'+
-        '<i class="fas fa-copy""></i> '+
+        '<i class="fas fa-copy"  onClick="cpyToClipboard(\'' + value + '\')" ></i> '
         '</button>'+
         '</div>'
         //+' <i class="glyphicon glyphicon-stop bg-edam-'+branch_of_term+' fg-edam-'+branch_of_term+'"></i></a>'
@@ -771,4 +771,20 @@ function toggleFullscreen(){
         $('#exit-fullscreen').hide();
         $('#go-fullscreen').show();
     }
+}
+
+/**
+ * 
+ * @param {string} value Copies the value of the passed uri to the clipboard 
+ */
+function cpyToClipboard(value){
+    //copying the uri value to the clipboard
+    navigator.clipboard.writeText(value);
+
+    //showing a tooltip indicating the value is copied
+    $(event.srcElement).attr('title', "Copied!")
+    .tooltip('show');
+
+    //changing the icon to a check shape indicating success
+    $(event.srcElement).addClass("fa-check").removeClass("fa-copy");
 }
