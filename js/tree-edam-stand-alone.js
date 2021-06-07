@@ -233,7 +233,7 @@ function interactive_edam_browser(){
         details +=     '</div>';
         details += '</div>';
         details=$(details);
-        details.find(".term-name-heading").text(d.data.text);
+        details.find(".term-name-heading").text(__my_interactive_tree.textAccessor()(d));
         return details;
     }
 
@@ -305,7 +305,7 @@ function interactive_edam_browser(){
 
     function fill_community_panel (d, uri, branch_of_term, identifier, details){
         var community = details.find("tbody.community");
-        var caller_b=biotool_api().get_for(current_branch, d.data.text, uri, d);
+        var caller_b=biotool_api().get_for(current_branch, __my_interactive_tree.textAccessor()(d), uri, d);
         if (caller_b.is_enabled()){
             var id_b = append_row(community,"<a target=\"_blank\" href=\"https://bio.tools\">bio.tools</a>","<i>loading</i>","Bioinformatics Tools and Services Discovery Portal");
             caller_b.count(function(c,data){
@@ -342,7 +342,7 @@ function interactive_edam_browser(){
                 $('#details-'+identifier+' .'+id_b+' [data-toggle="popover"]').popover();
             });
         }
-        var caller_s=biosphere_api().get_for(current_branch, d.data.text, uri, d);
+        var caller_s=biosphere_api().get_for(current_branch, __my_interactive_tree.textAccessor()(d), uri, d);
         if (caller_s.is_enabled()){
             var id_s = append_row(community,"<a target=\"_blank\" href=\"https://biosphere.france-bioinformatique.fr\">Biosphere</a>","<i>loading</i>","IFB (ELIXIR France) Cloud Services to analyze life science data");
             caller_s.count(function(c,data){
@@ -355,7 +355,7 @@ function interactive_edam_browser(){
                 $('#details-'+identifier+' .'+id_s+' [data-toggle="popover"]').popover();
             });
         }
-        var caller_w=bioweb_api().get_for(current_branch, d.data.text, uri, d);
+        var caller_w=bioweb_api().get_for(current_branch, __my_interactive_tree.textAccessor()(d), uri, d);
         if (caller_w.is_enabled()){
             var id_w = append_row(community,"<a target=\"_blank\" href=\"https://bioweb.pasteur.fr/\">BioWeb</a>","<i>loading</i>","Online catalog of bioinformatics programs and databanks available at the Institut Pasteur");
             caller_w.count(function(c,data){
@@ -365,7 +365,7 @@ function interactive_edam_browser(){
                 $('#details-'+identifier+' .'+id_w+' [data-toggle="popover"]').popover();
             });
         }
-        var caller_t=tess_api().get_for(current_branch, d.data.text, uri, d);
+        var caller_t=tess_api().get_for(current_branch, __my_interactive_tree.textAccessor()(d), uri, d);
         if (caller_t.is_enabled()){
             var id_t = append_row(community,"<a target=\"_blank\" href=\"https://tess.elixir-europe.org/\">TeSS</a>","<i>loading</i>","ELIXIR Training Portal");
             caller_t.count(function(c,data){
