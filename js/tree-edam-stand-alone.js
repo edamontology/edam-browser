@@ -1,4 +1,4 @@
-function getInitURI(branch){
+function getInitURI(branch)
     if (branch == "deprecated")
         return getCookie("edam_browser_"+branch,"owl:DeprecatedClass");
     if(branch == "data")
@@ -554,6 +554,8 @@ function interactive_edam_browser(){
                 return "EDAM";
             return identifier;
         }
+        if (d.data.text.constructor === Object)
+            return d.data.text["@value"] || JSON.stringify(d.data.text);
         return d.data.text;
     }
     text_accessor_mapping['d.text']=textAccessorDefault;
