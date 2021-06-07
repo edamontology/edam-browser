@@ -781,10 +781,18 @@ function cpyToClipboard(value){
     //copying the uri value to the clipboard
     navigator.clipboard.writeText(value);
 
+    const element = event.srcElement
+
     //showing a tooltip indicating the value is copied
-    $(event.srcElement).attr('title', "Copied!")
+    $(element).attr('title', "Copied!")
     .tooltip('show');
 
     //changing the icon to a check shape indicating success
-    $(event.srcElement).addClass("fa-check").removeClass("fa-copy");
+    $(element).addClass("fa-check").removeClass("fa-copy");
+
+    //toggling back the icon and removing the copied tooltip
+    setTimeout(function(){
+        $(element).addClass("fa-copy").removeClass("fa-check");
+        $(element).tooltip('destroy');
+    }, 1000);
 }
