@@ -451,7 +451,7 @@ function interactive_edam_browser(){
         text+
         "</a>"+
         '<button class="btn bg-edam-'+branch_of_term+' fg-edam-'+branch_of_term+'-light" type="button" style="font-size: 1em;">'+
-        '<i class="fas fa-copy""></i> URI'+
+        '<i class="fas fa-copy""></i> '+
         '</button>'+
         '</div>'
         //+' <i class="glyphicon glyphicon-stop bg-edam-'+branch_of_term+' fg-edam-'+branch_of_term+'"></i></a>'
@@ -502,13 +502,7 @@ function interactive_edam_browser(){
         if (tootip !== undefined) {
             html_tootip=" data-toggle=\"tooltip\" data-placement='top' title=\""+tootip+"\"";
         }
-
-        //adding the copy icon, can be extendable to other rows
-        let cpyInfo ="";
-        if (id=="uri-val"){
-        cpyInfo ="" + "<i class=\"fas fa-copy cpy-clipboard\""+ "id=\"cpy-uri\""+">" + " </i>" ;
-        }
-        $("<tr><th><span"+html_tootip+">"+name+"</span></th><td class=\""+id+"\">"+interactive_edam_uri(value, translate_uri_to_text)+cpyInfo+"</td></tr>").appendTo(table);
+        $("<tr><th><span"+html_tootip+">"+name+"</span></th><td class=\""+id+"\">"+interactive_edam_uri(value, translate_uri_to_text)+"</td></tr>").appendTo(table);
         return id;
     }
 
