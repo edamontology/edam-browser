@@ -781,7 +781,7 @@ function cpyToClipboard(value){
     //copying the uri value to the clipboard
     navigator.clipboard.writeText(value);
 
-    const element = event.srcElement
+    const element = event.srcElement;
 
     //showing a tooltip indicating the value is copied
     $(element).attr('title', "Copied!")
