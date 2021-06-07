@@ -784,7 +784,7 @@ function cpyToClipboard(value){
     const element = event.srcElement;
 
     //showing a tooltip indicating the value is copied
-    $(element).attr('title', "Copied!")
+    $(element).attr('title', "URI copied!")
     .tooltip('show');
 
     //changing the icon to a check shape indicating success
