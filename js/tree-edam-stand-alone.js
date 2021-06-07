@@ -451,7 +451,7 @@ function interactive_edam_browser(){
         text+
         "</a>"+
         '<button class="btn bg-edam-'+branch_of_term+' fg-edam-'+branch_of_term+'-light" type="button" style="font-size: 1em;">'+
-        '<i class="fas fa-copy"  onClick="cpyToClipboard(\'' + value + '\')" ></i> '
+        '<i class="fas fa-copy"  onClick="cpyToClipboard(\'' + value + '\')" ></i> ' +
         '</button>'+
         '</div>'
         //+' <i class="glyphicon glyphicon-stop bg-edam-'+branch_of_term+' fg-edam-'+branch_of_term+'"></i></a>'
