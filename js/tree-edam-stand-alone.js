@@ -534,9 +534,10 @@ function interactive_edam_browser(){
         }
         $("#version").html(meta.version);
         $("#release_date").html(meta.date);
-        if (meta.repository) $("#ontology-repository").attr("href", meta.repository);
-        if (meta.homepage) $("#homepage").attr("href", meta.repository).html(meta.homepage.match(/\/\/([^\/]+)\//)[1]);
+        if (meta.repository) $("#ontology-repository").attr("href", meta.repository['@id']);
+        if (meta.homepage) $("#homepage").attr("href", meta.repository).html(meta.homepage['@id'].match(/\/\/([^\/]+)\//)[1]);
         if (meta.logo){
+            meta.logo=meta.logo['@id'];
             $("#logo").attr("src", meta.logo);
             var fav=$("link[rel~='icon']");
             fav.attr("href", meta.logo);
