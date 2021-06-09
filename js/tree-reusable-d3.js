@@ -194,14 +194,26 @@ function interactive_tree() {
                     .on("mouseover", function(d) {
                         if (!tooltipEnabled) return;
                         tooltipBuilder(d, tooltip);
+                        parentWidth = body._groups[0][0].clientWidth;
+                        tooltipWidth = tooltip._groups[0][0].clientWidth;
+                        tooltipX = d3.event.layerX+20;
                         tooltip
                             .interrupt()
                             .transition()
                             .duration(200)
                             .style("opacity", 1);
+                        //checking if the tooltip is cropped and moving it to the left 
+                        if (parentWidth<tooltipWidth+tooltipX){
+                            tooltip
+                            .style("left", (d3.event.layerX-20-tooltip._groups[0][0].clientWidth) + "px")
+                            .style("top", (d3.event.layerY-5) + "px");
+
+                        }
+                        else {
                         tooltip
                             .style("left", (d3.event.layerX+20) + "px")
                             .style("top", (d3.event.layerY-5) + "px");
+                        }
                     })
                     .on("mouseout", function(d) {
                             tooltip
