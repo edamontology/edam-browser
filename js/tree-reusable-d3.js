@@ -202,18 +202,13 @@ function interactive_tree() {
                             .transition()
                             .duration(200)
                             .style("opacity", 1);
-                        //checking if the tooltip is cropped and moving it to the left 
+                        //checking if the tooltip is cropped and moving it to the left
                         if (parentWidth<tooltipWidth+tooltipX){
-                            tooltip
-                            .style("left", (d3.event.layerX-20-tooltip._groups[0][0].clientWidth) + "px")
-                            .style("top", (d3.event.layerY-5) + "px");
-
+                            tooltipX = d3.event.layerX-10-tooltip._groups[0][0].clientWidth
                         }
-                        else {
                         tooltip
-                            .style("left", (d3.event.layerX+20) + "px")
+                            .style("left", tooltipX + "px")
                             .style("top", (d3.event.layerY-5) + "px");
-                        }
                     })
                     .on("mouseout", function(d) {
                             tooltip
