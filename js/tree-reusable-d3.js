@@ -204,7 +204,7 @@ function interactive_tree() {
                             .style("opacity", 1);
                         //checking if the tooltip is cropped and moving it to the left
                         if (parentWidth<tooltipWidth+tooltipX){
-                            tooltipX = d3.event.layerX-10-tooltip._groups[0][0].clientWidth
+                            tooltipX = d3.event.layerX-10-tooltip._groups[0][0].clientWidth;
                         }
                         tooltip
                             .style("left", tooltipX + "px")
