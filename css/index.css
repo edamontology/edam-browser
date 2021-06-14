@@ -201,10 +201,10 @@ a:before {
     display:none;
 }
 .tree-control-element input[type="checkbox"]:checked+span:before{
-    content: "\f205";
+    content: "\f14a";
 }
 .tree-control-element input[type="checkbox"]+span:before{
-    content: "\f204";
+    content: "\f0c8";
     font-family: 'Font Awesome 5 Free';
 }
 .tree-control-element label{
