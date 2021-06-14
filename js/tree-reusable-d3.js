@@ -140,14 +140,13 @@ function interactive_tree() {
                 let width = $(target_selector).width();
                 let height = $(target_selector).height();
                 let scale = d3.zoomTransform(this).k;
-                console.log(scale)
                 let x = -elements[0].y0;
                 let y = -elements[0].x0;
 
                 x= x*scale+width/2;
                 y = y*scale+height/2;
 
-                var t = d3.zoomIdentity.translate(x,y).scale(1);
+                var t = d3.zoomIdentity.translate(x,y).scale(scale);
                 svg.call(zoom.transform, t);
   
 
