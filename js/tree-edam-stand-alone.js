@@ -624,6 +624,7 @@ function interactive_edam_browser(){
             if(__my_interactive_tree.identifierAccessor()(d) === "owl:Thing")
                 return;
             __my_interactive_tree.cmd.selectElement(__my_interactive_tree.identifierAccessor()(d),true,true);
+            __my_interactive_tree.cmd.moveElementsIntoView([d]);
             return;
         })
         .addingElementHandler(function(d){
