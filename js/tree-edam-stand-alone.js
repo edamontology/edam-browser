@@ -684,6 +684,12 @@ function interactive_edam_browser(){
             __my_interactive_tree.cmd.selectElement("http://edamontology.org/"+getInitURI(current_branch),true,true);
             __my_interactive_tree.cmd.selectElement(getInitURI(current_branch),true,true);
             build_autocomplete_from_edam_browser(browser);
+            setTimeout(function(){
+                __my_interactive_tree.cmd.moveElementsIntoView([
+                    __my_interactive_tree.cmd.getElementByIdentifier(getInitURI(current_branch))
+               ]);
+           }, 10);
+
             $(".loader-wrapper").fadeOut();
         })
         .metaInformationHandler(metaInformationHandler)
