@@ -150,7 +150,7 @@ function interactive_tree() {
                 svg.call(zoom.transform, t);
   
 
-            }
+            };
 
             update = function (source) {
                 //getting the box surronding the svg element ()
