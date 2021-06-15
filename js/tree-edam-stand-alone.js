@@ -443,7 +443,7 @@ function interactive_edam_browser(){
         "href=\"#"+ value + (current_branch=="deprecated"?"&deprecated":"")+"\" "+
         (
             current_branch.startsWith("edam")
-            ?"onclick=\"browser.interactive_tree().cmd().clearSelectedElements(false);browser.interactive_tree().cmd().selectElement('"+value+"',true)\""
+            ?"onclick=\"browser.interactive_tree().cmd().clearSelectedElements(false);browser.interactive_tree().cmd().selectElement('"+value+"',true);browser.interactive_tree().cmd().moveElementsIntoView([browser.interactive_tree().cmd().getElementByIdentifier('"+value+"')]);\""
             :"onclick=\"setCookie('edam_browser_'+'"+current_branch+"','"+value+"');browser.current_branch('"+branch_of_term+"');browser.interactive_tree().cmd().clearSelectedElements(false);browser.interactive_tree().cmd().selectElement('"+value+"',true)\""
         )+
         "class=\"btn bg-edam-"+branch_of_term+"-light fg-edam-"+branch_of_term+" border-one-solid border-edam-"+branch_of_term+"\" "+
