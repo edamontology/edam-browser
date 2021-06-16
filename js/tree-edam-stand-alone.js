@@ -443,7 +443,7 @@ function interactive_edam_browser(){
         "href=\"#"+ value + (current_branch=="deprecated"?"&deprecated":"")+"\" "+
         (
             current_branch.startsWith("edam")
-            ?"onclick=\"browser.interactive_tree().cmd().clearSelectedElements(false);browser.interactive_tree().cmd().selectElement('"+value+"',true)\""
+            ?"onclick=\"browser.interactive_tree().cmd().clearSelectedElements(false);browser.interactive_tree().cmd().selectElement('"+value+"',true);browser.interactive_tree().cmd().moveElementsIntoView([browser.interactive_tree().cmd().getElementByIdentifier('"+value+"')]);\""
             :"onclick=\"setCookie('edam_browser_'+'"+current_branch+"','"+value+"');browser.current_branch('"+branch_of_term+"');browser.interactive_tree().cmd().clearSelectedElements(false);browser.interactive_tree().cmd().selectElement('"+value+"',true)\""
         )+
         "class=\"btn bg-edam-"+branch_of_term+"-light fg-edam-"+branch_of_term+" border-one-solid border-edam-"+branch_of_term+"\" "+
@@ -623,6 +623,8 @@ function interactive_edam_browser(){
             if(__my_interactive_tree.identifierAccessor()(d) === "owl:Thing")
                 return;
             __my_interactive_tree.cmd.selectElement(__my_interactive_tree.identifierAccessor()(d),true,true);
+            if($("input[name='center-node-click']:checked").length)
+                __my_interactive_tree.cmd.moveElementsIntoView([d]);
             return;
         })
         .addingElementHandler(function(d){
@@ -682,6 +684,12 @@ function interactive_edam_browser(){
             __my_interactive_tree.cmd.selectElement("http://edamontology.org/"+getInitURI(current_branch),true,true);
             __my_interactive_tree.cmd.selectElement(getInitURI(current_branch),true,true);
             build_autocomplete_from_edam_browser(browser);
+            setTimeout(function(){
+                __my_interactive_tree.cmd.moveElementsIntoView([
+                    __my_interactive_tree.cmd.getElementByIdentifier(getInitURI(current_branch))
+               ]);
+           }, 10);
+
             $(".loader-wrapper").fadeOut();
         })
         .metaInformationHandler(metaInformationHandler)

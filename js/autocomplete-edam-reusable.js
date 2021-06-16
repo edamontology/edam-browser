@@ -187,6 +187,7 @@ function build_autocomplete_from_edam_browser(edam_browser, elt,dict){
             $(event.target).attr("data-selected",edam_browser.identifierAccessor(ui.item.node));
             browser.interactive_tree().cmd().clearSelectedElements(false);
             edam_browser.interactive_tree().cmd.selectElement(edam_browser.identifierAccessor(ui.item.node),true);
+            edam_browser.interactive_tree().cmd.moveElementsIntoView([ui.item.node]);
         },
         response: function( event, ui ) {
             if (typeof (window.Levenshtein) == "undefined")

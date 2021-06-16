@@ -88,6 +88,13 @@ window.onload = function() {
         localStorage.setItem("tree-and-controls-height", treeElement.style.height);
         document.getElementsByTagName("body")[0].classList.remove("user-select-none");
     }
-    $("input[name='show-detail']").prop("checked" , (localStorage.getItem("show-detail")||"true") == "true");
-    $("input[name='show-community-usage']").prop("checked" , (localStorage.getItem("show-community-usage")||"false") == "true");
+    $("#tree-settings").find("input").each(function( index ) {
+        var $this=$(this);
+        $this.prop("checked" , (localStorage.getItem($this.prop("name"))||$this.data("default")) == "true");
+        if ($this.data("saved")!=="false"){
+            $this.change(function(){
+                localStorage.setItem($this.prop("name"), $this.prop('checked'));
+            });
+        }
+    });
 };

@@ -184,7 +184,7 @@
                     </div>
                     <div class="tree-controls-group">
                         <div>
-                            <div class="tree-control-element text-left">
+                            <div class="tree-control-element text-left" id="tree-settings">
                                 <i class="fas fa-cogs"></i><span class="on-controls-hover p-0"><b> Settings</b><br/></span>
                                 <label class="on-controls-hover p-0">
                                     <input type="checkbox" name="always-show-tooltip"/>
@@ -192,16 +192,19 @@
                                     <span title="Always show tooltips otherwise">Always show tooltips (not only in full screen)</span><br/>
                                 </label>
                                 <label class="on-controls-hover p-0">
-                                    <input type="checkbox" name="show-detail"
-                                        onchange="localStorage.setItem('show-detail', $(this).prop('checked'))"/>
+                                    <input type="checkbox" name="show-detail" data-default="true"/>
                                     <span></span>
                                     Show details in tooltip<br/>
                                 </label>
                                 <label class="on-controls-hover p-0">
-                                    <input type="checkbox" name="show-community-usage"
-                                        onchange="localStorage.setItem('show-community-usage', $(this).prop('checked'))"/>
+                                    <input type="checkbox" name="show-community-usage" data-default="false"/>
                                     <span></span>
                                     Show community usage in tooltip<br/>
+                                </label>
+                                <label class="on-controls-hover p-0">
+                                    <input type="checkbox" name="center-node-click" data-default="false"/>
+                                    <span></span>
+                                    <span>Center on node on click</span><br/>
                                 </label>
                             </div>
                         </div>

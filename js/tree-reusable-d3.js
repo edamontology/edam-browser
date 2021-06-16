@@ -58,6 +58,7 @@ function interactive_tree() {
         maxY,
         reset,
         manualZoom,
+        moveElementsIntoView,
         id=0,
         identifierToElement={};
 
@@ -132,6 +133,22 @@ function interactive_tree() {
                 else if (type=='out'){
                     zoom.scaleBy(svg, 0.5);                
                 }
+
+            };
+
+            moveElementsIntoView = function(elements){
+                let width = $(target_selector).width();
+                let height = $(target_selector).height();
+                let scale = d3.zoomTransform(svg.node()).k;
+                let x = -elements[0].y0;
+                let y = -elements[0].x0;
+
+                x= x*scale+width/2;
+                y = y*scale+height/2;
+
+                var t = d3.zoomIdentity.translate(x,y).scale(scale);
+                svg.call(zoom.transform, t);
+  
 
             };
 
@@ -727,6 +744,14 @@ function interactive_tree() {
     cmd.manualZoomInAndOut = function (type){
         manualZoom(type);
         return cmd;
+    };
+    
+     /**
+     *
+     * @param {Object[]} elements - the identifiers that should be visible after the call of this method
+     */
+      cmd.moveElementsIntoView = function (elements) {
+        moveElementsIntoView(elements);
     };
 
     // getter and setter functions. See Mike Bostocks post "Towards Reusable Charts" for a tutorial on how this works.
