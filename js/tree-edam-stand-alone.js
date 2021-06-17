@@ -257,6 +257,8 @@ function interactive_edam_browser(){
             fields.push("has_input");
         if(typeof d.data.has_output != "undefined")
             fields.push("has_output");
+        if(typeof d.data.is_identifier_of != "undefined")
+            fields.push("is_identifier_of");
         if (d.parent != null && browser.identifierAccessor(d.parent)!="owl:Thing")
             fields.push("parents");
         if(typeof d.data.see_also != "undefined")

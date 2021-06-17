@@ -1,6 +1,6 @@
 var browser;
 
-var typeDict={"has_topic_container":"topic","is_format_of_container":"data","has_input_container":"data","has_output_container":"data"};
+var typeDict={"has_topic_container":"topic","is_format_of_container":"data","has_input_container":"data","has_output_container":"data","is_identifier_of_container":"data"};
 
 function fill_form(identifier, parent, branch){
     tree_file = getTreeFile(branch);
@@ -61,10 +61,30 @@ function build_form(target, parentOfNewTerm){
         for(i=0;i<(target.has_output||[]).length;i++){
             addTermField("#has_output_container","has_output",browser.interactive_tree.cmd.getElementByIdentifier(target.has_output[i]));
         }
+        for(i=0;i<(target.is_identifier_of||[]).length;i++){
+            addTermField("#is_identifier_of_container","is_identifier_of",browser.interactive_tree.cmd.getElementByIdentifier(target.is_identifier_of[i]));
+        }
     }else{
         $(".search-term").val(parentOfNewTerm.text);
     }
+    // toggle per-branch attributs
+    var s_branch = getUrlParameter('term') || getUrlParameter('parent');
+    s_branch = s_branch.substring(s_branch.lastIndexOf('/') + 1, s_branch.lastIndexOf('_'));
+    if(is_descendant_of_or_is(target,"http://edamontology.org/data_0842")){
+        s_branch="identifier";
+    }
+    $('.optional_rel').hide();
+    $('.' + s_branch + '_rel').show();
+    // unlock form
     $("form [disabled=disabled]").attr("disabled", false);
+}
+function is_descendant_of_or_is(node, ancestor_identifier){
+    console.log(browser.textAccessor(node));
+    if (browser.identifierAccessor(node)===ancestor_identifier)
+        return true;
+    if (browser.identifierAccessor(node)==="owl:Thing")
+        return false;
+    return is_descendant_of(node.parent, ancestor_identifier);
 }
 function join_if_exists(tab){
     if (typeof tab == "undefined"){
@@ -111,10 +131,6 @@ window.onload = function() {
         fill_form(uri, getUrlParameter('parent'), branch);
     });
     browser.current_branch( getUrlParameter('branch'));
-    var s_branch = getUrlParameter('term') || getUrlParameter('parent');
-    s_branch = s_branch.substring(s_branch.lastIndexOf('/') + 1, s_branch.lastIndexOf('_'));
-    $('.optional_rel').hide();
-    $('.' + s_branch + '_rel').show();
 };
 
 function sendToGitHub(){
