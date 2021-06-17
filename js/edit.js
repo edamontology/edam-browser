@@ -70,10 +70,21 @@ function build_form(target, parentOfNewTerm){
     // toggle per-branch attributs
     var s_branch = getUrlParameter('term') || getUrlParameter('parent');
     s_branch = s_branch.substring(s_branch.lastIndexOf('/') + 1, s_branch.lastIndexOf('_'));
+    if(is_descendant_of_or_is(target,"http://edamontology.org/data_0842")){
+        s_branch="identifier";
+    }
     $('.optional_rel').hide();
     $('.' + s_branch + '_rel').show();
     // unlock form
     $("form [disabled=disabled]").attr("disabled", false);
+}
+function is_descendant_of_or_is(node, ancestor_identifier){
+    console.log(browser.textAccessor(node));
+    if (browser.identifierAccessor(node)===ancestor_identifier)
+        return true;
+    if (browser.identifierAccessor(node)==="owl:Thing")
+        return false;
+    return is_descendant_of(node.parent, ancestor_identifier);
 }
 function join_if_exists(tab){
     if (typeof tab == "undefined"){
