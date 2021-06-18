@@ -84,7 +84,6 @@ function interactive_tree() {
                     if (currentTransform.includes((d3.zoomTransform(svg.node()).k.toString()+".0000000").substring(0,6)))
                         if (!svg.node().classList.contains("auto-drag"))
                             svg.node().classList.add("dragged-or-moved");
-                        console.log(svg.node().classList);
                     vis.attr("transform", d3.event.transform);
                 })
                 .on("end", function () {
