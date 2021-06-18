@@ -80,6 +80,8 @@ function fake_interactive_edam_browser(){
         return cmd;
     };
     cmd.selectElement = function(){};
+    cmd.clearSelectedElements = function(){};
+    cmd.moveElementsIntoView = function(){};
     /**
      * Read-only proxy to use the identifierAccessor of the interactive_tree
      * @param {object} an element
