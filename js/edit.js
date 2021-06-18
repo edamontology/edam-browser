@@ -84,7 +84,7 @@ function is_descendant_of_or_is(node, ancestor_identifier){
         return true;
     if (browser.identifierAccessor(node)==="owl:Thing")
         return false;
-    return is_descendant_of(node.parent, ancestor_identifier);
+    return is_descendant_of_or_is(node.parent, ancestor_identifier);
 }
 function join_if_exists(tab){
     if (typeof tab == "undefined"){
