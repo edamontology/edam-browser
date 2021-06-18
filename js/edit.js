@@ -70,7 +70,7 @@ function build_form(target, parentOfNewTerm){
     // toggle per-branch attributs
     var s_branch = getUrlParameter('term') || getUrlParameter('parent');
     s_branch = s_branch.substring(s_branch.lastIndexOf('/') + 1, s_branch.lastIndexOf('_'));
-    if(is_descendant_of_or_is(target,"http://edamontology.org/data_0842")){
+    if(is_descendant_of_or_is(target || parentOfNewTerm,"http://edamontology.org/data_0842")){
         s_branch="identifier";
     }
     $('.optional_rel').hide();
@@ -79,7 +79,6 @@ function build_form(target, parentOfNewTerm){
     $("form [disabled=disabled]").attr("disabled", false);
 }
 function is_descendant_of_or_is(node, ancestor_identifier){
-    console.log(browser.textAccessor(node));
     if (browser.identifierAccessor(node)===ancestor_identifier)
         return true;
     if (browser.identifierAccessor(node)==="owl:Thing")
