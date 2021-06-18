@@ -82,7 +82,8 @@ function interactive_tree() {
                     var currentTransform=vis.attr("transform")||'';
                     currentTransform=currentTransform.replace("(1)","(1.0000000)");
                     if (currentTransform.includes((d3.zoomTransform(svg.node()).k.toString()+".0000000").substring(0,6)))
-                        svg.node().classList.add("dragged-or-moved");
+                        if (!svg.node().classList.contains("auto-drag"))
+                            svg.node().classList.add("dragged-or-moved");
                     vis.attr("transform", d3.event.transform);
                 })
                 .on("end", function () {
@@ -147,9 +148,13 @@ function interactive_tree() {
                 y = y*scale+height/2;
 
                 var t = d3.zoomIdentity.translate(x,y).scale(scale);
-                svg.call(zoom.transform, t);
-  
-
+                svg.transition()
+                    .duration(duration)
+                    .call(zoom.transform, t)
+                    .node().classList.add("auto-drag");
+                setTimeout(function() {
+                    svg.node().classList.remove("auto-drag")
+                }, duration);
             };
 
             update = function (source) {
