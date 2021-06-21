@@ -100,7 +100,8 @@ function addTermField(container, kind, initial_term){
 
     $(".search-term[name="+kind+"-"+i+"]")
                 .val(initial_term?initial_term.text:"")
-                .attr('data-initial',initial_term?initial_term.data.uri:"");
+                .attr('data-initial',initial_term?initial_term.data.uri:"")
+                .attr("data-selected",initial_term?initial_term.data.uri:"");
 //    build_autocomplete(
 //        getTreeFile(getCookie("edam_browser_branch","topic")),
     build_autocomplete_from_edam_browser(browser,
@@ -136,7 +137,7 @@ function sendToGitHub(){
     var ids=["#id_parent", "#id_label", "#id_definition", "#id_exactSynonyms", "#id_narrowSynonyms"];
     var i;
     for (i=0;i<$(".search-term").length;i++){
-        ids.push(".search-term[name=parent-"+i+"]");
+        ids.push(".search-term[name="+$(".search-term")[i].name+"]");
     }
     msg="";
     msg+="[//]: # (You can add comment regarding your issue hereafter)\n";
