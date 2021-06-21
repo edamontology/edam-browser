@@ -136,9 +136,9 @@ window.onload = function() {
 function sendToGitHub(){
     var ids=["#id_parent", "#id_label", "#id_definition", "#id_exactSynonyms", "#id_narrowSynonyms"];
     var i;
-    for (i=0;i<$(".search-term").length;i++){
-        ids.push(".search-term[name="+$(".search-term")[i].name+"]");
-    }
+    $(".search-term").each(function(){
+        ids.push(".search-term[name="+this.getAttribute("name")+"]");
+    })
     msg="";
     msg+="[//]: # (You can add comment regarding your issue hereafter)\n";
     if ($("#id_github_comments").val()){
