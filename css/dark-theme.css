@@ -48,11 +48,11 @@
 }
 
 .dark-mode .node text {
-  stroke: none;   
+  stroke: #151515A0;
 }
 
 .dark-mode .node text+text {
-  stroke: none;  
+  stroke: #B8B8B8;
   stroke-width: 0px;    
 }
 
