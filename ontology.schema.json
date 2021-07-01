@@ -68,6 +68,15 @@
                 },
                 "version": {
                     "type": "string"
+                },
+                "homepage": {
+                    "type": "string"
+                },
+                "logo": {
+                    "type": "string"
+                },
+                "repository": {
+                    "type": "string"
                 }
             },
             "required": [
