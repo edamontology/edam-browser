@@ -3,22 +3,17 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css' 
 import '@fortawesome/fontawesome-free/css/all.css'
 import 'regenerator-runtime/runtime';
-import * as d3 from 'd3';
 import 'jquery-ui-bundle'; 
 
-
-
-
-
 import {getUrlParameter,getDarkMode} from "./utils.js"
-import {getTreeFile} from "./tree-edam-stand-alone.js"
 import {fake_interactive_edam_browser,build_autocomplete_from_edam_browser} from "./autocomplete-edam-reusable.js"
 var browser;
 
 var typeDict={"has_topic_container":"topic","is_format_of_container":"data","has_input_container":"data","has_output_container":"data","is_identifier_of_container":"data"};
 
 function fill_form(identifier, parent, branch){
-    tree_file = getTreeFile(branch);
+    //not used, won't be used after loading from cache
+    //let tree_file = getTreeFile(branch);
     build_autocomplete_from_edam_browser(browser,undefined,typeDict);
     browser.interactive_tree.cmd.getElementByIdentifier(identifier);
  
@@ -140,8 +135,7 @@ window.onload = function() {
     sub_branch = sub_branch.substring(sub_branch.lastIndexOf('/')+1, sub_branch.lastIndexOf('_'));
     $('#pageTitle .branch').text(sub_branch);
     typeDict.parent_container=sub_branch;
-    let browser = fake_interactive_edam_browser();
-
+    browser = fake_interactive_edam_browser();
     browser.interactive_tree.loadingDoneHandler(function(){
         fill_form(uri, getUrlParameter('parent'), branch);
     });
@@ -154,7 +148,7 @@ window.sendToGitHub=function sendToGitHub(){
     $(".search-term").each(function(){
         ids.push(".search-term[name="+this.getAttribute("name")+"]");
     })
-    msg="";
+    let msg="";
     msg+="[//]: # (You can add comment regarding your issue hereafter)\n";
     if ($("#id_github_comments").val()){
         msg+="### Comments\n";
@@ -184,3 +178,5 @@ window.sendToGitHub=function sendToGitHub(){
     $("#sender [name=body]").val(msg);
     $("#sender").submit();
 }
+
+export {typeDict}

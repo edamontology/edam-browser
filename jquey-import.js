@@ -1,5 +1,5 @@
-
+//importing jquery first at the top level and making it globally availble
 const  $ = require('jquery');
-global.$ =window.$ = $;
-global.jQuery = window.jQuery =$;
+window.$ = $;
+ window.jQuery =$;
 globalThis.jQuery = $;
