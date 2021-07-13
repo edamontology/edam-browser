@@ -1,4 +1,4 @@
-
+import {getTreeFile} from "./tree-edam-stand-alone.js"
 function fake_interactive_edam_browser(){
     var identifierToElement={},
         identifierAccessor = function (d) {
@@ -236,3 +236,5 @@ function build_autocomplete_from_edam_browser(edam_browser, elt,dict){
     ;
     $(elt).prop('disabled',false);
 }
+
+export {fake_interactive_edam_browser,build_autocomplete_from_edam_browser}

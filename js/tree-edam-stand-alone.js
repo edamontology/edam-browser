@@ -1,3 +1,8 @@
+import {getUrlParameter,setCookie,getCookie,setUrlParameters} from "./utils.js"
+import {interactive_tree} from "./tree-reusable-d3";
+import {json} from "./file.js"
+import {build_autocomplete_from_edam_browser} from "./autocomplete-edam-reusable.js"
+
 function getInitURI(branch){
     if (branch == "deprecated")
         return getCookie("edam_browser_"+branch,"owl:DeprecatedClass");
@@ -59,7 +64,7 @@ function interactive_edam_browser(){
         $("#edam-branches .branch."+branch).addClass("active");
         setCookie("edam_browser_branch",branch);
         current_branch=branch;
-        tree_file=getTreeFile(branch);
+        let tree_file=getTreeFile(branch);
         if(tree_file==""){
             __my_interactive_tree.data(tree);
             //build_autocomplete_from_tree(tree)
@@ -71,7 +76,7 @@ function interactive_edam_browser(){
     }
 
     function selectCustom(){
-        branch="custom";
+        let branch="custom";
         $("[name=identifier_accessor][value='"+getCookie("edam_browser_custom_identifier_accessor","")+"']").prop("checked",true);
         $("[name=text_accessor][value='"+getCookie("edam_browser_custom_text_accessor","")+"']").prop("checked",true);
         $("#id_url").val( getCookie("edam_browser_custom_loaded_url", ""));
@@ -97,7 +102,6 @@ function interactive_edam_browser(){
 
         __my_interactive_tree.identifierAccessor(identifier_accessor_mapping[getUrlParameter("identifier_accessor")]);
         __my_interactive_tree.textAccessor(text_accessor_mapping[getUrlParameter("text_accessor")]);
-
         $("#myModal").modal('hide');
         $("#edamAccordion>.panel-group").remove();
         if(branch=="custom_url"){
@@ -207,12 +211,12 @@ function interactive_edam_browser(){
         $("#details-"+identifier).remove();
         var details = build_detail_panel(d, uri, branch_of_term, identifier, true);
         fill_detail_panel(d, uri, branch_of_term, identifier, details);
-        fill_community_panel(d, uri, branch_of_term, identifier, details);
+        //fill_community_panel(d, uri, branch_of_term, identifier, details);
         append_detail_panel_to_edam_accordion(d, uri, branch_of_term, identifier, details);
     }
 
     function build_detail_panel (d, uri, branch_of_term, identifier, collapsed){
-        details = "";
+        let details = "";
         details += '<div class="panel-group edam-details" id="details-'+identifier+'">';
         details +=     '<div class="panel panel-default border-edam-'+branch_of_term+'">';
         details +=         '<div class="panel-heading xbg-edam-'+branch_of_term+'-light">';
@@ -305,7 +309,7 @@ function interactive_edam_browser(){
         });
     }
 
-    function fill_community_panel (d, uri, branch_of_term, identifier, details){
+    /*function fill_community_panel (d, uri, branch_of_term, identifier, details){
         var community = details.find("tbody.community");
         var caller_b=biotool_api().get_for(current_branch, __my_interactive_tree.textAccessor()(d), uri, d);
         if (caller_b.is_enabled()){
@@ -395,7 +399,7 @@ function interactive_edam_browser(){
             community.parent().remove();
         }
         details.find('[data-toggle="tooltip"]').tooltip();
-    }
+    }*/
 
     function append_detail_panel_to_edam_accordion (d, uri, branch_of_term, identifier, details){
         $("#edamAccordion").find(".panel-group").first().find(".collapse").collapse("hide");
@@ -426,7 +430,7 @@ function interactive_edam_browser(){
         if(current_branch.startsWith("custom"))
             return "<a href=\"#"+ value + "&"+current_branch + "\" onclick=\"browser.interactive_tree().cmd().clearSelectedElements(false);browser.interactive_tree().cmd().selectElement(this.text,true);\">"+value+"</a>";
 
-        branch_of_term = get_branch_of_term(value);
+        let branch_of_term = get_branch_of_term(value);
         var text;
         if(translate_to_text!=false && value.constructor != Object ){
             var element=__my_interactive_tree.cmd.getElementByIdentifier(value);
@@ -489,8 +493,8 @@ function interactive_edam_browser(){
                     return value.indexOf(element) === index;
                   });
                 value=uniqueValues; 
-                value_txt="";
-                for (i=0; i<value.length;i++){
+                let value_txt="";
+                for (let i=0; i<value.length;i++){
                     if (value[i] != ""){
                         value_txt = value_txt + "<li>"+interactive_edam_uri(value[i], translate_uri_to_text)+"</li>";
                     }
@@ -523,15 +527,16 @@ function interactive_edam_browser(){
             fill_detail_panel(d, uri, branch_of_term, identifier, details);
         else
             details.find("tbody.details").parent().remove();
-        if ($("input[name='show-community-usage']:checked").length)
+        /*if ($("input[name='show-community-usage']:checked").length)
             fill_community_panel(d, uri, branch_of_term, identifier, details);
         else
             details.find("tbody.community").parent().remove();
         details.find(".panel-body:empty").remove();
-        $(tooltipContainer.node()).append(details);
+        $(tooltipContainer.node()).append(details);*/
     }
 
     function metaInformationHandler(meta){
+
         if (typeof meta == "undefined"){
             $("#version").html("<i>n/a</i>");
             $("#release_date").html("<i>n/a</i>");
@@ -570,6 +575,7 @@ function interactive_edam_browser(){
     function textAccessorDefault(d){
         if (typeof d.data.text == "undefined"){
             var identifier = __my_interactive_tree.identifierAccessor()(d);
+            var branch = "edam";
             if(identifier == "owl:Thing" && branch == "edam")
                 return "EDAM";
             return identifier;
@@ -636,7 +642,8 @@ function interactive_edam_browser(){
         .preTreatmentOfLoadedTree(function(tree){
             var i;
             if(current_branch==="edam"){
-                all_children=tree.children;
+                let all_children=tree.children;
+
                 tree.children=[];
                 for(i=0;i<all_children.length;i++){
                     if (__my_interactive_tree.identifierAccessor()(all_children[i],true)!="owl:DeprecatedClass")
@@ -652,7 +659,7 @@ function interactive_edam_browser(){
                     }
                 }
             }
-            branches=[
+            let branches=[
                 "data",
                 "format",
                 "operation",
@@ -773,7 +780,7 @@ function interactive_edam_browser(){
     };
     return browser;
 }
-function toggleFullscreen(){
+window.toggleFullscreen= function toggleFullscreen(){
     if(!document.fullscreenElement){
         document.getElementById("tree-and-controls").requestFullscreen();
         $('#go-fullscreen').hide();
@@ -789,7 +796,7 @@ function toggleFullscreen(){
  * 
  * @param {string} value Copies the value of the passed uri to the clipboard 
  */
-function cpyToClipboard(value){
+window.cpyToClipboard = function cpyToClipboard(value){
     //copying the uri value to the clipboard
     navigator.clipboard.writeText(value);
 
@@ -808,3 +815,5 @@ function cpyToClipboard(value){
         $(element).tooltip('destroy');
     }, 1000);
 }
+
+export {getInitURI,interactive_edam_browser,getTreeFile}

@@ -5,10 +5,25 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "live-server",
-    "test": "jshint js/*js"
+    "test": "jshint js/*js",
+    "start": "parcel index.html "
   },
   "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7",
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "jshint": "^2.9.5",
-    "live-server": "^1.2.1"
+    "live-server": "^1.2.1",
+    "parcel-bundler": "^1.12.5"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "d3": "^4.13.0",
+    "jquery": "^3.6.0",
+    "jquery-ui": "^1.12.1",
+    "jquery-ui-bundle": "^1.12.1-migrate",
+    "parcel": "^2.0.0-nightly.655",
+    "popper.js": "^1.16.1",
+    "regenerator-runtime": "^0.13.7"
   }
 }

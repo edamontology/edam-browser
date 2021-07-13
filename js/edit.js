@@ -1,3 +1,18 @@
+import "../jquey-import"
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.css' 
+import '@fortawesome/fontawesome-free/css/all.css'
+import 'regenerator-runtime/runtime';
+import * as d3 from 'd3';
+import 'jquery-ui-bundle'; 
+
+
+
+
+
+import {getUrlParameter,getDarkMode} from "./utils.js"
+import {getTreeFile} from "./tree-edam-stand-alone.js"
+import {fake_interactive_edam_browser,build_autocomplete_from_edam_browser} from "./autocomplete-edam-reusable.js"
 var browser;
 
 var typeDict={"has_topic_container":"topic","is_format_of_container":"data","has_input_container":"data","has_output_container":"data","is_identifier_of_container":"data"};
@@ -91,7 +106,7 @@ function join_if_exists(tab){
     }
     return tab.join('; ');
 }
-function addTermField(container, kind, initial_term){
+window.addTermField=function addTermField(container, kind, initial_term){
     var i = $(container).find(".search-term").length;
     $(".search-term[name=parent-0]")
         .clone()
@@ -109,12 +124,12 @@ function addTermField(container, kind, initial_term){
     );
 }
 
-uri = "";
-parent_uri=null;
+let uri = "";
+let parent_uri=null;
 
 window.onload = function() {
     getDarkMode();
-    uri=getUrlParameter('term');
+    let uri=getUrlParameter('term');
     var branch=getUrlParameter('branch');
     if(uri){
         $('#pageTitle .new').hide();
@@ -125,7 +140,7 @@ window.onload = function() {
     sub_branch = sub_branch.substring(sub_branch.lastIndexOf('/')+1, sub_branch.lastIndexOf('_'));
     $('#pageTitle .branch').text(sub_branch);
     typeDict.parent_container=sub_branch;
-    browser = fake_interactive_edam_browser();
+    let browser = fake_interactive_edam_browser();
 
     browser.interactive_tree.loadingDoneHandler(function(){
         fill_form(uri, getUrlParameter('parent'), branch);
@@ -133,7 +148,7 @@ window.onload = function() {
     browser.current_branch( getUrlParameter('branch'));
 };
 
-function sendToGitHub(){
+window.sendToGitHub=function sendToGitHub(){
     var ids=["#id_parent", "#id_label", "#id_definition", "#id_exactSynonyms", "#id_narrowSynonyms"];
     var i;
     $(".search-term").each(function(){
