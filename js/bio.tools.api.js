@@ -1,4 +1,4 @@
-function biotool_api(){
+export function biotool_api(){
     function api(){}
 
     function generic_counter(get_api_url, callback){

@@ -3,7 +3,7 @@ if (typeof(String.prototype.localeCompare) === 'undefined') {
         return ((this == str) ? 0 : ((this > str) ? 1 : -1));
     };
 }
-function biosphere_api(){
+export function biosphere_api(){
     function api(){}
 
     //getter for nothing
@@ -104,3 +104,4 @@ function biosphere_api(){
     };
     return api;
 }
+

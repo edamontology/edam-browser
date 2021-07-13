@@ -2,6 +2,11 @@ import {getUrlParameter,setCookie,getCookie,setUrlParameters} from "./utils.js"
 import {interactive_tree} from "./tree-reusable-d3";
 import {json} from "./file.js"
 import {build_autocomplete_from_edam_browser} from "./autocomplete-edam-reusable.js"
+import {biotool_api} from "./bio.tools.api.js"
+import {biosphere_api} from "./biosphere.api.js"
+import {bioweb_api} from "./bioweb.api.js"
+import {tess_api} from "./tess.api.js"
+
 
 function getInitURI(branch){
     if (branch == "deprecated")
@@ -177,6 +182,7 @@ function interactive_edam_browser(){
 
     function to_generic_href(c,url,data, get_length, get_name, has_next){
         var data_content="";
+        let msg;
         if(c>0){
             data_content = "title=\"Some associated elements\" data-toggle=\"popover\" data-placement=\"auto right\" data-trigger=\"hover\" data-html=\"true\" data-content=\"<table class='table table-condensed'>";
             var i=0;
@@ -211,7 +217,7 @@ function interactive_edam_browser(){
         $("#details-"+identifier).remove();
         var details = build_detail_panel(d, uri, branch_of_term, identifier, true);
         fill_detail_panel(d, uri, branch_of_term, identifier, details);
-        //fill_community_panel(d, uri, branch_of_term, identifier, details);
+        fill_community_panel(d, uri, branch_of_term, identifier, details);
         append_detail_panel_to_edam_accordion(d, uri, branch_of_term, identifier, details);
     }
 
@@ -309,7 +315,7 @@ function interactive_edam_browser(){
         });
     }
 
-    /*function fill_community_panel (d, uri, branch_of_term, identifier, details){
+    function fill_community_panel (d, uri, branch_of_term, identifier, details){
         var community = details.find("tbody.community");
         var caller_b=biotool_api().get_for(current_branch, __my_interactive_tree.textAccessor()(d), uri, d);
         if (caller_b.is_enabled()){
@@ -399,7 +405,7 @@ function interactive_edam_browser(){
             community.parent().remove();
         }
         details.find('[data-toggle="tooltip"]').tooltip();
-    }*/
+    }
 
     function append_detail_panel_to_edam_accordion (d, uri, branch_of_term, identifier, details){
         $("#edamAccordion").find(".panel-group").first().find(".collapse").collapse("hide");
@@ -527,12 +533,12 @@ function interactive_edam_browser(){
             fill_detail_panel(d, uri, branch_of_term, identifier, details);
         else
             details.find("tbody.details").parent().remove();
-        /*if ($("input[name='show-community-usage']:checked").length)
+        if ($("input[name='show-community-usage']:checked").length)
             fill_community_panel(d, uri, branch_of_term, identifier, details);
         else
             details.find("tbody.community").parent().remove();
         details.find(".panel-body:empty").remove();
-        $(tooltipContainer.node()).append(details);*/
+        $(tooltipContainer.node()).append(details);
     }
 
     function metaInformationHandler(meta){
