@@ -1,8 +1,10 @@
 import "../jquey-import.js"
 
-import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css' 
 import '@fortawesome/fontawesome-free/css/all.css'
+
+import 'jquery-ui-bundle'; 
+import 'bootstrap'
 import 'regenerator-runtime/runtime';
 import * as d3 from 'd3';
 
