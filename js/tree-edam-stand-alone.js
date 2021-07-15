@@ -184,13 +184,13 @@ function interactive_edam_browser(){
         var data_content="";
         let msg;
         if(c>0){
-            data_content = "title=\"Some associated elements\" data-toggle=\"popover\" data-placement=\"auto right\" data-trigger=\"hover\" data-html=\"true\" data-content=\"<table class='table table-condensed'>";
+            data_content = "title=\"Some associated elements\"  data-toggle=\"popover\" data-placement=\"auto right\" data-trigger=\"hover\" data-html=\"true\" data-content=\"<table class=' table table-condensed'>";
             var i=0;
             for(;i<get_length(data)&&i<10;i++){
-                data_content+="<tr><td>"+get_name(data,i)+"</td></tr>";
+                data_content+="<li class='list-group-item'>"+get_name(data,i)+"</li>";
             }
             if(i<get_length(data) || has_next_biotools(data)){
-                data_content+="<tr><td>...</td></tr>";
+                data_content+="<li class='list-group-item'>...</li>";
             }
             data_content+='</table>"';
             msg = c+" times";
@@ -332,7 +332,7 @@ function interactive_edam_browser(){
                      to_biotools_href(c[1],caller_b.get_url()[1],data[1]) + ' as output<span class="'+id_b+'-dsc-o"></span>' +
                      (has_descendants?'<span class="'+id_b+'-dsc-o dscd" title="loading"> (<i class="fa fa-plus-square-o"></i> <span class="hit">?</span>)</span>':'') +
                      '.' +
-                     '</span>').appendTo(elt);
+                     '</span>').appendTo(elt); 
                     if(has_descendants){
                         caller_b.count_with_descendants(function (count){
                             $('#details-'+identifier+' .'+id_b+'-dsc-i .hit').text(count.input.total);

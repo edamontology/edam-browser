@@ -1,7 +1,15 @@
 import "../jquey-import"
 import 'bootstrap'
+import "jquery-ui-themes/themes/smoothness/jquery-ui.css"
+
 import 'bootstrap/dist/css/bootstrap.css' 
 import '@fortawesome/fontawesome-free/css/all.css'
+import "../css/bootstrap.xl.css"
+
+import '../css/autocomplete-edam-reusable.css'
+
+import "../css/edam.css"
+import "../css/dark-theme.css"	
 import 'regenerator-runtime/runtime';
 import 'jquery-ui-bundle'; 
 

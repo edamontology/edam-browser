@@ -13,6 +13,8 @@
     -moz-box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
 }
+.ui-menu-item>div:first{
+}
 li.ui-menu-item.autocomplete-entry{
     display:block;
 }

@@ -1,10 +1,21 @@
 import "../jquey-import.js"
 
-import 'bootstrap/dist/css/bootstrap.css' 
-import '@fortawesome/fontawesome-free/css/all.css'
-
+import "popper.js"
+import "jquery-ui-themes/themes/smoothness/jquery-ui.css"
 import 'jquery-ui-bundle'; 
 import 'bootstrap'
+
+import 'bootstrap/dist/css/bootstrap.css' 
+import '@fortawesome/fontawesome-free/css/all.css'
+import "../css/bootstrap.xl.css"
+
+import "../css/tree-reusable-d3.css"
+import '../css/autocomplete-edam-reusable.css'
+
+import "../css/index.css" 
+import "../css/edam.css"
+import "../css/dark-theme.css"	
+
 import 'regenerator-runtime/runtime';
 import * as d3 from 'd3';
 
