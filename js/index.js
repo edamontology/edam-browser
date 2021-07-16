@@ -1,6 +1,38 @@
-var browser = interactive_edam_browser();
+import "../jquey-import.js"
 
-window.onload = function() {
+import "popper.js"
+import "jquery-ui-themes/themes/smoothness/jquery-ui.css"
+import 'jquery-ui-bundle'; 
+import 'bootstrap'
+
+import 'bootstrap/dist/css/bootstrap.css' 
+import '@fortawesome/fontawesome-free/css/all.css'
+import "../css/bootstrap.xl.css"
+import "../css/tree-reusable-d3.css"
+import '../css/autocomplete-edam-reusable.css'
+import "../css/index.css" 
+import "../css/edam.css"
+import "../css/dark-theme.css"	
+
+import 'regenerator-runtime/runtime';
+import * as d3 from 'd3';
+
+import {interactive_tree} from "./tree-reusable-d3.js"
+
+import gtag, { install } from 'ga-gtag';
+
+
+window.interactive_tree = interactive_tree;
+
+import {getUrlParameter,setCookie,getCookie,setUrlParameters,getDarkMode} from "./utils.js"
+import {getInitURI,interactive_edam_browser} from "./tree-edam-stand-alone.js"
+
+var browser = interactive_edam_browser();
+//enabling access from html to the browser variable
+window.browser=browser;
+
+window.onload =  function (){
+    configGtag();
     getDarkMode();
     var id;
     var $inputs = $('#id_file,#id_url');
@@ -9,7 +41,7 @@ window.onload = function() {
     }).on('change', function () {
         $inputs.not(this).prop('disabled', $(this).val().length);
     });
-
+    let branch
     if(typeof getUrlParameter("url") != "undefined"){
         branch="custom_url";
         setCookie("edam_browser_branch",branch);
@@ -20,17 +52,18 @@ window.onload = function() {
         $("#id_url").val(getUrlParameter("url"));
         $("#id_url").change();
         $("[name=text_accessor][value='"+getCookie("edam_browser_custom_text_accessor","")+"']").prop("checked",true);
+        console.log(window.location.hash)
         if(window.location.hash) {
-            id = window.location.hash.substring(1);
-            pos = id.lastIndexOf('&');
+            let id = window.location.hash.substring(1);
+            let pos = id.lastIndexOf('&');
             if (pos!=-1){
                 id=id.substring(0,pos);
             }
             setCookie("edam_browser_"+branch,id);
         }
     }else if(window.location.hash) {
-        hash=window.location.hash.substring(1);
-        pos = hash.lastIndexOf('&');
+        let hash=window.location.hash.substring(1);
+        let pos = hash.lastIndexOf('&');
         if (pos!=-1){
             id=hash.substring(0,pos);
             branch=hash.substring(pos+1);
@@ -97,4 +130,14 @@ window.onload = function() {
             });
         }
     });
+};
+
+const configGtag = function(){
+    install('UA-115521967-1');    
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-115521967-1');
+
 };

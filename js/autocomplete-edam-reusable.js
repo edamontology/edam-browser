@@ -1,3 +1,5 @@
+import {json} from './file.js'
+import {typeDict} from "./edit.js"
 
 function fake_interactive_edam_browser(){
     var identifierToElement={},
@@ -21,7 +23,7 @@ function fake_interactive_edam_browser(){
         if(identifierAccessor(element)==="owl:DeprecatedClass"){
             element.deprecated=true;
         }
-        node=identifierToElement[identifierAccessor(element)];
+        let node=identifierToElement[identifierAccessor(element)];
         if (typeof node != "undefined"){
             if (typeof node.duplicate == "undefined")
                 node.duplicate=[];
@@ -100,7 +102,11 @@ function fake_interactive_edam_browser(){
      * @param {string} value
      */
     browser.current_branch = function(value) {
-        $.ajax({
+        //should be replaced with loading from cache
+        buildIdentifierToElement(json, null);
+        loadingDoneHandler();
+        return browser;
+        /*$.ajax({
             type: "GET",
             dataType: "json",
             url:getTreeFile(value),
@@ -111,6 +117,8 @@ function fake_interactive_edam_browser(){
             }
         });
         return browser;
+    };
+    return browser;*/
     };
     return browser;
 }
@@ -187,7 +195,7 @@ function build_autocomplete_from_edam_browser(edam_browser, elt,dict){
         minLength: 2,
         select : function(event, ui){ // lors de la sélection d'une proposition
             $(event.target).attr("data-selected",edam_browser.identifierAccessor(ui.item.node));
-            browser.interactive_tree().cmd().clearSelectedElements(false);
+            edam_browser.interactive_tree().cmd().clearSelectedElements(false);
             edam_browser.interactive_tree().cmd.selectElement(edam_browser.identifierAccessor(ui.item.node),true);
             edam_browser.interactive_tree().cmd.moveElementsIntoView([ui.item.node]);
         },
@@ -236,3 +244,5 @@ function build_autocomplete_from_edam_browser(edam_browser, elt,dict){
     ;
     $(elt).prop('disabled',false);
 }
+
+export {fake_interactive_edam_browser,build_autocomplete_from_edam_browser}

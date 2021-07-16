@@ -1,8 +1,12 @@
+import * as d3 from 'd3'
+import {json} from "./file.js"
+
 /**
  * Build an interactive tree
  * @return {object} the tree
  */
-function interactive_tree() {
+
+var interactive_tree = function() {
     var debug=false,
         margin = {top: 10, right: 50, bottom: 10, left: 80},
         voidHandler=function(name){return function(){if(debug)console.log(name);};},
@@ -68,8 +72,8 @@ function interactive_tree() {
             var treemap = d3.tree()
                     .nodeSize([12, 50])
                     .separation(function(a, b) {
-                        a_count = a.children ? a.children.length : 1;
-                        b_count = b.children ? b.children.length : 1;
+                        let a_count = a.children ? a.children.length : 1;
+                        let b_count = b.children ? b.children.length : 1;
                         return ((a_count+b_count)/2) +  (a.parent == b.parent ? 0 : 1);
                     });
 
@@ -216,9 +220,9 @@ function interactive_tree() {
                     .on("mouseover", function(d) {
                         if (!tooltipEnabled) return;
                         tooltipBuilder(d, tooltip);
-                        parentWidth = body._groups[0][0].clientWidth;
-                        tooltipWidth = tooltip._groups[0][0].clientWidth;
-                        tooltipX = d3.event.layerX+20;
+                        let parentWidth = body._groups[0][0].clientWidth;
+                        let tooltipWidth = tooltip._groups[0][0].clientWidth;
+                        let tooltipX = d3.event.layerX+20;
                         tooltip
                             .interrupt()
                             .transition()
@@ -447,7 +451,7 @@ function interactive_tree() {
     }//end of refreshTreeSelectedElementAncestors
 
     function parenthood(element,parent) {
-        node=identifierToElement[identifierAccessor(element)];
+        let node=identifierToElement[identifierAccessor(element)];
         if (typeof node != "undefined"){
             if (typeof node.duplicate == "undefined")
                 node.duplicate=[node];
@@ -859,19 +863,20 @@ function interactive_tree() {
         if (!arguments.length) return data_url;
         identifierToElement={};
         data_url = value;
-        d3.json(value, function(json) {
-            if(json==null) {
-                alert('Unable to read content of "' + data_url + '"');
-            }else{
-                if(typeof json.meta=="undefined"){
-                    json.meta={"version":"v n/a", "date":"n/a"};
-                }
-                json.meta.data_url=data_url;
-                chart.data(json);
+
+        
+                if(json==null) {
+            alert('Unable to read content of "' + data_url + '"');
+        }else{
+
+            if(typeof json.meta=="undefined"){
+                json.meta={"version":"v n/a", "date":"n/a"};
             }
-        });
-        return chart;
-    };
+            json.meta.data_url=data_url;
+            chart.data(json);
+        }
+}
+    
     /**
      * Accessor to the url where the json formatted tree can be found
      * @param {string} value - a valid url
@@ -1011,3 +1016,5 @@ function interactive_tree() {
     };
     return chart;
 }
+
+export {interactive_tree}
