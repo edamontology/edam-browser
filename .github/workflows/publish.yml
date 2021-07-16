@@ -17,3 +17,6 @@ jobs:
       run: npm run predeploy --if-present
     - name: Deploy
       run: npm run deploy --if-present
+      with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
