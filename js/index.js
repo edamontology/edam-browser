@@ -1,4 +1,4 @@
-import "../jquey-import.js"
+import "../jquery-import.js"
 
 import "popper.js"
 import "jquery-ui-themes/themes/smoothness/jquery-ui.css"

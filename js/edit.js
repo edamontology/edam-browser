@@ -1,4 +1,4 @@
-import "../jquey-import"
+import "../jquery-import"
 import 'bootstrap'
 import "jquery-ui-themes/themes/smoothness/jquery-ui.css"
 
