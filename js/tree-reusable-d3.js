@@ -864,7 +864,6 @@ var interactive_tree = function() {
         identifierToElement={};
         data_url = value;
 
-        console.log(json)
         
                 if(json==null) {
             alert('Unable to read content of "' + data_url + '"');

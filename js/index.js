@@ -22,7 +22,7 @@ import {interactive_tree} from "./tree-reusable-d3.js"
 import gtag, { install } from 'ga-gtag';
 
 
-window.interactive_tree = interactive_tree
+window.interactive_tree = interactive_tree;
 
 import {getUrlParameter,setCookie,getCookie,setUrlParameters,getDarkMode} from "./utils.js"
 import {getInitURI,interactive_edam_browser} from "./tree-edam-stand-alone.js"
@@ -32,7 +32,7 @@ var browser = interactive_edam_browser();
 window.browser=browser;
 
 window.onload =  function (){
-    gtag();
+    configGtag();
     getDarkMode();
     var id;
     var $inputs = $('#id_file,#id_url');
@@ -132,7 +132,7 @@ window.onload =  function (){
     });
 };
 
-const gtag =function(){
+const configGtag = function(){
     install('UA-115521967-1');    
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -140,4 +140,4 @@ const gtag =function(){
 
     gtag('config', 'UA-115521967-1');
 
-}
+};

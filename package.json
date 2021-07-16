@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "live-server",
     "test": "jshint js/*js",
+    "start": "parcel index.html",
     "predeploy": "rm -rf dist && parcel build index.html edit.html --no-minify --public-url https://hagerdakroury.github.io/edam-browser/",
     "deploy": "gh-pages -d dist"
   },
