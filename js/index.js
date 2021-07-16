@@ -8,10 +8,8 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css' 
 import '@fortawesome/fontawesome-free/css/all.css'
 import "../css/bootstrap.xl.css"
-
 import "../css/tree-reusable-d3.css"
 import '../css/autocomplete-edam-reusable.css'
-
 import "../css/index.css" 
 import "../css/edam.css"
 import "../css/dark-theme.css"	
@@ -21,7 +19,9 @@ import * as d3 from 'd3';
 
 import {interactive_tree} from "./tree-reusable-d3.js"
 
-//
+import gtag, { install } from 'ga-gtag';
+
+
 window.interactive_tree = interactive_tree
 
 import {getUrlParameter,setCookie,getCookie,setUrlParameters,getDarkMode} from "./utils.js"
@@ -32,6 +32,7 @@ var browser = interactive_edam_browser();
 window.browser=browser;
 
 window.onload =  function (){
+    gtag();
     getDarkMode();
     var id;
     var $inputs = $('#id_file,#id_url');
@@ -130,3 +131,13 @@ window.onload =  function (){
         }
     });
 };
+
+const gtag =function(){
+    install('UA-115521967-1');    
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-115521967-1');
+
+}

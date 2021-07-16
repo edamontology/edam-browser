@@ -6,26 +6,28 @@
   "scripts": {
     "dev": "live-server",
     "test": "jshint js/*js",
-    "predeploy": "rm -rf dist && parcel build ./*.html --public-url https://hagerdakroury.github.io/edam-browser/",
+    "predeploy": "rm -rf dist && parcel build index.html edit.html --no-minify --public-url https://hagerdakroury.github.io/edam-browser/",
     "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.7",
     "@fortawesome/fontawesome-free": "^5.15.3",
+    "cssnano": "^5.0.6",
     "jshint": "^2.9.5",
     "live-server": "^1.2.1"
   },
   "dependencies": {
     "bootstrap": "^3.4.1",
     "d3": "^4.13.0",
+    "ga-gtag": "^1.1.0",
     "gh-pages": "^3.2.3",
     "jquery": "^3.2.1",
     "jquery-ui-bundle": "^1.12.1-migrate",
     "jquery-ui-dist": "^1.12.1",
     "jquery-ui-themeroller": "^0.0.5",
     "jquery-ui-themes": "^1.12.0",
-    "parcel": "^2.0.0-nightly.769",
+    "parcel-bundler": "^1.12.5",
     "popper.js": "^1.16.1",
     "regenerator-runtime": "^0.13.7"
   }
