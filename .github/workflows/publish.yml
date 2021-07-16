@@ -15,8 +15,8 @@ jobs:
       run: npm install
     - name: Build
       run: npm run predeploy --if-present
-    - name: Deploy
-      run: npm run deploy --if-present
+   - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
       with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
