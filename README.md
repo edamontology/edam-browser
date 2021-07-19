@@ -24,7 +24,7 @@ Go to https://edamontology.github.io/edam-browser/
  - `npm install`
  - `npm run dev`
 
-##### Option 2: *You need yarn*
+##### Option 2: *using yarn*
  - `yarn install`
  - `yarn dev`
 
