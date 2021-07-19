@@ -3,7 +3,7 @@ if (typeof(String.prototype.localeCompare) === 'undefined') {
         return ((this == str) ? 0 : ((this > str) ? 1 : -1));
     };
 }
-function bioweb_api(){
+export function bioweb_api(){
     function api(){}
 
     //getter for nothing

@@ -1,9 +1,27 @@
+import "../jquery-import"
+import 'bootstrap'
+import "jquery-ui-themes/themes/smoothness/jquery-ui.css"
+
+import 'bootstrap/dist/css/bootstrap.css' 
+import '@fortawesome/fontawesome-free/css/all.css'
+import "../css/bootstrap.xl.css"
+
+import '../css/autocomplete-edam-reusable.css'
+
+import "../css/edam.css"
+import "../css/dark-theme.css"	
+import 'regenerator-runtime/runtime';
+import 'jquery-ui-bundle'; 
+
+import {getUrlParameter,getDarkMode} from "./utils.js"
+import {fake_interactive_edam_browser,build_autocomplete_from_edam_browser} from "./autocomplete-edam-reusable.js"
 var browser;
 
 var typeDict={"has_topic_container":"topic","is_format_of_container":"data","has_input_container":"data","has_output_container":"data","is_identifier_of_container":"data"};
 
 function fill_form(identifier, parent, branch){
-    tree_file = getTreeFile(branch);
+    //not used, won't be used after loading from cache
+    //let tree_file = getTreeFile(branch);
     build_autocomplete_from_edam_browser(browser,undefined,typeDict);
     browser.interactive_tree.cmd.getElementByIdentifier(identifier);
  
@@ -91,7 +109,7 @@ function join_if_exists(tab){
     }
     return tab.join('; ');
 }
-function addTermField(container, kind, initial_term){
+window.addTermField=function addTermField(container, kind, initial_term){
     var i = $(container).find(".search-term").length;
     $(".search-term[name=parent-0]")
         .clone()
@@ -109,8 +127,8 @@ function addTermField(container, kind, initial_term){
     );
 }
 
-uri = "";
-parent_uri=null;
+let uri = "";
+let parent_uri=null;
 
 window.onload = function() {
     getDarkMode();
@@ -126,20 +144,19 @@ window.onload = function() {
     $('#pageTitle .branch').text(sub_branch);
     typeDict.parent_container=sub_branch;
     browser = fake_interactive_edam_browser();
-
     browser.interactive_tree.loadingDoneHandler(function(){
         fill_form(uri, getUrlParameter('parent'), branch);
     });
     browser.current_branch( getUrlParameter('branch'));
 };
 
-function sendToGitHub(){
+window.sendToGitHub=function sendToGitHub(){
     var ids=["#id_parent", "#id_label", "#id_definition", "#id_exactSynonyms", "#id_narrowSynonyms"];
     var i;
     $(".search-term").each(function(){
         ids.push(".search-term[name="+this.getAttribute("name")+"]");
     })
-    msg="";
+    let msg="";
     msg+="[//]: # (You can add comment regarding your issue hereafter)\n";
     if ($("#id_github_comments").val()){
         msg+="### Comments\n";
@@ -169,3 +186,5 @@ function sendToGitHub(){
     $("#sender [name=body]").val(msg);
     $("#sender").submit();
 }
+
+export {typeDict}

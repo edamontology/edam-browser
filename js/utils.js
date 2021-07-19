@@ -1,3 +1,4 @@
+import 'jquery-ui-bundle'; 
 if (!Array.prototype.remove) {
     Array.prototype.remove = function(val) {
         var i = this.indexOf(val);
@@ -83,3 +84,5 @@ function getDarkMode() {
         localStorage.setItem("theme", theme);
     });
 }
+
+export {getUrlParameter,setCookie,getCookie,getHeight,setUrlParameters,getDarkMode}
