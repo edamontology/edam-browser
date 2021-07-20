@@ -179,9 +179,9 @@ window.sendToGitHub=function sendToGitHub(){
         }
     }
     if($('#pageTitle .new:visible').length>0){
-        $("#sender [name=title]").val("[Edam Browser User] New child proposition for " + $("#id_parent").val());
+        $("#sender [name=title]").val("[EDAM Browser user] New sub-concept proposal for " + $("#id_parent").val());
     }else{
-        $("#sender [name=title]").val("[Edam Browser User] Change proposition for " + uri);
+        $("#sender [name=title]").val("[EDAM Browser user] Proposed change for " + uri);
     }
     $("#sender [name=body]").val(msg);
     $("#sender").submit();
