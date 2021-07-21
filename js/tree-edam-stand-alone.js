@@ -94,6 +94,19 @@ function interactive_edam_browser(){
             });
     }
 
+    function loadCustomVersion(){     
+        $("#versionModal").modal('hide');
+        let versionURL=document.getElementById('version_url').value
+   
+            jsonTreeFromURL(versionURL,(tree) => {
+                localStorage.setItem("current_edam",JSON.stringify(tree))
+                setCookie("edam_url",versionURL)
+                loadTree("edam",tree,true)
+            });
+    }
+
+
+
     function selectCustom(){
         let branch="custom";
         $("[name=identifier_accessor][value='"+getCookie("edam_browser_custom_identifier_accessor","")+"']").prop("checked",true);
@@ -759,6 +772,14 @@ function interactive_edam_browser(){
     cmd.loadCustom=function(){
         return loadCustom();
     };
+
+        /**
+     * Command to load a custom version of EDAM
+     * @param {boolean} value
+     */
+         cmd.loadCustomVersion=function(){
+            return loadCustomVersion();
+        };
 
     // getter and setter functions. ----------------------------------------------------------
 

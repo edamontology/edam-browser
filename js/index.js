@@ -137,6 +137,9 @@ window.onload =  function (){
         $(this).parents(".btn-group").find('.selection').val($(this).text());
       
       });
+    window.triggerVersion = function (){
+        $("#versionModal").modal('show');
+    }
 };
 
 const configGtag = function(){

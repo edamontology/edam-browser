@@ -62,6 +62,12 @@
                             latest (unstable)
                         </a>
                     </li>
+                    <li>
+                        <a class="branch" onclick="triggerVersion()">
+                            Custom Version
+                        </a>
+                    </li>    
+
                     </ul>
                 </div>
                 <div class="btn-group">
@@ -289,6 +295,36 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" onclick="browser.cmd.loadCustom();">Load
                         ontology
+                    </button>
+                    <button type="submit" style="display:none;"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--custom version modal-->
+<div class="modal fade" id="versionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Load custom EDAM version</h4>
+            </div>
+            <form action="/" method="get" onsubmit="" id="custom_version_from">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="version_url">Custom Version URL</label>
+                        <input type="text" class="form-control" id="version_url" required name="url">
+                        <small class="form-text text-muted">You can try with https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl</small>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="browser.cmd.loadCustomVersion();">Load
+                        EDAM
                     </button>
                     <button type="submit" style="display:none;"></button>
                 </div>
