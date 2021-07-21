@@ -5,6 +5,7 @@ import {biotool_api} from "./bio.tools.api.js"
 import {biosphere_api} from "./biosphere.api.js"
 import {bioweb_api} from "./bioweb.api.js"
 import {tess_api} from "./tess.api.js"
+import {updateVersion,updateBranch} from "./index.js"
 
 var customRe = new RegExp("^(http|https)://", "i");
 
@@ -64,12 +65,14 @@ function interactive_edam_browser(){
     function loadTree(branch, tree, version) {
         let tree_url;
         $("#edam-branches .branch").removeClass("active");
-        if (typeof branch == "undefined"||branch==""){
+        if (typeof branch == "undefined"||branch==""||branch=='undefined'){
             branch=getCookie("edam_browser_branch","topic");
-            if(!branch)
-                 branch='edam';
+            if(branch=='undefined')
+                branch='edam';
         }
         $("#edam-branches .branch."+branch).addClass("active");
+        updateVersion(version);
+        updateBranch(branch);
         //setCookie("edam_browser_branch",branch);
         current_branch=branch;
         //get tree from cache (either same version or a subset request)

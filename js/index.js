@@ -27,6 +27,8 @@ window.interactive_tree = interactive_tree;
 import {getUrlParameter,setCookie,getCookie,setUrlParameters,getDarkMode} from "./utils.js"
 import {getInitURI,interactive_edam_browser} from "./tree-edam-stand-alone.js"
 
+const customRe = new RegExp("^(http|https)://", "i");
+
 var browser = interactive_edam_browser();
 //enabling access from html to the browser variable
 window.browser=browser;
@@ -157,3 +159,30 @@ const configGtag = function(){
     gtag('config', 'UA-115521967-1');
 
 };
+
+const updateVersion=function(version){
+    const versionDict={"custom":4,"latest":3,"stable":0,"1.24":1,"1.23":2};
+    let index;
+    if(customRe.test(version))
+        index=versionDict["custom"];
+    else if (version=="undefined")
+        index=versionDict["stable"];
+    else 
+        index=versionDict[version]
+    var text = $(".version-group .dropdown-menu li a")[index]?.innerText
+    $('.version-title').html(text)
+}
+
+
+const updateBranch=function(branch){
+    const branchDict={"edam":0,"data":1,"format":2,"operation":3,"topic":4,"deprecated":5,"edam_w_deprecated":6};
+    let index;
+    if (version=="undefined")
+        index=branchDict["edam"];
+    else 
+        index=branchDict[branch]
+    var text = $(".branch-group .dropdown-menu li a")[index]?.innerText
+    $('.branch-title').html(text)
+}
+
+export {updateBranch,updateVersion}
