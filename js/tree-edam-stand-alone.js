@@ -5,7 +5,6 @@ import {biotool_api} from "./bio.tools.api.js"
 import {biosphere_api} from "./biosphere.api.js"
 import {bioweb_api} from "./bioweb.api.js"
 import {tess_api} from "./tess.api.js"
-import { jsonTreeFromURL } from "edam2json-js";
 
 
 function getInitURI(branch){
@@ -61,7 +60,7 @@ function interactive_edam_browser(){
         identifier_accessor_mapping={},
         text_accessor_mapping={};
 
-    function loadTree(branch, tree, isVersion) {
+    function loadTree(branch, tree, version) {
         $("#edam-branches .branch").removeClass("active");
         if (typeof branch == "undefined"){
             branch=getCookie("edam_browser_branch","topic");
@@ -69,40 +68,39 @@ function interactive_edam_browser(){
         $("#edam-branches .branch."+branch).addClass("active");
         setCookie("edam_browser_branch",branch);
         current_branch=branch;
-        let tree_file=""
-        //let tree_file=getTreeFile(branch);
-        //if(tree_file==""){
-            //__my_interactive_tree.data(tree);
-            //build_autocomplete_from_tree(tree)
-        //}else{
-            __my_interactive_tree.data_url(tree_file,tree,isVersion);
-            //build_autocomplete(tree_file);
-        //}
-        build_autocomplete_from_edam_browser(browser);
-    }
+        //get tree from cache (either same version or a subset request)
+        if(!version || version==getCookie("edam_version","")){
+            tree=JSON.parse(localStorage.getItem("current_edam"));
+            __my_interactive_tree.data(tree);
+        }
 
-    function loadVersion(branch,version){        
-        let versionFile;
-            versionFile="https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_"+version+".owl";
-            if(version=='latest')
-                versionFile="https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl";
-            jsonTreeFromURL(versionFile,(tree) => {
-                localStorage.setItem("current_edam",JSON.stringify(tree))
-                setCookie("edam_version",version);
-                setCookie("edam_url",versionFile)
-                loadTree(branch,tree,true)
-            });
+        //load version (pre-determined or custom)
+        else {
+            setCookie("edam_version",version);
+            let tree_url=getTreeURL(version);
+            __my_interactive_tree.data_url(tree_url);
+
+        }
+        build_autocomplete_from_edam_browser(browser);
     }
 
     function loadCustomVersion(){     
         $("#versionModal").modal('hide');
-        let versionURL=document.getElementById('version_url').value
-   
-            jsonTreeFromURL(versionURL,(tree) => {
-                localStorage.setItem("current_edam",JSON.stringify(tree))
-                setCookie("edam_url",versionURL)
-                loadTree("edam",tree,true)
-            });
+        let versionURL=document.getElementById('version_url').value;
+        setCookie("custom_version",versionURL);
+       }
+
+    function getTreeURL(version){
+        switch(version){
+            case 'latest':
+                return "https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl";
+            case 'custom':
+                return getCookie("custom_version","");
+            case 'stable':
+                return "https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_1.25.owl";
+            default:
+                return "https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_"+version+".owl";
+        }
     }
 
 
@@ -804,7 +802,7 @@ function interactive_edam_browser(){
         __my_interactive_tree.identifierAccessor(identifierAccessorEDAM);
         __my_interactive_tree.textAccessor(textAccessorDefault);
         if(version){
-            loadVersion(value,version)
+            loadTree(value,"",version)
         }else{
         loadTree(value);
         }

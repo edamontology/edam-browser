@@ -44,10 +44,10 @@
                     </button>
                     <ul class="dropdown-menu" role="menu">
                     <li> 
-                        <a class="branch" onclick="browser.current_branch('edam','1.25')"  >1.25 (stable) </a>
+                        <a class="branch" onclick="browser.current_branch('edam','stable')"  >1.25 (stable) </a>
                     </li>
                     <li>
-                        <a class="branch" onclick="browser.current_branch('edam','1.24')">
+                        <a class="branch" onclick="browser.current_branch('edam','1.24')" >
                             1.24
                         </a>
                     </li>
@@ -323,7 +323,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="browser.cmd.loadCustomVersion();">Load
+                    <button type="button" class="btn btn-primary" onclick="browser.cmd.loadCustomVersion();browser.current_branch('edam','custom')">Load
                         EDAM
                     </button>
                     <button type="submit" style="display:none;"></button>
