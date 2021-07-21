@@ -66,6 +66,8 @@ function interactive_edam_browser(){
         $("#edam-branches .branch").removeClass("active");
         if (typeof branch == "undefined"||branch==""){
             branch=getCookie("edam_browser_branch","topic");
+            if(!branch)
+                 branch='edam';
         }
         $("#edam-branches .branch."+branch).addClass("active");
         //setCookie("edam_browser_branch",branch);
@@ -98,6 +100,8 @@ function interactive_edam_browser(){
             
             if(version=='custom'){
                 version=tree_url;
+                setCookie("edam_version",version);
+
             }
 
             let uri = __my_interactive_tree.cmd.getElementByIdentifier(getInitURI(current_branch));
@@ -844,11 +848,8 @@ function interactive_edam_browser(){
         if (current_branch === value &&!version) return browser;
         __my_interactive_tree.identifierAccessor(identifierAccessorEDAM);
         __my_interactive_tree.textAccessor(textAccessorDefault);
-        if(version){
-            loadTree(value,"",version)
-        }else{
-        loadTree(value);
-        }
+        loadTree(value,"",version)
+        
         return browser;
     };
     /**
