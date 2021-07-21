@@ -76,7 +76,8 @@ function interactive_edam_browser(){
         //setCookie("edam_browser_branch",branch);
         current_branch=branch;
         //get tree from cache (either same version or a subset request)
-        if(!version || version==getCookie("edam_version","stable")){
+        console.log(version)
+        if(!version || version==getCookie("edam_version","stable" )){
             
             tree=JSON.parse(localStorage.getItem("current_edam"));
             if(!tree){
@@ -274,7 +275,6 @@ function interactive_edam_browser(){
         var branch_of_term = get_branch_of_term(uri);
         setCookie("edam_browser_"+current_branch, uri);
         var version=getCookie("edam_version",'stable')
-        console.log(version)
         var identifier=uri.substring(uri.lastIndexOf('/')+1)
             .replace(/[^a-zA-Z_0-9]/g,'-')
             .toLowerCase()

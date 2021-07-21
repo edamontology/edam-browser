@@ -97,7 +97,10 @@ window.onload =  function (){
             setUrlParameters($("#custom_ontology_from").serialize());
         }
     }
-    setCookie("edam_version",'stable');
+    if(!version){
+        version='stable';
+    }
+
     d3.select("#tree").call(browser.interactive_tree()); // draw chart in div
     if(branch=="custom_file"){
         browser.cmd.selectCustom();
