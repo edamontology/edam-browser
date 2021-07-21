@@ -38,16 +38,16 @@
         </div>
         <div>
             <div class id="edam-branches">
-                <div class="btn-group">
+                <div class="btn-group version-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                         <span class="selection">Version</span><span class="caret"></span>
+                         <span class="selection version-title">1.25 (stable)  </span><span style="padding-left:1px" class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                    <li>
-                        <a class="branch" onclick="browser.current_branch('edam','1.25')">1.25 (stable)</a>
+                    <li> 
+                        <a class="branch" onclick="browser.current_branch('edam','stable')"  >1.25 (stable) </a>
                     </li>
                     <li>
-                        <a class="branch" onclick="browser.current_branch('edam','1.24')">
+                        <a class="branch" onclick="browser.current_branch('edam','1.24')" >
                             1.24
                         </a>
                     </li>
@@ -70,12 +70,12 @@
 
                     </ul>
                 </div>
-                <div class="btn-group">
+                <div class="btn-group branch-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                         <span class="selection">EDAM</span><span class="caret"></button>
+                         <span class="selection branch-title">All EDAM </span><span style="padding-left:1px" class="caret"></button>
                     <ul class="dropdown-menu" role="menu">
                     <li>
-                        <a class="branch" onclick="browser.current_branch('edam')">All EDAM</a>
+                        <a class="branch" onclick="browser.current_branch('edam')">All EDAM </a>
                     </li>
                     <li role="separator" class="divider"></li>
                     <li>
@@ -323,7 +323,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="browser.cmd.loadCustomVersion();">Load
+                    <button type="button" class="btn btn-primary" onclick="browser.cmd.loadCustomVersion();browser.current_branch('edam','custom')">Load
                         EDAM
                     </button>
                     <button type="submit" style="display:none;"></button>

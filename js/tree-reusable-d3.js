@@ -1,5 +1,7 @@
 import * as d3 from 'd3'
-import { getCookie } from './utils.js';
+import { getCookie, setCookie } from './utils.js';
+import { jsonTreeFromURL } from "edam2json-js";
+
 
 /**
  * Build an interactive tree
@@ -858,41 +860,18 @@ var interactive_tree = function() {
     /**
      * Accessor to the url where the json formatted tree can be found
      * @param {string} value - a valid url
-     * @param {string} tree - the tree 
      */
-    chart.data_url = function(value,tree,isVersion) {
+    chart.data_url = function(value) {
         if (!arguments.length) return data_url;
-        //let version=getCookie("edam_version","1.25");
-        //let versionData=getCookie("edam_version"+version)
 
         identifierToElement={};
-        data_url = getCookie("edam_url","https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_1.25.owl");
-        //     if(tree)
-        //     chart.data(tree);
-        //     else
-        //     chart.data(json);
-        // }
-        //last loaded version
-        if (!isVersion ||!tree) {
-            tree=JSON.parse(localStorage.getItem("current_edam"));
-        }
-        tree.meta.data_url=data_url;
-        chart.data(tree);
-
-        // data_url = getCookie("edam_url","https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_1.25.owl");
-        // if(json==null) {
-        //     alert('Unable to read content of "' + data_url + '"');
-        // }else{
-
-        //     if(typeof json.meta=="undefined"){
-        //         json.meta={"version":"v n/a", "date":"n/a"};
-        //     }
-        //     json.meta.data_url=data_url;
-        //     if(tree)
-        //     chart.data(tree);
-        //     else
-        //     chart.data(json);
-        //}
+        data_url = value;
+        jsonTreeFromURL(value,(tree) => {
+            localStorage.setItem("current_edam",JSON.stringify(tree))
+            setCookie("edam_url",value)
+            tree.meta.data_url=data_url;
+            chart.data(tree);
+            });
     }
 
     

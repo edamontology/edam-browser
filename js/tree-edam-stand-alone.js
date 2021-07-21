@@ -5,8 +5,9 @@ import {biotool_api} from "./bio.tools.api.js"
 import {biosphere_api} from "./biosphere.api.js"
 import {bioweb_api} from "./bioweb.api.js"
 import {tess_api} from "./tess.api.js"
-import { jsonTreeFromURL } from "edam2json-js";
+import {updateVersion,updateBranch} from "./index.js"
 
+var customRe = new RegExp("^(http|https)://", "i");
 
 function getInitURI(branch){
     if (branch == "deprecated")
@@ -61,48 +62,87 @@ function interactive_edam_browser(){
         identifier_accessor_mapping={},
         text_accessor_mapping={};
 
-    function loadTree(branch, tree, isVersion) {
+    function loadTree(branch, tree, version) {
+        let tree_url;
         $("#edam-branches .branch").removeClass("active");
-        if (typeof branch == "undefined"){
+        if (typeof branch == "undefined"||branch==""||branch=='undefined'){
             branch=getCookie("edam_browser_branch","topic");
+            if(branch=='undefined')
+                branch='edam';
         }
         $("#edam-branches .branch."+branch).addClass("active");
-        setCookie("edam_browser_branch",branch);
+        updateVersion(version);
+        updateBranch(branch);
+        //setCookie("edam_browser_branch",branch);
         current_branch=branch;
-        let tree_file=""
-        //let tree_file=getTreeFile(branch);
-        //if(tree_file==""){
-            //__my_interactive_tree.data(tree);
-            //build_autocomplete_from_tree(tree)
-        //}else{
-            __my_interactive_tree.data_url(tree_file,tree,isVersion);
-            //build_autocomplete(tree_file);
-        //}
-        build_autocomplete_from_edam_browser(browser);
-    }
-
-    function loadVersion(branch,version){        
-        let versionFile;
-            versionFile="https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_"+version+".owl";
-            if(version=='latest')
-                versionFile="https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl";
-            jsonTreeFromURL(versionFile,(tree) => {
-                localStorage.setItem("current_edam",JSON.stringify(tree))
+        //get tree from cache (either same version or a subset request)
+        if(!version || version==getCookie("edam_version","")){
+            
+            tree=JSON.parse(localStorage.getItem("current_edam"));
+            if(!tree){
+                version='stable';
+                tree_url=getTreeURL(version);
+                __my_interactive_tree.data_url(tree_url);
                 setCookie("edam_version",version);
-                setCookie("edam_url",versionFile)
-                loadTree(branch,tree,true)
-            });
+            }
+            __my_interactive_tree.data(tree);
+        }
+
+        //load version (pre-determined or custom)
+        else {
+            setCookie("edam_version",version);
+            //in case we're passed the raw url link directly
+            if(customRe.test(version)){
+                 tree_url=version;
+                 setCookie("edam_version",tree_url);
+
+            }
+            else{
+                 tree_url=getTreeURL(version);
+            }
+            
+            if(version=='custom'){
+                version=tree_url;
+                setCookie("edam_version",version);
+
+            }
+
+            let uri = __my_interactive_tree.cmd.getElementByIdentifier(getInitURI(current_branch));
+            if (uri){
+                uri = __my_interactive_tree.identifierAccessor()(uri)
+                let params = ""
+                if(version!="stable"){
+                    params+="&version="+version
+                }
+                if(current_branch!="edam"){
+                    params+="&branch="+current_branch
+                }
+                window.location.hash = uri.replace("http://edamontology.org/","") + params;
+
+            }    
+            __my_interactive_tree.data_url(tree_url);
+
+        }
+        build_autocomplete_from_edam_browser(browser);
     }
 
     function loadCustomVersion(){     
         $("#versionModal").modal('hide');
-        let versionURL=document.getElementById('version_url').value
-   
-            jsonTreeFromURL(versionURL,(tree) => {
-                localStorage.setItem("current_edam",JSON.stringify(tree))
-                setCookie("edam_url",versionURL)
-                loadTree("edam",tree,true)
-            });
+        let versionURL=document.getElementById('version_url').value;
+        setCookie("edam_version",versionURL);
+       }
+
+    function getTreeURL(version){
+        switch(version){
+            case 'latest':
+                return "https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl";
+            case 'custom':
+                return getCookie("custom_version","");
+            case 'stable':
+                return "https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_1.25.owl";
+            default:
+                return "https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_"+version+".owl";
+        }
     }
 
 
@@ -233,12 +273,20 @@ function interactive_edam_browser(){
         var uri=__my_interactive_tree.identifierAccessor()(d);
         var branch_of_term = get_branch_of_term(uri);
         setCookie("edam_browser_"+current_branch, uri);
+        var version=getCookie("edam_version",'stable')
         var identifier=uri.substring(uri.lastIndexOf('/')+1)
             .replace(/[^a-zA-Z_0-9]/g,'-')
             .toLowerCase()
             .replace(/[-]+/g,'-');
-        window.location.hash = uri.replace("http://edamontology.org/","") + (current_branch!="edam"?"&"+current_branch:"");
-        if(current_branch!="custom_url" && window.location.search){
+            let params = ""
+            if(version!="stable"){
+                params+="&version="+version
+            }
+            if(current_branch!="edam"){
+                params+="&branch="+current_branch
+            }
+            window.location.hash = uri.replace("http://edamontology.org/","") + params;
+            if(current_branch!="custom_url" && window.location.search){
             setUrlParameters("");
         }
         $("#details-"+identifier).remove();
@@ -803,11 +851,8 @@ function interactive_edam_browser(){
         if (current_branch === value &&!version) return browser;
         __my_interactive_tree.identifierAccessor(identifierAccessorEDAM);
         __my_interactive_tree.textAccessor(textAccessorDefault);
-        if(version){
-            loadVersion(value,version)
-        }else{
-        loadTree(value);
-        }
+        loadTree(value,"",version)
+        
         return browser;
     };
     /**
