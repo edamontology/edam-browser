@@ -1,16 +1,16 @@
 import {getUrlParameter,setCookie,getCookie,setUrlParameters} from "./utils.js"
 import {interactive_tree} from "./tree-reusable-d3";
-import {json} from "./file.js"
 import {build_autocomplete_from_edam_browser} from "./autocomplete-edam-reusable.js"
 import {biotool_api} from "./bio.tools.api.js"
 import {biosphere_api} from "./biosphere.api.js"
 import {bioweb_api} from "./bioweb.api.js"
 import {tess_api} from "./tess.api.js"
+import { jsonTreeFromURL } from "edam2json-js";
 
 
 function getInitURI(branch){
     if (branch == "deprecated")
-        return getCookie("edam_browser_"+branch,"owl:DeprecatedClass");
+        return getCookie("edam_browser_"+branch,"http://www.w3.org/2002/07/owl#DeprecatedClass");
     if(branch == "data")
         return getCookie("edam_browser_"+branch,"http://edamontology.org/data_1916");
     if(branch == "format")
@@ -61,7 +61,7 @@ function interactive_edam_browser(){
         identifier_accessor_mapping={},
         text_accessor_mapping={};
 
-    function loadTree(branch, tree) {
+    function loadTree(branch, tree, isVersion) {
         $("#edam-branches .branch").removeClass("active");
         if (typeof branch == "undefined"){
             branch=getCookie("edam_browser_branch","topic");
@@ -69,16 +69,43 @@ function interactive_edam_browser(){
         $("#edam-branches .branch."+branch).addClass("active");
         setCookie("edam_browser_branch",branch);
         current_branch=branch;
-        let tree_file=getTreeFile(branch);
-        if(tree_file==""){
-            __my_interactive_tree.data(tree);
+        let tree_file=""
+        //let tree_file=getTreeFile(branch);
+        //if(tree_file==""){
+            //__my_interactive_tree.data(tree);
             //build_autocomplete_from_tree(tree)
-        }else{
-            __my_interactive_tree.data_url(tree_file);
+        //}else{
+            __my_interactive_tree.data_url(tree_file,tree,isVersion);
             //build_autocomplete(tree_file);
-        }
+        //}
         build_autocomplete_from_edam_browser(browser);
     }
+
+    function loadVersion(branch,version){        
+        let versionFile;
+            versionFile="https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_"+version+".owl";
+            if(version=='latest')
+                versionFile="https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl";
+            jsonTreeFromURL(versionFile,(tree) => {
+                localStorage.setItem("current_edam",JSON.stringify(tree))
+                setCookie("edam_version",version);
+                setCookie("edam_url",versionFile)
+                loadTree(branch,tree,true)
+            });
+    }
+
+    function loadCustomVersion(){     
+        $("#versionModal").modal('hide');
+        let versionURL=document.getElementById('version_url').value
+   
+            jsonTreeFromURL(versionURL,(tree) => {
+                localStorage.setItem("current_edam",JSON.stringify(tree))
+                setCookie("edam_url",versionURL)
+                loadTree("edam",tree,true)
+            });
+    }
+
+
 
     function selectCustom(){
         let branch="custom";
@@ -117,7 +144,7 @@ function interactive_edam_browser(){
         var file=$("#id_file")[0].files[0];
         reader.readAsText(file);
         reader.onload = function(event) {
-            json = JSON.parse(event.target.result);
+            let json = JSON.parse(event.target.result);
             if(json == null)
                 return;
             if(typeof json.meta=="undefined"){
@@ -553,19 +580,21 @@ function interactive_edam_browser(){
         $("#version").html(meta.version);
         $("#release_date").html(meta.date);
         if (meta.repository) $("#ontology-repository").attr("href", meta.repository['@id']);
-        if (meta.homepage) $("#homepage").attr("href", meta.repository).html(meta.homepage['@id'].match(/\/\/([^\/]+)\//)[1]);
-        if (meta.logo){
-            meta.logo=meta.logo['@id'];
+        //meta.homepage['@id'] undefined meta.logo['@id']; undefined
+        //if (meta.homepage) $("#homepage").attr("href", meta.repository).html(meta.homepage['@id'].match(/\/\/([^\/]+)\//)[1]);
+        /*if (meta.logo){
+             meta.logo=meta.logo['@id'];
             $("#logo").attr("src", meta.logo);
             var fav=$("link[rel~='icon']");
             fav.attr("href", meta.logo);
             if (meta.logo.endsWith(".svg")){
                 fav.attr("type", "image/svg+xml");
             }
-        }
+        }*/
         $("#meta_data_url").attr("href", meta.data_url).add("[for=meta_data_url]").toggle(typeof meta.data_url != "undefined");
         $("#meta_data_file").html(meta.data_file).add("[for=meta_data_file]").toggle(typeof meta.data_file != "undefined");
-//        $("#meta_data_filename").attr("href", meta.data_filename).visible(typeof meta.data_filename != "undefined");
+        //$("#meta_data_filename") is empty 
+       // $("#meta_data_filename").attr("href", meta.data_filename).visible(typeof meta.data_filename != "undefined");
     }
 
     function identifierAccessorDefault(d, notPreTreated){
@@ -652,13 +681,13 @@ function interactive_edam_browser(){
 
                 tree.children=[];
                 for(i=0;i<all_children.length;i++){
-                    if (__my_interactive_tree.identifierAccessor()(all_children[i],true)!="owl:DeprecatedClass")
+                    if (__my_interactive_tree.identifierAccessor()(all_children[i],true)!="http://www.w3.org/2002/07/owl#DeprecatedClass")
                         tree.children.push(all_children[i]);
                 }
             }
             if(current_branch==="deprecated"){
                 for(i=0;i<tree.children.length;i++){
-                    if (__my_interactive_tree.identifierAccessor()(tree.children[i],true)==="owl:DeprecatedClass"){
+                    if (__my_interactive_tree.identifierAccessor()(tree.children[i],true)==="http://www.w3.org/2002/07/owl#DeprecatedClass"){
                         tree.children[i].meta=tree.meta||{};
                         markDeprecated(tree.children[i]);
                         return tree.children[i];
@@ -682,7 +711,7 @@ function interactive_edam_browser(){
                 }
             }
             for(i=0;i<tree.children.length;i++){
-                if (__my_interactive_tree.identifierAccessor()(tree.children[i],true)==="owl:DeprecatedClass"){
+                if (__my_interactive_tree.identifierAccessor()(tree.children[i],true)==="http://www.w3.org/2002/07/owl#DeprecatedClass"){
                     markDeprecated(tree.children[i]);
                     i=tree.children.length;
                 }
@@ -746,6 +775,14 @@ function interactive_edam_browser(){
         return loadCustom();
     };
 
+        /**
+     * Command to load a custom version of EDAM
+     * @param {boolean} value
+     */
+         cmd.loadCustomVersion=function(){
+            return loadCustomVersion();
+        };
+
     // getter and setter functions. ----------------------------------------------------------
 
     /**
@@ -759,13 +796,18 @@ function interactive_edam_browser(){
      * Get the current branch or load the branch given in parameter if it is not
      * the current branch
      * @param {string} value
+     * @param {string} version the version of EDAM to load 
      */
-    browser.current_branch = function(value) {
+    browser.current_branch = function(value,version) {
         if (!arguments.length) return current_branch;
-        if (current_branch === value) return browser;
+        if (current_branch === value &&!version) return browser;
         __my_interactive_tree.identifierAccessor(identifierAccessorEDAM);
         __my_interactive_tree.textAccessor(textAccessorDefault);
+        if(version){
+            loadVersion(value,version)
+        }else{
         loadTree(value);
+        }
         return browser;
     };
     /**

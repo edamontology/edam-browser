@@ -1,4 +1,4 @@
-import "../jquey-import"
+import "../jquery-import"
 import 'bootstrap'
 import "jquery-ui-themes/themes/smoothness/jquery-ui.css"
 
@@ -132,7 +132,7 @@ let parent_uri=null;
 
 window.onload = function() {
     getDarkMode();
-    let uri=getUrlParameter('term');
+    uri=getUrlParameter('term');
     var branch=getUrlParameter('branch');
     if(uri){
         $('#pageTitle .new').hide();

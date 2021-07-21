@@ -1,4 +1,3 @@
-import {json} from './file.js'
 import {typeDict} from "./edit.js"
 
 function fake_interactive_edam_browser(){
@@ -20,7 +19,7 @@ function fake_interactive_edam_browser(){
 
     function buildIdentifierToElement(element,parent) {
         element.parent=parent;
-        if(identifierAccessor(element)==="owl:DeprecatedClass"){
+        if(identifierAccessor(element)==="http://www.w3.org/2002/07/owl#DeprecatedClass"){
             element.deprecated=true;
         }
         let node=identifierToElement[identifierAccessor(element)];
@@ -103,7 +102,8 @@ function fake_interactive_edam_browser(){
      */
     browser.current_branch = function(value) {
         //should be replaced with loading from cache
-        buildIdentifierToElement(json, null);
+        let tree =localStorage.getItem("current_edam");
+        buildIdentifierToElement(tree, null);
         loadingDoneHandler();
         return browser;
         /*$.ajax({

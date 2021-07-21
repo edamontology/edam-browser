@@ -1,4 +1,4 @@
-import "../jquey-import.js"
+import "../jquery-import.js"
 
 import "popper.js"
 import "jquery-ui-themes/themes/smoothness/jquery-ui.css"
@@ -43,7 +43,6 @@ window.onload =  function (){
     });
     let branch
     if(typeof getUrlParameter("url") != "undefined"){
-        branch="custom_url";
         setCookie("edam_browser_branch",branch);
         setCookie("edam_browser_custom_loaded_url", getUrlParameter("url"));
         setCookie("edam_browser_custom_identifier_accessor", getUrlParameter("identifier_accessor"));
@@ -89,13 +88,14 @@ window.onload =  function (){
             setUrlParameters($("#custom_ontology_from").serialize());
         }
     }
+    setCookie("edam_version",'1.25');
     d3.select("#tree").call(browser.interactive_tree()); // draw chart in div
     if(branch=="custom_file"){
         browser.cmd.selectCustom();
     }else if(branch=="custom_url"){
         browser.cmd.loadCustom();
     }else{
-        browser.current_branch(branch);
+        browser.current_branch(branch,'1.25');
     }
     var treeElement = document.getElementById("tree-and-controls");
     treeElement.style.height = localStorage.getItem("tree-and-controls-height");
@@ -130,6 +130,16 @@ window.onload =  function (){
             });
         }
     });
+
+    $(".dropdown-menu li a").click(function(){
+
+        $(this).parents(".btn-group").find('.selection').text($(this).text());
+        $(this).parents(".btn-group").find('.selection').val($(this).text());
+      
+      });
+    window.triggerVersion = function (){
+        $("#versionModal").modal('show');
+    }
 };
 
 const configGtag = function(){
