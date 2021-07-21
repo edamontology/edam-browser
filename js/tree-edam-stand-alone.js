@@ -62,22 +62,29 @@ function interactive_edam_browser(){
         text_accessor_mapping={};
 
     function loadTree(branch, tree, version) {
+        let tree_url;
         $("#edam-branches .branch").removeClass("active");
         if (typeof branch == "undefined"||branch==""){
             branch=getCookie("edam_browser_branch","topic");
         }
         $("#edam-branches .branch."+branch).addClass("active");
-        setCookie("edam_browser_branch",branch);
+        //setCookie("edam_browser_branch",branch);
         current_branch=branch;
         //get tree from cache (either same version or a subset request)
         if(!version || version==getCookie("edam_version","")){
+            
             tree=JSON.parse(localStorage.getItem("current_edam"));
+            if(!tree){
+                version='stable';
+                tree_url=getTreeURL(version);
+                __my_interactive_tree.data_url(tree_url);
+                setCookie("edam_version",version);
+            }
             __my_interactive_tree.data(tree);
         }
 
         //load version (pre-determined or custom)
         else {
-            let tree_url;
             setCookie("edam_version",version);
             //in case we're passed the raw url link directly
             if(customRe.test(version)){

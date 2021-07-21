@@ -24,7 +24,6 @@ function fill_form(identifier, parent, branch){
     //let tree_file = getTreeFile(branch);
     build_autocomplete_from_edam_browser(browser,undefined,typeDict);
     browser.interactive_tree.cmd.getElementByIdentifier(identifier);
- 
     build_form(
         browser.interactive_tree.cmd.getElementByIdentifier(identifier),
         browser.interactive_tree.cmd.getElementByIdentifier(parent)
@@ -107,6 +106,8 @@ function join_if_exists(tab){
     if (typeof tab == "undefined"){
         return "";
     }
+    if(!Array.isArray(tab))
+        return tab
     return tab.join('; ');
 }
 window.addTermField=function addTermField(container, kind, initial_term){

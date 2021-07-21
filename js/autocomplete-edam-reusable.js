@@ -101,7 +101,7 @@ function fake_interactive_edam_browser(){
      * @param {string} value
      */
     browser.current_branch = function(value) {
-        let tree =localStorage.getItem("current_edam");
+        let tree =JSON.parse(localStorage.getItem("current_edam"));
         buildIdentifierToElement(tree, null);
         loadingDoneHandler();
         return browser;
