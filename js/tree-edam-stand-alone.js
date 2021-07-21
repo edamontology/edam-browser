@@ -93,7 +93,6 @@ function interactive_edam_browser(){
             //in case we're passed the raw url link directly
             if(customRe.test(version)){
                  tree_url=version;
-                 console.log(tree_url)
             }
             else{
                  tree_url=getTreeURL(version);
@@ -103,7 +102,6 @@ function interactive_edam_browser(){
             
             if(version=='custom'){
                 version=tree_url;
-                console.log(version)
                 setCookie("edam_version",version);
             }
 
@@ -129,7 +127,6 @@ function interactive_edam_browser(){
     function loadCustomVersion(){     
         $("#versionModal").modal('hide');
         let versionURL=document.getElementById('version_url').value;
-        console.log(versionURL)
         setCookie("edam_version",versionURL);
        }
 
@@ -138,7 +135,7 @@ function interactive_edam_browser(){
             case 'latest':
                 return "https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl";
             case 'custom':
-                return getCookie("custom_version","");
+                return getCookie("edam_version","");
             case 'stable':
                 return "https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_1.25.owl";
             default:
