@@ -32,6 +32,7 @@ var browser = interactive_edam_browser();
 window.browser=browser;
 
 window.onload =  function (){
+
     configGtag();
     getDarkMode();
     var id;
@@ -95,7 +96,7 @@ window.onload =  function (){
     }else if(branch=="custom_url"){
         browser.cmd.loadCustom();
     }else{
-        browser.current_branch(branch,'1.25');
+       // browser.current_branch(branch,'1.25');
     }
     var treeElement = document.getElementById("tree-and-controls");
     treeElement.style.height = localStorage.getItem("tree-and-controls-height");
@@ -130,6 +131,11 @@ window.onload =  function (){
             });
         }
     });
+    $(document).ready(function() {  
+        $(".version-group .dropdown-menu li a")[0].click();
+        $(".branch-group .dropdown-menu li a")[0].click();
+
+     });
 
     $(".dropdown-menu li a").click(function(){
 
