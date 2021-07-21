@@ -149,6 +149,8 @@ var interactive_tree = function() {
                 let scale = d3.zoomTransform(svg.node()).k;
                 let x = -elements[0]?.y0;
                 let y = -elements[0]?.x0;
+                if(!x||!y)
+                    return
 
                 x= x*scale+width/2;
                 y = y*scale+height/2;
