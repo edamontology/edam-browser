@@ -101,7 +101,6 @@ function fake_interactive_edam_browser(){
      * @param {string} value
      */
     browser.current_branch = function(value) {
-        //should be replaced with loading from cache
         let tree =localStorage.getItem("current_edam");
         buildIdentifierToElement(tree, null);
         loadingDoneHandler();

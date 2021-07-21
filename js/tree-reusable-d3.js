@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { getCookie } from './utils.js';
+import { getCookie, setCookie } from './utils.js';
 import { jsonTreeFromURL } from "edam2json-js";
 
 

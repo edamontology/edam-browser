@@ -35,14 +35,13 @@ window.onload =  function (){
 
     configGtag();
     getDarkMode();
-    var id;
+    var id,branch,version;
     var $inputs = $('#id_file,#id_url');
     $inputs.on('input', function () {
         $inputs.not(this).prop('disabled', $(this).val().length);
     }).on('change', function () {
         $inputs.not(this).prop('disabled', $(this).val().length);
     });
-    let branch
     if(typeof getUrlParameter("url") != "undefined"){
         setCookie("edam_browser_branch",branch);
         setCookie("edam_browser_custom_loaded_url", getUrlParameter("url"));
@@ -65,8 +64,15 @@ window.onload =  function (){
         let hash=window.location.hash.substring(1);
         let pos = hash.lastIndexOf('&');
         if (pos!=-1){
-            id=hash.substring(0,pos);
-            branch=hash.substring(pos+1);
+        id=hash.substring(0,hash.indexOf('&'))
+        var params = hash.split('&').reduce(function (res, item) {
+                var parts = item.split('=');
+                res[parts[0]] = parts[1];
+                return res;
+            }, {});
+        
+            branch=params['branch'];
+            version=params['version'];
         }else{
             //only home-EDAM arrives here, so ok to work with edam
             //id=branch;
@@ -89,14 +95,14 @@ window.onload =  function (){
             setUrlParameters($("#custom_ontology_from").serialize());
         }
     }
-    setCookie("edam_version",'1.25');
+    setCookie("edam_version",'stable');
     d3.select("#tree").call(browser.interactive_tree()); // draw chart in div
     if(branch=="custom_file"){
         browser.cmd.selectCustom();
     }else if(branch=="custom_url"){
         browser.cmd.loadCustom();
     }else{
-       // browser.current_branch(branch,'1.25');
+        browser.current_branch(branch,version);
     }
     var treeElement = document.getElementById("tree-and-controls");
     treeElement.style.height = localStorage.getItem("tree-and-controls-height");
@@ -131,11 +137,6 @@ window.onload =  function (){
             });
         }
     });
-    $(document).ready(function() {  
-        $(".version-group .dropdown-menu li a")[0].click();
-        $(".branch-group .dropdown-menu li a")[0].click();
-
-     });
 
     $(".dropdown-menu li a").click(function(){
         $(this).parents(".btn-group").find('.selection').text($(this).text());
