@@ -93,6 +93,8 @@ function interactive_edam_browser(){
             //in case we're passed the raw url link directly
             if(customRe.test(version)){
                  tree_url=version;
+                 setCookie("edam_version",version);
+
             }
             else{
                  tree_url=getTreeURL(version);
