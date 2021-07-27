@@ -59,6 +59,7 @@ window.onload =  function (){
             let pos = id.lastIndexOf('&');
             if (pos!=-1){
                 id=id.substring(0,pos);
+                id=("http://edamontology.org/"+id).replace("http://edamontology.org/http://edamontology.org/","http://edamontology.org/");
             }
             setCookie("edam_browser_"+branch,id);
         }
@@ -67,6 +68,7 @@ window.onload =  function (){
         let pos = hash.lastIndexOf('&');
         if (pos!=-1){
         id=hash.substring(0,hash.indexOf('&'))
+        id=("http://edamontology.org/"+id).replace("http://edamontology.org/http://edamontology.org/","http://edamontology.org/");
         var params = hash.split('&').reduce(function (res, item) {
                 var parts = item.split('=');
                 res[parts[0]] = parts[1];
@@ -75,6 +77,8 @@ window.onload =  function (){
         
             branch=params['branch'];
             version=params['version'];
+            if(!branch)
+                branch="edam"
         }else{
             //only home-EDAM arrives here, so ok to work with edam
             //id=branch;
