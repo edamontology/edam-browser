@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jshint js/*js",
     "dev": "parcel build index.html edit.html --no-minify && parcel index.html --open",
-    "predeploy": "rm -rf dist && parcel build index.html edit.html --no-minify --public-url https://edamontology.github.io/edam-browser/",
+    "predeploy": "rm -rf dist && parcel build index.html edit.html --no-minify --public-url https://hagerdakroury.github.io/edam-browser/",
     "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
