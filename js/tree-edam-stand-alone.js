@@ -90,6 +90,8 @@ function interactive_edam_browser(){
 
         //load version (pre-determined or custom)
         else {
+            document.getElementById("tree").style.display = "none";          
+            $(".loader-wrapper").show();
             //in case we're passed the raw url link directly
             if(customRe.test(version)){
                  tree_url=version;
@@ -783,6 +785,7 @@ function interactive_edam_browser(){
            }, 10);
 
             $(".loader-wrapper").fadeOut();
+            document.getElementById("tree").style.display = "block";
         })
         .metaInformationHandler(metaInformationHandler)
         .debug(false)
