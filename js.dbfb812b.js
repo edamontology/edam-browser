@@ -71701,12 +71701,10 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-var defaultNode = "http://edamontology.org/data_0006";
 /**
  * Build an interactive tree
  * @return {object} the tree
  */
-
 var interactive_tree = function interactive_tree() {
   var debug = false,
       margin = {
@@ -72353,8 +72351,8 @@ var interactive_tree = function interactive_tree() {
       var msg = "we couldn't find " + identifier + " in EDAM version: " + (0, _utils.getCookie)("edam_version", "stable");
       alert(msg); //select default node
 
-      node = identifierToElement[defaultNode];
-      identifier = defaultNode;
+      node = (root._children || root.children)[0] || root;
+      identifier = identifierAccessor(node);
     }
 
     var source = getFartherAncestorCollapsed(node);
@@ -74931,4 +74929,4 @@ var updateBranch = function updateBranch(branch) {
 
 exports.updateBranch = updateBranch;
 },{"../jquery-import.js":"WZAb","popper.js":"v5IM","jquery-ui-themes/themes/smoothness/jquery-ui.css":"AC2V","jquery-ui-bundle":"Hifx","bootstrap":"jv0N","bootstrap/dist/css/bootstrap.css":"gsgA","@fortawesome/fontawesome-free/css/all.css":"Eofe","../css/bootstrap.xl.css":"ju9n","../css/tree-reusable-d3.css":"ju9n","../css/autocomplete-edam-reusable.css":"ju9n","../css/index.css":"ju9n","../css/edam.css":"ju9n","../css/dark-theme.css":"ju9n","regenerator-runtime/runtime":"KA2S","d3":"BG5c","./tree-reusable-d3.js":"kypQ","ga-gtag":"IZXy","./utils.js":"MgTz","./tree-edam-stand-alone.js":"qsCb"}]},{},["QvaY"], null)
-//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.b2b4d120.js.map
+//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.dbfb812b.js.map
