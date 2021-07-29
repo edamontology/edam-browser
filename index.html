@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="https://edamontology.github.io/edam-browser/favicon.29535c3e.ico">
 
-    <script src="https://edamontology.github.io/edam-browser/js.b400f4f2.js"></script>
+    <script src="https://edamontology.github.io/edam-browser/js.dbea9393.js"></script>
 
 <link rel="stylesheet" href="https://edamontology.github.io/edam-browser/js.3f08ee7f.css"></head>
 <body>
@@ -37,10 +37,34 @@
             </div>
         </div>
         <div>
-            <div class="btn-group" id="edam-branches">
-                <div class="btn-group">
+            <div class="btn-group id=" edam-branches"="">
+                <div class="btn-group version-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        EDAM <span class="caret"></span></button>
+                         <span class="selection version-title" style="padding-right:4px">1.25 (stable)</span><span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                    <li> 
+                        <a class="branch" onclick="browser.current_branch('edam','stable')">1.25 (stable)</a>
+                    </li>
+                    <li>
+                        <a class="branch" onclick="browser.current_branch('edam','1.24')">1.24</a>
+                    </li>
+                    <li>
+                        <a class="branch" onclick="browser.current_branch('edam','1.23')">1.23</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <a class="branch" onclick="browser.current_branch('edam','latest')">latest (unstable)</a>
+                    </li>
+                    <li>
+                        <a class="branch" onclick="triggerVersion()">Custom Version</a>
+                    </li>    
+
+                    </ul>
+                </div>
+                <div class="btn-group branch-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                         <span class="selection branch-title" style="padding-right:4px">All EDAM</span><span class="caret"></span></button>
                     <ul class="dropdown-menu" role="menu">
                     <li>
                         <a class="branch" onclick="browser.current_branch('edam')">All EDAM</a>
@@ -76,7 +100,11 @@
                     </li>
                     </ul>
                 </div>
-                <button type="button" class="btn btn-default branch custom custom_url custom_file" title="Load a custom ontology" onclick="browser.cmd.selectCustom()">Custom</button>
+                 <!-- <button type="button"
+                   class="btn btn-default branch custom custom_url custom_file"
+                   title="Load a custom ontology"
+                   onclick="browser.cmd.selectCustom()"
+                >Custom</button> -->
             </div>
         </div>
         <div>
@@ -245,6 +273,36 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" onclick="browser.cmd.loadCustom();">Load
                         ontology
+                    </button>
+                    <button type="submit" style="display:none;"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--custom version modal-->
+<div class="modal fade" id="versionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Load custom EDAM version</h4>
+            </div>
+            <form action="/" method="get" onsubmit="" id="custom_version_from">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="version_url">Custom Version URL</label>
+                        <input type="text" class="form-control" id="version_url" required="" name="url">
+                        <small class="form-text text-muted">You can try with https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl</small>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="browser.cmd.loadCustomVersion();browser.current_branch('edam','custom')">Load
+                        EDAM
                     </button>
                     <button type="submit" style="display:none;"></button>
                 </div>
