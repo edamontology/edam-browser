@@ -627,20 +627,25 @@ function interactive_edam_browser(){
             $("#meta_data_file").html("<i>n/a</i>");
             return;
         }
+        if (!('repository' in meta)){
+            meta.repository="https://github.com/edamontology/edamontology";
+        }
+        if (!('homepage' in meta)){
+            meta.homepage="http://edamontology.org/";
+        }
+        if (!('logo' in meta)){
+            meta.logo="https://github.com/edamontology/edamontology/raw/main/EDAM-logo-square.svg";
+        }
         $("#version").html(meta.version);
         $("#release_date").html(meta.date);
-        if (meta.repository) $("#ontology-repository").attr("href", meta.repository['@id']);
-        //meta.homepage['@id'] undefined meta.logo['@id']; undefined
-        //if (meta.homepage) $("#homepage").attr("href", meta.repository).html(meta.homepage['@id'].match(/\/\/([^\/]+)\//)[1]);
-        /*if (meta.logo){
-             meta.logo=meta.logo['@id'];
-            $("#logo").attr("src", meta.logo);
-            var fav=$("link[rel~='icon']");
-            fav.attr("href", meta.logo);
-            if (meta.logo.endsWith(".svg")){
-                fav.attr("type", "image/svg+xml");
-            }
-        }*/
+        $("#ontology-repository").attr("href", meta.repository);
+        $("#homepage").attr("href", meta.repository).html(meta.homepage.match(/\/\/([^\/]+)\//)[1]);
+        $("#logo").css("display", "").attr("src", meta.logo);
+        var fav=$("link[rel~='icon']");
+        fav.attr("href", meta.logo);
+        if (meta.logo.endsWith(".svg")){
+            fav.attr("type", "image/svg+xml");
+        }
         $("#meta_data_url").attr("href", meta.data_url).add("[for=meta_data_url]").toggle(typeof meta.data_url != "undefined");
         $("#meta_data_file").html(meta.data_file).add("[for=meta_data_file]").toggle(typeof meta.data_file != "undefined");
         //$("#meta_data_filename") is empty 
