@@ -1,6 +1,8 @@
 import * as d3 from 'd3'
-import {json} from "./file.js"
+import { getCookie, setCookie } from './utils.js';
+import { jsonTreeFromURL } from "edam2json-js";
 
+const defaultNode="http://edamontology.org/data_0006";
 /**
  * Build an interactive tree
  * @return {object} the tree
@@ -145,9 +147,10 @@ var interactive_tree = function() {
                 let width = $(target_selector).width();
                 let height = $(target_selector).height();
                 let scale = d3.zoomTransform(svg.node()).k;
-                let x = -elements[0].y0;
-                let y = -elements[0].x0;
-
+                let x = -elements[0]?.y0;
+                let y = -elements[0]?.x0;
+                if(!x||!y)
+                    return
                 x= x*scale+width/2;
                 y = y*scale+height/2;
 
@@ -660,9 +663,15 @@ var interactive_tree = function() {
      * @return cmd() itself
      */
     cmd.selectElement = function (identifier, status, andExpand) {
+        //show a warning message
         var node=identifierToElement[identifier];
-        if (typeof node == "undefined")
-            return cmd;
+        if (typeof node == "undefined"){
+            let msg= "we couldn't find "+ identifier+ " in EDAM version: "+getCookie("edam_version","stable");
+            alert(msg);
+            //select default node
+            node =identifierToElement[defaultNode];
+            identifier=defaultNode;
+        }
         var source=getFartherAncestorCollapsed(node);
         if (status)
             browseToFromElement(identifier, root, true, typeof andExpand == "undefined" || andExpand);
@@ -861,21 +870,17 @@ var interactive_tree = function() {
      */
     chart.data_url = function(value) {
         if (!arguments.length) return data_url;
+
         identifierToElement={};
         data_url = value;
+        jsonTreeFromURL(value,(tree) => {
+            localStorage.setItem("current_edam",JSON.stringify(tree))
+            setCookie("edam_url",value)
+            tree.meta.data_url=data_url;
+            chart.data(tree);
+            });
+    }
 
-        
-                if(json==null) {
-            alert('Unable to read content of "' + data_url + '"');
-        }else{
-
-            if(typeof json.meta=="undefined"){
-                json.meta={"version":"v n/a", "date":"n/a"};
-            }
-            json.meta.data_url=data_url;
-            chart.data(json);
-        }
-}
     
     /**
      * Accessor to the url where the json formatted tree can be found

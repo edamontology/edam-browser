@@ -10,8 +10,8 @@
     "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "@babel/preset-env": "^7.14.7",
+    "@babel/core": "^7.14.8",
+    "@babel/preset-env": "^7.14.8",
     "@fortawesome/fontawesome-free": "^5.15.3",
     "cssnano": "^5.0.6",
     "jshint": "^2.9.5",
@@ -20,6 +20,7 @@
   "dependencies": {
     "bootstrap": "^3.4.1",
     "d3": "^4.13.0",
+    "edam2json-js": "^0.2.2",
     "ga-gtag": "^1.1.0",
     "gh-pages": "^3.2.3",
     "jquery": "^3.2.1",

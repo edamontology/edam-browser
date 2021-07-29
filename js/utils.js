@@ -22,14 +22,15 @@ function getUrlParameter(sParam, default_value) {
     return default_value;
 }
 
-function setCookie(cname, cvalue, exdays) {
+const setCookie = function(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires="+ d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
+window.setCookie=setCookie;
 
-function getCookie(cname, default_value) {
+const getCookie=function(cname, default_value) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
     for(var i = 0; i <ca.length; i++) {
@@ -45,6 +46,7 @@ function getCookie(cname, default_value) {
         return "";
     return default_value;
 }
+window.getCookie=getCookie;
 
 function getHeight(){
     return Math.max(document.documentElement.clientHeight, window.innerHeight || 0)*0.75;

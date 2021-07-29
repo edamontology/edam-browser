@@ -27,23 +27,24 @@ window.interactive_tree = interactive_tree;
 import {getUrlParameter,setCookie,getCookie,setUrlParameters,getDarkMode} from "./utils.js"
 import {getInitURI,interactive_edam_browser} from "./tree-edam-stand-alone.js"
 
+const customRe = new RegExp("^(http|https)://", "i");
+
 var browser = interactive_edam_browser();
 //enabling access from html to the browser variable
 window.browser=browser;
 
 window.onload =  function (){
+
     configGtag();
     getDarkMode();
-    var id;
+    var id,branch,version;
     var $inputs = $('#id_file,#id_url');
     $inputs.on('input', function () {
         $inputs.not(this).prop('disabled', $(this).val().length);
     }).on('change', function () {
         $inputs.not(this).prop('disabled', $(this).val().length);
     });
-    let branch
     if(typeof getUrlParameter("url") != "undefined"){
-        branch="custom_url";
         setCookie("edam_browser_branch",branch);
         setCookie("edam_browser_custom_loaded_url", getUrlParameter("url"));
         setCookie("edam_browser_custom_identifier_accessor", getUrlParameter("identifier_accessor"));
@@ -58,6 +59,7 @@ window.onload =  function (){
             let pos = id.lastIndexOf('&');
             if (pos!=-1){
                 id=id.substring(0,pos);
+                id=("http://edamontology.org/"+id).replace("http://edamontology.org/http://edamontology.org/","http://edamontology.org/");
             }
             setCookie("edam_browser_"+branch,id);
         }
@@ -65,8 +67,18 @@ window.onload =  function (){
         let hash=window.location.hash.substring(1);
         let pos = hash.lastIndexOf('&');
         if (pos!=-1){
-            id=hash.substring(0,pos);
-            branch=hash.substring(pos+1);
+        id=hash.substring(0,hash.indexOf('&'))
+        id=("http://edamontology.org/"+id).replace("http://edamontology.org/http://edamontology.org/","http://edamontology.org/");
+        var params = hash.split('&').reduce(function (res, item) {
+                var parts = item.split('=');
+                res[parts[0]] = parts[1];
+                return res;
+            }, {});
+        
+            branch=params['branch'];
+            version=params['version'];
+            if(!branch)
+                branch="edam"
         }else{
             //only home-EDAM arrives here, so ok to work with edam
             //id=branch;
@@ -89,13 +101,16 @@ window.onload =  function (){
             setUrlParameters($("#custom_ontology_from").serialize());
         }
     }
+    if(!version){
+        version='stable';
+    }
     d3.select("#tree").call(browser.interactive_tree()); // draw chart in div
     if(branch=="custom_file"){
         browser.cmd.selectCustom();
     }else if(branch=="custom_url"){
         browser.cmd.loadCustom();
     }else{
-        browser.current_branch(branch);
+        browser.current_branch(branch,version);
     }
     var treeElement = document.getElementById("tree-and-controls");
     treeElement.style.height = localStorage.getItem("tree-and-controls-height");
@@ -130,6 +145,10 @@ window.onload =  function (){
             });
         }
     });
+
+    window.triggerVersion = function (){
+        $("#versionModal").modal('show');
+    }
 };
 
 const configGtag = function(){
@@ -141,3 +160,30 @@ const configGtag = function(){
     gtag('config', 'UA-115521967-1');
 
 };
+
+const updateVersion=function(version){
+    const versionDict={"custom":4,"latest":3,"stable":0,"1.24":1,"1.23":2};
+    let index;
+    if(customRe.test(version))
+        index=versionDict["custom"];
+    else if (version=="undefined")
+        index=versionDict["stable"];
+    else 
+        index=versionDict[version]
+    var text = $(".version-group .dropdown-menu li a")[index]?.innerText
+    $('.version-title').html(text)
+}
+
+
+const updateBranch=function(branch){
+    const branchDict={"edam":0,"data":1,"format":2,"operation":3,"topic":4,"deprecated":5,"edam_w_deprecated":6};
+    let index;
+    if (version=="undefined")
+        index=branchDict["edam"];
+    else 
+        index=branchDict[branch]
+    var text = $(".branch-group .dropdown-menu li a")[index]?.innerText
+    $('.branch-title').html(text)
+}
+
+export {updateBranch,updateVersion}
