@@ -2,7 +2,6 @@ import * as d3 from 'd3'
 import { getCookie, setCookie } from './utils.js';
 import { jsonTreeFromURL } from "edam2json-js";
 
-const defaultNode="http://edamontology.org/data_0006";
 /**
  * Build an interactive tree
  * @return {object} the tree
@@ -669,8 +668,8 @@ var interactive_tree = function() {
             let msg= "we couldn't find "+ identifier+ " in EDAM version: "+getCookie("edam_version","stable");
             alert(msg);
             //select default node
-            node =identifierToElement[defaultNode];
-            identifier=defaultNode;
+            node = (root._children || root.children)[0] || root ;
+            identifier=identifierAccessor(node);
         }
         var source=getFartherAncestorCollapsed(node);
         if (status)
