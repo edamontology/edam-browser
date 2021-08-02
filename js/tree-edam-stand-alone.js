@@ -253,7 +253,12 @@ function interactive_edam_browser(){
         var data_content="";
         let msg;
         if(c>0){
-            data_content = "title=\"Some associated elements\"  data-toggle=\"popover\" data-placement=\"auto right\" data-trigger=\"hover\" data-html=\"true\" data-content=\"<table class=' table table-condensed'>";
+            data_content  = "title=\"Some associated elements\""
+            data_content += "data-toggle=\"popover\""
+            data_content += "data-placement=\"auto right\""
+            data_content += "data-trigger=\"hover\""
+            data_content += "data-html=\"true\""
+            data_content += "data-content=\"<table class=' table table-condensed'>";
             var i=0;
             for(;i<get_length(data)&&i<10;i++){
                 data_content+="<li class='list-group-item'>"+get_name(data,i)+"</li>";
