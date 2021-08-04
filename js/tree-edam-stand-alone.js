@@ -97,6 +97,7 @@ function interactive_edam_browser(){
             //in case we're passed the raw url link directly, no need to map it
             if(customRe.test(version)){
                  tree_url=version;
+                 setCookie("edam_version",tree_url);
             }
             //listed branch
             else {
