@@ -71,57 +71,44 @@ function interactive_edam_browser(){
                 branch='edam';
         }
         $("#edam-branches .branch."+branch).addClass("active");
-        updateVersion(version);
-        updateBranch(branch);
         //setCookie("edam_browser_branch",branch);
         current_branch=branch;
+
         //get tree from cache (either same version or a subset request)
-        if(!version || version==getCookie("edam_version","stable" )){
-            
+        if(!version){
             tree=JSON.parse(localStorage.getItem("current_edam"));
+            //cache is empty, load default version
             if(!tree){
                 version='stable';
                 tree_url=getTreeURL(version);
                 __my_interactive_tree.data_url(tree_url);
                 setCookie("edam_version",version);
             }
+            setCookie("isLoaded",true)
             __my_interactive_tree.data(tree);
         }
 
         //load version (pre-determined or custom)
         else {
+            //show loading spinner
             document.getElementById("tree").style.display = "none";          
             $(".loader-wrapper").show();
-            //in case we're passed the raw url link directly
+
+            //in case we're passed the raw url link directly, no need to map it
             if(customRe.test(version)){
                  tree_url=version;
-                 setCookie("edam_version",version);
-
             }
-            else{
-                 tree_url=getTreeURL(version);
-                 setCookie("edam_version",version);
-
-            }
-            
-            if(version=='custom'){
-                version=tree_url;
+            //listed branch
+            else {
+                //maping branch to url
+                tree_url=getTreeURL(version);
                 setCookie("edam_version",version);
+                if(version=='custom'){
+                    //custom branch, identify it by the url
+                    version=tree_url;
+                    setCookie("edam_version",version);
+                }
             }
-
-            let uri = __my_interactive_tree.cmd.getElementByIdentifier(getInitURI(current_branch));
-            if (uri){
-                uri = __my_interactive_tree.identifierAccessor()(uri)
-                let params = ""
-                if(version!="stable"){
-                    params+="&version="+version
-                }
-                if(current_branch!="edam"){
-                    params+="&branch="+current_branch
-                }
-                window.location.hash = uri.replace("http://edamontology.org/","") + params;
-
-            }    
             __my_interactive_tree.data_url(tree_url);
 
         }
@@ -131,7 +118,7 @@ function interactive_edam_browser(){
     function loadCustomVersion(){     
         $("#versionModal").modal('hide');
         let versionURL=document.getElementById('version_url').value;
-        setCookie("edam_version",versionURL);
+        setCookie("custom_url",versionURL);
        }
 
     function getTreeURL(version){
@@ -139,7 +126,7 @@ function interactive_edam_browser(){
             case 'latest':
                 return "https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl";
             case 'custom':
-                return getCookie("edam_version","");
+                return getCookie("custom_url","");
             case 'stable':
                 return "https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_1.25.owl";
             default:
@@ -286,6 +273,9 @@ function interactive_edam_browser(){
             .toLowerCase()
             .replace(/[-]+/g,'-');
             let params = ""
+            //update url only if the tree is loaded successfully
+            if(getCookie("isLoaded",true)=="true") {
+
             if(version!="stable"){
                 params+="&version="+version
             }
@@ -293,6 +283,11 @@ function interactive_edam_browser(){
                 params+="&branch="+current_branch
             }
             window.location.hash = uri.replace("http://edamontology.org/","") + params;
+
+            //update version and branch as well
+            updateVersion(version);
+            updateBranch(current_branch);
+        }
             if(current_branch!="custom_url" && window.location.search){
             setUrlParameters("");
         }
