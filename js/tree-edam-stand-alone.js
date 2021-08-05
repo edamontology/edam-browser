@@ -480,7 +480,7 @@ function interactive_edam_browser(){
             'title="Stable version"'+
             ">OLS (stable)</a>"+
             " or "+
-            "<a target=\"_blank\" href=\"https://webprotege.stanford.edu/#projects/4befad5f-f27b-430c-a07d-fcf635093169/edit/Classes?selection=Class(%3Chttp://edamontology.org/"+identifier+"%3E)\""+
+            "<a target=\"_blank\" href=\"https://webprotege.stanford.edu/#projects/4befad5f-f27b-430c-a07d-fcf635093169/edit/Classes?selection=Class(%3C"+uri+"%3E)\""+
             'title="Latest but unstable version"'+
             ">WebProt&eacuteg&eacute (dev)</a>"+
             ".","Links to this concept in other ontology browsers");
