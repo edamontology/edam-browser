@@ -473,13 +473,16 @@ function interactive_edam_browser(){
             append_row(community,"Links",
             "Open in "+
             "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid="+uri+"\""+
-            ">BioPortal</a> (newest \"unstable\")"+
+            'title="Latest but unstable version"'+
+            ">BioPortal (latest)</a>"+
             ", "+
             "<a target=\"_blank\" href=\"https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F"+identifier+"\""+
-            ">OLS</a> (latest stable)"+
+            'title="Stable version"'+
+            ">OLS (stable)</a>"+
             " or "+
             "<a target=\"_blank\" href=\"https://webprotege.stanford.edu/#projects/4befad5f-f27b-430c-a07d-fcf635093169/edit/Classes?selection=Class(%3Chttp://edamontology.org/"+identifier+"%3E)\""+
-            ">WebProt&eacuteg&eacute</a> (dev)"+
+            'title="Latest but unstable version"'+
+            ">WebProt&eacuteg&eacute (dev)</a>"+
             ".","Links to this concept in other ontology browsers");
         }
         if (community.children().length>0){
