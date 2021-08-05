@@ -409,12 +409,12 @@ function interactive_edam_browser(){
                 if (c  instanceof Array){
                     $('<span>' +
                      to_biotools_href(c[0],caller_b.get_url()[0],data[0]) + ' as input<span class="'+id_b+'-dsc-i"></span>' +
-                     (has_descendants?'<span class="'+id_b+'-dsc-i dscd" title="loading"> (<i class="fa fa-plus-square-o"></i> <span class="hit">?</span>)</span>':'') +
+                     (has_descendants?'<span class="'+id_b+'-dsc-i dscd" title="loading"> (<i class="far fa-plus-square"></i> <span class="hit">?</span>)</span>':'') +
                      ', ' +
                      to_biotools_href(c[1],caller_b.get_url()[1],data[1]) + ' as output<span class="'+id_b+'-dsc-o"></span>' +
-                     (has_descendants?'<span class="'+id_b+'-dsc-o dscd" title="loading"> (<i class="fa fa-plus-square-o"></i> <span class="hit">?</span>)</span>':'') +
+                     (has_descendants?'<span class="'+id_b+'-dsc-o dscd" title="loading"> (<i class="far fa-plus-square"></i> <span class="hit">?</span>)</span>':'') +
                      '.' +
-                     '</span>').appendTo(elt); 
+                     '</span>').appendTo(elt);
                     if(has_descendants){
                         caller_b.count_with_descendants(function (count){
                             $('#details-'+identifier+' .'+id_b+'-dsc-i .hit').text(count.input.total);
@@ -426,7 +426,7 @@ function interactive_edam_browser(){
                 }else{
                     $(to_biotools_href(c,caller_b.get_url(),data)).appendTo(elt);
                     if(has_descendants){
-                        $('<span class="'+id_b+'-descendants dscd" title="loading"> (<i class="fa fa-plus-square-o"></i> <span class="hit">?</span>)</span>').appendTo(elt);
+                        $('<span class="'+id_b+'-descendants dscd" title="loading"> (<i class="far fa-plus-square"></i> <span class="hit">?</span>)</span>').appendTo(elt);
                         caller_b.count_with_descendants(function (count){
                             $('#details-'+identifier+' .'+id_b+'-descendants .hit').text(count.total);
                             $('#details-'+identifier+' .'+id_b+'-descendants.dscd').attr("title",count.total+" times with its "+(count.descendants-1)+" descendants");
