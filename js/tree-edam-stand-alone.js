@@ -472,8 +472,6 @@ function interactive_edam_browser(){
         if(uri.startsWith("http://edamontology.org/")){
             append_row(community,"Links",
             "Open in "+
-            /*"<a target=\"_blank\" href=\"http://aber-owl.net/ontology/EDAM/#/Browse/%3Chttp%3A%2F%2Fedamontology.org%2F"+identifier+"%3E\">AberOWL</a>"+
-            ", "+*/
             "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid="+uri+"\""+
             ">BioPortal</a> (newest \"unstable\")"+
             ", "+
