@@ -34742,7 +34742,7 @@ require('../../js/affix.js');
 
 },{"./../fonts/glyphicons-halflings-regular.eot":[["glyphicons-halflings-regular.e3673d14.eot","HVSd"],"HVSd"],"./../fonts/glyphicons-halflings-regular.woff2":[["glyphicons-halflings-regular.b2fb4677.woff2","WkOq"],"WkOq"],"./../fonts/glyphicons-halflings-regular.woff":[["glyphicons-halflings-regular.0b190d8e.woff","yHVR"],"yHVR"],"./../fonts/glyphicons-halflings-regular.ttf":[["glyphicons-halflings-regular.5db79c4f.ttf","EFEd"],"EFEd"],"./../fonts/glyphicons-halflings-regular.svg":[["glyphicons-halflings-regular.f9ab423a.svg","ryRX"],"ryRX"]}],"Eofe":[function(require,module,exports) {
 
-},{"./../webfonts/fa-brands-400.eot":[["fa-brands-400.e5cf17a2.eot","YH3g"],"YH3g"],"./../webfonts/fa-brands-400.woff2":[["fa-brands-400.fa2b50eb.woff2","qUWF"],"qUWF"],"./../webfonts/fa-brands-400.woff":[["fa-brands-400.76d38564.woff","d16i"],"d16i"],"./../webfonts/fa-brands-400.ttf":[["fa-brands-400.d8d82559.ttf","Lu1x"],"Lu1x"],"./../webfonts/fa-brands-400.svg":[["fa-brands-400.4d16fbfe.svg","GRGc"],"GRGc"],"./../webfonts/fa-regular-400.eot":[["fa-regular-400.b8524921.eot","nv22"],"nv22"],"./../webfonts/fa-regular-400.woff2":[["fa-regular-400.1f18e0a2.woff2","M504"],"M504"],"./../webfonts/fa-regular-400.woff":[["fa-regular-400.d7f209fa.woff","H1q6"],"H1q6"],"./../webfonts/fa-regular-400.ttf":[["fa-regular-400.da848ba3.ttf","Evul"],"Evul"],"./../webfonts/fa-regular-400.svg":[["fa-regular-400.2be1b64f.svg","D7rB"],"D7rB"],"./../webfonts/fa-solid-900.eot":[["fa-solid-900.4fe5d922.eot","ISQp"],"ISQp"],"./../webfonts/fa-solid-900.woff2":[["fa-solid-900.effee26e.woff2","PerI"],"PerI"],"./../webfonts/fa-solid-900.woff":[["fa-solid-900.187d4d4b.woff","nA9q"],"nA9q"],"./../webfonts/fa-solid-900.ttf":[["fa-solid-900.a633dba1.ttf","FJZt"],"FJZt"],"./../webfonts/fa-solid-900.svg":[["fa-solid-900.102f442e.svg","lFqB"],"lFqB"]}],"ju9n":[function(require,module,exports) {
+},{"./../webfonts/fa-brands-400.eot":[["fa-brands-400.ae1da9aa.eot","YH3g"],"YH3g"],"./../webfonts/fa-brands-400.woff2":[["fa-brands-400.a1db9459.woff2","qUWF"],"qUWF"],"./../webfonts/fa-brands-400.woff":[["fa-brands-400.04246ac6.woff","d16i"],"d16i"],"./../webfonts/fa-brands-400.ttf":[["fa-brands-400.e8eab21c.ttf","Lu1x"],"Lu1x"],"./../webfonts/fa-brands-400.svg":[["fa-brands-400.ac88be85.svg","GRGc"],"GRGc"],"./../webfonts/fa-regular-400.eot":[["fa-regular-400.6adc9fcd.eot","nv22"],"nv22"],"./../webfonts/fa-regular-400.woff2":[["fa-regular-400.6e35f891.woff2","M504"],"M504"],"./../webfonts/fa-regular-400.woff":[["fa-regular-400.4f946da8.woff","H1q6"],"H1q6"],"./../webfonts/fa-regular-400.ttf":[["fa-regular-400.a215af91.ttf","Evul"],"Evul"],"./../webfonts/fa-regular-400.svg":[["fa-regular-400.ed807156.svg","D7rB"],"D7rB"],"./../webfonts/fa-solid-900.eot":[["fa-solid-900.ef18b3bb.eot","ISQp"],"ISQp"],"./../webfonts/fa-solid-900.woff2":[["fa-solid-900.ab906712.woff2","PerI"],"PerI"],"./../webfonts/fa-solid-900.woff":[["fa-solid-900.88a6089c.woff","nA9q"],"nA9q"],"./../webfonts/fa-solid-900.ttf":[["fa-solid-900.ec16851e.ttf","FJZt"],"FJZt"],"./../webfonts/fa-solid-900.svg":[["fa-solid-900.e5b19c09.svg","lFqB"],"lFqB"]}],"ju9n":[function(require,module,exports) {
 
 },{}],"KA2S":[function(require,module,exports) {
 var define;
@@ -71644,11 +71644,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * Parses an OWL file to a json tree of nodes
  * @param {string} url The URL of the owl file in raw format e.g "https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_1.25.owl"
- * @param {function} callback The callback function to be executed after the tree is ready e.g (tree) => {console.log(tree)}
+ * @param {function} onSuccess The callback function to be executed after the tree is ready e.g (tree) => {console.log(tree)}
+ * @param {function} onError The callback function to be executed in case of an error
  */
-const jsonTreeFromURL = (url, callback) => {
+const jsonTreeFromURL = (url, onSuccess, onError) => {
   _axios.default.get(url).then(resp => {
-    (0, _parser.parseToJSON)(resp.data, callback);
+    (0, _parser.parseToJSON)(resp.data, onSuccess);
+  }).catch(err => {
+    onError(err);
   });
 };
 /**
@@ -74204,7 +74207,7 @@ function interactive_edam_browser() {
         elt.empty();
 
         if (c instanceof Array) {
-          $('<span>' + to_biotools_href(c[0], caller_b.get_url()[0], data[0]) + ' as input<span class="' + id_b + '-dsc-i"></span>' + (has_descendants ? '<span class="' + id_b + '-dsc-i dscd" title="loading"> (<i class="fa fa-plus-square-o"></i> <span class="hit">?</span>)</span>' : '') + ', ' + to_biotools_href(c[1], caller_b.get_url()[1], data[1]) + ' as output<span class="' + id_b + '-dsc-o"></span>' + (has_descendants ? '<span class="' + id_b + '-dsc-o dscd" title="loading"> (<i class="fa fa-plus-square-o"></i> <span class="hit">?</span>)</span>' : '') + '.' + '</span>').appendTo(elt);
+          $('<span>' + to_biotools_href(c[0], caller_b.get_url()[0], data[0]) + ' as input<span class="' + id_b + '-dsc-i"></span>' + (has_descendants ? '<span class="' + id_b + '-dsc-i dscd" title="loading"> (<i class="far fa-plus-square"></i> <span class="hit">?</span>)</span>' : '') + ', ' + to_biotools_href(c[1], caller_b.get_url()[1], data[1]) + ' as output<span class="' + id_b + '-dsc-o"></span>' + (has_descendants ? '<span class="' + id_b + '-dsc-o dscd" title="loading"> (<i class="far fa-plus-square"></i> <span class="hit">?</span>)</span>' : '') + '.' + '</span>').appendTo(elt);
 
           if (has_descendants) {
             caller_b.count_with_descendants(function (count) {
@@ -74218,7 +74221,7 @@ function interactive_edam_browser() {
           $(to_biotools_href(c, caller_b.get_url(), data)).appendTo(elt);
 
           if (has_descendants) {
-            $('<span class="' + id_b + '-descendants dscd" title="loading"> (<i class="fa fa-plus-square-o"></i> <span class="hit">?</span>)</span>').appendTo(elt);
+            $('<span class="' + id_b + '-descendants dscd" title="loading"> (<i class="far fa-plus-square"></i> <span class="hit">?</span>)</span>').appendTo(elt);
             caller_b.count_with_descendants(function (count) {
               $('#details-' + identifier + ' .' + id_b + '-descendants .hit').text(count.total);
               $('#details-' + identifier + ' .' + id_b + '-descendants.dscd').attr("title", count.total + " times with its " + (count.descendants - 1) + " descendants");
@@ -74934,4 +74937,4 @@ var updateBranch = function updateBranch(branch) {
 
 exports.updateBranch = updateBranch;
 },{"../jquery-import.js":"WZAb","popper.js":"v5IM","jquery-ui-themes/themes/smoothness/jquery-ui.css":"AC2V","jquery-ui-bundle":"Hifx","bootstrap":"jv0N","bootstrap/dist/css/bootstrap.css":"gsgA","@fortawesome/fontawesome-free/css/all.css":"Eofe","../css/bootstrap.xl.css":"ju9n","../css/tree-reusable-d3.css":"ju9n","../css/autocomplete-edam-reusable.css":"ju9n","../css/index.css":"ju9n","../css/edam.css":"ju9n","../css/dark-theme.css":"ju9n","regenerator-runtime/runtime":"KA2S","d3":"BG5c","./tree-reusable-d3.js":"kypQ","ga-gtag":"IZXy","./utils.js":"MgTz","./tree-edam-stand-alone.js":"qsCb"}]},{},["QvaY"], null)
-//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.07252027.js.map
+//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.22c33fd5.js.map

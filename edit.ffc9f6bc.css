@@ -8146,7 +8146,7 @@ button.close {
 }
 
 /*!
- * Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 .fa,
@@ -12236,9 +12236,6 @@ readers do not read off random characters that represent icons */
 .fa-trello:before {
   content: "\f181"; }
 
-.fa-tripadvisor:before {
-  content: "\f262"; }
-
 .fa-trophy:before {
   content: "\f091"; }
 
@@ -12735,8 +12732,8 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url("https://edamontology.github.io/edam-browser/fa-brands-400.e5cf17a2.eot");
-  src: url("https://edamontology.github.io/edam-browser/fa-brands-400.e5cf17a2.eot?#iefix") format("embedded-opentype"), url("https://edamontology.github.io/edam-browser/fa-brands-400.fa2b50eb.woff2") format("woff2"), url("https://edamontology.github.io/edam-browser/fa-brands-400.76d38564.woff") format("woff"), url("https://edamontology.github.io/edam-browser/fa-brands-400.d8d82559.ttf") format("truetype"), url("https://edamontology.github.io/edam-browser/fa-brands-400.4d16fbfe.svg#fontawesome") format("svg"); }
+  src: url("https://edamontology.github.io/edam-browser/fa-brands-400.ae1da9aa.eot");
+  src: url("https://edamontology.github.io/edam-browser/fa-brands-400.ae1da9aa.eot?#iefix") format("embedded-opentype"), url("https://edamontology.github.io/edam-browser/fa-brands-400.a1db9459.woff2") format("woff2"), url("https://edamontology.github.io/edam-browser/fa-brands-400.04246ac6.woff") format("woff"), url("https://edamontology.github.io/edam-browser/fa-brands-400.e8eab21c.ttf") format("truetype"), url("https://edamontology.github.io/edam-browser/fa-brands-400.ac88be85.svg#fontawesome") format("svg"); }
 
 .fab {
   font-family: 'Font Awesome 5 Brands';
@@ -12746,8 +12743,8 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url("https://edamontology.github.io/edam-browser/fa-regular-400.b8524921.eot");
-  src: url("https://edamontology.github.io/edam-browser/fa-regular-400.b8524921.eot?#iefix") format("embedded-opentype"), url("https://edamontology.github.io/edam-browser/fa-regular-400.1f18e0a2.woff2") format("woff2"), url("https://edamontology.github.io/edam-browser/fa-regular-400.d7f209fa.woff") format("woff"), url("https://edamontology.github.io/edam-browser/fa-regular-400.da848ba3.ttf") format("truetype"), url("https://edamontology.github.io/edam-browser/fa-regular-400.2be1b64f.svg#fontawesome") format("svg"); }
+  src: url("https://edamontology.github.io/edam-browser/fa-regular-400.6adc9fcd.eot");
+  src: url("https://edamontology.github.io/edam-browser/fa-regular-400.6adc9fcd.eot?#iefix") format("embedded-opentype"), url("https://edamontology.github.io/edam-browser/fa-regular-400.6e35f891.woff2") format("woff2"), url("https://edamontology.github.io/edam-browser/fa-regular-400.4f946da8.woff") format("woff"), url("https://edamontology.github.io/edam-browser/fa-regular-400.a215af91.ttf") format("truetype"), url("https://edamontology.github.io/edam-browser/fa-regular-400.ed807156.svg#fontawesome") format("svg"); }
 
 .far {
   font-family: 'Font Awesome 5 Free';
@@ -12757,8 +12754,8 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 900;
   font-display: block;
-  src: url("https://edamontology.github.io/edam-browser/fa-solid-900.4fe5d922.eot");
-  src: url("https://edamontology.github.io/edam-browser/fa-solid-900.4fe5d922.eot?#iefix") format("embedded-opentype"), url("https://edamontology.github.io/edam-browser/fa-solid-900.effee26e.woff2") format("woff2"), url("https://edamontology.github.io/edam-browser/fa-solid-900.187d4d4b.woff") format("woff"), url("https://edamontology.github.io/edam-browser/fa-solid-900.a633dba1.ttf") format("truetype"), url("https://edamontology.github.io/edam-browser/fa-solid-900.102f442e.svg#fontawesome") format("svg"); }
+  src: url("https://edamontology.github.io/edam-browser/fa-solid-900.ef18b3bb.eot");
+  src: url("https://edamontology.github.io/edam-browser/fa-solid-900.ef18b3bb.eot?#iefix") format("embedded-opentype"), url("https://edamontology.github.io/edam-browser/fa-solid-900.ab906712.woff2") format("woff2"), url("https://edamontology.github.io/edam-browser/fa-solid-900.88a6089c.woff") format("woff"), url("https://edamontology.github.io/edam-browser/fa-solid-900.ec16851e.ttf") format("truetype"), url("https://edamontology.github.io/edam-browser/fa-solid-900.e5b19c09.svg#fontawesome") format("svg"); }
 
 .fa,
 .fas {
@@ -13488,4 +13485,4 @@ div.btn-toggle-wrapper {
 /*styling for dark theme for main page ends here*/
 
 
-/*# sourceMappingURL=https://edamontology.github.io/edam-browser/edit.a8e424ee.css.map */
+/*# sourceMappingURL=https://edamontology.github.io/edam-browser/edit.ffc9f6bc.css.map */
