@@ -872,10 +872,22 @@ var interactive_tree = function() {
 
         identifierToElement={};
         data_url = value;
-        jsonTreeFromURL(value,(tree) => {
+        jsonTreeFromURL(value,
+            //tree loaded successfully
+            (tree) => {
+            setCookie("isLoaded",true);
             localStorage.setItem("current_edam",JSON.stringify(tree))
             setCookie("edam_url",value)
             tree.meta.data_url=data_url;
+            chart.data(tree);
+            }, 
+            //tree can't be loaded, restore the previous state
+            (err)=>{
+            //alert the error
+            alert('We encountered the following error: '+ err.message+". Taking you back to the previous version.");
+            //load previous version from cache
+            setCookie("isLoaded",false);
+            var tree=JSON.parse(localStorage.getItem("current_edam"));
             chart.data(tree);
             });
     }
