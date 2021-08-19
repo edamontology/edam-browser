@@ -68880,6 +68880,7 @@ var Buffer = require("buffer").Buffer;
 },{"stream":"JMHy","string_decoder":"ikue","buffer":"aMB2"}],"Wx27":[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ParseError = void 0;
 /**
  * An error that includes line and column in the error message.
  */
@@ -69175,6 +69176,7 @@ __exportStar(require("./lib/Variable"), exports);
 },{"./lib/BlankNode":"moao","./lib/DataFactory":"rhT6","./lib/DefaultGraph":"gHet","./lib/Literal":"UaaX","./lib/NamedNode":"H40B","./lib/Quad":"aPvv","./lib/Variable":"Bqep"}],"i29a":[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ParseType = exports.RdfXmlParser = void 0;
 const relative_to_absolute_iri_1 = require("relative-to-absolute-iri");
 const sax_1 = require("sax");
 const stream_1 = require("stream");
@@ -69857,11 +69859,18 @@ var ParseType;
 
 },{"relative-to-absolute-iri":"xHHT","sax":"kEcY","stream":"JMHy","./ParseError":"Wx27","rdf-data-factory":"A1TF"}],"xCxJ":[function(require,module,exports) {
 "use strict";
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(require("./lib/RdfXmlParser"));
+__exportStar(require("./lib/RdfXmlParser"), exports);
 
 },{"./lib/RdfXmlParser":"i29a"}],"XGIh":[function(require,module,exports) {
 "use strict";
@@ -72593,10 +72602,20 @@ var interactive_tree = function interactive_tree() {
     if (!arguments.length) return data_url;
     identifierToElement = {};
     data_url = value;
-    (0, _edam2jsonJs.jsonTreeFromURL)(value, function (tree) {
+    (0, _edam2jsonJs.jsonTreeFromURL)(value, //tree loaded successfully
+    function (tree) {
+      (0, _utils.setCookie)("isLoaded", true);
       localStorage.setItem("current_edam", JSON.stringify(tree));
       (0, _utils.setCookie)("edam_url", value);
       tree.meta.data_url = data_url;
+      chart.data(tree);
+    }, //tree can't be loaded, restore the previous state
+    function (err) {
+      //alert the error
+      alert('We encountered the following error: ' + err.message + ". Taking you back to the previous version."); //load previous version from cache
+
+      (0, _utils.setCookie)("isLoaded", false);
+      var tree = JSON.parse(localStorage.getItem("current_edam"));
       chart.data(tree);
     });
   };
@@ -73872,14 +73891,12 @@ function interactive_edam_browser() {
       if (branch == 'undefined') branch = 'edam';
     }
 
-    $("#edam-branches .branch." + branch).addClass("active");
-    (0, _index.updateVersion)(version);
-    (0, _index.updateBranch)(branch); //setCookie("edam_browser_branch",branch);
+    $("#edam-branches .branch." + branch).addClass("active"); //setCookie("edam_browser_branch",branch);
 
     current_branch = branch; //get tree from cache (either same version or a subset request)
 
-    if (!version || version == (0, _utils.getCookie)("edam_version", "stable")) {
-      tree = JSON.parse(localStorage.getItem("current_edam"));
+    if (!version) {
+      tree = JSON.parse(localStorage.getItem("current_edam")); //cache is empty, load default version
 
       if (!tree) {
         version = 'stable';
@@ -73890,40 +73907,29 @@ function interactive_edam_browser() {
         (0, _utils.setCookie)("edam_version", version);
       }
 
+      (0, _utils.setCookie)("isLoaded", true);
+
       __my_interactive_tree.data(tree);
     } //load version (pre-determined or custom)
     else {
+      //show loading spinner
       document.getElementById("tree").style.display = "none";
-      $(".loader-wrapper").show(); //in case we're passed the raw url link directly
+      $(".loader-wrapper").show(); //in case we're passed the raw url link directly, no need to map it
 
       if (customRe.test(version)) {
         tree_url = version;
-        (0, _utils.setCookie)("edam_version", version);
-      } else {
+        (0, _utils.setCookie)("edam_version", tree_url);
+      } //listed branch
+      else {
+        //maping branch to url
         tree_url = getTreeURL(version);
         (0, _utils.setCookie)("edam_version", version);
-      }
 
-      if (version == 'custom') {
-        version = tree_url;
-        (0, _utils.setCookie)("edam_version", version);
-      }
-
-      var uri = __my_interactive_tree.cmd.getElementByIdentifier(getInitURI(current_branch));
-
-      if (uri) {
-        uri = __my_interactive_tree.identifierAccessor()(uri);
-        var params = "";
-
-        if (version != "stable") {
-          params += "&version=" + version;
+        if (version == 'custom') {
+          //custom branch, identify it by the url
+          version = tree_url;
+          (0, _utils.setCookie)("edam_version", version);
         }
-
-        if (current_branch != "edam") {
-          params += "&branch=" + current_branch;
-        }
-
-        window.location.hash = uri.replace("http://edamontology.org/", "") + params;
       }
 
       __my_interactive_tree.data_url(tree_url);
@@ -73935,7 +73941,7 @@ function interactive_edam_browser() {
   function loadCustomVersion() {
     $("#versionModal").modal('hide');
     var versionURL = document.getElementById('version_url').value;
-    (0, _utils.setCookie)("edam_version", versionURL);
+    (0, _utils.setCookie)("custom_url", versionURL);
   }
 
   function getTreeURL(version) {
@@ -73944,7 +73950,7 @@ function interactive_edam_browser() {
         return "https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl";
 
       case 'custom':
-        return (0, _utils.getCookie)("edam_version", "");
+        return (0, _utils.getCookie)("custom_url", "");
 
       case 'stable':
         return "https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_1.25.owl";
@@ -74101,17 +74107,22 @@ function interactive_edam_browser() {
     (0, _utils.setCookie)("edam_browser_" + current_branch, uri);
     var version = (0, _utils.getCookie)("edam_version", 'stable');
     var identifier = uri.substring(uri.lastIndexOf('/') + 1).replace(/[^a-zA-Z_0-9]/g, '-').toLowerCase().replace(/[-]+/g, '-');
-    var params = "";
+    var params = ""; //update url only if the tree is loaded successfully
 
-    if (version != "stable") {
-      params += "&version=" + version;
+    if ((0, _utils.getCookie)("isLoaded", true) == "true") {
+      if (version != "stable") {
+        params += "&version=" + version;
+      }
+
+      if (current_branch != "edam") {
+        params += "&branch=" + current_branch;
+      }
+
+      window.location.hash = uri.replace("http://edamontology.org/", "") + params; //update version and branch as well
+
+      (0, _index.updateVersion)(version);
+      (0, _index.updateBranch)(current_branch);
     }
-
-    if (current_branch != "edam") {
-      params += "&branch=" + current_branch;
-    }
-
-    window.location.hash = uri.replace("http://edamontology.org/", "") + params;
 
     if (current_branch != "custom_url" && window.location.search) {
       (0, _utils.setUrlParameters)("");
@@ -74937,4 +74948,4 @@ var updateBranch = function updateBranch(branch) {
 
 exports.updateBranch = updateBranch;
 },{"../jquery-import.js":"WZAb","popper.js":"v5IM","jquery-ui-themes/themes/smoothness/jquery-ui.css":"AC2V","jquery-ui-bundle":"Hifx","bootstrap":"jv0N","bootstrap/dist/css/bootstrap.css":"gsgA","@fortawesome/fontawesome-free/css/all.css":"Eofe","../css/bootstrap.xl.css":"ju9n","../css/tree-reusable-d3.css":"ju9n","../css/autocomplete-edam-reusable.css":"ju9n","../css/index.css":"ju9n","../css/edam.css":"ju9n","../css/dark-theme.css":"ju9n","regenerator-runtime/runtime":"KA2S","d3":"BG5c","./tree-reusable-d3.js":"kypQ","ga-gtag":"IZXy","./utils.js":"MgTz","./tree-edam-stand-alone.js":"qsCb"}]},{},["QvaY"], null)
-//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.22c33fd5.js.map
+//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.397b8c87.js.map
