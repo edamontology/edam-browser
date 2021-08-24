@@ -18,6 +18,7 @@ import 'regenerator-runtime/runtime';
 import * as d3 from 'd3';
 
 import {interactive_tree} from "./tree-reusable-d3.js"
+import {popoulateVersions,versionsDropdown} from "./versionsMap.js"
 
 import gtag, { install } from 'ga-gtag';
 
@@ -145,11 +146,13 @@ window.onload =  function (){
             });
         }
     });
+    popoulateVersions();
 
-    window.triggerVersion = function (){
+}
+    const triggerVersion = function (){
         $("#versionModal").modal('show');
     }
-};
+    window.triggerVersion=triggerVersion;
 
 const configGtag = function(){
     install('UA-115521967-1');    
@@ -158,18 +161,17 @@ const configGtag = function(){
     gtag('js', new Date());
 
     gtag('config', 'UA-115521967-1');
-
+    
 };
 
 const updateVersion=function(version){
-    const versionDict={"custom":4,"latest":3,"stable":0,"1.24":1,"1.23":2};
     let index;
     if(customRe.test(version))
-        index=versionDict["custom"];
+        index=versionsDropdown.indexOf("custom");
     else if (version=="undefined")
-        index=versionDict["stable"];
+        index=versionsDropdown.indexOf("stable")
     else 
-        index=versionDict[version]
+        index=versionsDropdown.indexOf(version)
     var text = $(".version-group .dropdown-menu li a")[index]?.innerText
     $('.version-title').html(text)
 }
@@ -186,4 +188,4 @@ const updateBranch=function(branch){
     $('.branch-title').html(text)
 }
 
-export {updateBranch,updateVersion}
+export {updateBranch,updateVersion,triggerVersion}
