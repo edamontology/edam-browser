@@ -9,10 +9,10 @@ import {triggerVersion} from "./index.js"
 // 2. add the version to the versionsDropdown in the preferred order to display.
 // Changing existing names of keys WILL break things. Like the name "stable". Please change values(label, url) only or add new values/keys.
 const versionsMap = {
-    "stable":{label:"1.25 (stable)","url":"https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_1.25.owl"},
+    "stable":{label:"1.25 (stable)",url:"https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_1.25.owl"},
     "1.24":{label:"1.24"},
     "1.23":{label:"1.23"},
-    "latest":{label:"latest (unstable)","url":"https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl"},
+    "latest":{label:"latest (unstable)",url:"https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl"},
     "custom":{label:"Custom Version"}
 };
 
