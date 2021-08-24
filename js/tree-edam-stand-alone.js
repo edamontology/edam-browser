@@ -6,6 +6,7 @@ import {biosphere_api} from "./biosphere.api.js"
 import {bioweb_api} from "./bioweb.api.js"
 import {tess_api} from "./tess.api.js"
 import {updateVersion,updateBranch} from "./index.js"
+import {getTreeURL} from "./versionsMap.js"
 
 var customRe = new RegExp("^(http|https)://", "i");
 
@@ -121,20 +122,6 @@ function interactive_edam_browser(){
         let versionURL=document.getElementById('version_url').value;
         setCookie("custom_url",versionURL);
        }
-
-    function getTreeURL(version){
-        switch(version){
-            case 'latest':
-                return "https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl";
-            case 'custom':
-                return getCookie("custom_url","");
-            case 'stable':
-                return "https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_1.25.owl";
-            default:
-                return "https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_"+version+".owl";
-        }
-    }
-
 
 
     function selectCustom(){

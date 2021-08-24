@@ -42,24 +42,7 @@
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                          <span class="selection version-title" style="padding-right:4px">1.25 (stable)</span><span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu" role="menu">
-                    <li> 
-                        <a class="branch" onclick="browser.current_branch('edam','stable')"  >1.25 (stable)</a>
-                    </li>
-                    <li>
-                        <a class="branch" onclick="browser.current_branch('edam','1.24')" >1.24</a>
-                    </li>
-                    <li>
-                        <a class="branch" onclick="browser.current_branch('edam','1.23')">1.23</a>
-                    </li>
-                    <li role="separator" class="divider"></li>
-                    <li>
-                        <a class="branch" onclick="browser.current_branch('edam','latest')">latest (unstable)</a>
-                    </li>
-                    <li>
-                        <a class="branch" onclick="triggerVersion()">Custom Version</a>
-                    </li>    
-
+                    <ul class="dropdown-menu" id= "version-menu" role="menu">
                     </ul>
                 </div>
                 <div class="btn-group branch-group">
