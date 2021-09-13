@@ -18,7 +18,7 @@ import 'regenerator-runtime/runtime';
 import * as d3 from 'd3';
 
 import {interactive_tree} from "./tree-reusable-d3.js"
-import {populateVersions,versionsDropdown} from "./versionsMap.js"
+import {populateVersions,versionsDropdown} from "./ontoBrowserConfig.js"
 
 import gtag, { install } from 'ga-gtag';
 
