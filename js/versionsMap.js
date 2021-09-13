@@ -8,6 +8,7 @@ import {triggerVersion} from "./index.js"
     //url: url where the raw owl file is located, if missing, it will loaded from the baseUrl.
 // 2. add the version to the versionsDropdown in the preferred order to display.
 // Changing existing names of keys WILL break things. Like the name "stable". Please change values(label, url) only or add new values/keys.
+// Order of the map is not guranteed, hence the need for the versionsDropdown
 const versionsMap = {
     "stable":{label:"1.25 (stable)",url:"https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_1.25.owl"},
     "1.24":{label:"1.24"},
@@ -41,7 +42,7 @@ function getTreeURL(version){
 /**
  * populate the versionsMap data dynamically in the dropdown menu.
  */
-function popoulateVersions(){
+function populateVersions(){
     var versionMenu = document.getElementById("version-menu");
     versionsDropdown.map((val)=>{         
         var li = document.createElement('li');
@@ -63,4 +64,4 @@ function popoulateVersions(){
 }
 
 
-export {getTreeURL,versionsDropdown,popoulateVersions}
+export {getTreeURL,versionsDropdown,populateVersions}
