@@ -6,7 +6,7 @@ import {biosphere_api} from "./biosphere.api.js"
 import {bioweb_api} from "./bioweb.api.js"
 import {tess_api} from "./tess.api.js"
 import {updateVersion,updateBranch} from "./index.js"
-import {getTreeURL} from "./versionsMap.js"
+import {getTreeURL} from "./ontoBrowserConfig.js"
 
 var customRe = new RegExp("^(http|https)://", "i");
 
