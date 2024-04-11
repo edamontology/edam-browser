@@ -213,8 +213,8 @@ function interactive_edam_browser(){
         return data.next != null;
     }
 
-    function to_biotools_href(c,url,data){
-        return to_generic_href(c,url,data,get_length_biotools,get_name_biotools,has_next_biotools);
+    function to_biotools_href(c,url,data,css_classes=""){
+        return to_generic_href(c,url,data,css_classes,get_length_biotools,get_name_biotools,has_next_biotools);
     }
 
     function get_length_default(data){
@@ -233,23 +233,23 @@ function interactive_edam_browser(){
         return false;
     }
 
-    function to_tess_href(c,url,data){
-        return to_generic_href(c,url,data,get_length_default,get_name_tess,has_next_default);
+    function to_tess_href(c,url,data,css_classes=""){
+        return to_generic_href(c,url,data,css_classes,get_length_default,get_name_tess,has_next_default);
     }
 
-    function to_biosphere_href(c,url,data){
-        return to_generic_href(c,url,data,get_length_default,get_name_default,has_next_default);
+    function to_biosphere_href(c,url,data,css_classes=""){
+        return to_generic_href(c,url,data,css_classes,get_length_default,get_name_default,has_next_default);
     }
 
     function get_name_bioweb(data, i){
         return data[i].name;
     }
 
-    function to_bioweb_href(c,url,data){
-        return to_generic_href(c,url,data,get_length_default,get_name_bioweb,has_next_default);
+    function to_bioweb_href(c,url,data,css_classes=""){
+        return to_generic_href(c,url,data,css_classes,get_length_default,get_name_bioweb,has_next_default);
     }
 
-    function to_generic_href(c,url,data, get_length, get_name, has_next){
+    function to_generic_href(c, url, data, css_classes, get_length, get_name, has_next){
         var data_content="";
         let msg;
         if(c>0){
@@ -258,6 +258,7 @@ function interactive_edam_browser(){
             data_content += "data-placement=\"auto right\""
             data_content += "data-trigger=\"hover focus\""
             data_content += "data-html=\"true\""
+            data_content += `class="${css_classes}"`
             data_content += "data-content=\"<table class=' table table-condensed'>";
             var i=0;
             for(;i<get_length(data)&&i<10;i++){
@@ -447,10 +448,11 @@ function interactive_edam_browser(){
                 var elt=$('#details-'+identifier+' .'+id_s);
                 elt.empty();
                 $('<span>' +
-                 to_biosphere_href(c[0],caller_s.get_url(),data[0]) + ' by appliances, ' +
-                 to_biosphere_href(c[1],caller_s.get_url(),data[1]) + ' by tools.' +
+                 to_biosphere_href(c[0],caller_s.get_url(),data[0],'app') + ' by appliances, ' +
+                 to_biosphere_href(c[1],caller_s.get_url(),data[1],'tool') + ' by tools.' +
                  '</span>').appendTo(elt);
-                build_popover('#details-'+identifier+' .'+id_s+' [data-toggle="popover"]');
+                build_popover('#details-'+identifier+' .'+id_s+' [data-toggle="popover"].app');
+                build_popover('#details-'+identifier+' .'+id_s+' [data-toggle="popover"].tool');
             });
         }
         var caller_w=bioweb_api().get_for(current_branch, __my_interactive_tree.textAccessor()(d), uri, d);
