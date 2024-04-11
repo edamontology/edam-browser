@@ -303,6 +303,10 @@ function interactive_edam_browser(){
         append_detail_panel_to_edam_accordion(d, uri, branch_of_term, identifier, details);
     }
 
+    function build_popover(selector){
+        $(selector).popover({container: selector});
+    }
+
     function build_detail_panel (d, uri, branch_of_term, identifier, collapsed){
         let details = "";
         details += '<div class="panel-group edam-details" id="details-'+identifier+'">';
@@ -433,7 +437,7 @@ function interactive_edam_browser(){
                         });
                     }
                 }
-                $('#details-'+identifier+' .'+id_b+' [data-toggle="popover"]').popover({container: '#details-'+identifier+' .'+id_b+' [data-toggle="popover"]'});
+                build_popover('#details-'+identifier+' .'+id_b+' [data-toggle="popover"]');
             });
         }
         var caller_s=biosphere_api().get_for(current_branch, __my_interactive_tree.textAccessor()(d), uri, d);
@@ -446,7 +450,7 @@ function interactive_edam_browser(){
                  to_biosphere_href(c[0],caller_s.get_url(),data[0]) + ' by appliances, ' +
                  to_biosphere_href(c[1],caller_s.get_url(),data[1]) + ' by tools.' +
                  '</span>').appendTo(elt);
-                $('#details-'+identifier+' .'+id_s+' [data-toggle="popover"]').popover({container: '#details-'+identifier+' .'+id_s+' [data-toggle="popover"]'});
+                build_popover('#details-'+identifier+' .'+id_s+' [data-toggle="popover"]');
             });
         }
         var caller_w=bioweb_api().get_for(current_branch, __my_interactive_tree.textAccessor()(d), uri, d);
@@ -456,7 +460,7 @@ function interactive_edam_browser(){
                 var elt=$('#details-'+identifier+' .'+id_w);
                 elt.empty();
                 $(to_bioweb_href(c,caller_w.get_url(),data)).appendTo(elt);
-                $('#details-'+identifier+' .'+id_w+' [data-toggle="popover"]').popover({container: '#details-'+identifier+' .'+id_w+' [data-toggle="popover"]'});
+                build_popover('#details-'+identifier+' .'+id_w+' [data-toggle="popover"]');
             });
         }
         var caller_t=tess_api().get_for(current_branch, __my_interactive_tree.textAccessor()(d), uri, d);
@@ -466,7 +470,7 @@ function interactive_edam_browser(){
                 var elt=$('#details-'+identifier+' .'+id_t);
                 elt.empty();
                 $(to_tess_href(c,caller_t.get_url(),data)).appendTo(elt);
-                $('#details-'+identifier+' .'+id_t+' [data-toggle="popover"]').popover({container: '#details-'+identifier+' .'+id_t+' [data-toggle="popover"]'});
+                build_popover('#details-'+identifier+' .'+id_t+' [data-toggle="popover"]');
             });
         }
         if(uri.startsWith("http://edamontology.org/")){
