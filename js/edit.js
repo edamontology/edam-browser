@@ -41,6 +41,8 @@ function build_form(target, parentOfNewTerm){
         $("#id_exactSynonyms").attr('data-initial',v);
         $("#id_narrowSynonyms").val(v=join_if_exists(target.narrow_synonyms));
         $("#id_narrowSynonyms").attr('data-initial',v);
+        $("#id_seeAlso").val(v=join_if_exists(target.seeAlso));
+        $("#id_seeAlso").attr('data-initial',v);
         /*v=[];
         for(var i=0;i<target.parent.length;i++){
             v.push(target.parents[i].data.uri);
@@ -152,7 +154,7 @@ window.onload = function() {
 };
 
 window.sendToGitHub=function sendToGitHub(){
-    var ids=["#id_parent", "#id_label", "#id_definition", "#id_exactSynonyms", "#id_narrowSynonyms"];
+    var ids=["#id_parent", "#id_label", "#id_definition", "#id_exactSynonyms", "#id_narrowSynonyms", "#id_seeAlso"];
     var i;
     $(".search-term").each(function(){
         ids.push(".search-term[name="+this.getAttribute("name")+"]");
