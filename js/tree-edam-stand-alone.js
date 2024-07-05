@@ -349,8 +349,8 @@ function interactive_edam_browser(){
             fields.push("is_identifier_of");
         if (d.parent != null && browser.identifierAccessor(d.parent)!="owl:Thing")
             fields.push("parents");
-        if(typeof d.data.see_also != "undefined")
-            fields.push("see_also");
+        if(typeof d.data.seeAlso != "undefined")
+            fields.push("seeAlso");
         fields.forEach(function(entry) {
             if("uri"==entry)
                 append_row_all_opt(table,"URI",uri,false,"Permanent concept identifier");
