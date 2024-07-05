@@ -68417,6 +68417,8 @@ function build_form(target, parentOfNewTerm) {
     $("#id_exactSynonyms").attr('data-initial', v);
     $("#id_narrowSynonyms").val(v = join_if_exists(target.narrow_synonyms));
     $("#id_narrowSynonyms").attr('data-initial', v);
+    $("#id_seeAlso").val(v = join_if_exists(target.seeAlso));
+    $("#id_seeAlso").attr('data-initial', v);
     /*v=[];
     for(var i=0;i<target.parent.length;i++){
         v.push(target.parents[i].data.uri);
@@ -68514,7 +68516,7 @@ window.onload = function () {
   browser.current_branch((0, _utils.getUrlParameter)('branch'));
 };
 window.sendToGitHub = function sendToGitHub() {
-  var ids = ["#id_parent", "#id_label", "#id_definition", "#id_exactSynonyms", "#id_narrowSynonyms"];
+  var ids = ["#id_parent", "#id_label", "#id_definition", "#id_exactSynonyms", "#id_narrowSynonyms", "#id_seeAlso"];
   var i;
   $(".search-term").each(function () {
     ids.push(".search-term[name=" + this.getAttribute("name") + "]");
@@ -70150,4 +70152,4 @@ var updateBranch = exports.updateBranch = function updateBranch(branch) {
   $('.branch-title').html(text);
 };
 },{"../jquery-import.js":"WZAb","popper.js":"v5IM","jquery-ui-themes/themes/smoothness/jquery-ui.css":"AC2V","jquery-ui-bundle":"Hifx","bootstrap":"jv0N","bootstrap/dist/css/bootstrap.css":"gsgA","@fortawesome/fontawesome-free/css/all.css":"Eofe","../css/bootstrap.xl.css":"ju9n","../css/tree-reusable-d3.css":"ju9n","../css/autocomplete-edam-reusable.css":"ju9n","../css/index.css":"ju9n","../css/edam.css":"ju9n","../css/dark-theme.css":"ju9n","regenerator-runtime/runtime":"KA2S","d3":"BG5c","./tree-reusable-d3.js":"kypQ","ga-gtag":"IZXy","./utils.js":"MgTz","./tree-edam-stand-alone.js":"qsCb"}]},{},["QvaY"], null)
-//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.edd713cb.js.map
+//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.a9316c48.js.map
