@@ -65300,25 +65300,27 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./lib/RdfXmlParser"), exports);
 
-},{"./lib/RdfXmlParser":"i29a"}],"XGIh":[function(require,module,exports) {
+},{"./lib/RdfXmlParser":"i29a"}],"Akb6":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parseToJSON = void 0;
-var _rdfxmlStreamingParser = require("rdfxml-streaming-parser");
-const classVal = "http://www.w3.org/2002/07/owl#Class";
-const subClassVal = "http://www.w3.org/2000/01/rdf-schema#subClassOf";
-const schemMap = {
-  hasDefinition: "definition",
-  label: "text",
-  hasExactSynonym: "exact_synonyms",
-  hasNarrowSynonym: "narrow_synonyms"
+exports.tsvMap = exports.subClassVal = exports.schemaMap = exports.metaMap = exports.classVal = void 0;
+const classVal = exports.classVal = "http://www.w3.org/2002/07/owl#Class";
+const subClassVal = exports.subClassVal = "http://www.w3.org/2000/01/rdf-schema#subClassOf";
+
+//map for browser json schema
+const schemaMap = exports.schemaMap = {
+  "http://www.geneontology.org/formats/oboInOwl#hasDefinition": "definition",
+  "http://www.w3.org/2000/01/rdf-schema#label": "text",
+  "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym": "exact_synonyms",
+  "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym": "narrow_synonyms",
+  "http://www.w3.org/2000/01/rdf-schema#comment": "comment"
 };
 
 //map for meta data for the whole ontology
-const metaMap = {
+const metaMap = exports.metaMap = {
   "http://purl.obolibrary.org/obo/date": "date",
   "http://usefulinc.com/ns/doap#Version": "version",
   "http://purl.obolibrary.org/obo/edam#repository": "repository",
@@ -65326,17 +65328,115 @@ const metaMap = {
   "http://xmlns.com/foaf/0.1/page": "homepage"
 };
 
+//map for tsv/csv headers and their approriate parsed keys
+const tsvMap = exports.tsvMap = {
+  "Class ID": "uri",
+  "Preferred Label": "text",
+  Synonyms: "exact_synonyms",
+  Definitions: "definition",
+  Obsolete: "http://www.w3.org/2002/07/owl#deprecated",
+  CUI: "",
+  "Semantic Types": "",
+  Parents: "superclasses",
+  Citation: "http://edamontology.org/citation",
+  "Created in": "http://edamontology.org/created_in",
+  "deprecation candidate": "http://edamontology.org/is_deprecation_candidate",
+  "deprecation comment": "http://edamontology.org/deprecation_comment",
+  Documentation: "http://edamontology.org/documentation",
+  Example: "http://edamontology.org/example",
+  "File Extention": "http://edamontology.org/file_extension",
+  "has format": "",
+  "has function": "",
+  "has identifier": "",
+  "has input": "has_input",
+  "has output": "has_output",
+  "has topic": "has_topic",
+  hasHumanReadsbleId: "http://www.geneontology.org/formats/oboInOwl#hasHumanReadableId",
+  "http://data.bioontology.org/metadata/prefixIRI": "prefixID",
+  "http://edamontology.org/comment_handle": "http://edamontology.org/comment_handle",
+  "http://edamontology.org/next_id": "",
+  "http://purl.obolibrary.org/obo/date": "",
+  "http://purl.obolibrary.org/obo/edam#data": "",
+  "http://purl.obolibrary.org/obo/edam#edam": "",
+  "http://purl.obolibrary.org/obo/edam#events": "",
+  "http://purl.obolibrary.org/obo/edam#formats": "",
+  "http://purl.obolibrary.org/obo/edam#identifiers": "",
+  "http://purl.obolibrary.org/obo/edam#obsolete": "",
+  "http://purl.obolibrary.org/obo/edam#operations": "",
+  "http://purl.obolibrary.org/obo/edam#placeholder": "",
+  "http://purl.obolibrary.org/obo/edam#topics": "",
+  "http://purl.obolibrary.org/obo/idspace": "",
+  "http://purl.obolibrary.org/obo/is_anti_symmetric": "",
+  "http://purl.obolibrary.org/obo/is_metadata_tag": "",
+  "http://purl.obolibrary.org/obo/is_reflexive": "",
+  "http://purl.obolibrary.org/obo/is_symmetric": "",
+  "http://purl.obolibrary.org/obo/namespace": "",
+  "http://purl.obolibrary.org/obo/remark": "",
+  "http://purl.obolibrary.org/obo/transitive_over": "",
+  "http://purl.org/dc/elements/1.1/contributor": "",
+  "http://purl.org/dc/elements/1.1/creator": "",
+  "http://purl.org/dc/elements/1.1/format": "",
+  "http://purl.org/dc/elements/1.1/title": "",
+  "http://usefulinc.com/ns/doap#Version": "",
+  "http://www.geneontology.org/formats/oboInOwl#comment": "comment",
+  "http://www.geneontology.org/formats/oboInOwl#consider": "http://www.geneontology.org/formats/oboInOwl#consider",
+  "http://www.geneontology.org/formats/oboInOwl#hasAlternativeId": "http://www.geneontology.org/formats/oboInOwl#hasAlternativeId",
+  "http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym": "http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym",
+  "http://www.geneontology.org/formats/oboInOwl#hasDbXRef": "http://www.geneontology.org/formats/oboInOwl#hasDbXRef",
+  "http://www.geneontology.org/formats/oboInOwl#hasDbXref": "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+  "http://www.geneontology.org/formats/oboInOwl#hasDefinition": "definition",
+  "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym": "exact_synonyms",
+  "http://www.geneontology.org/formats/oboInOwl#hasHumanReadableId": "http://www.geneontology.org/formats/oboInOwl#hasHumanReadableId",
+  "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym": "narrow_synonyms",
+  "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym": "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+  "http://www.geneontology.org/formats/oboInOwl#hasSubset": "",
+  "http://www.geneontology.org/formats/oboInOwl#inSubset": "http://www.geneontology.org/formats/oboInOwl#inSubset",
+  "http://www.geneontology.org/formats/oboInOwl#isCyclic": "",
+  "http://www.geneontology.org/formats/oboInOwl#replacedBy": "http://www.geneontology.org/formats/oboInOwl#replacedBy",
+  "http://www.geneontology.org/formats/oboInOwl#savedBy": "",
+  "http://www.geneontology.org/formats/oboInOwl#SubsetProperty": "",
+  "http://xmlns.com/foaf/0.1/page": "",
+  "Information standard": "http://edamontology.org/information_standard",
+  "is format of": "is_format_of",
+  "is function of": "",
+  "is identifier of": "is_identifier_of",
+  "is input of": "",
+  "is output of": "",
+  "is topic of": "",
+  isdebtag: "http://edamontology.org/isdebtag",
+  "Media type": "http://edamontology.org/media_type",
+  notRecommendedForAnnotation: "http://edamontology.org/notRecommendedForAnnotation",
+  "Obsolete since": "http://edamontology.org/obsolete_since",
+  "Old parent": "http://edamontology.org/oldParent",
+  "Old related": "",
+  "Ontology used": "http://edamontology.org/ontology_used",
+  Organisation: "http://edamontology.org/organisation",
+  refactor_candidate: "http://edamontology.org/is_refactor_candidate",
+  refactor_comment: "http://edamontology.org/refactor_comment",
+  "Regular expression": "http://edamontology.org/regex",
+  Repository: "http://edamontology.org/repository",
+  thematic_editor: ""
+};
+},{}],"XGIh":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.parseToTable = exports.parseToJSON = void 0;
+var _rdfxmlStreamingParser = require("rdfxml-streaming-parser");
+var _maps = require("./maps.js");
 //current supported classes top level (topic, data, operation, format, deprecated)
-var edamRe = new RegExp("^((http|https)://edamontology.org/(data|format|operation|topic)|http://www.w3.org/2002/07/owl#DeprecatedClass)", "i");
+var edamRe = new RegExp("^((http|https)://edamontology.org/(data|format|operation|topic)_|http://www.w3.org/2002/07/owl#DeprecatedClass)", "i");
 let meta = {};
 let classes = {};
 
 /**
  * Parses an OWL EDAM file to a json format.
  * @param {string} text file as a string
- *
+ * @param {string} outputPath optional Output file path to write to
  */
-const parseToJSON = (text, callback) => {
+const parseToJSON = (text, callback, outputPath) => {
   const myParser = new _rdfxmlStreamingParser.RdfXmlParser();
   meta = {};
   classes = {};
@@ -65351,7 +65451,39 @@ const parseToJSON = (text, callback) => {
     constructJSON(parserObjs);
     console.timeEnd("loop");
     const tree = makeTree(classes);
-    callback(tree);
+    if (outputPath) callback(tree, outputPath);else callback(tree);
+  });
+  console.time("parse");
+  textByLine.forEach(textLine => {
+    myParser.write(textLine);
+  });
+  myParser.end();
+};
+
+/**
+ * Parses an OWL EDAM file to a tsv format or csv
+ * @param {string} text file as a string
+ * @param {function any(string) {}} callback function to call in case of success
+ * @param {string} seperator seperator according to type of file needed either ',' or '/t'
+ * @param {string} outputPath optional Output file path to write to
+ */
+exports.parseToJSON = parseToJSON;
+const parseToTable = (text, callback, seperator, outputPath) => {
+  const myParser = new _rdfxmlStreamingParser.RdfXmlParser();
+  meta = {};
+  classes = {};
+  var textByLine = text.split("\n");
+  let parserObjs = [];
+  myParser.on("data", data => {
+    parserObjs.push(data);
+  }).on("error", console.error).on("end", () => {
+    console.log("All triples were parsed!");
+    console.timeEnd("parse");
+    console.time("loop");
+    constructJSON(parserObjs);
+    console.timeEnd("loop");
+    const text = makeTSV(seperator, classes);
+    if (outputPath) callback(text, outputPath);else callback(text);
   });
   console.time("parse");
   textByLine.forEach(textLine => {
@@ -65365,12 +65497,12 @@ const parseToJSON = (text, callback) => {
  * @param {object[]} parsedRDF array of parsed RDF objects
  *
  */
-exports.parseToJSON = parseToJSON;
+exports.parseToTable = parseToTable;
 const constructJSON = parsedRDF => {
   //populating the classes array
   for (let i = 0; i < parsedRDF.length; i++) {
     //parsing the nodes
-    if (parsedRDF[i].object.value == classVal && edamRe.test(parsedRDF[i].subject.value)) {
+    if (parsedRDF[i].object.value == _maps.classVal && edamRe.test(parsedRDF[i].subject.value)) {
       //if the node doesn't exist, create it
       if (!(parsedRDF[i].subject.value in classes)) {
         createNode(parsedRDF[i].subject.value);
@@ -65378,7 +65510,7 @@ const constructJSON = parsedRDF => {
     }
 
     //parsing subclasses+blank nodes e.g has_topic, is_identifier_of etc.
-    else if (parsedRDF[i].predicate.value == subClassVal && parsedRDF[i].object.termType == "BlankNode") {
+    else if (parsedRDF[i].predicate.value == _maps.subClassVal && parsedRDF[i].object.termType == "BlankNode") {
       if (!(parsedRDF[i].subject.value in classes)) {
         createNode(parsedRDF[i].subject.value);
       }
@@ -65387,7 +65519,7 @@ const constructJSON = parsedRDF => {
       if (relationName in nodeValue) nodeValue[relationName].push(parsedRDF[i + 2].object.value);else nodeValue[relationName] = [parsedRDF[i + 2].object.value];
     }
     //parsing subclasses
-    else if (parsedRDF[i].predicate.value == subClassVal && edamRe.test(parsedRDF[i].object.value)) {
+    else if (parsedRDF[i].predicate.value == _maps.subClassVal && edamRe.test(parsedRDF[i].object.value)) {
       //updating the subclass
       if (!(parsedRDF[i].subject.value in classes)) {
         createNode(parsedRDF[i].subject.value);
@@ -65396,10 +65528,10 @@ const constructJSON = parsedRDF => {
       nodeValue.superclasses.push(parsedRDF[i].object.value);
     }
     //parsing properties
-    else if (parsedRDF[i].predicate.value != subClassVal && parsedRDF[i].object.value != classVal && edamRe.test(parsedRDF[i].subject.value)) {
-      let propName = parsedRDF[i].predicate.value.split("#")[1];
-      if (propName in schemMap) {
-        propName = schemMap[propName];
+    else if (parsedRDF[i].predicate.value != _maps.subClassVal && parsedRDF[i].object.value != _maps.classVal && edamRe.test(parsedRDF[i].subject.value)) {
+      let propName = parsedRDF[i].predicate.value;
+      if (propName in _maps.schemaMap) {
+        propName = _maps.schemaMap[propName];
       }
       const propValue = parsedRDF[i].object.value;
       if (!(parsedRDF[i].subject.value in classes)) {
@@ -65417,8 +65549,8 @@ const constructJSON = parsedRDF => {
     }
 
     //populating the ontology's meta data, add to metaMap for more meta data
-    else if (parsedRDF[i].predicate.value in metaMap) {
-      meta[metaMap[parsedRDF[i].predicate.value]] = parsedRDF[i].object.value;
+    else if (parsedRDF[i].predicate.value in _maps.metaMap) {
+      meta[_maps.metaMap[parsedRDF[i].predicate.value]] = parsedRDF[i].object.value;
     }
   }
 };
@@ -65455,19 +65587,47 @@ const makeTree = nodes => {
 };
 
 /**
+ * Turns an array of json objects to a tsv/csv string.
+ * @param {string}  seperator type of seperator either ',' or '/t'
+ * @param {object[]} nodes array of all nodes (flattened)
+ */
+const makeTSV = (seperator, nodes) => {
+  let text = "";
+  for (const prop in _maps.tsvMap) {
+    text += prop + seperator;
+  }
+  text += "\n";
+  Object.entries(nodes).forEach(([key, value]) => {
+    for (const prop in _maps.tsvMap) {
+      let mapProp = _maps.tsvMap[prop];
+      if (mapProp != "") {
+        text += value[mapProp] ? Array.isArray(value[mapProp]) ? value[mapProp].filter(item => item).join("|") + seperator : value[mapProp] + seperator : seperator;
+      } else {
+        text += seperator;
+      }
+    }
+    text += "\n";
+  });
+  return text;
+};
+
+/**
  *
  * @param {string} uri the uri of the node to be created
  */
 const createNode = uriVal => {
+  const prefixID = uriVal.split("/").pop();
   classes[uriVal] = {
     data: {
       uri: uriVal
     },
+    uri: uriVal,
+    prefixID: prefixID,
     subclasses: [],
     superclasses: []
   };
 };
-},{"rdfxml-streaming-parser":"xCxJ"}],"hRTX":[function(require,module,exports) {
+},{"rdfxml-streaming-parser":"xCxJ","./maps.js":"Akb6"}],"hRTX":[function(require,module,exports) {
 'use strict';
 
 module.exports = function bind(fn, thisArg) {
@@ -67355,18 +67515,16 @@ module.exports.default = axios;
 
 },{"./utils":"Feqj","./helpers/bind":"hRTX","./core/Axios":"trUU","./core/mergeConfig":"fBI1","./defaults":"A14q","./cancel/Cancel":"qFUg","./cancel/CancelToken":"VgQU","./cancel/isCancel":"mXc0","./helpers/spread":"yisB","./helpers/isAxiosError":"FbOI"}],"O4Aa":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"Wzmt"}],"PBS7":[function(require,module,exports) {
+},{"./lib/axios":"Wzmt"}],"nPdH":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parseRDF = exports.jsonTreeFromURL = void 0;
+exports.jsonTreeFromURL = exports.jsonTreeFromString = void 0;
 var _parser = require("./src/parser.js");
 var _axios = _interopRequireDefault(require("axios"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-//import { program } from "commander";
-
 /**
  * Parses an OWL file to a json tree of nodes
  * @param {string} url The URL of the owl file in raw format e.g "https://raw.githubusercontent.com/edamontology/edamontology/main/releases/EDAM_1.25.owl"
@@ -67382,33 +67540,15 @@ const jsonTreeFromURL = (url, onSuccess, onError) => {
 };
 
 /**
- * Parses an OWL file provided in the command line to a json tree of nodes. Outputs the tree to the console.
- * @param {string} filePath The path of the OWL file to be parsed
+ * Parses an OWL file to a json tree of nodes
+ * @param {string} text the string containing the OWL file content
+ * @param {function} onSuccess The callback function to be executed after the tree is ready e.g (tree) => {console.log(tree)}
  */
 exports.jsonTreeFromURL = jsonTreeFromURL;
-const jsonTreeFromFile = filePath => {
-  //to be implemented
+const jsonTreeFromString = (text, onSuccess) => {
+  (0, _parser.parseToJSON)(text, onSuccess);
 };
-
-/**
- * Parses an OWL file provided in the command line to a list of RDFs. Outputs the list to the console.
- * @param {string} filePath The path of the OWL file to be parsed
- */
-const parseRDF = filePath => {};
-
-/*program.option(
-  "-jt,--jsontree [edam-owl-file]",
-  "Generate a json representation of the EDAM hierarchy"
-);
-
-//to be implemented
-program.option(
-  "-jld,--jsonld [edam-owl-file]",
-  "Generate a json-ld formatted version of EDAM"
-);
-
-program.parse();*/
-exports.parseRDF = parseRDF;
+exports.jsonTreeFromString = jsonTreeFromString;
 },{"./src/parser.js":"XGIh","axios":"O4Aa"}],"kypQ":[function(require,module,exports) {
 "use strict";
 
@@ -68369,7 +68509,7 @@ var interactive_tree = exports.interactive_tree = function interactive_tree() {
   };
   return chart;
 };
-},{"d3":"BG5c","./utils.js":"MgTz","edam2json-js":"PBS7"}],"IZXy":[function(require,module,exports) {
+},{"d3":"BG5c","./utils.js":"MgTz","edam2json-js":"nPdH"}],"IZXy":[function(require,module,exports) {
 "use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.install=exports.initDataLayer=exports.gtag=exports["default"]=void 0;var initDataLayer=exports.initDataLayer=function initDataLayer(){window.dataLayer=window.dataLayer||[]};var install=exports.install=function install(trackingId){var additionalConfigInfo=arguments.length>1&&arguments[1]!==undefined?arguments[1]:{};var scriptId="ga-gtag";if(document.getElementById(scriptId))return;var _document=document,head=_document.head;var script=document.createElement("script");script.id=scriptId;script.async=true;script.src="https://www.googletagmanager.com/gtag/js?id=".concat(trackingId);head.insertBefore(script,head.firstChild);initDataLayer();gtag("js",new Date);gtag("config",trackingId,additionalConfigInfo)};var gtag=exports.gtag=function gtag(){window.dataLayer.push(arguments)};var _default=exports["default"]=gtag;
 },{}],"ppKG":[function(require,module,exports) {
 "use strict";
@@ -70152,4 +70292,4 @@ var updateBranch = exports.updateBranch = function updateBranch(branch) {
   $('.branch-title').html(text);
 };
 },{"../jquery-import.js":"WZAb","popper.js":"v5IM","jquery-ui-themes/themes/smoothness/jquery-ui.css":"AC2V","jquery-ui-bundle":"Hifx","bootstrap":"jv0N","bootstrap/dist/css/bootstrap.css":"gsgA","@fortawesome/fontawesome-free/css/all.css":"Eofe","../css/bootstrap.xl.css":"ju9n","../css/tree-reusable-d3.css":"ju9n","../css/autocomplete-edam-reusable.css":"ju9n","../css/index.css":"ju9n","../css/edam.css":"ju9n","../css/dark-theme.css":"ju9n","regenerator-runtime/runtime":"KA2S","d3":"BG5c","./tree-reusable-d3.js":"kypQ","ga-gtag":"IZXy","./utils.js":"MgTz","./tree-edam-stand-alone.js":"qsCb"}]},{},["QvaY"], null)
-//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.a9316c48.js.map
+//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.9ec6e015.js.map
