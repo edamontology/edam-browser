@@ -32591,8 +32591,8 @@ function fake_interactive_edam_browser() {
       if (d.text.constructor === Array) return d.text[0];
       return d.text;
     },
-    interactive_tree = function interactive_tree() {
-      return interactive_tree;
+    _interactive_tree = function interactive_tree() {
+      return _interactive_tree;
     },
     loadingDoneHandler = function loadingDoneHandler() {};
   function buildIdentifierToElement(element, parent) {
@@ -32625,15 +32625,15 @@ function fake_interactive_edam_browser() {
    * Read-only accessor to the interactive tree
    * @return {object} the tree
    */
-  browser.interactive_tree = interactive_tree;
+  browser.interactive_tree = _interactive_tree;
   /**
    * Accessor to the method launch when the tree has been built
    * @param {function} value - an implementation of function (){...}
    */
-  interactive_tree.loadingDoneHandler = function (value) {
+  _interactive_tree.loadingDoneHandler = function (value) {
     if (!arguments.length) return loadingDoneHandler;
     loadingDoneHandler = value;
-    return interactive_tree;
+    return _interactive_tree;
   };
   /**
    * The tree's commands
@@ -32641,7 +32641,7 @@ function fake_interactive_edam_browser() {
   function cmd() {
     return cmd;
   }
-  interactive_tree.cmd = cmd;
+  _interactive_tree.cmd = cmd;
   /**
    * Return the element that have this identifier
    * @return cmd() itself
@@ -32967,4 +32967,4 @@ window.sendToGitHub = function sendToGitHub() {
   $("#sender").submit();
 };
 },{"../jquery-import":"WZAb","bootstrap":"jv0N","jquery-ui-themes/themes/smoothness/jquery-ui.css":"AC2V","bootstrap/dist/css/bootstrap.css":"gsgA","@fortawesome/fontawesome-free/css/all.css":"Eofe","../css/bootstrap.xl.css":"ju9n","../css/autocomplete-edam-reusable.css":"rRbR","../css/edam.css":"OqgZ","../css/dark-theme.css":"nl6s","regenerator-runtime/runtime":"KA2S","jquery-ui-bundle":"Hifx","./utils.js":"MgTz","./autocomplete-edam-reusable.js":"ZZY2"}]},{},["ppKG"], null)
-//# sourceMappingURL=https://edamontology.github.io/edam-browser/edit.69abdafa.js.map
+//# sourceMappingURL=https://edamontology.github.io/edam-browser/edit.ea204780.js.map

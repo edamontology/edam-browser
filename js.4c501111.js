@@ -42459,22 +42459,22 @@ function _default(x, y) {
     switch (i = (y < (y0 + y1) / 2) << 1 | x < (x0 + x1) / 2) {
       case 0:
         {
-          do parent = new Array(4), parent[i] = node, node = parent; while ((z *= 2, x1 = x0 + z, y1 = y0 + z, x > x1 || y > y1));
+          do parent = new Array(4), parent[i] = node, node = parent; while (z *= 2, x1 = x0 + z, y1 = y0 + z, x > x1 || y > y1);
           break;
         }
       case 1:
         {
-          do parent = new Array(4), parent[i] = node, node = parent; while ((z *= 2, x0 = x1 - z, y1 = y0 + z, x0 > x || y > y1));
+          do parent = new Array(4), parent[i] = node, node = parent; while (z *= 2, x0 = x1 - z, y1 = y0 + z, x0 > x || y > y1);
           break;
         }
       case 2:
         {
-          do parent = new Array(4), parent[i] = node, node = parent; while ((z *= 2, x1 = x0 + z, y0 = y1 - z, x > x1 || y0 > y));
+          do parent = new Array(4), parent[i] = node, node = parent; while (z *= 2, x1 = x0 + z, y0 = y1 - z, x > x1 || y0 > y);
           break;
         }
       case 3:
         {
-          do parent = new Array(4), parent[i] = node, node = parent; while ((z *= 2, x0 = x1 - z, y0 = y1 - z, x0 > x || y0 > y));
+          do parent = new Array(4), parent[i] = node, node = parent; while (z *= 2, x0 = x1 - z, y0 = y1 - z, x0 > x || y0 > y);
           break;
         }
     }
@@ -68710,8 +68710,8 @@ function fake_interactive_edam_browser() {
       if (d.text.constructor === Array) return d.text[0];
       return d.text;
     },
-    interactive_tree = function interactive_tree() {
-      return interactive_tree;
+    _interactive_tree = function interactive_tree() {
+      return _interactive_tree;
     },
     loadingDoneHandler = function loadingDoneHandler() {};
   function buildIdentifierToElement(element, parent) {
@@ -68744,15 +68744,15 @@ function fake_interactive_edam_browser() {
    * Read-only accessor to the interactive tree
    * @return {object} the tree
    */
-  browser.interactive_tree = interactive_tree;
+  browser.interactive_tree = _interactive_tree;
   /**
    * Accessor to the method launch when the tree has been built
    * @param {function} value - an implementation of function (){...}
    */
-  interactive_tree.loadingDoneHandler = function (value) {
+  _interactive_tree.loadingDoneHandler = function (value) {
     if (!arguments.length) return loadingDoneHandler;
     loadingDoneHandler = value;
-    return interactive_tree;
+    return _interactive_tree;
   };
   /**
    * The tree's commands
@@ -68760,7 +68760,7 @@ function fake_interactive_edam_browser() {
   function cmd() {
     return cmd;
   }
-  interactive_tree.cmd = cmd;
+  _interactive_tree.cmd = cmd;
   /**
    * Return the element that have this identifier
    * @return cmd() itself
@@ -68939,19 +68939,19 @@ function biotool_api() {
     var queue = [];
     var job_length = 0;
     // recursive function that add in queue the element and all its descendant
-    var pusher = function pusher(n) {
+    var _pusher = function pusher(n) {
       queue.push(n);
       var i;
       if (typeof n[field_name] != "undefined") job_length--;
       for (i = 0; i < (n._children || []).length; i++) {
-        pusher(n._children[i]);
+        _pusher(n._children[i]);
       }
       for (i = 0; i < (n.children || []).length; i++) {
-        pusher(n.children[i]);
+        _pusher(n.children[i]);
       }
     };
     // run pusher, fill queue with all the elements
-    pusher(node);
+    _pusher(node);
     job_length += queue.length;
     // create a callback caller that sum all descendant usage and call the actual callback
     function call_callback() {
@@ -69477,6 +69477,10 @@ function interactive_edam_browser() {
   }
   function getTreeURL(version) {
     switch (version) {
+      case 'bioimaging':
+        return "https://raw.githubusercontent.com/edamontology/edam-bioimaging/refs/heads/main/releases/EDAM-bioimaging.owl";
+      case 'geo':
+        return "https://raw.githubusercontent.com/edamontology/edam-geo/refs/heads/main-geo/releases/EDAM.owl";
       case 'latest':
         return "https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl";
       case 'custom':
@@ -70264,11 +70268,13 @@ var configGtag = function configGtag() {
 var updateVersion = exports.updateVersion = function updateVersion(version) {
   var _$$index;
   var versionDict = {
-    "custom": 4,
-    "latest": 3,
-    "stable": 0,
-    "1.24": 1,
-    "1.23": 2
+    "custom": 6,
+    "latest": 0,
+    "stable": 1,
+    "1.24": 2,
+    "1.23": 3,
+    "bioimaging": 4,
+    "geo": 5
   };
   var index;
   if (customRe.test(version)) index = versionDict["custom"];else if (version == "undefined") index = versionDict["stable"];else index = versionDict[version];
@@ -70292,4 +70298,4 @@ var updateBranch = exports.updateBranch = function updateBranch(branch) {
   $('.branch-title').html(text);
 };
 },{"../jquery-import.js":"WZAb","popper.js":"v5IM","jquery-ui-themes/themes/smoothness/jquery-ui.css":"AC2V","jquery-ui-bundle":"Hifx","bootstrap":"jv0N","bootstrap/dist/css/bootstrap.css":"gsgA","@fortawesome/fontawesome-free/css/all.css":"Eofe","../css/bootstrap.xl.css":"ju9n","../css/tree-reusable-d3.css":"ju9n","../css/autocomplete-edam-reusable.css":"ju9n","../css/index.css":"ju9n","../css/edam.css":"ju9n","../css/dark-theme.css":"ju9n","regenerator-runtime/runtime":"KA2S","d3":"BG5c","./tree-reusable-d3.js":"kypQ","ga-gtag":"IZXy","./utils.js":"MgTz","./tree-edam-stand-alone.js":"qsCb"}]},{},["QvaY"], null)
-//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.9ec6e015.js.map
+//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.4c501111.js.map
