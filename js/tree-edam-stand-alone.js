@@ -482,7 +482,7 @@ function interactive_edam_browser(){
             ".","Links to this concept in other ontology browsers");
         }
         if (community.children().length>0){
-            community.parent().prepend($('<thead><tr><th colspan="2" data-toggle=\"tooltip\" title=\"Usage of this concept in various databases and registries\">Community usage</th></tr></thead>'));
+            community.parent().prepend($('<thead><tr><th colspan="2"><span data-toggle=\"tooltip\" title=\"Usage of this concept in various databases and registries\">Community usage</span></th></tr></thead>'));
         }else{
             community.parent().remove();
         }
