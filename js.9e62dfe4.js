@@ -69763,7 +69763,7 @@ function interactive_edam_browser() {
       append_row(community, "Links", "Open in " + "<a target=\"_blank\" href=\"http://aber-owl.net/ontology/EDAM/#/Browse/%3Chttp%3A%2F%2Fedamontology.org%2F" + identifier + "%3E\">AberOWL</a>" + ", " + "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=" + uri + "\">BioPortal</a>" + ", " + "<a target=\"_blank\" href=\"https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F" + identifier + "\">OLS</a>" + " or " + "<a target=\"_blank\" href=\"https://webprotege.stanford.edu/#projects/98640503-a37d-4404-84da-caf30fadd685/edit/Classes?selection=Class(%3Chttp://edamontology.org/" + identifier + "%3E)\">WebProt&eacuteg&eacute</a>" + ".", "Links to this concept in other ontology browsers");
     }
     if (community.children().length > 0) {
-      community.parent().prepend($('<thead><tr><th colspan="2" data-toggle=\"tooltip\" title=\"Usage of this concept in various databases and registries\">Community usage</th></tr></thead>'));
+      community.parent().prepend($('<thead><tr><th colspan="2"><span data-toggle=\"tooltip\" title=\"Usage of this concept in various databases and registries\">Community usage</span></th></tr></thead>'));
     } else {
       community.parent().remove();
     }
@@ -70298,4 +70298,4 @@ var updateBranch = exports.updateBranch = function updateBranch(branch) {
   $('.branch-title').html(text);
 };
 },{"../jquery-import.js":"WZAb","popper.js":"v5IM","jquery-ui-themes/themes/smoothness/jquery-ui.css":"AC2V","jquery-ui-bundle":"Hifx","bootstrap":"jv0N","bootstrap/dist/css/bootstrap.css":"gsgA","@fortawesome/fontawesome-free/css/all.css":"Eofe","../css/bootstrap.xl.css":"ju9n","../css/tree-reusable-d3.css":"ju9n","../css/autocomplete-edam-reusable.css":"ju9n","../css/index.css":"ju9n","../css/edam.css":"ju9n","../css/dark-theme.css":"ju9n","regenerator-runtime/runtime":"KA2S","d3":"BG5c","./tree-reusable-d3.js":"kypQ","ga-gtag":"IZXy","./utils.js":"MgTz","./tree-edam-stand-alone.js":"qsCb"}]},{},["QvaY"], null)
-//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.4c501111.js.map
+//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.9e62dfe4.js.map
