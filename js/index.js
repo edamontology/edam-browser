@@ -162,7 +162,15 @@ const configGtag = function(){
 };
 
 const updateVersion=function(version){
-    const versionDict={"custom":4,"latest":3,"stable":0,"1.24":1,"1.23":2};
+    const versionDict={
+        "custom":6,
+        "latest":0,
+        "stable":1,
+        "1.24":2,
+        "1.23":3,
+        "bioimaging":4,
+        "geo":5,
+    };
     let index;
     if(customRe.test(version))
         index=versionDict["custom"];

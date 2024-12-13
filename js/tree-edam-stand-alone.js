@@ -124,6 +124,10 @@ function interactive_edam_browser(){
 
     function getTreeURL(version){
         switch(version){
+            case 'bioimaging':
+                return "https://raw.githubusercontent.com/edamontology/edam-bioimaging/refs/heads/main/releases/EDAM-bioimaging.owl";
+            case 'geo':
+                return "https://raw.githubusercontent.com/edamontology/edam-geo/refs/heads/main-geo/releases/EDAM.owl"
             case 'latest':
                 return "https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl";
             case 'custom':
