@@ -64584,7 +64584,11 @@ exports.DataFactory = DataFactory;
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -69914,6 +69918,7 @@ function interactive_edam_browser() {
       if (identifier == "owl:Thing" && branch == "edam") return "EDAM";
       return identifier;
     }
+    if (d.data.text.constructor === Array) return d.data.text[0];
     if (d.data.text.constructor === Object) return d.data.text["@value"] || JSON.stringify(d.data.text);
     return d.data.text;
   }
@@ -70298,4 +70303,4 @@ var updateBranch = exports.updateBranch = function updateBranch(branch) {
   $('.branch-title').html(text);
 };
 },{"../jquery-import.js":"WZAb","popper.js":"v5IM","jquery-ui-themes/themes/smoothness/jquery-ui.css":"AC2V","jquery-ui-bundle":"Hifx","bootstrap":"jv0N","bootstrap/dist/css/bootstrap.css":"gsgA","@fortawesome/fontawesome-free/css/all.css":"Eofe","../css/bootstrap.xl.css":"ju9n","../css/tree-reusable-d3.css":"ju9n","../css/autocomplete-edam-reusable.css":"ju9n","../css/index.css":"ju9n","../css/edam.css":"ju9n","../css/dark-theme.css":"ju9n","regenerator-runtime/runtime":"KA2S","d3":"BG5c","./tree-reusable-d3.js":"kypQ","ga-gtag":"IZXy","./utils.js":"MgTz","./tree-edam-stand-alone.js":"qsCb"}]},{},["QvaY"], null)
-//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.9e62dfe4.js.map
+//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.0918a0d8.js.map
