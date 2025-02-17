@@ -65431,7 +65431,7 @@ exports.parseToTable = exports.parseToJSON = void 0;
 var _rdfxmlStreamingParser = require("rdfxml-streaming-parser");
 var _maps = require("./maps.js");
 //current supported classes top level (topic, data, operation, format, deprecated)
-var edamRe = new RegExp("^((http|https)://edamontology.org/(data|format|operation|topic)_|http://www.w3.org/2002/07/owl#DeprecatedClass)", "i");
+var edamRe = new RegExp("^((http|https)://edamontology.org/(data|format|operation|topic)_|http://www.w3.org/2002/07/owl#DeprecatedClass|http://webprotege.stanford.edu/)", "i");
 let meta = {};
 let classes = {};
 
@@ -70303,4 +70303,4 @@ var updateBranch = exports.updateBranch = function updateBranch(branch) {
   $('.branch-title').html(text);
 };
 },{"../jquery-import.js":"WZAb","popper.js":"v5IM","jquery-ui-themes/themes/smoothness/jquery-ui.css":"AC2V","jquery-ui-bundle":"Hifx","bootstrap":"jv0N","bootstrap/dist/css/bootstrap.css":"gsgA","@fortawesome/fontawesome-free/css/all.css":"Eofe","../css/bootstrap.xl.css":"ju9n","../css/tree-reusable-d3.css":"ju9n","../css/autocomplete-edam-reusable.css":"ju9n","../css/index.css":"ju9n","../css/edam.css":"ju9n","../css/dark-theme.css":"ju9n","regenerator-runtime/runtime":"KA2S","d3":"BG5c","./tree-reusable-d3.js":"kypQ","ga-gtag":"IZXy","./utils.js":"MgTz","./tree-edam-stand-alone.js":"qsCb"}]},{},["QvaY"], null)
-//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.0918a0d8.js.map
+//# sourceMappingURL=https://edamontology.github.io/edam-browser/js.1ce8a285.js.map
