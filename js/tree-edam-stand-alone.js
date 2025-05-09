@@ -472,13 +472,20 @@ function interactive_edam_browser(){
         if(uri.startsWith("http://edamontology.org/")){
             append_row(community,"Links",
             "Open in "+
-            "<a target=\"_blank\" href=\"http://aber-owl.net/ontology/EDAM/#/Browse/%3Chttp%3A%2F%2Fedamontology.org%2F"+identifier+"%3E\">AberOWL</a>"+
+            "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid="+uri+"\""+
+            'title="Latest but unstable version"'+
+            ' data-toggle=\"tooltip\"'+
+            ">BioPortal (latest)</a>"+
             ", "+
-            "<a target=\"_blank\" href=\"http://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid="+uri+"\">BioPortal</a>"+
-            ", "+
-            "<a target=\"_blank\" href=\"https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F"+identifier+"\">OLS</a>"+
+            "<a target=\"_blank\" href=\"https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2F"+identifier+"\""+
+            'title="Stable version"'+
+            ' data-toggle=\"tooltip\"'+
+            ">OLS (stable)</a>"+
             " or "+
-            "<a target=\"_blank\" href=\"https://webprotege.stanford.edu/#projects/98640503-a37d-4404-84da-caf30fadd685/edit/Classes?selection=Class(%3Chttp://edamontology.org/"+identifier+"%3E)\">WebProt&eacuteg&eacute</a>"+
+            "<a target=\"_blank\" href=\"https://webprotege.stanford.edu/#projects/4befad5f-f27b-430c-a07d-fcf635093169/edit/Classes?selection=Class(%3C"+uri+"%3E)\""+
+            'title="Version currently under development, possibly newer than the latest/unstable version."'+
+            ' data-toggle=\"tooltip\"'+
+            ">WebProt&eacuteg&eacute (dev)</a>"+
             ".","Links to this concept in other ontology browsers");
         }
         if (community.children().length>0){
